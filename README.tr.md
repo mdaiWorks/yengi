@@ -306,7 +306,7 @@ Tanımlar `ToolDefinitions.cs`'de, yürütme `ToolExecutor.cs` + `Services/*`'de
 
 `TerminalService`, stdout/stderr, status ve busy-state event'leri üzerinden UI ile iletişim kurar.
 
-Uzun build/test/terminal çıktıları `ContextOptimizerService` ile modele gönderilmeden önce kısaltılır. Tam çıktı geçici olarak `%TEMP%\mdaiAgent\tool-output` altında tutulur ve sonuçta `FULL_OUTPUT_ID` verilir. Model, gerekirse `ReadToolOutput` aracını kullanarak çıktının belirli satır aralığını okuyabilir. Geçici spool kayıtları 24 saat ve 50 dosya sınırıyla temizlenir; kısa çıktılar için spool dosyası oluşturulmaz.
+Uzun build/test/terminal çıktıları `ContextOptimizerService` ile modele gönderilmeden önce kısaltılır. Tam çıktı geçici olarak `%TEMP%\Yengi\tool-output` altında tutulur ve sonuçta `FULL_OUTPUT_ID` verilir. Model, gerekirse `ReadToolOutput` aracını kullanarak çıktının belirli satır aralığını okuyabilir. Geçici spool kayıtları 24 saat ve 50 dosya sınırıyla temizlenir; kısa çıktılar için spool dosyası oluşturulmaz.
 
 ### Tanılama paneli
 
@@ -436,7 +436,7 @@ Yengi, ana LLM çağrılmadan önce hangi araçların kullanılacağını önced
 - **Embedding:** OpenAI-uyumlu `/embeddings` endpoint'i üzerinden, ana modelden bağımsız ayarlarla (varsayılan: `https://api.openai.com/v1`, `text-embedding-3-small`).
 - **Vector search:** Query → Embedding → Cosine Similarity → Top-K (varsayılan `topK = 5`).
 - **Cache:** Embedding sonuçları için basit bir LRU-benzeri cache, **maksimum 1000 entry** (`_maxCacheSize = 1000`).
-- **Index storage:** `%APPDATA%\mdaiAgent\` altında, proje bazlı JSON index dosyaları.
+- **Index storage:** `%APPDATA%\Yengi\` altında, proje bazlı JSON index dosyaları.
 - **Otomatik güncelleme:** `ProjectWatcherService`, `*.cs` dosyalarındaki değişiklikleri 2 saniyelik debounce ile izler ve RAG'ı otomatik yeniden indeksler (`bin`, `obj`, `.git`, `node_modules`, `.mdai`, `publish` klasörleri ve `*.designer.cs`/`*.xaml.cs` dosyaları izlemenin dışında tutulur).
 
 ---
@@ -478,7 +478,7 @@ Bu, AI'ın yanlış proje türünde komut çalıştırmasını (örn. bir Flutte
 Doğrulanmış **14 yerleşik plugin**: Python, C#, JavaScript, HTML/CSS, Java, PHP, Go, C++, Dart, SQL, Ruby, Rust, Kotlin, Swift.
 
 ### 16.2 Harici DLL plugin
-`PluginManager.PluginsFolder` → **`%LOCALAPPDATA%\mdaiAgent\Plugins`**. Bu klasördeki DLL'ler reflection ile yüklenir; plugin'in public parametresiz constructor'a sahip olması ve `ILanguageErrorCheckerPlugin`'i implemente etmesi beklenir. `PluginManifest` (JSON) ile meta veri ve `DownloadUrl` ile dışarıdan indirme desteklenir — ancak GitHub tabanlı plugin keşfi için kullanılan URL'ler şu an örnek/placeholder niteliğindedir (bkz. Bölüm 27).
+`PluginManager.PluginsFolder` → **`%LOCALAPPDATA%\Yengi\Plugins`**. Bu klasördeki DLL'ler reflection ile yüklenir; plugin'in public parametresiz constructor'a sahip olması ve `ILanguageErrorCheckerPlugin`'i implemente etmesi beklenir. `PluginManifest` (JSON) ile meta veri ve `DownloadUrl` ile dışarıdan indirme desteklenir — ancak GitHub tabanlı plugin keşfi için kullanılan URL'ler şu an örnek/placeholder niteliğindedir (bkz. Bölüm 27).
 
 ### 16.3 LSP
 `LanguageServerService` + `LanguageServerClient`, `StreamJsonRpc` bağımlılığıyla language server süreçlerini yönetir: başlatma, stdout/stderr okuma, JSON-RPC mesajlaşma, diagnostics, document open/change, completion, notification/request-response.
@@ -515,10 +515,10 @@ Soyutlama: `IAiProvider`, `IProviderService`, `AiProviderFactory`, `ProviderServ
 - **Terminal risk politikası:** Komutlar düşük, orta, yüksek ve kritik risk seviyelerine ayrılır. Kritik dosya/disk/Git işlemleri onay penceresine gitmeden engellenir; orta ve yüksek riskli komutlar Safe Automation kapalı olsa bile kullanıcı onayı ister. Onay penceresinde **Allow / Cancel / Skip / Dry Run** seçenekleri sunulur (`TerminalCommandRiskAnalyzer`, `ToolExecutor.ConfirmResult`).
 - **Dosya değişikliği onayı:** Diff penceresi üzerinden değişiklikler Accept/Reject ile değerlendirilebilir.
 - **Safe Automation** ("Güvenli Mod"): tüm otomasyon işlemleri için ek onay ister.
-- **Secret saklama:** API anahtarları düz metin değil, **Windows DPAPI** (`System.Security.Cryptography.ProtectedData`, `DataProtectionScope.CurrentUser`) ile şifrelenmiş olarak `%APPDATA%\mdaiAgent\secrets.dat` dosyasında saklanır (`SecretStore.cs`).
+- **Secret saklama:** API anahtarları düz metin değil, **Windows DPAPI** (`System.Security.Cryptography.ProtectedData`, `DataProtectionScope.CurrentUser`) ile şifrelenmiş olarak `%APPDATA%\Yengi\secrets.dat` dosyasında saklanır (`SecretStore.cs`).
 - **Gizlilik ve Telemetri (Opt-Out):** Yengi sadece anonim cihaz GUID'i, OS türü ve uygulama sürümünü toplar. Kişisel veri, kod veya sohbet bilgisi kesinlikle toplanmaz. Ayarlar sayfasından (*"Anonim kullanım istatistiklerini paylaş"*) tek tıkla tamamen kapatılabilir (Opt-Out).
 
-> mdaiAgent terminal komutu çalıştırabilen bir masaüstü agent olduğu için, güvenlik modeli yalnızca path/symlink korumasına indirgenmemelidir. Terminal risk politikası, onaylı ağ/marketplace kaynakları, plugin bütünlük doğrulaması ve işletim sistemi seviyesinde sandbox ayrıca değerlendirilmelidir.
+> Yengi terminal komutu çalıştırabilen bir masaüstü agent olduğu için, güvenlik modeli yalnızca path/symlink korumasına indirgenmemelidir. Terminal risk politikası, onaylı ağ/marketplace kaynakları, plugin bütünlük doğrulaması ve işletim sistemi seviyesinde sandbox ayrıca değerlendirilmelidir.
 
 ---
 
@@ -542,7 +542,7 @@ Soyutlama: `IAiProvider`, `IProviderService`, `AiProviderFactory`, `ProviderServ
 
 # 22. Proje Anayasası ve Hafıza
 
-mdaiAgent, her görevden önce proje kökünde şu dosyaları arar:
+Yengi, her görevden önce proje kökünde şu dosyaları arar:
 
 - **`.mdai/constitution.md`** — projeye özel mimari/kodlama kuralları (repo içinde bir şablonu var: `constitution.md`; AI persona seçimi, evrensel kurallar, projeye özel teknoloji/stil/dokunulmaz-alan tanımları). Varsa kurallarına kesinlikle uyulur.
 - **Kalıcı proje hafızası 2.0:** `.mdai/memory.json` artık `schemaVersion=2` ile `architecture`, `conventions` ve `archived` alanlarını içerir; eski `lastTask`/`lastPlan` alanları geriye uyumludur. `ReadProjectMemory`, `WriteProjectMemory`, `SearchProjectMemory` ve `ArchiveProjectMemory` araçlarıyla kayıt, arama ve arşivleme yapılır. Mimari kararlar `.mdai/decisions.json`, görev durumları `.mdai/tasks/` altında korunur.
@@ -558,7 +558,7 @@ Arayüz metinleri `Resources/Strings.resx` (Türkçe), `Resources/Strings.en.res
 # 24. Proje Dosya Yapısı
 
 ```text
-mdaiAgent/
+yengi/
 ├── App.xaml(.cs)
 ├── MainWindow.xaml(.cs)
 ├── MainWindow.ChatPanel.cs / .RunDebug.cs / .SessionRecovery.cs / .Terminal.cs   (partial class'lar)
@@ -594,7 +594,7 @@ mdaiAgent/
 
 ```bash
 git clone <repo-url>
-cd mdaiAgent
+cd yengi
 dotnet restore
 dotnet build BasucuIDE/mdaiAgent.csproj
 dotnet run --project BasucuIDE/mdaiAgent.csproj
@@ -602,7 +602,7 @@ dotnet run --project BasucuIDE/mdaiAgent.csproj
 dotnet build BasucuIDE/mdaiAgent.csproj -c Release
 ```
 
-**Ayarlar dosyası:** `%APPDATA%\mdaiAgent\settings.json` (hassas alanlar hariç — onlar `secrets.dat`'ta şifreli, bkz. Bölüm 19).
+**Ayarlar dosyası:** `%APPDATA%\Yengi\settings.json` (hassas alanlar hariç — onlar `secrets.dat`'ta şifreli, bkz. Bölüm 19).
 
 | Grup | Alanlar |
 |---|---|
@@ -628,7 +628,7 @@ Kullanıcı: "Projede login ekranı açılmıyor. Hatayı bul ve düzelt."
 
 ### Yerel Router kurulumu
 
-Yerel Router seçeneği Ollama'nın OpenAI-uyumlu endpoint'ini kullanır. Settings ekranındaki model indirme akışı GGUF dosyasını `%APPDATA%\\mdaiAgent\\models` altına indirir, bir Modelfile oluşturur ve `ollama create` ile Router alias'ını kaydeder. Kurulumun tamamlanması için Ollama'nın makinede kurulu ve çalışabilir olması gerekir. İndirme adresi kaynakta placeholder durumundaysa gerçek yayın adresi yapılandırılmadan indirme başlatılmaz.
+Yerel Router seçeneği Ollama'nın OpenAI-uyumlu endpoint'ini kullanır. Settings ekranındaki model indirme akışı GGUF dosyasını `%APPDATA%\\Yengi\\models` altına indirir, bir Modelfile oluşturur ve `ollama create` ile Router alias'ını kaydeder. Kurulumun tamamlanması için Ollama'nın makinede kurulu ve çalışabilir olması gerekir. İndirme adresi kaynakta placeholder durumundaysa gerçek yayın adresi yapılandırılmadan indirme başlatılmaz.
 
 ---
 
@@ -653,7 +653,7 @@ Framework: **.NET 8 / WPF** (`net8.0-windows`).
 - **Uygulama güncelleme kanalı henüz yapılandırılmadı:** About penceresindeki güncelleme butonu hazırdır; gerçek GitHub Releases adresi bağlandığında release kanalını açar. Installer'ın sessiz otomatik güncellenmesi henüz uygulanmış değildir.
 - **Yerel Router dağıtımı yayın metadata'sına bağlıdır:** GGUF indirme URL'si placeholder ise gerçek model indirme başlamaz. Model lisansı, temel model lisansı, GGUF checksum'ı ve sürümlü yayın adresi dağıtımdan önce netleştirilmelidir.
 - **Plugin sandbox tamamlanmadı:** Harici DLL'ler hâlâ ana uygulama süreci içinde yüklenir. İşletim sistemi seviyesinde izolasyon için ayrı Plugin Host süreci ve IPC katmanı gerekir.
-- **Test kapsamı ve coverage sınırlı:** `tests/mdaiAgent.Tests` altında xUnit testleri ve `tests/UiTests` altında UI smoke testleri bulunuyor. Tüm UI akışlarının otomatik testi ve varsayılan olarak çalışan geniş uçtan uca test paketi henüz tamamlanmış değil.
+- **Test kapsamı ve coverage sınırlı:** `tests` altında xUnit testleri ve `tests/UiTests` altında UI smoke testleri bulunuyor. Tüm UI akışlarının otomatik testi ve varsayılan olarak çalışan geniş uçtan uca test paketi henüz tamamlanmış değil.
 - **AI context seçimi iyileştirildi:** `ProjectContextDiscoveryService`, mesajdan çıkarılan keyword'ler, ilgili dosya önceliği ve test dosyalarına yönelim için hedefli arama mantığına sahip hale getirildi; ilgili kod snippet çıktıları da context markdown'una ekleniyor.
 - **Patch conflict recovery:** `ReplaceFileContent`, hedef metin güncel dosyada bulunamadığında dosyaya yazmadan `PATCH_CONFLICT` sonucu döndürür ve modelin `ReadFile` ile güncel bağlamı alarak patch'i yeniden üretmesini ister.
 - **Build/test çıktısı özeti:** Uzun terminal çıktısı kısaltıldığında seçilmiş hata/uyarı bağlamı korunur ve modele toplam hata/uyarı sayısı ayrıca bildirilir.
@@ -669,7 +669,7 @@ Framework: **.NET 8 / WPF** (`net8.0-windows`).
 - **RAG stale index cleanup:** Değişen dosyanın eski chunk'ları yeniden indekslemede değiştirilir; silinen veya artık bulunmayan dosyaların chunk'ları RAG index'inden temizlenir.
 - **Context deduplication:** Context Discovery snippet'leriyle aynı satır aralığına denk gelen RAG chunk'ları prompt'a ikinci kez eklenmez; çakışmayan RAG bağlamı korunur.
 - **Uzun araç çıktısı:** Kısaltılan build/test/terminal çıktılarının tam hali geçici bir spool dosyasında tutulur; model `ReadToolOutput` ile yalnızca ihtiyaç duyduğu satır aralığını okuyabilir. Çıktılar 24 saat ve 50 dosya sınırıyla temizlenir.
-- **Aktif proje yolu:** Göreli dosya/klasör araç yolları mdaiAgent'in çalıştığı klasöre değil, kullanıcı tarafından seçilen aktif proje köküne göre çözülür.
+- **Aktif proje yolu:** Göreli dosya/klasör araç yolları Yengi'nin çalıştığı klasöre değil, kullanıcı tarafından seçilen aktif proje köküne göre çözülür.
 - **Router güven eşiği:** Router confidence ayarı `0.8`, `0,8`, `80` veya benzeri girişleri `0..1` aralığına normalize eder; kültür kaynaklı `8.0` gibi hatalı kayıtlar runtime'da güvenli biçimde düzeltilir.
 - **Router gecikmesi:** Selamlaşma gibi araç gerektirmeyen kısa sohbetlerde router ağ çağrısı yapılmaz; gerçek router çağrıları 25 saniyelik timeout sonrasında fallback araç listesine geçer.
 - **Router telemetrisi:** Fallback, timeout, hata, düşük güven, geçersiz seçim, boş seçim ve latency metrikleri proje bazında `.mdai/router_telemetry.json` altında tutulur; Router Context henüz aktif dosya/chat geçmişiyle genişletilmez.

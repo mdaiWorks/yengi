@@ -306,7 +306,7 @@ Definitions live in `ToolDefinitions.cs`; execution lives in `ToolExecutor.cs` +
 
 `TerminalService` communicates with the UI via stdout/stderr, status, and busy-state events.
 
-Long build/test/terminal outputs are truncated by `ContextOptimizerService` before being sent to the model. The full output is temporarily kept under `%TEMP%\mdaiAgent\tool-output`, and a `FULL_OUTPUT_ID` is provided with the result. If needed, the model can read a specific line range of the output using the `ReadToolOutput` tool. Temporary spool records are cleaned up under a 24-hour and 50-file limit; no spool file is created for short output.
+Long build/test/terminal outputs are truncated by `ContextOptimizerService` before being sent to the model. The full output is temporarily kept under `%TEMP%\Yengi\tool-output`, and a `FULL_OUTPUT_ID` is provided with the result. If needed, the model can read a specific line range of the output using the `ReadToolOutput` tool. Temporary spool records are cleaned up under a 24-hour and 50-file limit; no spool file is created for short output.
 
 ### Diagnostics panel
 
@@ -436,7 +436,7 @@ Works via `RagService` + `CodeChunker`.
 - **Embedding:** Via an OpenAI-compatible `/embeddings` endpoint, with settings independent of the main model (default: `https://api.openai.com/v1`, `text-embedding-3-small`).
 - **Vector search:** Query → Embedding → Cosine Similarity → Top-K (default `topK = 5`).
 - **Cache:** A simple LRU-like cache for embedding results, **maximum 1000 entries** (`_maxCacheSize = 1000`).
-- **Index storage:** Per-project JSON index files under `%APPDATA%\mdaiAgent\`.
+- **Index storage:** Per-project JSON index files under `%APPDATA%\Yengi\`.
 - **Automatic update:** `ProjectWatcherService` watches changes to `*.cs` files with a 2-second debounce and automatically re-indexes the RAG (the `bin`, `obj`, `.git`, `node_modules`, `.mdai`, `publish` folders and `*.designer.cs`/`*.xaml.cs` files are excluded from watching).
 
 ---
@@ -478,7 +478,7 @@ There are **two separate extensibility approaches**:
 **14 verified built-in plugins**: Python, C#, JavaScript, HTML/CSS, Java, PHP, Go, C++, Dart, SQL, Ruby, Rust, Kotlin, Swift.
 
 ### 16.2 External DLL plugins
-`PluginManager.PluginsFolder` → **`%LOCALAPPDATA%\mdaiAgent\Plugins`**. DLLs in this folder are loaded via reflection; a plugin is expected to have a public parameterless constructor and to implement `ILanguageErrorCheckerPlugin`. Metadata via `PluginManifest` (JSON) and external download via `DownloadUrl` are supported — however, the URLs currently used for GitHub-based plugin discovery are still example/placeholder values (see Section 27).
+`PluginManager.PluginsFolder` → **`%LOCALAPPDATA%\Yengi\Plugins`**. DLLs in this folder are loaded via reflection; a plugin is expected to have a public parameterless constructor and to implement `ILanguageErrorCheckerPlugin`. Metadata via `PluginManifest` (JSON) and external download via `DownloadUrl` are supported — however, the URLs currently used for GitHub-based plugin discovery are still example/placeholder values (see Section 27).
 
 ### 16.3 LSP
 `LanguageServerService` + `LanguageServerClient` manage language server processes via the `StreamJsonRpc` dependency: startup, reading stdout/stderr, JSON-RPC messaging, diagnostics, document open/change, completion, and notification/request-response.
@@ -515,10 +515,10 @@ Abstraction: `IAiProvider`, `IProviderService`, `AiProviderFactory`, `ProviderSe
 - **Terminal risk policy:** Commands are classified into low, medium, high, and critical risk levels. Critical file/disk/Git operations are blocked without even going to the approval window; medium and high-risk commands require user approval even if Safe Automation is off. The approval window offers **Allow / Cancel / Skip / Dry Run** options (`TerminalCommandRiskAnalyzer`, `ToolExecutor.ConfirmResult`).
 - **File-change approval:** Changes can be evaluated with Accept/Reject via the diff window.
 - **Safe Automation** ("Safe Mode"): requires additional approval for all automation operations.
-- **Secret storage:** API keys are not stored in plain text; they are stored encrypted with **Windows DPAPI** (`System.Security.Cryptography.ProtectedData`, `DataProtectionScope.CurrentUser`) in the `%APPDATA%\mdaiAgent\secrets.dat` file (`SecretStore.cs`).
+- **Secret storage:** API keys are not stored in plain text; they are stored encrypted with **Windows DPAPI** (`System.Security.Cryptography.ProtectedData`, `DataProtectionScope.CurrentUser`) in the `%APPDATA%\Yengi\secrets.dat` file (`SecretStore.cs`).
 - **Privacy and Telemetry (Opt-Out):** Yengi only collects an anonymous device GUID, OS type, and application version. No personal data, code, or chat information is ever collected. It can be fully disabled with a single click from the Settings page (*"Share anonymous usage statistics"*) (Opt-Out).
 
-> Since mdaiAgent is a desktop agent capable of running terminal commands, its security model should not be reduced to just path/symlink protection. The terminal risk policy, approved network/marketplace sources, plugin integrity verification, and OS-level sandboxing should also be evaluated separately.
+> Since Yengi is a desktop agent capable of running terminal commands, its security model should not be reduced to just path/symlink protection. The terminal risk policy, approved network/marketplace sources, plugin integrity verification, and OS-level sandboxing should also be evaluated separately.
 
 ---
 
@@ -542,7 +542,7 @@ Abstraction: `IAiProvider`, `IProviderService`, `AiProviderFactory`, `ProviderSe
 
 # 22. Project Constitution and Memory
 
-Before every task, mdaiAgent looks for the following files at the project root:
+Before every task, Yengi looks for the following files at the project root:
 
 - **`.mdai/constitution.md`** — project-specific architecture/coding rules (there's a template for it in the repo: `constitution.md`; AI persona selection, universal rules, project-specific technology/style/no-touch-zone definitions). If it exists, its rules are strictly followed.
 - **Persistent project memory 2.0:** `.mdai/memory.json` now includes `architecture`, `conventions`, and `archived` fields under `schemaVersion=2`; the old `lastTask`/`lastPlan` fields remain backward-compatible. Recording, searching, and archiving are done via the `ReadProjectMemory`, `WriteProjectMemory`, `SearchProjectMemory`, and `ArchiveProjectMemory` tools. Architectural decisions are kept in `.mdai/decisions.json`, and task statuses under `.mdai/tasks/`.
@@ -558,7 +558,7 @@ UI text is kept in `Resources/Strings.resx` (Turkish), `Resources/Strings.en.res
 # 24. Project File Structure
 
 ```text
-mdaiAgent/
+yengi/
 ├── App.xaml(.cs)
 ├── MainWindow.xaml(.cs)
 ├── MainWindow.ChatPanel.cs / .RunDebug.cs / .SessionRecovery.cs / .Terminal.cs   (partial classes)
@@ -594,7 +594,7 @@ mdaiAgent/
 
 ```bash
 git clone <repo-url>
-cd mdaiAgent
+cd yengi
 dotnet restore
 dotnet build BasucuIDE/mdaiAgent.csproj
 dotnet run --project BasucuIDE/mdaiAgent.csproj
@@ -602,7 +602,7 @@ dotnet run --project BasucuIDE/mdaiAgent.csproj
 dotnet build BasucuIDE/mdaiAgent.csproj -c Release
 ```
 
-**Settings file:** `%APPDATA%\mdaiAgent\settings.json` (except for sensitive fields — those are encrypted in `secrets.dat`, see Section 19).
+**Settings file:** `%APPDATA%\Yengi\settings.json` (except for sensitive fields — those are encrypted in `secrets.dat`, see Section 19).
 
 | Group | Fields |
 |---|---|
@@ -628,7 +628,7 @@ User: "The login screen isn't opening in the project. Find the bug and fix it."
 
 ### Local Router setup
 
-The local Router option uses Ollama's OpenAI-compatible endpoint. The model-download flow on the Settings screen downloads the GGUF file into `%APPDATA%\\mdaiAgent\\models`, creates a Modelfile, and registers the Router alias via `ollama create`. Ollama must be installed and runnable on the machine for setup to complete. If the download address is still a placeholder in the source, downloading is not started until a real release address is configured.
+The local Router option uses Ollama's OpenAI-compatible endpoint. The model-download flow on the Settings screen downloads the GGUF file into `%APPDATA%\\Yengi\\models`, creates a Modelfile, and registers the Router alias via `ollama create`. Ollama must be installed and runnable on the machine for setup to complete. If the download address is still a placeholder in the source, downloading is not started until a real release address is configured.
 
 ---
 
@@ -653,7 +653,7 @@ Framework: **.NET 8 / WPF** (`net8.0-windows`).
 - **The application update channel has not been configured yet:** the update button in the About window is ready; it will open the release channel once a real GitHub Releases address is connected. Silent automatic updating of the installer has not been implemented yet.
 - **Local Router distribution depends on release metadata:** if the GGUF download URL is a placeholder, the actual model download will not start. The model license, base-model license, GGUF checksum, and a versioned release address must be finalized before distribution.
 - **Plugin sandboxing is not complete:** external DLLs are still loaded within the main application process. A separate Plugin Host process and an IPC layer are required for OS-level isolation.
-- **Test coverage is limited:** there are xUnit tests under `tests/mdaiAgent.Tests` and UI smoke tests under `tests/UiTests`. Automated testing of all UI flows and a broad end-to-end test suite that runs by default have not yet been completed.
+- **Test coverage is limited:** there are xUnit tests under `tests` and UI smoke tests under `tests/UiTests`. Automated testing of all UI flows and a broad end-to-end test suite that runs by default have not yet been completed.
 - **AI context selection has been improved:** `ProjectContextDiscoveryService` now has targeted search logic for keywords extracted from the message, relevant-file prioritization, and orientation toward test files; relevant code snippet output is also added to the context markdown.
 - **Patch conflict recovery:** when the target text is not found in the current file, `ReplaceFileContent` returns a `PATCH_CONFLICT` result without writing to the file, and asks the model to regenerate the patch after obtaining the current context via `ReadFile`.
 - **Build/test output summary:** when long terminal output is truncated, the selected error/warning context is preserved, and the total error/warning count is separately reported to the model.
@@ -669,7 +669,7 @@ Framework: **.NET 8 / WPF** (`net8.0-windows`).
 - **RAG stale index cleanup:** old chunks of a changed file are replaced during re-indexing; chunks of deleted or no-longer-found files are cleaned up from the RAG index.
 - **Context deduplication:** RAG chunks that fall within the same line range as Context Discovery snippets are not added to the prompt a second time; non-overlapping RAG context is preserved.
 - **Long tool output:** the full version of truncated build/test/terminal output is kept in a temporary spool file; the model can read only the line range it needs via `ReadToolOutput`. Outputs are cleaned up under a 24-hour and 50-file limit.
-- **Active project path:** relative file/folder tool paths are resolved against the active project root selected by the user, not against the folder where mdaiAgent is running.
+- **Active project path:** relative file/folder tool paths are resolved against the active project root selected by the user, not against the folder where Yengi is running.
 - **Router confidence threshold:** the Router confidence setting normalizes inputs like `0.8`, `0,8`, `80`, or similar into the `0..1` range; culture-related malformed values such as `8.0` are safely corrected at runtime.
 - **Router latency:** no router network call is made for short chit-chat that doesn't require a tool, such as a greeting; real router calls fall back to the fallback tool list after a 25-second timeout.
 - **Router telemetry:** fallback, timeout, error, low-confidence, invalid-selection, empty-selection, and latency metrics are kept per-project under `.mdai/router_telemetry.json`; the Router Context is not yet extended with the active file/chat history.
