@@ -44,6 +44,17 @@ update_01.09.2026.txt
 uyarilar.txt
 xshd_format.txt
 
+## Removed Root Training & Legacy Files
+generate_dataset.py
+exekurulum.iss
+ROADMAP.md
+logo.png
+logo1.png
+logo.ico
+theme-picker.html
+mdai3.0b/
+data/
+
 ## Python / Environments
 .venv/
 __pycache__/
