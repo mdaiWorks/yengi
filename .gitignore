@@ -13,11 +13,36 @@ dist/
 *.dll
 *.pdb
 
-## Sensitive Files & Tokens
+## Sensitive Files & Helper Scripts
 *token*
 *api*.txt
-*.txt
-!README*.md
+github_push.py
+github_guncelle.bat
+
+## Internal Metadata & Unnecessary Backups/Notes
+.mdai/
+githubAtilacak/
+projelereEkle/
+BuildServiceYedek.cs
+quick_test_ai_plans.cs
+test_ai_plan_generation.cs
+basucu.md
+checklist.md
+cursor.md
+planLSP.md
+update.md
+update2.md
+UPDATE3.md
+yapilanlar.txt
+yengi.txt
+chatekran.txt
+eskiSystemPrompt.txt
+exeyapım.txt
+innosetupderleme.txt
+terminal.txt
+update_01.09.2026.txt
+uyarilar.txt
+xshd_format.txt
 
 ## Python / Environments
 .venv/
@@ -32,6 +57,3 @@ __pycache__/
 *.rar
 *.log
 scratch/
-github_push.py
-github_guncelle.bat
-
