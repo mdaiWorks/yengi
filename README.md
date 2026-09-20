@@ -407,18 +407,24 @@ A task is tracked with `role`, `prompt`, `context`, a task ID, and status. The m
 
 Components: `IAiRouter`, `AiRouter`, `RouterContext`, `RouterDecision`, `RouterModelInfo`.
 
-For the local Router, the default technical model is `mdai-router-1.5b-q4` and the default endpoint is `http://localhost:11434/v1`; both can be changed in settings. Cloud Router usage can also be configured.
+Yengi features a specialized **AI Router** architecture designed to optimize performance and reduce token costs by predicting required tools before invoking the main LLM.
 
-Purpose: instead of sending the entire tool catalog to the main model on every request, a small/cheap model (default `gemini-2.5-flash`) decides in advance which tools are needed — this shortens the system prompt and lowers token cost. The default confidence threshold (`RouterConfidenceThreshold`): **0.80**. If confidence is insufficient or an error occurs, it falls back to all tools. `RouterBlacklistWindow` can exclude tools the router should never suggest; if `IsManualToolManagement=true`, the user makes the tool selection entirely on their own.
+### 🧠 Router Options
+1. **Local Fine-Tuned Yengi Router (`yengi-router:1.5b`) [RECOMMENDED]:**  
+   A fine-tuned 1.5B model specifically trained for tool selection in Yengi. It downloads directly from Hugging Face (`mdaiworks/yengi-router-1.5b`), registers under Ollama as `yengi-router:1.5b`, and runs locally at `http://localhost:11434/v1` with ~0.2s latency and zero token cost.
+2. **Custom Cloud AI Router:** Connects to any OpenAI-compatible API (e.g., `gemini-2.0-flash`, `gpt-4o-mini`, `groq`).
+3. **Main LLM as Router:** Uses the primary active model itself to select tools.
 
-The Router can connect to different provider/model setups via OpenAI-compatible endpoint and model settings. It produces a single router call and a single decision per request; multi-teacher consensus is out of scope for this project. If an API error, timeout, low confidence, or invalid tool selection occurs while the Router is active, a limited fallback tool set (`ReadFile`, `FindFiles`, `SearchCode`, `ListDirectory`, `DiscoverProjectContext`, `CreateOrUpdateFile`, `ReplaceFileContent`, `BuildProject`, `RunTests`) is sent to the main model instead of the entire tool catalog. The Router blacklist also constrains the fallback selection.
+### ⚙️ How It Works & Safeguards
+- **Tool Catalog Optimization:** Instead of sending the full 31+ tool catalog to the main model on every request, the router predicts only the relevant tools needed, dramatically shortening system prompt overhead and token costs.
+- **Confidence Threshold & Fallback:** The default confidence threshold (`RouterConfidenceThreshold`) is **0.80**. If the router's confidence is insufficient, or if an API error/timeout occurs, Yengi automatically falls back to a safe core toolset (`ReadFile`, `FindFiles`, `SearchCode`, `ListDirectory`, `DiscoverProjectContext`, `CreateOrUpdateFile`, `ReplaceFileContent`, `BuildProject`, `RunTests`).
+- **Blacklist & Manual Control:** The `RouterBlacklistWindow` allows users to permanently exclude specific tools. If `IsManualToolManagement=true`, tool routing is bypassed and the user manually toggles active tools.
+- **Telemetry:** Per-project router decisions and performance metrics are logged to `.mdai/router_telemetry.json`.
 
-When the local Router is selected, the `RouterModel` and `RouterBaseUrl` settings are used; they are not overridden by a hardcoded model name. The application keeps the downloaded GGUF file under `%APPDATA%\\mdaiAgent\\models` and registers it under the `mdai-router-1.5b-q4` alias via the Ollama `create` command. The model is not shown as ready until the Ollama registration is verified. Router decisions are written to `.mdai/router_telemetry.json` on a per-project basis; fallback, timeout, error, low-confidence, invalid-selection, empty-selection, and latency metrics are kept.
-
-### ⚡ Performance and Dynamic Tool Management (Performance & Tool Safeguards)
-- **Conditional Core Tools:** Unnecessary tools are pruned for pure file-reading/search requests to save tokens and latency; during coding/planning stages, critical tools such as `ExecuteTerminalCommand` are automatically included to prevent the agent from getting stuck.
-- **Dynamic Re-Routing:** If the main model needs a tool that is not in the default catalog during a task, it can dynamically request the tool from the Yengi IDE via a `[REQUEST_TOOL: ToolName]` signal.
-- **Runaway Thinking & UI Stream Protection:** Automatic truncation and 150ms scroll protection that prevent endless internal monologues from reasoning models and UI (WPF) freezes.
+### ⚡ Performance and Dynamic Tool Management
+- **Conditional Core Tools:** Pure file-reading or search requests automatically prune unnecessary modification tools to save latency; coding and planning tasks auto-include critical tools (`ExecuteTerminalCommand`).
+- **Dynamic Re-Routing:** If the main model requires an unlisted tool mid-task, it requests it dynamically via `[REQUEST_TOOL: ToolName]`.
+- **Runaway Thinking & UI Stream Protection:** Features automatic truncation and 150ms scroll throttling to prevent endless reasoning monologues from freezing the WPF interface.
 
 ---
 

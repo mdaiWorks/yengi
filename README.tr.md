@@ -407,18 +407,24 @@ Görev; `role`, `prompt`, `context`, task ID ve status ile takip edilir. `waitFo
 
 Bileşenler: `IAiRouter`, `AiRouter`, `RouterContext`, `RouterDecision`, `RouterModelInfo`.
 
-Yerel Router için varsayılan teknik model `mdai-router-1.5b-q4` ve endpoint `http://localhost:11434/v1` değerleridir; ikisi de ayarlardan değiştirilebilir. Bulut Router kullanımı ayrıca yapılandırılabilir.
+Yengi, ana LLM çağrılmadan önce hangi araçların kullanılacağını önceden tahmin ederek performansı artıran ve token maliyetlerini düşüren özel bir **AI Router** mimarisine sahiptir.
 
-Amaç: her istekte tüm araç kataloğunu ana modele göndermek yerine, küçük/ucuz bir model (varsayılan `gemini-2.5-flash`) hangi araçların gerekli olduğuna önceden karar vermesi — böylece sistem promptu kısalır, token maliyeti düşer. Varsayılan güven eşiği (`RouterConfidenceThreshold`): **0.80**. Güven yetersizse veya hata olursa tüm araçlara geri dönülür (fallback). `RouterBlacklistWindow` ile router'ın hiç önermeyeceği araçlar hariç tutulabilir; `IsManualToolManagement=true` ise araç seçimini tamamen kullanıcı yapar.
+### 🧠 Router Seçenekleri
+1. **Yerel İnce Ayarlı Yengi Router (`yengi-router:1.5b`) [ÖNERİLEN]:**  
+   Yengi için özel olarak eğitilmiş 1.5B parametreli fine-tuned modeldir. Doğrudan Hugging Face üzerinden (`mdaiworks/yengi-router-1.5b`) indirilir, Ollama'ya `yengi-router:1.5b` adıyla kaydolur ve `http://localhost:11434/v1` üzerinden 0.2 saniye gibi süper hızlı bir latency ile %100 çevrimdışı çalışır.
+2. **Özel Bulut AI Router:** Herhangi bir OpenAI-uyumlu API'ye bağlanabilir (ör. `gemini-2.0-flash`, `gpt-4o-mini`, `groq`).
+3. **Ana LLM Modeli Router:** Araç seçimini doğrudan ana aktif LLM modeline yaptırır.
 
-Router, OpenAI-uyumlu endpoint ve model ayarlarıyla farklı provider/model kurulumlarına bağlanabilir. Her istek için tek router çağrısı ve tek karar üretir; bu proje için çoklu teacher consensus kapsam dışıdır. Router etkin olduğu halde API hatası, timeout, düşük güven veya geçersiz araç seçimi oluşursa ana modele tüm araç kataloğu yerine sınırlı fallback araç seti (`ReadFile`, `FindFiles`, `SearchCode`, `ListDirectory`, `DiscoverProjectContext`, `CreateOrUpdateFile`, `ReplaceFileContent`, `BuildProject`, `RunTests`) gönderilir. Router blacklist'i fallback seçimini de sınırlar.
+### ⚙️ Çalışma Mantığı ve Güvenlik Önlemleri
+- **Araç Kataloğu Optimizasyonu:** Her istekte 31+ araçlık tam kataloğu ana modele göndermek yerine, Router sadece gerekli araçları tahmin eder; böylece sistem promptu kısalır ve token harcaması ciddi oranda düşer.
+- **Güven Eşiği ve Fallback:** Varsayılan güven eşiği (`RouterConfidenceThreshold`): **0.80**'dir. Güven yetersizse, timeout veya API hatası oluşursa Yengi otomatik olarak güvenli çekirdek araç setine (`ReadFile`, `FindFiles`, `SearchCode`, `ListDirectory`, `DiscoverProjectContext`, `CreateOrUpdateFile`, `ReplaceFileContent`, `BuildProject`, `RunTests`) geçiş yapar.
+- **Kara Liste ve Manuel Kontrol:** `RouterBlacklistWindow` ile belirli araçlar router önerilerinden tamamen engellenebilir. `IsManualToolManagement=true` ise araç seçimi tamamen kullanıcıya bırakılır.
+- **Telemetri:** Proje bazlı router kararları ve performans istatistikleri `.mdai/router_telemetry.json` dosyasına kaydedilir.
 
-Yerel Router seçildiğinde `RouterModel` ve `RouterBaseUrl` ayarları kullanılır; sabit model adıyla override edilmez. Uygulama, indirilen GGUF dosyasını `%APPDATA%\\mdaiAgent\\models` altında tutar ve Ollama `create` komutuyla `mdai-router-1.5b-q4` alias'ına kaydeder. Ollama kaydı doğrulanmadan model hazır gösterilmez. Router kararları proje bazında `.mdai/router_telemetry.json` dosyasına yazılır; fallback, timeout, hata, düşük güven, geçersiz seçim, boş seçim ve latency metrikleri tutulur.
-
-### ⚡ Performans ve Dinamik Araç Yönetimi (Performance & Tool Safeguards)
-- **Koşullu Çekirdek Araçlar (Conditional Core Tools):** Sadece dosya okuma/arama isteklerinde gereksiz araçlar elenerek token ve latency tasarrufu sağlanır; kodlama/planlama aşamalarında ise kilitlenmeyi önlemek için `ExecuteTerminalCommand` gibi kritik araçlar otomatik dahil edilir.
-- **Dinamik Araç İsteme (Dynamic Re-Routing):** Ana model görev esnasında varsayılan katalogda olmayan bir araca ihtiyaç duyarsa `[REQUEST_TOOL: AraçAdı]` sinyali ile Yengi IDE'den aracı dinamik olarak talep edebilir.
-- **Runaway Thinking & UI Stream Protection:** Düşünme (reasoning) modellerinin sonsuz iç ses monologlarını ve Arayüz (WPF) kasılmalarını engelleyen otomatik daraltma ve 150ms scroll koruması.
+### ⚡ Performans ve Dinamik Araç Yönetimi
+- **Koşullu Çekirdek Araçlar:** Sadece dosya okuma/arama isteklerinde gereksiz araçlar elenerek latency tasarrufu sağlanır; kodlama/planlama aşamalarında `ExecuteTerminalCommand` gibi kilit araçlar otomatik dahil edilir.
+- **Dinamik Araç İsteme:** Ana model görev esnasında listede olmayan bir araca ihtiyaç duyarsa `[REQUEST_TOOL: AraçAdı]` sinyali ile Yengi IDE'den aracı dinamik olarak isteyebilir.
+- **Runaway Thinking & UI Stream Protection:** Düşünme (reasoning) modellerinin sonsuz iç ses monologlarını ve WPF Arayüz kasılmalarını engelleyen otomatik daraltma ve 150ms scroll koruması.
 
 ---
 
