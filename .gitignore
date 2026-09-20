@@ -54,6 +54,8 @@ logo.ico
 theme-picker.html
 mdai3.0b/
 data/
+packaging/
+mdaiAgent.Tests/
 
 ## Python / Environments
 .venv/
