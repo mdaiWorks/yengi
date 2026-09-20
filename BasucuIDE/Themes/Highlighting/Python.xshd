@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="Python (mdaiAgent)" extensions=".py;.pyw" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+    <!-- VS Code Dark+ renk paleti -->
+    <Color name="Comment"    foreground="#6A9955" />
+    <Color name="String"     foreground="#CE9178" />
+    <Color name="Keyword"    foreground="#569CD6" fontWeight="bold" />
+    <Color name="Number"     foreground="#B5CEA8" />
+    <Color name="Function"   foreground="#DCDCAA" />
+    <Color name="TypeName"   foreground="#4EC9B0" />
+    <Color name="Operator"   foreground="#D4D4D4" />
+    <Color name="BuiltIn"    foreground="#4EC9B0" />
+    <Color name="Decorator"  foreground="#D7BA7D" />
+
+    <RuleSet>
+        <Span color="Comment">
+            <Begin>\#</Begin>
+        </Span>
+
+        <Span color="String" multiline="true">
+            <Begin>"""</Begin>
+            <End>"""</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+        <Span color="String" multiline="true">
+            <Begin>'''</Begin>
+            <End>'''</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+
+        <Span color="String">
+            <Begin>"</Begin>
+            <End>"</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+        
+        <Span color="String">
+            <Begin>'</Begin>
+            <End>'</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+
+        <Keywords color="Keyword">
+            <Word>and</Word><Word>as</Word><Word>assert</Word><Word>async</Word>
+            <Word>await</Word><Word>break</Word><Word>class</Word><Word>continue</Word>
+            <Word>def</Word><Word>del</Word><Word>elif</Word><Word>else</Word>
+            <Word>except</Word><Word>False</Word><Word>finally</Word><Word>for</Word>
+            <Word>from</Word><Word>global</Word><Word>if</Word><Word>import</Word>
+            <Word>in</Word><Word>is</Word><Word>lambda</Word><Word>None</Word>
+            <Word>nonlocal</Word><Word>not</Word><Word>or</Word><Word>pass</Word>
+            <Word>raise</Word><Word>return</Word><Word>True</Word><Word>try</Word>
+            <Word>while</Word><Word>with</Word><Word>yield</Word>
+            <Word>match</Word><Word>case</Word>
+        </Keywords>
+
+        <Keywords color="BuiltIn">
+            <Word>abs</Word><Word>all</Word><Word>any</Word><Word>ascii</Word>
+            <Word>bin</Word><Word>bool</Word><Word>breakpoint</Word><Word>bytearray</Word>
+            <Word>bytes</Word><Word>callable</Word><Word>chr</Word><Word>classmethod</Word>
+            <Word>compile</Word><Word>complex</Word><Word>delattr</Word><Word>dict</Word>
+            <Word>dir</Word><Word>divmod</Word><Word>enumerate</Word><Word>eval</Word>
+            <Word>exec</Word><Word>filter</Word><Word>float</Word><Word>format</Word>
+            <Word>frozenset</Word><Word>getattr</Word><Word>globals</Word><Word>hasattr</Word>
+            <Word>hash</Word><Word>help</Word><Word>hex</Word><Word>id</Word>
+            <Word>input</Word><Word>int</Word><Word>isinstance</Word><Word>issubclass</Word>
+            <Word>iter</Word><Word>len</Word><Word>list</Word><Word>locals</Word>
+            <Word>map</Word><Word>max</Word><Word>memoryview</Word><Word>min</Word>
+            <Word>next</Word><Word>object</Word><Word>oct</Word><Word>open</Word>
+            <Word>ord</Word><Word>pow</Word><Word>print</Word><Word>property</Word>
+            <Word>range</Word><Word>repr</Word><Word>reversed</Word><Word>round</Word>
+            <Word>set</Word><Word>setattr</Word><Word>slice</Word><Word>sorted</Word>
+            <Word>staticmethod</Word><Word>str</Word><Word>sum</Word><Word>super</Word>
+            <Word>tuple</Word><Word>type</Word><Word>vars</Word><Word>zip</Word>
+            <Word>__import__</Word>
+        </Keywords>
+
+        <!-- Decorators -->
+        <Rule color="Decorator">\@[\w\.]+</Rule>
+
+        <!-- Method/Function calls -->
+        <Rule color="Function">[\w]+\(</Rule>
+
+        <!-- Numbers -->
+        <Rule color="Number">0[xX][\da-fA-F]+</Rule>
+        <Rule color="Number">0[bB][01]+</Rule>
+        <Rule color="Number">0[oO][0-7]+</Rule>
+        <Rule color="Number">[\d]+\.[\d]+</Rule>
+        <Rule color="Number">[\d]+</Rule>
+
+        <Rule color="Operator">[+\-*/=&lt;&gt;!|&amp;^~%?:,.;]</Rule>
+    </RuleSet>
+</SyntaxDefinition>

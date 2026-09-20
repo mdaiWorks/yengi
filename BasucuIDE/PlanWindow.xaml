@@ -1,0 +1,123 @@
+<Window x:Class="mdaiAgent.PlanWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{local:Loc Key=PlanWindowTitle}" Height="650" Width="900"
+        WindowStartupLocation="CenterOwner"
+        Background="#131322"
+        Foreground="#FFFFFF"
+        ResizeMode="CanResizeWithGrip"
+        WindowStyle="ToolWindow" xmlns:local="clr-namespace:mdaiAgent">
+    
+    <Grid Margin="16">
+        <!-- Asıl İçerik (Başlangıçta Gizli) -->
+        <Grid x:Name="mainContentGrid" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Info -->
+            <Border Grid.Row="0" Background="#1a1a2f" CornerRadius="8" Padding="12" Margin="0,0,0,16" BorderBrush="#2e2e50" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="{local:Loc Key=AITarafindanUretilenYolHaritasi}" FontSize="18" FontWeight="Bold" Foreground="#e0e0e0" Margin="0,0,0,6"/>
+                    <TextBlock Text="{local:Loc Key=AsagidaMevcutProjeniziGelistirmekIcinAIInSunduguAdimAdimOnerilerListelenmistirIslemeAlmakIstediginizAdimiSecipQuotSohbet}" TextWrapping="Wrap" Foreground="#9a9ab0" FontSize="13" LineHeight="18"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Dynamic Counts -->
+            <Grid Grid.Row="1" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="txtPlanOptionsSummary" Text="{local:Loc Key=PlanStepsLoaded}" Foreground="#737399" FontWeight="SemiBold" FontSize="12"/>
+                <TextBlock x:Name="txtSelectedPlanInfo" Grid.Column="1" Text="{local:Loc Key=DetayIcinBirAdimSecin}" Foreground="#737399" FontSize="12" HorizontalAlignment="Right"/>
+            </Grid>
+
+            <!-- Main Content Split -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left: Options List -->
+                <Border Grid.Column="0" Background="#0b0b14" BorderBrush="#2e2e50" BorderThickness="1" CornerRadius="8">
+                    <ListBox x:Name="lbPlanOptions" Background="Transparent" BorderThickness="0" Foreground="White" SelectionChanged="LbPlanOptions_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="0,0,0,2"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border Name="Border" Padding="12,10" Background="Transparent" CornerRadius="4">
+                                                <ContentPresenter />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#1a1a2f"/>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#252545"/>
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#4F46E5"/>
+                                                    <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id, StringFormat='Plan {0}'}" FontWeight="Bold" Foreground="#e0e0e0" FontSize="14" Padding="0,4"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+
+                <!-- Right: Details -->
+                <Border Grid.Column="2" Background="#0b0b14" BorderBrush="#2e2e50" BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="{local:Loc Key=AdimDetayi}" FontWeight="Bold" Margin="0,0,0,12" Foreground="#8585a3" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <TextBox x:Name="txtPlanDetail" TextWrapping="Wrap" Background="Transparent" BorderThickness="0" Foreground="#e0e0e0" FontSize="14" IsReadOnly="True" AcceptsReturn="True"/>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Expander for Raw Plan -->
+            <Expander Grid.Row="3" Header="{local:Loc Key=AIInCikardigiHamPlanMetniniGoruntule}" IsExpanded="False" Margin="0,16,0,0" Foreground="#9a9ab0" Background="#1a1a2f" BorderBrush="#2e2e50" BorderThickness="1" Padding="8">
+                <TextBox x:Name="txtFullPlan" TextWrapping="Wrap" Background="#0b0b14" BorderThickness="1" BorderBrush="#2e2e50" Foreground="#e0e0e0" Padding="8" Height="150" IsReadOnly="True" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" FontFamily="Consolas"/>
+            </Expander>
+
+            <!-- Actions -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button Content="🔄 Yeni Plan Yap" Width="140" Height="36" Margin="0,0,10,0" Click="RegeneratePlan_Click" Background="#1a4a2e" Foreground="#4ade80" FontWeight="SemiBold" BorderThickness="1" BorderBrush="#2d6a42" Cursor="Hand"/>
+                <Button x:Name="btnCopyFullPlan" Content="{local:Loc Key=CopyRawPlan}" Width="140" Height="36" Margin="0,0,10,0" Click="BtnCopyFullPlan_Click" Background="#2e2e50" Foreground="White" BorderThickness="0" Cursor="Hand"/>
+                <Button x:Name="btnApprove" Content="{local:Loc Key=AddToChatAndStart}" Width="180" Height="36" Margin="0,0,10,0" Click="BtnApprove_Click" Background="#4F46E5" Foreground="White" FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
+                <Button Content="{local:Loc Key=Cancel}" Width="80" Height="36" Click="BtnCancel_Click" Background="#c0392b" Foreground="White" BorderThickness="0" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Yükleniyor / Plan Çıkarılıyor Ekranı -->
+        <Grid x:Name="loadingGrid" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBlock Text="🧠" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+                <TextBlock x:Name="txtLoadingStatus" Text="{local:Loc Key=AnalyzingProjectFiles}" FontSize="18" FontWeight="SemiBold" Foreground="#e0e0e0" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock Text="{local:Loc Key=AIUygulamanizIcinEnUygunGelistirmeAdimlariniHesapliyorBuIslemProjenizinBuyukluguneGore12DakikaSurebilir}" TextWrapping="Wrap" TextAlignment="Center" Width="400" Foreground="#8585a3" Margin="0,0,0,24"/>
+                
+                <ProgressBar x:Name="progressBar" IsIndeterminate="True" Height="4" Width="300" Foreground="#4F46E5" Background="#2e2e50" BorderThickness="0" Margin="0,0,0,24"/>
+                
+                <Button Content="{local:Loc Key=CancelPlan}" Width="120" Height="36" Click="BtnCancel_Click" Background="#c0392b" Foreground="White" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

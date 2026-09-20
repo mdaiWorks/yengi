@@ -1,0 +1,3619 @@
+<Window x:Class="mdaiAgent.MainWindow"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+        xmlns:local="clr-namespace:mdaiAgent"
+
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+
+        xmlns:search="clr-namespace:ICSharpCode.AvalonEdit.Search;assembly=ICSharpCode.AvalonEdit"
+
+        mc:Ignorable="d"
+
+        Title="{local:Loc Key=MainWindowTitle}" Height="768" Width="1280"
+
+        WindowStartupLocation="CenterScreen"
+
+        WindowState="Maximized"
+
+        PreviewKeyDown="Window_PreviewKeyDown"
+
+        Background="{StaticResource BackgroundBrush}"
+
+        Foreground="{StaticResource TextPrimaryBrush}">
+
+    <Window.Resources>
+
+        <!-- Converter -->
+
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <local:StringJoinConverter x:Key="StringJoinConverter"/>
+
+        <local:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
+
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+
+        <!-- Modern & Functional AvalonEdit SearchPanel (Ctrl+F) Stili -->
+        <Style TargetType="{x:Type search:SearchPanel}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type search:SearchPanel}">
+                        <Border Background="#1e293b" BorderBrush="#334155" BorderThickness="1" CornerRadius="6" Padding="6,4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,24,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBox x:Name="PART_searchTextBox" 
+                                         Text="{Binding SearchPattern, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Width="180" Height="26" VerticalContentAlignment="Center" 
+                                         Background="#0f172a" Foreground="White" BorderBrush="#374151" BorderThickness="1" 
+                                         Padding="6,0" Margin="0,0,6,0" CaretBrush="White" FontSize="12"/>
+                                <Button x:Name="PART_FindPreviousButton" 
+                                         Command="{x:Static search:SearchCommands.FindPrevious}"
+                                         Content="▲" Width="26" Height="26" Margin="0,0,3,0" 
+                                         Background="#334155" Foreground="White" BorderThickness="0" Cursor="Hand" ToolTip="Önceki Eşleşme (Shift+F3)"/>
+                                <Button x:Name="PART_FindNextButton" 
+                                         Command="{x:Static search:SearchCommands.FindNext}"
+                                         Content="▼" Width="26" Height="26" Margin="0,0,6,0" 
+                                         Background="#334155" Foreground="White" BorderThickness="0" Cursor="Hand" ToolTip="Sonraki Eşleşme (F3)"/>
+                                <Button x:Name="PART_CloseButton" 
+                                         Command="{x:Static search:SearchCommands.CloseSearchPanel}"
+                                         Content="✕" Width="24" Height="26" 
+                                         Background="Transparent" Foreground="#94a3b8" BorderThickness="0" Cursor="Hand" ToolTip="Kapat (Esc)" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <!-- Using global theme resources from ModernPalette.xaml -->
+
+
+
+        <!-- Modern ScrollBar Stili -->
+
+        <Style TargetType="ScrollBar">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="Width" Value="12"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ScrollBar">
+
+                        <Grid Background="{StaticResource DarkPanelBackground}">
+
+                            <Track x:Name="PART_Track" IsDirectionReversed="True">
+
+                                <Track.Thumb>
+
+                                    <Thumb>
+
+                                        <Thumb.Template>
+
+                                            <ControlTemplate TargetType="Thumb">
+
+                                                <Border x:Name="ThumbBd" Background="{StaticResource SurfaceAlt2Brush}" CornerRadius="6" Margin="2">
+
+                                                    <Border.Effect>
+
+                                                        <DropShadowEffect Color="{StaticResource AccentColor}" BlurRadius="4" Opacity="0.3"/>
+
+                                                    </Border.Effect>
+
+                                                </Border>
+
+                                                <ControlTemplate.Triggers>
+
+                                                    <Trigger Property="IsMouseOver" Value="True">
+
+                                                        <Setter TargetName="ThumbBd" Property="Background" Value="{StaticResource AccentBrush}"/>
+
+                                                    </Trigger>
+
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+
+                                        </Thumb.Template>
+
+                                    </Thumb>
+
+                                </Track.Thumb>
+
+                            </Track>
+
+                        </Grid>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+            <Style.Triggers>
+
+                <Trigger Property="Orientation" Value="Horizontal">
+
+                    <Setter Property="Height" Value="12"/>
+
+                    <Setter Property="Width" Value="Auto"/>
+
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+
+                            <ControlTemplate TargetType="ScrollBar">
+
+                                <Grid Background="{StaticResource SurfaceBrush}">
+
+                                    <Track x:Name="PART_Track">
+
+                                        <Track.Thumb>
+
+                                            <Thumb>
+
+                                                <Thumb.Template>
+
+                                                    <ControlTemplate TargetType="Thumb">
+
+                                                        <Border Background="{StaticResource SurfaceAlt2Brush}" CornerRadius="6" Margin="0,2">
+
+                                                            <Border.Effect>
+
+                                                                <DropShadowEffect Color="{StaticResource AccentColor}" BlurRadius="4" Opacity="0.3"/>
+
+                                                            </Border.Effect>
+
+                                                        </Border>
+
+                                                    </ControlTemplate>
+
+                                                </Thumb.Template>
+
+                                            </Thumb>
+
+                                        </Track.Thumb>
+
+                                    </Track>
+
+                                </Grid>
+
+                            </ControlTemplate>
+
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+
+        <!-- ScrollViewer Stili -->
+
+        <Style TargetType="ScrollViewer">
+
+            <Setter Property="Background" Value="Transparent"/>
+
+        </Style>
+
+
+
+        <!-- TreeView -->
+
+        <Style TargetType="TreeView">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+
+            <Setter Property="BorderThickness" Value="0"/>
+
+        </Style>
+
+
+
+        <Style x:Key="ToastBorderStyle" TargetType="Border">
+
+            <Setter Property="Background" Value="{StaticResource PanelBrush}"/>
+
+            <Setter Property="CornerRadius" Value="8"/>
+
+            <Setter Property="Margin" Value="0,0,0,10"/>
+
+            <Setter Property="Padding" Value="10"/>
+
+            <Setter Property="Width" Value="320"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Effect">
+
+                <Setter.Value>
+
+                    <DropShadowEffect Color="{StaticResource ShadowColor}" BlurRadius="10" Opacity="0.3"/>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+
+        <Style x:Key="ToastTextStyle" TargetType="TextBlock">
+
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+
+            <Setter Property="FontSize" Value="13"/>
+
+            <Setter Property="TextWrapping" Value="Wrap"/>
+
+        </Style>
+
+
+
+        <!-- Chat bubble resources -->
+
+        <FontFamily x:Key="ChatTextFont">Segoe UI Variable, Segoe UI</FontFamily>
+
+        <FontFamily x:Key="ChatCodeFont">Cascadia Code, Cascadia Mono, Consolas</FontFamily>
+
+        <SolidColorBrush x:Key="ChatUserBubbleBackground" Color="#22334A"/>
+
+        <SolidColorBrush x:Key="ChatUserBubbleBorderBrush" Color="#365D88"/>
+
+        <SolidColorBrush x:Key="ChatAssistantMessageBackground" Color="#141B24"/>
+
+        <SolidColorBrush x:Key="ChatAssistantMessageBorderBrush" Color="#263241"/>
+
+        <SolidColorBrush x:Key="ChatAssistantAccentBrush" Color="#69B7FF"/>
+
+        <SolidColorBrush x:Key="ChatSystemBubbleBackground" Color="#202832"/>
+
+        <SolidColorBrush x:Key="ChatMessageForeground" Color="#E7EDF5"/>
+
+        <Style x:Key="ChatMessageText" TargetType="TextBlock">
+
+            <Setter Property="Foreground" Value="{StaticResource ChatMessageForeground}"/>
+
+            <Setter Property="FontFamily" Value="{StaticResource ChatTextFont}"/>
+
+            <Setter Property="FontSize" Value="14"/>
+
+            <Setter Property="LineHeight" Value="21"/>
+
+            <Setter Property="TextWrapping" Value="Wrap"/>
+
+        </Style>
+
+        <Style x:Key="ChatStatusText" TargetType="TextBlock">
+
+            <Setter Property="Foreground" Value="#DCDCDC"/>
+
+            <Setter Property="FontSize" Value="12"/>
+
+            <Setter Property="TextWrapping" Value="Wrap"/>
+
+            <Setter Property="Margin" Value="0,8,0,0"/>
+
+            <Setter Property="Opacity" Value="0.95"/>
+
+        </Style>
+
+
+
+        <Style x:Key="ChatListBoxItemStyle" TargetType="ListBoxItem">
+
+            <Setter Property="Padding" Value="0"/>
+
+            <Setter Property="Margin" Value="0,1,0,1"/>
+
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="Focusable" Value="False"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ListBoxItem">
+
+                        <ContentPresenter/>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        
+
+        <!-- Modern TreeViewItem -->
+
+        <Style TargetType="TreeViewItem">
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="Padding" Value="4,4"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="TreeViewItem">
+
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="Auto"/>
+
+                                <RowDefinition/>
+
+                            </Grid.RowDefinitions>
+
+                            <Border x:Name="Bd" Grid.Row="0"
+
+                                    Background="{TemplateBinding Background}"
+
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+
+                                    Padding="{TemplateBinding Padding}"
+
+                                    CornerRadius="8">
+
+                                <Border.Effect>
+
+                                    <DropShadowEffect Color="{StaticResource ShadowColor}" BlurRadius="2" Opacity="0.1"/>
+
+                                </Border.Effect>
+
+                                <DockPanel>
+
+                                    <ToggleButton x:Name="Expander" DockPanel.Dock="Left"
+
+                                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+
+                                                  Visibility="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVis}}"
+
+                                                  Focusable="False" Width="20">
+
+                                        <ToggleButton.Style>
+
+                                            <Style TargetType="ToggleButton">
+
+                                                <Setter Property="Template">
+
+                                                    <Setter.Value>
+
+                                                        <ControlTemplate TargetType="ToggleButton">
+
+                                                            <TextBlock x:Name="Arrow" Text="▶" FontSize="10" Foreground="{StaticResource DarkAccentLight}"
+
+                                                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                                            <ControlTemplate.Triggers>
+
+                                                                <Trigger Property="IsChecked" Value="True">
+
+                                                                    <Setter TargetName="Arrow" Property="Text" Value="▼"/>
+
+                                                                </Trigger>
+
+                                                            </ControlTemplate.Triggers>
+
+                                                        </ControlTemplate>
+
+                                                    </Setter.Value>
+
+                                                </Setter>
+
+                                            </Style>
+
+                                        </ToggleButton.Style>
+
+                                    </ToggleButton>
+
+                                    <ContentPresenter x:Name="PART_Header" ContentSource="Header"
+
+                                                      HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                                </DockPanel>
+
+                            </Border>
+
+                            <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Margin="20,0,0,0"/>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsExpanded" Value="False">
+
+                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+
+                                <Setter Property="Foreground" Value="White"/>
+
+                            </Trigger>
+
+                            <MultiTrigger>
+
+                                <MultiTrigger.Conditions>
+
+                                    <Condition Property="IsSelected" Value="True"/>
+
+                                    <Condition Property="IsSelectionActive" Value="False"/>
+
+                                </MultiTrigger.Conditions>
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentBrush}"/>
+
+                                <Setter Property="Foreground" Value="White"/>
+
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        
+
+        <!-- Modern TextBox -->
+
+        <Style TargetType="TextBox">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Padding" Value="8"/>
+
+            <Setter Property="FontFamily" Value="Consolas, Courier New, monospace"/>
+
+            <Setter Property="FontSize" Value="14"/>
+
+            <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}"/>
+
+            <Setter Property="SelectionBrush" Value="{StaticResource AccentBrush}"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="TextBox">
+
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+
+                                BorderBrush="{TemplateBinding BorderBrush}"
+
+                                BorderThickness="{TemplateBinding BorderThickness}"
+
+                                Padding="{TemplateBinding Padding}" CornerRadius="8">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect Color="{StaticResource ShadowColor}" BlurRadius="4" Opacity="0.2"/>
+
+                            </Border.Effect>
+
+                            <ScrollViewer x:Name="PART_ContentHost"
+
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+
+                                          HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+
+                                          VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        
+
+        <!-- Modern Button -->
+
+        <Style TargetType="Button">
+
+            <Setter Property="Background" Value="{StaticResource PanelBrush}"/>
+
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Padding" Value="12,8"/>
+
+            <Setter Property="MinHeight" Value="36"/>
+
+            <Setter Property="MinWidth" Value="36"/>
+
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+
+                                BorderBrush="{TemplateBinding BorderBrush}"
+
+                                BorderThickness="{TemplateBinding BorderThickness}"
+
+                                Padding="{TemplateBinding Padding}" CornerRadius="8">
+
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                                <Setter Property="Foreground" Value="White"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        
+
+        <!-- Modern ListBox -->
+
+        <Style TargetType="ListBox">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Padding" Value="4"/>
+
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+
+        </Style>
+
+
+
+        <!-- Modern ListBoxItem -->
+
+        <Style TargetType="ListBoxItem">
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="Padding" Value="8,6"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ListBoxItem">
+
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+
+                                Padding="{TemplateBinding Padding}" CornerRadius="6">
+
+                            <ContentPresenter/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+
+                                <Setter Property="Foreground" Value="White"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+
+        <!-- Modern ComboBox -->
+
+        <Style TargetType="ComboBox">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Padding" Value="12"/>
+
+            <Setter Property="Height" Value="40"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ComboBox">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="*"/>
+
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+
+                            
+
+                            <Border Background="{TemplateBinding Background}"
+
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+
+                                    CornerRadius="8"
+
+                                    Grid.ColumnSpan="2">
+
+                                <Border.Effect>
+
+                                    <DropShadowEffect Color="{StaticResource ShadowColor}" BlurRadius="4" Opacity="0.2"/>
+
+                                </Border.Effect>
+
+                                <Grid>
+
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="*"/>
+
+                                        <ColumnDefinition Width="Auto"/>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    
+
+                                    <ContentPresenter Grid.Column="0" 
+
+                                                      ContentSource="SelectionBoxItem" 
+
+                                                      Margin="12,0,0,0" 
+
+                                                      VerticalAlignment="Center" 
+
+                                                      HorizontalAlignment="Left"
+
+                                                      RecognizesAccessKey="True" 
+
+                                                      TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+                                    
+
+                                    <ToggleButton x:Name="ToggleButton" 
+
+                                                  Grid.Column="1"
+
+                                                  IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+
+                                                  ClickMode="Press" 
+
+                                                  Focusable="False"
+
+                                                  Background="Transparent"
+
+                                                  BorderThickness="0">
+
+                                        <Path x:Name="Arrow" 
+
+                                              Fill="{StaticResource DarkAccentLight}" 
+
+                                              Margin="0,0,12,0" 
+
+                                              VerticalAlignment="Center" 
+
+                                              Data="M 0 0 L 4 4 L 8 0 Z"/>
+
+                                    </ToggleButton>
+
+                                </Grid>
+
+                            </Border>
+
+                            
+
+                            <Popup x:Name="Popup" 
+
+                                   Placement="Bottom" 
+
+                                   IsOpen="{TemplateBinding IsDropDownOpen}" 
+
+                                   AllowsTransparency="True" 
+
+                                   Focusable="False" 
+
+                                   PopupAnimation="Slide">
+
+                                <Grid x:Name="DropDown" 
+
+                                      SnapsToDevicePixels="True" 
+
+                                      MinWidth="{TemplateBinding ActualWidth}">
+
+                                    <Border x:Name="DropDownBorder" 
+
+                                            Background="{StaticResource DarkPanelBackground}" 
+
+                                            BorderBrush="{StaticResource DarkBorder}" 
+
+                                            BorderThickness="1" 
+
+                                            CornerRadius="8">
+
+                                        <ScrollViewer Margin="4">
+
+                                            <ItemsPresenter x:Name="ItemsPresenter" 
+
+                                                           KeyboardNavigation.DirectionalNavigation="Contained" 
+
+                                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                                        </ScrollViewer>
+
+                                    </Border>
+
+                                </Grid>
+
+                            </Popup>
+
+                        </Grid>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+
+        <Style TargetType="ComboBoxItem">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+            <Setter Property="Padding" Value="12,8"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsHighlighted" Value="True">
+
+                    <Setter Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                    <Setter Property="Foreground" Value="White"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+
+        <!-- Modern TabControl Style -->
+
+        <Style TargetType="TabControl">
+
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+
+        </Style>
+
+
+
+        <!-- Modern TabItem Style -->
+
+        <Style TargetType="TabItem">
+            <Setter Property="Padding" Value="14,6"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Border" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}" 
+                                BorderBrush="Transparent" 
+                                BorderThickness="0,2,0,0" 
+                                Margin="0">
+                            <ContentPresenter x:Name="ContentSite"
+                                              ContentSource="Header" 
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <!-- Modern Agent Toggle Button Style -->
+
+        <Style TargetType="ToggleButton" x:Key="AgentToggleButtonStyle">
+
+            <Setter Property="Width" Value="48"/>
+
+            <Setter Property="Height" Value="26"/>
+
+            <Setter Property="Background" Value="{StaticResource SurfaceAlt2Brush}"/>
+
+            <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <Setter Property="Padding" Value="2"/>
+
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ToggleButton">
+
+                        <Border x:Name="Bd"
+
+                                Background="{TemplateBinding Background}"
+
+                                BorderBrush="{TemplateBinding BorderBrush}"
+
+                                BorderThickness="{TemplateBinding BorderThickness}"
+
+                                CornerRadius="14"
+
+                                SnapsToDevicePixels="True">
+
+                            <Grid>
+
+                                <Ellipse x:Name="Thumb" Fill="{StaticResource TextPrimaryBrush}" Width="18" Height="18" HorizontalAlignment="Left" Margin="3,0,0,0"/>
+
+                            </Grid>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsChecked" Value="True">
+
+                                <Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right"/>
+
+                                <Setter TargetName="Thumb" Property="Margin" Value="0,0,3,0"/>
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentBrush}"/>
+
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentLightBrush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.55"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+    <DockPanel>
+        <!-- Top Auto-Update Banner -->
+        <Border x:Name="updateBanner" DockPanel.Dock="Top" Background="#1e1b4b" BorderBrush="#6366f1" BorderThickness="0,0,0,1" Padding="14,8" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="🚀" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtUpdateTitle" Text="{local:Loc Key=YeniGuncellemeMevcut}" FontWeight="Bold" Foreground="#a5b4fc" FontSize="13" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock x:Name="txtUpdateDetails" Grid.Column="1" Text="Yengi v1.1.0" Foreground="#cbd5e1" FontSize="12" VerticalAlignment="Center" Margin="16,0" TextTrimming="CharacterEllipsis"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                    <ProgressBar x:Name="pbUpdateProgress" Width="130" Height="14" Margin="0,0,10,0" Visibility="Collapsed" Foreground="#6366f1" Background="#312e81"/>
+                    <Button x:Name="btnInstallUpdate" Content="{local:Loc Key=SimdiGuncelle}" Click="BtnInstallUpdate_Click" Background="#4f46e5" Foreground="White" BorderThickness="0" Padding="12,4" FontWeight="SemiBold" Cursor="Hand" Margin="0,0,8,0"/>
+                    <Button x:Name="btnDismissUpdate" Content="✕" Click="BtnDismissUpdate_Click" Background="Transparent" Foreground="#94a3b8" BorderThickness="0" Padding="6,4" Cursor="Hand" ToolTip="Kapat"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid x:Name="mainGrid">
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition x:Name="colLeftPanel" Width="250" MinWidth="180"/>
+
+            <ColumnDefinition x:Name="colLeftSplitter" Width="5"/>
+
+            <ColumnDefinition Width="*" MinWidth="300"/>
+
+            <ColumnDefinition x:Name="colRightSplitter" Width="5"/>
+
+            <ColumnDefinition x:Name="colRightPanel" Width="450" MinWidth="260"/>
+
+        </Grid.ColumnDefinitions>
+
+        
+
+        <Border Grid.Column="0" Background="{StaticResource DarkPanelBackground}" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,1,0">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="35"/>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="*"/>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+
+                
+
+                <!-- Sekme Kontrolü ve GitHub Butonu -->
+
+                <Grid Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="*"/>
+
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    
+
+                    <TabControl x:Name="tcLeftPanel" Grid.Column="0" BorderThickness="0" Background="Transparent">
+
+                        <TabItem Header="📁 Files"/>
+
+                        <TabItem Header="🐙 Git"/>
+
+                    </TabControl>
+
+
+
+                    <Button x:Name="btnGitHubSync" Grid.Column="1" Margin="0,2,8,2" Padding="8,4" 
+
+                            Background="#1e1e1e" Foreground="#a8a8a8" BorderThickness="1" BorderBrush="#333333"
+
+                            Cursor="Hand" ToolTip="Sync the project to GitHub (Push)" Click="BtnGitHubSync_Click">
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="☁️" Margin="0,0,4,0" FontSize="11" VerticalAlignment="Center"/>
+
+                            <TextBlock x:Name="tbGitHubSyncText" Text="GitHub" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center"/>
+
+                        </StackPanel>
+
+                    </Button>
+
+                </Grid>
+
+                
+
+                <!-- Dosyalar sekmesi başlığı (Seç ve Yedekler butonları) -->
+
+                <Border x:Name="brFilesHeader" Grid.Row="1" Background="{StaticResource DarkPanelBackground}" Padding="6" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1">
+
+                    <Grid>
+
+                        <!-- Sol: Proje Türü Rozeti -->
+
+                        <Border HorizontalAlignment="Left" VerticalAlignment="Center" Padding="6,2" Background="{StaticResource SurfaceAlt1Brush}" CornerRadius="4">
+
+                            <TextBlock x:Name="tbProjectType" Text="" FontSize="11" Foreground="{StaticResource DarkAccentLight}"/>
+
+                        </Border>
+
+
+
+                        <!-- Sağ: Klasör Seç ve Yedekler Butonları -->
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                            <Button x:Name="btnSelectFolder" Content="{local:Loc Key=Sec}" Margin="0,0,4,0" Padding="6,3" Click="BtnSelectFolder_Click" ToolTip="Çalışmak istediğiniz proje klasörünü seçin"/>
+
+                            <Button x:Name="btnShowBackups" Content="🗄️ Yedekler" Padding="6,3" Click="BtnShowBackups_Click" ToolTip="Yengi tarafından alınan otomatik yedekleri görün"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+                
+
+                <!-- Git sekmesi başlığı (Yenile butonu) -->
+
+                <Border x:Name="brGitHeader" Grid.Row="1" Background="{StaticResource DarkPanelBackground}" Padding="8" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1" Visibility="Collapsed">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock x:Name="txtGitStatusHeader" Text="Git Status" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{StaticResource DarkAccentLight}"/>
+
+                        <Button x:Name="btnGitRefresh" Content="🔄 Refresh" Margin="10,0,0,0" Padding="8,3" Click="BtnGitRefresh_Click" ToolTip="Refresh git changes to show the current status"/>
+
+                    </StackPanel>
+
+                </Border>
+
+                
+
+                <!-- Arama Barı -->
+
+                <Border x:Name="brSearchBar" Grid.Row="2" Background="{StaticResource DarkPanelBackground}" Padding="8" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="36"/>
+
+                            <ColumnDefinition Width="36"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="txtSearchFiles" Grid.Column="0" 
+
+                             KeyDown="TxtSearchFiles_KeyDown" TextChanged="TxtSearchFiles_TextChanged" ToolTip="Search text in project files"/>
+
+                        <Button x:Name="btnSearchFiles" Grid.Column="1" Content="🔍" 
+
+                            Padding="0" Margin="4,0,0,0" ToolTip="Start the search (Enter also works)"
+
+                                Click="BtnSearchFiles_Click"/>
+
+                        <Button x:Name="btnClearSearch" Grid.Column="2" Content="❌" 
+
+                            Padding="0" Margin="4,0,0,0" ToolTip="Clear search results and restore the file tree"
+
+                                Click="BtnClearSearch_Click"/>
+
+                    </Grid>
+
+                </Border>
+
+                
+
+                <!-- Dosya Ağacı (Normal Mod) -->
+
+                <TreeView x:Name="tvFileTree" Grid.Row="3" Margin="5" BorderThickness="0" 
+
+                          MouseDoubleClick="TvFileTree_MouseDoubleClick" TreeViewItem.Expanded="TvFileTree_Expanded"
+
+                          PreviewMouseRightButtonDown="TvFileTree_PreviewMouseRightButtonDown">
+
+                    <TreeView.ContextMenu>
+
+                        <ContextMenu>
+
+                            <MenuItem x:Name="fileTreeMenuRefresh" Header="🔄 Refresh" Click="MenuItem_RefreshTree_Click"/>
+
+                            <Separator/>
+
+                            <MenuItem x:Name="fileTreeMenuNewFile" Header="📄 New File" Click="MenuItem_NewFile_Click"/>
+
+                            <MenuItem x:Name="fileTreeMenuNewFolder" Header="📁 New Folder" Click="MenuItem_NewFolder_Click"/>
+
+                            <Separator/>
+
+                            <MenuItem x:Name="fileTreeMenuDelete" Header="❌ Delete" Click="MenuItem_Delete_Click"/>
+
+                            <MenuItem x:Name="fileTreeMenuShowInExplorer" Header="🔍 Show in Explorer" Click="MenuItem_ShowInExplorer_Click"/>
+
+                        </ContextMenu>
+
+                    </TreeView.ContextMenu>
+
+                </TreeView>
+
+
+
+                <!-- Arama Sonuçları Listesi (Arama Modu - Başlangıçta Gizli) -->
+
+                <Border x:Name="lstSearchResultsBorder" Grid.Row="3" Margin="5"
+
+                        Background="{StaticResource DarkPanelBackground}"
+
+                        Visibility="Collapsed">
+
+                    <ScrollViewer Background="{StaticResource DarkPanelBackground}"
+
+                                  VerticalScrollBarVisibility="Auto"
+
+                                  HorizontalScrollBarVisibility="Disabled">
+
+                        <ItemsControl x:Name="lstSearchResults"
+
+                                      Background="{StaticResource DarkPanelBackground}"
+
+                                      Foreground="#D4D4D4"
+
+                                      MouseDoubleClick="LstSearchResults_MouseDoubleClick">
+
+                            <ItemsControl.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Border x:Name="itemBorder" Background="Transparent" Padding="6,3" Cursor="Hand">
+
+                                        <TextBlock Text="{Binding DisplayText}" TextTrimming="CharacterEllipsis"
+
+                                                   Foreground="#D4D4D4" ToolTip="{Binding FilePath}"/>
+
+                                        <Border.Style>
+
+                                            <Style TargetType="Border">
+
+                                                <Style.Triggers>
+
+                                                    <Trigger Property="IsMouseOver" Value="True">
+
+                                                        <Setter Property="Background" Value="#3A3A5C"/>
+
+                                                    </Trigger>
+
+                                                </Style.Triggers>
+
+                                            </Style>
+
+                                        </Border.Style>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+                    </ScrollViewer>
+
+                </Border>
+
+                
+
+                <!-- Git Durumu Paneli -->
+
+                <Grid x:Name="grGitPanel" Grid.Row="2" Grid.RowSpan="2" Margin="5" Visibility="Collapsed">
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,5">
+
+                        <Button x:Name="btnStageAll" Content="Stage All" Margin="0,0,5,0" Click="BtnStageAll_Click"/>
+
+                        <Button x:Name="btnCommit" Content="Commit" Margin="0,0,5,0" Click="BtnCommit_Click"/>
+
+                    </StackPanel>
+
+                    <ListBox x:Name="lstGitChanges" Grid.Row="1" BorderThickness="0" Background="Transparent">
+
+                        <ListBox.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock Text="{Binding Status}" Width="60" Foreground="{StaticResource AccentBrush}"/>
+
+                                    <TextBlock Text="{Binding FilePath}" TextTrimming="CharacterEllipsis"/>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+
+                        </ListBox.ItemTemplate>
+
+                        <ListBox.ContextMenu>
+
+                            <ContextMenu>
+
+                                <MenuItem Header="Stage" Click="MenuItemGitStage_Click"/>
+
+                                <MenuItem Header="Unstage" Click="MenuItemGitUnstage_Click"/>
+
+                            </ContextMenu>
+
+                        </ListBox.ContextMenu>
+
+                    </ListBox>
+
+                </Grid>
+
+
+
+                <!-- İşlem Durumu -->
+
+                <Border Grid.Row="4" Background="{StaticResource DarkPanelBackground}" Padding="8" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,1,0,0">
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                        <Ellipse x:Name="agentStatusEllipse" Width="12" Height="12" Fill="Transparent" Visibility="Collapsed" Margin="0,0,6,0" />
+
+                        <TextBlock x:Name="agentStatusText" Text="" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" VerticalAlignment="Center" Visibility="Collapsed" TextWrapping="Wrap" />
+
+                    </StackPanel>
+
+                </Border>
+
+                
+
+                <!-- Maliyet ve Token Takip Paneli -->
+
+                <Border x:Name="tokenTrackerPanel" Grid.Row="5" Background="#151520" Padding="12" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,1,0,0" Cursor="Hand" ToolTip="{local:Loc Key=TiklayarakDetayliIstatistikleriGorebilirsiniz}" MouseLeftButtonUp="TokenTrackerPanel_Click">
+
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+
+                            <TextBlock Text="🟢 Model: " Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" FontWeight="SemiBold"/>
+
+                            <TextBlock x:Name="tbTokenModel" Text="Unknown" Foreground="#E0E0E0" FontSize="12" TextTrimming="CharacterEllipsis"/>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+
+                            <TextBlock Text="🪙 Session: " Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" FontWeight="SemiBold"/>
+
+                            <TextBlock x:Name="tbTokenSession" Text="0 Tokens ($0.000)" Foreground="#00E676" FontSize="12"/>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="💰 Total: " Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" FontWeight="SemiBold"/>
+
+                            <TextBlock x:Name="tbTokenTotal" Text="0 Tokens ($0.000)" Foreground="#FFA000" FontSize="12"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Border>
+
+                
+
+                <Popup x:Name="tokenStatsPopup" PlacementTarget="{Binding ElementName=tokenTrackerPanel}" Placement="Top" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+
+                    <Border Background="#1E1E2C" BorderBrush="{StaticResource DarkBorder}" BorderThickness="1" CornerRadius="8" Padding="16" MinWidth="250" Margin="0,0,0,10">
+
+                        <Border.Effect>
+
+                            <DropShadowEffect Color="Black" BlurRadius="15" Opacity="0.5" Direction="270" ShadowDepth="5"/>
+
+                        </Border.Effect>
+
+                        <StackPanel>
+
+                            <TextBlock Text="{local:Loc Key=DetailedStats}" FontWeight="Bold" Foreground="{StaticResource DarkAccentLight}" FontSize="14" Margin="0,0,0,12"/>
+
+                            
+
+                            <Grid Margin="0,0,0,8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=ModelLabel}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popModel" Grid.Column="2" Text="-" Foreground="White" FontWeight="SemiBold" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            
+
+                            <Grid Margin="0,0,0,8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=BuOturumToken}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popSessionTokens" Grid.Column="2" Text="0" Foreground="#00E676" FontWeight="SemiBold" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            <Grid Margin="0,0,0,4">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=BuOturumGirdi}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popSessionPromptTokens" Grid.Column="2" Text="0" Foreground="#00E676" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            <Grid Margin="0,0,0,8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=BuOturumCikti}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popSessionCompletionTokens" Grid.Column="2" Text="0" Foreground="#00E676" TextAlignment="Right"/>
+
+                            </Grid>
+
+
+
+                            <Grid Margin="0,0,0,8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=BuOturumMaliyet}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popSessionCost" Grid.Column="2" Text="$0.000" Foreground="#00E676" FontWeight="SemiBold" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            
+
+                            <Rectangle Height="1" Fill="{StaticResource DarkBorder}" Margin="0,4,0,12"/>
+
+                            
+
+                            <Grid Margin="0,0,0,8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=ProjeToplamToken}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popTotalTokens" Grid.Column="2" Text="0" Foreground="#FFA000" FontWeight="SemiBold" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            <Grid Margin="0,0,0,4">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=ProjeToplamGirdi}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popTotalPromptTokens" Grid.Column="2" Text="0" Foreground="#FFA000" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            <Grid Margin="0,0,0,8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=ProjeToplamCikti}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popTotalCompletionTokens" Grid.Column="2" Text="0" Foreground="#FFA000" TextAlignment="Right"/>
+
+                            </Grid>
+
+                            
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{local:Loc Key=ProjeToplamMaliyet}" Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                                <TextBlock x:Name="popTotalCost" Grid.Column="2" Text="$0.000" Foreground="#FFA000" FontWeight="SemiBold" TextAlignment="Right"/>
+
+                            </Grid>
+
+                        </StackPanel>
+
+                    </Border>
+
+                </Popup>
+
+            </Grid>
+
+        </Border>
+
+        
+
+        <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource DividerBrush}" HorizontalAlignment="Stretch"/>
+
+        
+
+        <Border Grid.Column="2" Background="{StaticResource DarkBackground}">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition x:Name="editorPanelRow" Height="*" MinHeight="220"/>
+
+                    <RowDefinition Height="5"/>
+
+                    <RowDefinition x:Name="bottomPanelRow" Height="230" MinHeight="170" MaxHeight="420"/>
+
+                </Grid.RowDefinitions>
+
+                
+
+                <Grid Grid.Row="0">
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="84"/>
+
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    
+
+                    <Border Grid.Row="0" Background="{StaticResource DarkPanelBackground}" Padding="8,3" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1">
+
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="38"/>
+
+                                <RowDefinition Height="38"/>
+
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="Auto"/> <!-- Col 0: Sol İkonlar -->
+
+                                <ColumnDefinition Width="*"/>    <!-- Col 1: Dosya Adı Metni (Daralabilir) -->
+
+                                <ColumnDefinition Width="Auto"/> <!-- Col 2: Orta Run/Debug -->
+
+                                <ColumnDefinition Width="*"/>    <!-- Col 3: Sağ boşluk -->
+
+                                <ColumnDefinition Width="Auto"/> <!-- Col 4: Sağ Araçlar -->
+
+                            </Grid.ColumnDefinitions>
+
+                            
+
+                            <!-- Sol File İkonları -->
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,5,0">
+
+                                <Button x:Name="btnSaveFile" Content="💾" Width="32" Height="30" Margin="0,0,5,0" Padding="0" Click="BtnSaveFile_Click" ToolTip="{local:Loc Key=GecerliDosyayiKaydederCtrlS}"/>
+
+                                <Button x:Name="btnSaveAll" Content="💾+" Width="32" Height="30" Margin="0,0,5,0" Padding="0" Click="BtnSaveAll_Click" Visibility="Visible" ToolTip="{local:Loc Key=AcikTumDosyalariKaydederCtrlShiftS}"/>
+
+                                <Button x:Name="btnFormatDocument" Content="🧹" Width="32" Height="30" Margin="0,0,5,0" Padding="0" Click="BtnFormatDocument_Click" ToolTip="{local:Loc Key=AcikDosyayiOtomatikOlarakBicimlendirirBosluklariDuzenler}"/>
+
+                                <Button x:Name="btnQuickOpenFile" Content="📂" Width="32" Height="30" Margin="0,0,5,0" Padding="0" Click="BtnQuickOpenFile_Click" ToolTip="{local:Loc Key=BilgisayarinizdanHizlicaDosyaSecipAcmaniziSaglar}"/>
+
+                            </StackPanel>
+
+
+
+                            <!-- Dosya Adı Metni (Daralabilir Alan) -->
+
+                            <TextBlock x:Name="tbCurrentFile" Grid.Row="1" Grid.Column="1" Text="{local:Loc Key=DosyaAcikDegil}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{StaticResource DarkAccentLight}" Margin="5,0,15,0" TextTrimming="CharacterEllipsis" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+
+                            <!-- Split Editor (Yan Yana Editör) - Satır 1 En Sağ -->
+                            <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0,0,0">
+                                <!-- Çalışma Modu (Workspace Mode) Seçici -->
+                                <ComboBox x:Name="cmbWorkspaceMode" Width="160" Height="28" Margin="0,0,8,0" Padding="8,4" VerticalAlignment="Center" 
+                                          SelectionChanged="CmbWorkspaceMode_SelectionChanged" ToolTip="{local:Loc Key=ModeSelectorTooltip}">
+                                    <ComboBoxItem Tag="CodeIDE" Padding="4">
+                                        <Grid Width="135">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="💻" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{local:Loc Key=ModeCodeIDE}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </ComboBoxItem>
+                                     <ComboBoxItem Tag="ImageStudio" Padding="4">
+                                        <Grid Width="135">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="🎨" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{local:Loc Key=ModeImageStudio}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Button Content="⚙️" Tag="ImageStudio" Background="Transparent" BorderThickness="0" 
+                                                    HorizontalAlignment="Right" Padding="2,0" Margin="0" Cursor="Hand"
+                                                    Visibility="{Binding IsDropDownOpen, RelativeSource={RelativeSource AncestorType=ComboBox}, Converter={StaticResource BoolToVis}}"
+                                                    ToolTip="{local:Loc Key=ImageStudioSettingsTitle}" Click="BtnModeSettings_Click" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem Tag="BlenderCopilot" Padding="4">
+                                        <Grid Width="135">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="🧊" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{local:Loc Key=ModeBlenderCopilot}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Button Content="⚙️" Tag="BlenderCopilot" Background="Transparent" BorderThickness="0" 
+                                                    HorizontalAlignment="Right" Padding="2,0" Margin="0" Cursor="Hand"
+                                                    Visibility="{Binding IsDropDownOpen, RelativeSource={RelativeSource AncestorType=ComboBox}, Converter={StaticResource BoolToVis}}"
+                                                    ToolTip="{local:Loc Key=BlenderCopilotSettingsTitle}" Click="BtnModeSettings_Click" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem Tag="UnityCopilot" Padding="4">
+                                        <Grid Width="135">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="🎮" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{local:Loc Key=ModeUnityCopilot}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Button Content="⚙️" Tag="UnityCopilot" Background="Transparent" BorderThickness="0" 
+                                                    HorizontalAlignment="Right" Padding="2,0" Margin="0" Cursor="Hand"
+                                                    Visibility="{Binding IsDropDownOpen, RelativeSource={RelativeSource AncestorType=ComboBox}, Converter={StaticResource BoolToVis}}"
+                                                    ToolTip="{local:Loc Key=UnityCopilotSettingsTitle}" Click="BtnModeSettings_Click" />
+                                        </Grid>
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnSplitEditor" Content="◫" Width="32" Height="30" Padding="0" Click="BtnSplitEditor_Click" ToolTip="Yan Yana İki Editör (Split View)" Cursor="Hand"/>
+                            </StackPanel>
+
+
+
+                            <!-- Orta Bölge (Run/Debug) -->
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,3">
+
+                                <Button x:Name="btnToggleLeftPanel" Content="◧" Width="30" Height="30" Margin="0,0,8,0" Padding="0" Click="BtnToggleLeftPanel_Click" ToolTip="Sol Paneli Aç/Kapat (Ctrl+B)" Cursor="Hand"/>
+
+                                <ComboBox x:Name="cmbDevices" Width="150" Height="30" Margin="0,0,10,0" ToolTip="{local:Loc Key=UygulamayiCalistirmakIcinHedefCihaziSecin}" Background="{StaticResource DarkPanelBackground}" Foreground="{StaticResource TextPrimaryBrush}" DropDownOpened="CmbDevices_DropDownOpened">
+
+                                    <ComboBoxItem Content="{local:Loc Key=CihazBekleniyor}" IsSelected="True"/>
+
+                                </ComboBox>
+
+                                <Button x:Name="btnRunApp" Content="▶" FontFamily="Segoe UI Emoji" Foreground="LimeGreen" FontSize="16" Padding="12,4" Margin="0,0,5,0" ToolTip="{local:Loc Key=UygulamayiSeciliCihazdaCalistirir}" Click="BtnRunApp_Click"/>
+
+                                <Button x:Name="btnHotReload" Content="⚡" FontFamily="Segoe UI Emoji" Foreground="Yellow" FontSize="16" Padding="12,4" Margin="0,0,5,0" ToolTip="{local:Loc Key=UygulamayiKapatmadanDegisiklikleriCanliOlarakUygular}" Click="BtnHotReload_Click"/>
+
+                                <Button x:Name="btnStopApp" Content="⏹" FontFamily="Segoe UI Emoji" Foreground="Tomato" FontSize="16" Padding="12,4" ToolTip="{local:Loc Key=CalisanUygulamayiDurdurur}" Click="BtnStopApp_Click"/>
+
+                            </StackPanel>
+
+
+
+                                <!-- Sağ Bölge -->
+
+                            <Border Grid.Row="0" Grid.Column="4" Background="{StaticResource DarkPanelBackground}" Padding="0,0,0,3">
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                                <Button x:Name="btnCommandPalette" Content="{local:Loc Key=KomutPaletiniAc}" Margin="0,0,5,0" Padding="10,4" Click="BtnCommandPalette_Click" ToolTip="{local:Loc Key=TumKomutlariArayarakBulmaniziSaglarCtrlP}"/>
+
+                                <Button x:Name="btnSafeAutomation" Content="{local:Loc Key=GuvenliMod}" Margin="0,0,5,0" Padding="10,4" Click="ToggleSafeAutomation_Click" ToolTip="{local:Loc Key=TumIslemlerIcinOnayIsterYanlisliklariVeHatalariOnler}"/>
+
+                                <Button x:Name="btnAiActions" Content="{local:Loc Key=AIActions}" Margin="0,0,5,0" Padding="10,4" Click="BtnAiActions_Click" ToolTip="{local:Loc Key=RefaktorYorumEklemeTestUretmePlanlamaGibiAIIslemleriniIcerir}" >
+
+                                    <Button.ContextMenu>
+
+                                        <ContextMenu>
+
+                                            <MenuItem Header="{local:Loc Key=DosyayiRefaktorEt}" Click="MenuItem_AiRefactorCurrentFile_Click"/>
+
+                                            <MenuItem Header="{local:Loc Key=YorumlariGelistir}" Click="MenuItem_AiAddCommentsToCurrentFile_Click"/>
+
+                                            <MenuItem Header="{local:Loc Key=DosyayiAcikla}" Click="MenuItem_AiExplainCurrentFile_Click"/>
+
+                                            <MenuItem Header="{local:Loc Key=PlanModuOlustur}" Click="MenuItem_AiPlanMode_Click"/>
+
+                                            <MenuItem Header="{local:Loc Key=TestSenaryosuUret}" Click="MenuItem_AiGenerateTestsForCurrentFile_Click"/>
+
+                                            <Separator/>
+
+                                            <MenuItem Header="{local:Loc Key=SonAIYanitiniDosyayaUygula}" Click="MenuItem_ApplyLastAiResponseToFile_Click"/>
+
+                                        </ContextMenu>
+
+                                    </Button.ContextMenu>
+
+                                </Button>
+
+
+                                <Button x:Name="btnPlanMode" Content="{local:Loc Key=PlanModuOlustur}" Margin="0,0,5,0" Padding="10,4" Click="BtnPlanMode_Click" ToolTip="{local:Loc Key=MevcutProjeIcinAdimAdimUygulamaPlaniHazirlar}"/>
+
+                                 <!-- LSP Durum Göstergesi (Tıklanınca Eklentiler Penceresi Açılır) -->
+                                <Border x:Name="lspStatusBadge" Margin="0,0,6,0" CornerRadius="6" Padding="8,4"
+                                        Background="#1a2433" BorderBrush="#2d3a4f" BorderThickness="1"
+                                        Cursor="Hand" ToolTip="{Binding ElementName=txtLspStatusDetail, Path=Text}"
+                                        MouseLeftButtonUp="LspStatusBadge_Click" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse x:Name="lspStatusDot" Width="8" Height="8" Margin="0,0,6,0" VerticalAlignment="Center" Fill="#555577"/>
+                                        <TextBlock x:Name="txtLspStatus" Text="LSP" FontSize="11" Foreground="#8899aa" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock x:Name="txtLspStatusDetail" Visibility="Collapsed"/>
+
+                                <Button x:Name="btnAbout" Width="32" Height="30" Padding="0" Click="BtnAbout_Click" ToolTip="{local:Loc Key=MdaiAgentHakkindaBilgiVerir}" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="aboutBd" CornerRadius="6" Padding="2">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                        <GradientStop Color="#ec4899" Offset="0"/>
+                                                        <GradientStop Color="#f97316" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <TextBlock Text="❤" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="aboutBd" Property="Opacity" Value="0.8"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <Button x:Name="btnToggleRightPanel" Content="◨" Width="30" Height="30" Margin="6,0,0,0" Padding="0" Click="BtnToggleRightPanel_Click" ToolTip="Sohbet Panelini Aç/Kapat (Ctrl+L)" Cursor="Hand"/>
+
+                                </StackPanel>
+
+                            </Border>
+
+                                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Height="1" VerticalAlignment="Bottom"
+                                    Background="{StaticResource DividerBrush}" IsHitTestVisible="False" Panel.ZIndex="10"/>
+
+                        </Grid>
+
+                    </Border>
+
+                    
+
+
+
+
+
+                    <Grid Grid.Row="1" x:Name="gridEditorContainer">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="colEditorLeft" Width="*"/>
+                            <ColumnDefinition x:Name="colEditorSplitter" Width="Auto"/>
+                            <ColumnDefinition x:Name="colEditorRight" Width="0"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TabControl x:Name="tcEditor" Grid.Column="0"
+                                    Background="{StaticResource DarkPanelBackground}" BorderThickness="0"
+                                    SelectionChanged="TcEditor_SelectionChanged">
+                            <TabControl.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource SurfaceAlt2}"/>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{StaticResource SurfaceAlt1}"/>
+                            </TabControl.Resources>
+                            <TabControl.Template>
+                                <ControlTemplate TargetType="TabControl">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <ScrollViewer Grid.Row="0" 
+                                                      HorizontalScrollBarVisibility="Auto" 
+                                                      VerticalScrollBarVisibility="Disabled"
+                                                      Background="{TemplateBinding Background}">
+                                            <StackPanel x:Name="HeaderPanel" 
+                                                        IsItemsHost="True" 
+                                                        Orientation="Horizontal" 
+                                                        Margin="2" 
+                                                        Background="Transparent"/>
+                                        </ScrollViewer>
+                                        <ContentPresenter Grid.Row="1" ContentSource="SelectedContent"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </TabControl.Template>
+                        </TabControl>
+
+                        <!-- Splitter (Ayrıştırıcı çizgi) -->
+                        <GridSplitter x:Name="splitterEditor" Grid.Column="1" Width="5" HorizontalAlignment="Center"
+                                      VerticalAlignment="Stretch" Background="#2d3a4f" Visibility="Collapsed" ShowsPreview="True"/>
+
+                        <!-- Sağ Editör (tcEditorRight) -->
+                        <TabControl x:Name="tcEditorRight" Grid.Column="2"
+                                    Background="{StaticResource DarkPanelBackground}" BorderThickness="0"
+                                    SelectionChanged="TcEditorRight_SelectionChanged" Visibility="Collapsed">
+                            <TabControl.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource SurfaceAlt2}"/>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{StaticResource SurfaceAlt1}"/>
+                            </TabControl.Resources>
+                            <TabControl.Template>
+                                <ControlTemplate TargetType="TabControl">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <ScrollViewer Grid.Row="0" 
+                                                      HorizontalScrollBarVisibility="Auto" 
+                                                      VerticalScrollBarVisibility="Disabled"
+                                                      Background="{TemplateBinding Background}">
+                                            <StackPanel x:Name="HeaderPanel" 
+                                                        IsItemsHost="True" 
+                                                        Orientation="Horizontal" 
+                                                        Margin="2" 
+                                                        Background="Transparent"/>
+                                        </ScrollViewer>
+                                        <ContentPresenter Grid.Row="1" ContentSource="SelectedContent"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </TabControl.Template>
+                        </TabControl>
+
+                        
+
+                        <!-- Empty State (Welcome Screen) -->
+
+                        <Border Grid.Row="1" Background="{StaticResource DarkPanelBackground}" Panel.ZIndex="5">
+
+                            <Border.Style>
+
+                                <Style TargetType="Border">
+
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=tcEditor, Path=HasItems}" Value="False">
+
+                                            <Setter Property="Visibility" Value="Visible"/>
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </Border.Style>
+
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-50,0,0">
+
+                                <TextBlock x:Name="txtWelcomeTitle" Text="{local:Loc Key=MdaiAgentAHosGeldiniz}" FontSize="26" FontWeight="Bold" Foreground="{StaticResource DarkAccentLight}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                                <TextBlock x:Name="txtWelcomeSubtitle" Text="{local:Loc Key=AIDestekliKodAsistaninizCalismayaHazir}" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+                                
+
+                                <Border Background="{StaticResource SurfaceAlt2Brush}" CornerRadius="8" Padding="20" Width="380" BorderBrush="{StaticResource DarkBorder}" BorderThickness="1">
+
+                                    <StackPanel>
+
+                                        <TextBlock x:Name="txtQuickStartTitle" Text="{local:Loc Key=HizliBaslangic}" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,15"/>
+
+                                        
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+
+                                            <Border Background="{StaticResource AccentBrush}" Width="24" Height="24" CornerRadius="12" Margin="0,0,10,0">
+
+                                                <TextBlock Text="1" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,1"/>
+
+                                            </Border>
+
+                                            <TextBlock x:Name="txtQuickStart1" Text="{local:Loc Key=QuickStep1}" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" TextWrapping="Wrap" Width="300"/>
+
+                                        </StackPanel>
+
+                                        
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+
+                                            <Border Background="{StaticResource AccentBrush}" Width="24" Height="24" CornerRadius="12" Margin="0,0,10,0">
+
+                                                <TextBlock Text="2" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,1"/>
+
+                                            </Border>
+
+                                            <TextBlock x:Name="txtQuickStart2" Text="{local:Loc Key=QuickStep2}" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" TextWrapping="Wrap" Width="300"/>
+
+                                        </StackPanel>
+
+                                        
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Border Background="{StaticResource AccentBrush}" Width="24" Height="24" CornerRadius="12" Margin="0,0,10,0">
+
+                                                <TextBlock Text="3" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,1"/>
+
+                                            </Border>
+
+                                            <TextBlock x:Name="txtQuickStart3" Text="{local:Loc Key=QuickStep3}" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" TextWrapping="Wrap" Width="300"/>
+
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                </Border>
+
+                            </StackPanel>
+
+                        </Border>
+
+
+
+                        <!-- Completion Popup -->
+
+                        <Popup x:Name="completionPopup" StaysOpen="False" AllowsTransparency="True">
+
+                            <Border Background="{StaticResource PopupBackgroundBrush}" BorderBrush="{StaticResource PopupBorderBrush}" BorderThickness="1" 
+
+                                    CornerRadius="4" Padding="4" MinWidth="250" MaxHeight="300">
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                                    <ListBox x:Name="completionListBox" 
+
+                                             Background="Transparent" Foreground="{StaticResource TextPrimaryBrush}"
+
+                                             BorderThickness="0" SelectionChanged="CompletionListBox_SelectionChanged"
+
+                                             KeyDown="CompletionListBox_KeyDown"
+
+                                             DisplayMemberPath="Label"/>
+
+                                </ScrollViewer>
+
+                            </Border>
+
+                        </Popup>
+
+                    </Grid>
+
+                </Grid>
+
+                
+
+                <GridSplitter Grid.Row="1" Height="5" Background="{StaticResource DividerBrush}" HorizontalAlignment="Stretch"/>
+
+                
+
+                <Grid Grid.Row="2">
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <TabControl x:Name="bottomTabs" Grid.Row="0" Margin="5" SelectionChanged="BottomTabs_SelectionChanged">
+
+                        <TabItem x:Name="tabTerminal" Header="Terminal">
+
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+
+                                    <RowDefinition Height="*"/>
+
+                                    <RowDefinition Height="60"/>
+
+                                </Grid.RowDefinitions>
+
+                                <TextBox x:Name="txtTerminal" Grid.Row="0" Margin="0"
+
+                                         AcceptsReturn="True" IsReadOnly="True"
+
+                                         TextWrapping="Wrap"
+
+                                         VerticalScrollBarVisibility="Auto"
+
+                                         HorizontalScrollBarVisibility="Auto"
+
+                                         FontFamily="Consolas, Courier New, monospace" FontSize="12"
+
+                                         Background="{StaticResource SurfaceBrush}" Foreground="{StaticResource TerminalOutputBrush}"/>
+
+                                <Border Grid.Row="1" Background="#0f141c" BorderBrush="#2a3747" BorderThickness="1,1,0,0" CornerRadius="10,10,0,0" Padding="10,8">
+
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+
+                                            <ColumnDefinition Width="Auto"/>
+
+                                            <ColumnDefinition Width="*"/>
+
+                                            <ColumnDefinition Width="220"/>
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" Background="#111a27" BorderBrush="#2a3747" BorderThickness="1" CornerRadius="6" Padding="8,6" Margin="0,0,8,0">
+
+                                            <TextBlock x:Name="tbTerminalPrompt" Text="> "
+
+                                                       Foreground="{StaticResource DarkAccentLight}" FontFamily="Consolas" FontSize="12"
+
+                                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="420"/>
+
+                                        </Border>
+
+                                        <TextBox x:Name="txtTerminalInput" Grid.Column="1"
+
+                                                 Background="#111a27" Foreground="{StaticResource DarkText}"
+
+                                                 BorderBrush="#2a3747" BorderThickness="1" FontFamily="Consolas" FontSize="12"
+
+                                                 VerticalAlignment="Stretch" VerticalContentAlignment="Center" Padding="10,0"
+
+                                                 CaretBrush="{StaticResource DarkAccentLight}"
+
+                                                 Margin="0,0,8,0"
+
+                                                 KeyDown="TxtTerminalInput_KeyDown"/>
+
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0">
+
+                                            <Button x:Name="btnOpenTerminalPath" Content="📂" Width="45" Height="28" Click="BtnOpenTerminalPath_Click" ToolTip="Open terminal path"/>
+
+                                            <Button x:Name="btnClearTerminal" Content="🗑️" Width="45" Height="28" Click="BtnClearTerminal_Click" ToolTip="Clear terminal"/>
+
+                                            <Button x:Name="btnKillProcess" Content="🛑" Width="45" Height="28" IsEnabled="False" Click="BtnKillProcess_Click" ToolTip="Kill process"/>
+
+                                            <Button x:Name="btnRunCommand" Content="▶️" Width="45" Height="28" Click="BtnRunCommand_Click" ToolTip="Run command"/>
+
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </Grid>
+
+                        </TabItem>
+
+                        <TabItem x:Name="tabProcess" Header="{local:Loc Key=Islemler}">
+
+                            <ListBox x:Name="lstProcessStatus" Margin="0" BorderThickness="0"
+
+                                     Background="Transparent" Foreground="{StaticResource DarkText}" FontSize="11"
+
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                                <ListBox.ItemContainerStyle>
+
+                                    <Style TargetType="ListBoxItem">
+
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Setter Property="Padding" Value="6,3"/>
+
+                                    </Style>
+
+                                </ListBox.ItemContainerStyle>
+
+                            </ListBox>
+
+                        </TabItem>
+
+                        <TabItem x:Name="tabRag">
+
+                            <TabItem.Header>
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock x:Name="txtRagTabIcon" Text="⚪" FontSize="11" Margin="0,0,4,0" VerticalAlignment="Center"/>
+
+                                    <TextBlock Text="RAG" VerticalAlignment="Center"/>
+
+                                </StackPanel>
+
+                            </TabItem.Header>
+
+                            <Grid Background="#0d1117">
+
+                                <Grid.RowDefinitions>
+
+                                    <RowDefinition Height="Auto"/>
+
+                                    <RowDefinition Height="*"/>
+
+                                    <RowDefinition Height="Auto"/>
+
+                                </Grid.RowDefinitions>
+
+
+
+                                <!-- Durum Başlığı -->
+
+                                <Border Grid.Row="0" Background="#161b22" Padding="12,8"
+
+                                        BorderBrush="#30363d" BorderThickness="0,0,0,1">
+
+                                    <Grid>
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <TextBlock x:Name="txtRagStatusIcon" Text="⚪" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+
+                                            <StackPanel VerticalAlignment="Center">
+
+                                                <TextBlock x:Name="txtRagStatusTitle" Text="{local:Loc Key=RAGDevreDisi}"
+
+                                                           FontWeight="SemiBold" Foreground="#8b949e" FontSize="13"/>
+
+                                                <TextBlock x:Name="txtRagStatusDetail" Text="{local:Loc Key=RagDisabledHint}"
+
+                                                           Foreground="#484f58" FontSize="11"/>
+
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <Button x:Name="btnRagSettings"
+
+                                                HorizontalAlignment="Right" VerticalAlignment="Center"
+
+                                                Padding="10,5" FontSize="12"
+
+                                                Content="⚙️ Ayarlar"
+
+                                                Click="BtnRagSettings_Click"
+
+                                                ToolTip="{local:Loc Key=RAGAPIAyarlariniDuzenleSagTikDaCalisir}"/>
+
+                                    </Grid>
+
+                                </Border>
+
+
+
+                                <!-- İndeks Listesi -->
+
+                                <ListBox x:Name="lstRagIndex" Grid.Row="1"
+
+                                         Background="Transparent" BorderThickness="0"
+
+                                         Foreground="#8b949e" FontSize="11"
+
+                                         FontFamily="Consolas"
+
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                                    <ListBox.ItemContainerStyle>
+
+                                        <Style TargetType="ListBoxItem">
+
+                                            <Setter Property="Background" Value="Transparent"/>
+
+                                            <Setter Property="Padding" Value="12,3"/>
+
+                                            <Setter Property="BorderThickness" Value="0"/>
+
+                                        </Style>
+
+                                    </ListBox.ItemContainerStyle>
+
+                                </ListBox>
+
+
+
+                                <!-- Alt Durum Çubuğu -->
+
+                                <Border Grid.Row="2" Background="#161b22" Padding="12,6"
+
+                                        BorderBrush="#30363d" BorderThickness="0,1,0,0">
+
+                                    <Grid>
+
+                                        <TextBlock x:Name="txtRagChunkCount" Text="{local:Loc Key=RagChunksIndexed}"
+
+                                                   Foreground="#484f58" FontSize="11" VerticalAlignment="Center"/>
+
+                                        <Button x:Name="btnRagReindex" Content="{local:Loc Key=RagReindex}"
+
+                                                HorizontalAlignment="Right" Padding="8,4" FontSize="11"
+
+                                                Click="BtnRagReindex_Click" IsEnabled="False"
+
+                                                ToolTip="{local:Loc Key=ProjeyiSifirdanIndeksle}"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </Grid>
+
+                        </TabItem>
+
+                        <TabItem x:Name="tabDiagnostics" Header="{local:Loc Key=DiagnosticsTab}" Loaded="TelemetryTab_Loaded">
+                            <Grid Background="{StaticResource BackgroundBrush}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="0,0,0,1" Padding="12,10">
+                                    <Grid>
+                                        <StackPanel>
+                                            <TextBlock Text="{local:Loc Key=ProjectDiagnostics}" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" FontSize="13"/>
+                                            <TextBlock Text="{local:Loc Key=TelemetryProjectHint}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" Margin="0,3,0,0"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Button x:Name="btnRefreshTelemetry" Content="{local:Loc Key=Refresh}" Padding="10,5" FontSize="11" Click="BtnRefreshTelemetry_Click"/>
+                                            <Button x:Name="btnClearTelemetry" Content="{local:Loc Key=ClearTelemetry}" Padding="10,5" FontSize="11" Margin="8,0,0,0" Click="BtnClearTelemetry_Click"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="12,10">
+                                    <StackPanel>
+                                        <UniformGrid Columns="4" Margin="0,0,0,12">
+                                            <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,6,0">
+                                                <StackPanel><TextBlock Text="Verification" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/><TextBlock x:Name="tbTelemetryRuns" Text="0" Foreground="{StaticResource TextPrimaryBrush}" FontSize="18" FontWeight="SemiBold"/></StackPanel>
+                                            </Border>
+                                            <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,6,0">
+                                                <StackPanel><TextBlock Text="{local:Loc Key=TelemetrySuccess}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/><TextBlock x:Name="tbTelemetrySuccess" Text="0" Foreground="{StaticResource SuccessBrush}" FontSize="18" FontWeight="SemiBold"/></StackPanel>
+                                            </Border>
+                                            <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,6,0">
+                                                <StackPanel><TextBlock Text="{local:Loc Key=TelemetryFailed}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/><TextBlock x:Name="tbTelemetryFailed" Text="0" Foreground="{StaticResource ErrorBrush}" FontSize="18" FontWeight="SemiBold"/></StackPanel>
+                                            </Border>
+                                            <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10">
+                                                <StackPanel><TextBlock Text="{local:Loc Key=AverageDuration}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/><TextBlock x:Name="tbTelemetryAverage" Text="0 ms" Foreground="{StaticResource PrimaryBrush}" FontSize="18" FontWeight="SemiBold"/></StackPanel>
+                                            </Border>
+                                        </UniformGrid>
+
+                                        <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="{local:Loc Key=LastVerification}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/>
+                                                <TextBlock x:Name="tbTelemetryLastStatus" Text="{local:Loc Key=VerificationStatusNone}" Foreground="{StaticResource TextPrimaryBrush}" FontSize="12" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="{local:Loc Key=MerkeziTelemetri}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/>
+                                                <TextBlock x:Name="tbTelemetryCentralSummary" Text="{local:Loc Key=HenuzVeriYok}" Foreground="{StaticResource TextPrimaryBrush}" FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Background="{StaticResource SurfaceAlt1Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="{local:Loc Key=ProjectDiagnostics}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="10"/>
+                                                <ListView x:Name="lstDiagnostics" Background="Transparent" BorderThickness="0" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" MaxHeight="220" MouseDoubleClick="LstDiagnostics_MouseDoubleClick">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding DisplayText}" TextWrapping="Wrap" Margin="0,3"/>
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <TextBlock Text="{local:Loc Key=ToolUsage}" Foreground="{StaticResource DarkAccentLight}" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,5"/>
+                                        <ListView x:Name="lstTelemetryTools" Background="Transparent" BorderThickness="0" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" MinHeight="100">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Tool" DisplayMemberBinding="{Binding Name}" Width="170"/>
+                                                    <GridViewColumn Header="{local:Loc Key=Calls}" DisplayMemberBinding="{Binding TotalCalls}" Width="60"/>
+                                                    <GridViewColumn Header="{local:Loc Key=SuccessRate}" DisplayMemberBinding="{Binding SuccessRate}" Width="70"/>
+                                                    <GridViewColumn Header="{local:Loc Key=AverageDuration}" DisplayMemberBinding="{Binding AverageDuration}" Width="85"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                        <TextBlock Text="{local:Loc Key=ModelPerformance}" Foreground="{StaticResource DarkAccentLight}" FontWeight="SemiBold" FontSize="12" Margin="0,12,0,5"/>
+                                        <ListView x:Name="lstTelemetryModels" Background="Transparent" BorderThickness="0" Foreground="{StaticResource TextPrimaryBrush}" FontSize="11" MinHeight="80">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Name}" Width="170"/>
+                                                    <GridViewColumn Header="{local:Loc Key=Requests}" DisplayMemberBinding="{Binding TotalRequests}" Width="65"/>
+                                                    <GridViewColumn Header="{local:Loc Key=SuccessRate}" DisplayMemberBinding="{Binding SuccessRate}" Width="70"/>
+                                                    <GridViewColumn Header="{local:Loc Key=Latency}" DisplayMemberBinding="{Binding AverageLatency}" Width="80"/>
+                                                    <GridViewColumn Header="{local:Loc Key=Retries}" DisplayMemberBinding="{Binding RetryRequests}" Width="60"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </TabItem>
+
+                    </TabControl>
+
+                    <Border Grid.Row="0" Height="35" Width="110" HorizontalAlignment="Right" VerticalAlignment="Top"
+                            Background="{StaticResource DarkBackground}"
+                            BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1"
+                            Panel.ZIndex="2">
+                        <DockPanel LastChildFill="False" Margin="5,0,5,0">
+                            <TextBlock x:Name="tbTerminalStatus" Text="" Foreground="{StaticResource WarningBrush}"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" FontSize="12"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                                <Button x:Name="btnExpandBottomPanel" Content="↕" Width="32" Height="24" Margin="8,0,0,0"
+                                        Click="BtnExpandBottomPanel_Click" ToolTip="Tanılama panelini büyüt / küçült"/>
+                                <Button x:Name="btnDetachDiagnostics" Content="⤢" Width="32" Height="24" Margin="4,0,0,0"
+                                        Click="BtnDetachDiagnostics_Click" ToolTip="Tanılamayı ayrı pencerede aç"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+        
+
+        <GridSplitter Grid.Column="3" Width="6" Background="{StaticResource DarkBorder}" HorizontalAlignment="Stretch"/>
+
+        
+
+        <Border x:Name="rightChatPanelBorder" Grid.Column="4" Background="{StaticResource DarkPanelBackground}" BorderBrush="{StaticResource DarkBorder}" BorderThickness="1,0,0,0" SizeChanged="RightChatPanel_SizeChanged">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="55"/>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+
+
+                <!-- Üst Başlık Çubuğu (her zaman görünür) -->
+
+                <Border Grid.Row="0" Background="{StaticResource DarkPanelBackground}" Padding="8" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1" Height="55">
+
+                    <DockPanel>
+
+                        <TextBlock Text="🤖 AI Asistan" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{StaticResource DarkAccentLight}"/>
+
+                        <!-- Üst sağ uyarı alanı artık kullanılmıyor; işlem kontrolü uyarıları terminal sekmesinde gösteriliyor -->
+
+                        <TextBlock x:Name="tbProcessStatus" Visibility="Collapsed" Text="" Foreground="{StaticResource WarningBrush}" Margin="8,0,0,0" VerticalAlignment="Center" FontSize="12" />
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                            <Button x:Name="btnTools" Content="{local:Loc Key=Araclar}" Padding="6,3" Click="BtnTools_Click" Margin="0,0,4,0" ToolTip="{local:Loc Key=ModelinKullanabilecegiSistemAraclariniYonetmeniziSaglarOtomatikManuelModSecimiYapilabilir}">
+
+                                <Button.ContextMenu>
+
+                                    <ContextMenu x:Name="toolsMenu" />
+
+                                </Button.ContextMenu>
+
+                            </Button>
+
+                            <Button x:Name="btnAgents" Content="{local:Loc Key=AjanModulleri}" Padding="6,3" Click="BtnAgents_Click" Margin="0,0,4,0" ToolTip="{local:Loc Key=OzelGorevlerTestUIIcinUzmanlasmisAltAjanlariYonetir}" />
+
+
+
+                            <Button x:Name="btnKeyboardShortcuts" Content="{local:Loc Key=Kisayollar}" Margin="0,0,4,0" Padding="6,3" Click="BtnKeyboardShortcuts_Click" ToolTip="{local:Loc Key=ProgramIciKlavyeKisayollariniGoruntuler}"/>
+
+                            <Button x:Name="btnSettings" Content="{local:Loc Key=Ayarlar}" Padding="6,3" Click="BtnSettings_Click" ToolTip="{local:Loc Key=APIAnahtarlariGeminiGroqVbAIRouterAyarlariVeTemaSeciminiYonetir}"/>
+
+                        </StackPanel>
+
+                    </DockPanel>
+
+                </Border>
+
+
+
+                <!-- 1. SOHBET LİSTESİ GÖRÜNÜMÜ (Varsayılan) -->
+
+                <Border x:Name="chatListView" Grid.Row="1" Background="{StaticResource DarkPanelBackground}">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="Auto"/>
+
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+
+                        
+
+                        <!-- Başlık ve Yeni Sohbet Butonu -->
+
+                        <Border Grid.Row="0" Padding="20,30,20,20" HorizontalAlignment="Center">
+
+                            <StackPanel>
+
+                                <TextBlock x:Name="txtChatListTitle" Text="💬 Sohbetler" FontSize="28" FontWeight="Bold" Foreground="{StaticResource DarkAccentLight}" TextAlignment="Center"/>
+
+                                <Button x:Name="btnNewChatMain" Content="{local:Loc Key=StartNewChat}" FontSize="14" Padding="20,12" Margin="0,20,0,0" FontWeight="SemiBold"
+
+                                        HorizontalAlignment="Center" Click="BtnNewChat_Click" Cursor="Hand" Foreground="{StaticResource TextPrimaryBrush}">
+
+                                    <Button.Style>
+
+                                        <Style TargetType="Button">
+
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+
+                                                    <ControlTemplate TargetType="Button">
+
+                                                        <Border x:Name="border" Background="{StaticResource SurfaceAlt2Brush}" BorderBrush="{StaticResource DarkAccentLight}" 
+
+                                                                BorderThickness="1" CornerRadius="12" Padding="{TemplateBinding Padding}">
+
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                        </Border>
+
+                                                        <ControlTemplate.Triggers>
+
+                                                            <Trigger Property="IsMouseOver" Value="True">
+
+                                                                <Setter TargetName="border" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                                                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+
+                                                            </Trigger>
+
+                                                        </ControlTemplate.Triggers>
+
+                                                    </ControlTemplate>
+
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+
+                                    </Button.Style>
+
+                                </Button>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        
+
+                        <!-- Sohbet Listesi -->
+
+                        <Border Grid.Row="1" Padding="20,0,20,20">
+
+                            <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource DarkBorder}" BorderThickness="1" CornerRadius="16" Padding="10">
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                                    <ItemsControl x:Name="icChatSessions">
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate>
+
+                                                <Border Margin="4" Padding="16,12" CornerRadius="12" Cursor="Hand"
+
+                                                        Background="Transparent" MouseLeftButtonDown="ChatSession_Click">
+
+                                                    <Grid>
+
+                                                        <Grid.ColumnDefinitions>
+
+                                                            <ColumnDefinition Width="*"/>
+
+                                                            <ColumnDefinition Width="Auto"/>
+
+                                                            <ColumnDefinition Width="Auto"/>
+
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="0">
+
+                                                            <TextBlock Text="{Binding Name}" Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" FontSize="15" TextTrimming="CharacterEllipsis"/>
+
+                                                            <TextBlock Text="{Binding CreatedAt, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="0,6,0,0"/>
+
+                                                        </StackPanel>
+
+                                                        <Button Grid.Column="1" Content="✏️" FontSize="16" Width="40" Height="40"
+
+                                                                Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderThickness="0"
+
+                                                                Padding="0" Click="ChatSessionRename_Click" Tag="{Binding}"
+
+                                                                Cursor="Hand" ToolTip="{local:Loc Key=RenameChat}">
+
+                                                            <Button.Style>
+
+                                                                <Style TargetType="Button">
+
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                                                                    <Style.Triggers>
+
+                                                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+
+                                                                        </DataTrigger>
+
+                                                                    </Style.Triggers>
+
+                                                                </Style>
+
+                                                            </Button.Style>
+
+                                                        </Button>
+
+                                                        <Button Grid.Column="2" Content="🗑️" FontSize="16" Width="40" Height="40"
+
+                                                                Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderThickness="0"
+
+                                                                Padding="0" Click="ChatSessionDelete_Click" Tag="{Binding}"
+
+                                                                Cursor="Hand" ToolTip="{local:Loc Key=DeleteChat}">
+
+                                                            <Button.Style>
+
+                                                                <Style TargetType="Button">
+
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                                                                    <Style.Triggers>
+
+                                                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}" Value="True">
+
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+
+                                                                        </DataTrigger>
+
+                                                                    </Style.Triggers>
+
+                                                                </Style>
+
+                                                            </Button.Style>
+
+                                                        </Button>
+
+                                                    </Grid>
+
+                                                    <Border.Style>
+
+                                                        <Style TargetType="Border">
+
+                                                            <Style.Triggers>
+
+                                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+
+                                                                    <Setter Property="Background" Value="{StaticResource SelectedItemBrush}"/>
+
+                                                                </DataTrigger>
+
+                                                                <Trigger Property="IsMouseOver" Value="True">
+
+                                                                    <Setter Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                                                                </Trigger>
+
+                                                            </Style.Triggers>
+
+                                                        </Style>
+
+                                                    </Border.Style>
+
+                                                </Border>
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+                            </Border>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+
+
+                <!-- 2. SOHBET GÖRÜNÜMÜ (Sohbet seçildiğinde görünür) -->
+
+                <Border x:Name="chatView" Grid.Row="1" Background="{StaticResource DarkPanelBackground}" Visibility="Collapsed" CornerRadius="22" BorderBrush="{StaticResource DarkBorder}" BorderThickness="1" Padding="12">
+
+                    <Border.Effect>
+
+                        <DropShadowEffect Color="{StaticResource ShadowColor}" BlurRadius="14" Opacity="0.14" ShadowDepth="2"/>
+
+                    </Border.Effect>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="Auto"/>
+
+                            <RowDefinition Height="Auto"/>
+
+                            <RowDefinition Height="*"/>
+
+                            <RowDefinition Height="Auto"/>
+
+                        </Grid.RowDefinitions>
+
+
+
+                        <!-- Sohbet Adı Başlığı -->
+
+                        <Border Grid.Row="0" Padding="14" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1" CornerRadius="16">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <DockPanel Grid.Column="0">
+
+                                    <Ellipse x:Name="aiStatusEllipse" Width="12" Height="12" Fill="#4CAF50" Margin="0,0,8,0" VerticalAlignment="Center"/>
+
+                                    <TextBlock x:Name="txtAiStatus" Text="{local:Loc Key=AiReady}" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" FontSize="13" Margin="0,0,12,0"/>
+
+                                    <TextBlock x:Name="txtCurrentChatName" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center"/>
+
+                                </DockPanel>
+
+                                <Button x:Name="btnBackToList2" Grid.Column="1" Content="←" Padding="12,6" FontSize="12" Margin="0,0,8,0"
+
+                                        Background="Transparent" Foreground="{StaticResource DarkAccentLight}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"
+
+                                        Cursor="Hand" Click="BtnBackToList_Click">
+
+                                    <Button.Style>
+
+                                        <Style TargetType="Button">
+
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+
+                                                    <ControlTemplate TargetType="Button">
+
+                                                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+
+                                                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                        </Border>
+
+                                                        <ControlTemplate.Triggers>
+
+                                                            <Trigger Property="IsMouseOver" Value="True">
+
+                                                                <Setter TargetName="border" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                                                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+
+                                                            </Trigger>
+
+                                                        </ControlTemplate.Triggers>
+
+                                                    </ControlTemplate>
+
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+
+                                    </Button.Style>
+
+                                </Button>
+
+                                <Button x:Name="btnRenameCurrentChat" Grid.Column="2" Content="✏️" Padding="12,6" FontSize="12"
+
+                                        Background="Transparent" Foreground="{StaticResource DarkAccentLight}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"
+
+                                        Cursor="Hand" Click="BtnRenameCurrentChat_Click">
+
+                                    <Button.Style>
+
+                                        <Style TargetType="Button">
+
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+
+                                                    <ControlTemplate TargetType="Button">
+
+                                                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+
+                                                                BorderBrush="{TemplateBinding BorderBrush}" 
+
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+
+                                                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                        </Border>
+
+                                                        <ControlTemplate.Triggers>
+
+                                                            <Trigger Property="IsMouseOver" Value="True">
+
+                                                                <Setter TargetName="border" Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+
+                                                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+
+                                                            </Trigger>
+
+                                                        </ControlTemplate.Triggers>
+
+                                                    </ControlTemplate>
+
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+
+                                    </Button.Style>
+
+                                </Button>
+
+                            </Grid>
+
+                        </Border>
+
+
+
+                        <!-- Panel Seçici Sekmeler -->
+
+                        <Border Grid.Row="1" Padding="10" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource DarkBorder}" BorderThickness="0,0,0,1">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Button x:Name="btnShowChatHistory" Content="💬" Padding="10,6" Margin="0,0,8,0" Click="BtnShowChatHistory_Click" ToolTip="Mevcut sohbet."
+
+                                        Background="{StaticResource SurfaceAlt2Brush}" Foreground="{StaticResource TextPrimaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+                                <Button x:Name="btnShowTimeline" Content="📊" Padding="10,6" Margin="0,0,8,0" Click="BtnShowTimeline_Click" ToolTip="{local:Loc Key=TimeLineIleAICalismasiniIzlemeniziSaglar}"
+
+                                        Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+                                <Button x:Name="btnShowTodoList" Content="✅" Padding="10,6" Margin="0,0,8,0" Click="BtnShowTodoList_Click" ToolTip="{local:Loc Key=TODOGorevleriniTakipEtmeniziSaglar}"
+
+                                        Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+                                <Button x:Name="btnShowFileChanges" Content="📝" Padding="10,6" Margin="0,0,8,0" Click="BtnShowFileChanges_Click" ToolTip="{local:Loc Key=UzerindeDegisiklikYapilanDosyalariGormeniziSaglar}"
+
+                                        Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+                                <Button x:Name="btnMultiAgentToggle" Content="🎨" Padding="10,6" Margin="0,0,8,0" Click="BtnMultiAgentToggle_Click" MouseRightButtonUp="BtnMultiAgentToggle_MouseRightButtonUp" ToolTip="{local:Loc Key=MultiAgentToggleToolTip}"
+
+                                        Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+
+
+                        <!-- Dinamik Panel Alanı -->
+
+                        <Grid Grid.Row="2">
+
+                            <!-- Timeline Paneli -->
+
+                            <Border x:Name="timelinePanel" Background="{StaticResource SurfaceAlt1Brush}" CornerRadius="18" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" Padding="14">
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                                    <ItemsControl x:Name="icTimeline" ItemsSource="{Binding TimelineItems}">
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate>
+
+                                                <Border Padding="10" Margin="0,4" CornerRadius="10" 
+
+                                                        Background="{Binding IsCompleted, Converter={StaticResource BoolToBrushConverter}, ConverterParameter=#2a2a3a;#3a3a4a}"
+
+                                                        BorderBrush="{Binding IsFailed, Converter={StaticResource BoolToBrushConverter}, ConverterParameter=#ff5252;#444455}" 
+
+                                                        BorderThickness="1">
+
+                                                    <Grid>
+
+                                                        <Grid.ColumnDefinitions>
+
+                                                            <ColumnDefinition Width="Auto"/>
+
+                                                            <ColumnDefinition Width="*"/>
+
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="{Binding Icon}" FontSize="18" Margin="0,0,10,0" VerticalAlignment="Center"/>
+
+                                                        <StackPanel Grid.Column="1">
+
+                                                            <TextBlock Text="{Binding Message}" Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap"/>
+
+                                                            <TextBlock Text="{Binding Details}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" 
+
+                                                                       Visibility="{Binding Details, Converter={StaticResource NullToVisibilityConverter}}"
+
+                                                                       TextWrapping="Wrap" Margin="0,4,0,0"/>
+
+                                                        </StackPanel>
+
+                                                    </Grid>
+
+                                                </Border>
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+                            </Border>
+
+
+
+                            <!-- TODO Listesi Paneli -->
+
+                            <Border x:Name="todoPanel" Background="{StaticResource SurfaceAlt1Brush}" CornerRadius="18" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" Padding="14" Visibility="Collapsed">
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                                    <ItemsControl x:Name="icTodoList" ItemsSource="{Binding TodoItems}">
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate>
+
+                                                <Border Padding="10" Margin="0,4" CornerRadius="10" Background="{Binding StatusColor}">
+
+                                                    <Grid>
+
+                                                        <Grid.ColumnDefinitions>
+
+                                                            <ColumnDefinition Width="Auto"/>
+
+                                                            <ColumnDefinition Width="*"/>
+
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="{Binding StatusIcon}" FontSize="16" Margin="0,0,10,0" VerticalAlignment="Center"/>
+
+                                                        <TextBlock Grid.Column="1" Text="{Binding Description}" Foreground="White" TextWrapping="Wrap"/>
+
+                                                    </Grid>
+
+                                                </Border>
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+                            </Border>
+
+
+
+                            <!-- Dosya Değişiklikleri Paneli -->
+
+                            <Border x:Name="fileChangesPanel" Background="{StaticResource SurfaceAlt1Brush}" CornerRadius="18" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" Padding="14" Visibility="Collapsed">
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                                    <ItemsControl x:Name="icFileChanges" ItemsSource="{Binding FileChangeItems}">
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate>
+
+                                                <Border Padding="10" Margin="0,4" CornerRadius="10" Background="{StaticResource SurfaceAlt2Brush}" Cursor="Hand" MouseLeftButtonUp="FileChangeItem_Click">
+
+                                                    <Grid>
+
+                                                        <Grid.ColumnDefinitions>
+
+                                                            <ColumnDefinition Width="Auto"/>
+
+                                                            <ColumnDefinition Width="*"/>
+
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="{Binding Icon}" FontSize="16" Margin="0,0,10,0" VerticalAlignment="Center"/>
+
+                                                        <TextBlock Grid.Column="1" Text="{Binding FileName}" Foreground="{StaticResource TextPrimaryBrush}" TextWrapping="Wrap"/>
+
+                                                    </Grid>
+
+                                                </Border>
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+                            </Border>
+
+
+
+                            <!-- Varsayılan: Sohbet Geçmişi -->
+
+                            <Border x:Name="chatHistoryPanel" Background="Transparent" CornerRadius="0" BorderThickness="0" Padding="4,6" Visibility="Collapsed">
+
+                                 <ListBox x:Name="lstChatHistory" BorderThickness="0" Foreground="{StaticResource TextPrimaryBrush}"
+
+                                         Background="Transparent"
+
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+
+                                         ScrollViewer.CanContentScroll="False"
+
+                                         HorizontalContentAlignment="Stretch"
+
+                                     ItemContainerStyle="{StaticResource ChatListBoxItemStyle}"
+
+                                     Padding="8,10,8,14">
+
+                                    <ListBox.ItemsPanel>
+
+                                        <ItemsPanelTemplate>
+
+                                            <StackPanel/>
+
+                                        </ItemsPanelTemplate>
+
+                                    </ListBox.ItemsPanel>
+
+                                </ListBox>
+
+                            </Border>
+
+                        </Grid>
+
+
+
+                        <!-- Sohbet Girişi -->
+
+                        <Grid Grid.Row="3" Margin="12">
+
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="Auto"/>
+
+                                <RowDefinition Height="*"/>
+
+                            </Grid.RowDefinitions>
+
+
+
+                            <!-- Attachment preview area -->
+
+                            <Grid Grid.Row="0" Margin="0,0,0,8">
+
+                                <StackPanel>
+
+                                    <Border x:Name="noProjectWarningBanner" Background="#33FF9800" BorderBrush="#88FF9800" BorderThickness="1" CornerRadius="4" Padding="8,4" Margin="0,0,0,4" Visibility="Visible">
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <TextBlock Text="⚠️" Margin="0,0,6,0" VerticalAlignment="Center"/>
+
+                                            <TextBlock x:Name="txtNoProjectWarning" Text="{local:Loc Key=NoProjectWarning}" Foreground="{StaticResource WarningBrush}" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap"/>
+
+                                        </StackPanel>
+
+                                    </Border>
+
+                                    <TextBlock x:Name="txtAttachmentList" Text="" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Visibility="Collapsed" TextWrapping="Wrap" />
+
+                                </StackPanel>
+
+                            </Grid>
+
+
+
+                            <!-- TEK KART COMPOSER: Üst=Todo Progress (ileride), Chips, Orta=Metin, Alt=İnce Toolbar -->
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <!-- Todo Progress Bar (Adım 4'te doldurulacak) -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- Composer Kartı -->
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- 4A: Todo Progress Bar (Composer üstünde, Adım 4'te doldurulacak) -->
+                                <Border x:Name="todoProgressBar" Grid.Row="0" Visibility="Collapsed"
+                                        Background="{StaticResource SurfaceBrush}"
+                                        CornerRadius="10"
+                                        BorderBrush="{StaticResource DividerBrush}"
+                                        BorderThickness="1"
+                                        Margin="0,0,0,6"
+                                        Padding="10,4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" Background="Transparent"
+                                              Cursor="Hand"
+                                              MouseLeftButtonUp="TodoProgressToggle_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock x:Name="txtTodoProgressIcon" Text="🔄" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                                <TextBlock x:Name="txtTodoProgress" Text="0/0 tasks"
+                                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                                           FontFamily="{StaticResource ChatTextFont}"
+                                                           FontSize="12"
+                                                           VerticalAlignment="Center"/>
+                                                <TextBlock x:Name="txtTodoProgressChevron" Text=" ▾"
+                                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                                           FontSize="11"
+                                                           VerticalAlignment="Center"
+                                                           Margin="4,0,0,0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        <!-- Progress bar (visual) -->
+                                        <Grid Grid.Column="1" Margin="16,4,16,4" VerticalAlignment="Center">
+                                            <Border Background="{StaticResource DividerBrush}" CornerRadius="4" Height="4"/>
+                                            <Border x:Name="todoProgressFill" Background="#FF6C8CFF" CornerRadius="4" Height="4"
+                                                    HorizontalAlignment="Left" Width="0"/>
+                                        </Grid>
+                                        <Button Grid.Column="2" Content="🔽"
+                                                x:Name="btnTodoCollapse"
+                                                Click="TodoProgressToggle_Click"
+                                                Style="{StaticResource GhostButton}"
+                                                Width="24" Height="24" Padding="0" FontSize="10"
+                                                ToolTip="Görev listesini aç/kapat"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Composer Kartı (TEK BORDER) -->
+                                <Border Grid.Row="1" Background="{StaticResource SurfaceAlt2Brush}"
+                                        CornerRadius="16" BorderBrush="{StaticResource DividerBrush}"
+                                        BorderThickness="1" Padding="0" SnapsToDevicePixels="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <!-- Satır 1: Context Chips (üstte) -->
+                                            <RowDefinition Height="Auto"/>
+                                            <!-- Satır 2: Metin alanı -->
+                                            <RowDefinition Height="*"/>
+                                            <!-- Satır 3: İnce Toolbar (altta) -->
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Popup x:Name="popupAtMention"
+
+                                               PlacementTarget="{Binding ElementName=txtChatInput}"
+
+                                               Placement="Top"
+
+                                               StaysOpen="False"
+
+                                               AllowsTransparency="True">
+
+                                            <Border Background="{StaticResource SurfaceBrush}" 
+
+                                                    CornerRadius="8" BorderBrush="{StaticResource DividerBrush}"
+
+                                                    BorderThickness="1" MaxHeight="200">
+
+                                                <ListBox x:Name="lstAtMentions"
+
+                                                         Background="Transparent"
+
+                                                         BorderThickness="0"
+
+                                                         Foreground="{StaticResource TextPrimaryBrush}"
+
+                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+
+                                                         SelectionChanged="LstAtMentions_SelectionChanged"
+
+                                                         PreviewKeyDown="LstAtMentions_PreviewKeyDown"/>
+
+                                            </Border>
+
+                                        </Popup>
+
+                                        <!-- Satır 1: Context Chips (üstte) -->
+                                        <ItemsControl x:Name="icMentionedChips" Grid.Row="0" Visibility="Collapsed"
+                                                      ItemsSource="{Binding MentionedFiles}"
+                                                      Margin="10,10,10,0">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Tag="{Binding FullPath}"
+                                                            Background="{StaticResource SurfaceBrush}"
+                                                            BorderBrush="{StaticResource DividerBrush}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="10"
+                                                            Padding="8,3,4,3"
+                                                            Margin="0,0,6,6">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Icon}" FontSize="13" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                                            <TextBlock Text="{Binding DisplayName}"
+                                                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                                                       FontSize="12"
+                                                                       FontFamily="{StaticResource ChatTextFont}"
+                                                                       VerticalAlignment="Center"
+                                                                       TextTrimming="CharacterEllipsis"
+                                                                       MaxWidth="180"/>
+                                                            <Button Content="✕"
+                                                                    Width="20" Height="20"
+                                                                    Padding="0" Margin="4,0,0,0"
+                                                                    FontSize="10"
+                                                                    Background="Transparent"
+                                                                    Foreground="{StaticResource TextSecondaryBrush}"
+                                                                    BorderThickness="0"
+                                                                    Cursor="Hand"
+                                                                    VerticalAlignment="Center"
+                                                                    Click="MentionedChipRemove_Click"
+                                                                    Tag="{Binding FullPath}"
+                                                                    Style="{StaticResource GhostButton}"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+                                        <!-- Satır 2: Metin alanı -->
+                                        <Grid Grid.Row="1" Margin="0,4,0,0">
+                                            <TextBlock x:Name="txtChatInputPlaceholder"
+
+                                                       Text="{local:Loc Key=BirGorevYazinVeyaIleDosyaEkleyin}"
+
+                                                       Margin="14,8,14,8"
+
+                                                       Foreground="{StaticResource TextSecondaryBrush}"
+
+                                                       FontFamily="{StaticResource ChatTextFont}"
+
+                                                       FontSize="14"
+
+                                                       Opacity="0.72"
+
+                                                       IsHitTestVisible="False"
+
+                                                       VerticalAlignment="Top"
+
+                                                       Panel.ZIndex="1"/>
+
+                                            <TextBox x:Name="txtChatInput"
+
+                                                     AcceptsReturn="True" TextWrapping="Wrap"
+
+                                                     VerticalScrollBarVisibility="Auto"
+
+                                                     MinHeight="56" MaxHeight="240"
+
+                                                     VerticalAlignment="Stretch"
+
+                                                     VerticalContentAlignment="Top"
+
+                                                     Background="Transparent"
+
+                                                     Foreground="{StaticResource TextPrimaryBrush}"
+
+                                                     BorderThickness="0"
+
+                                                     FontFamily="{StaticResource ChatTextFont}"
+
+                                                     FontSize="14"
+
+                                                     Padding="14,8,14,8"
+
+                                                     Margin="0"
+
+                                                     TextChanged="TxtChatInput_TextChanged"
+
+                                                     PreviewKeyDown="TxtChatInput_PreviewKeyDown"
+
+                                                     Panel.ZIndex="2"/>
+                                        </Grid>
+
+                                        <!-- Satır 3: İNCE TOOLBAR (altta) -->
+                                        <Grid Grid.Row="2" Margin="6,2,6,6">
+                                            <Grid.ColumnDefinitions>
+                                                <!-- Sol: Ekleme (📎) + Context Selector + Model Selector -->
+                                                <ColumnDefinition Width="Auto"/>
+                                                <!-- Esnek boşluk -->
+                                                <ColumnDefinition Width="*"/>
+                                                <!-- Sağ: Ses, Temizle, Gönder/Durdur -->
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Sol Toolbar Grubu -->
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                 <Button x:Name="btnAttach" Content="📎" Click="BtnAttach_Click"
+                                                         ToolTip="Dosya ekle"
+                                                         Width="32" Height="28" Padding="0"
+                                                         FontSize="13"
+                                                         Margin="2,0" Style="{StaticResource GhostButton}"/>
+                                                 <Separator Width="4" Opacity="0"/>
+                                                 <!-- Context Selector -->
+                                                 <ComboBox x:Name="cmbContextMode"
+                                                           Width="88" Height="28" Padding="4,2,4,2"
+                                                           FontSize="11.5"
+                                                           Margin="2,0"
+                                                           SelectedIndex="0"
+                                                           ToolTip="Bağlam Modu Seçimi">
+                                                     <ComboBoxItem Content="⚡ Auto"/>
+                                                     <ComboBoxItem Content="📄 Dosya"/>
+                                                     <ComboBoxItem Content="✂️ Seçim"/>
+                                                     <ComboBoxItem Content="🔍 Proje"/>
+                                                     <ComboBoxItem Content="📚 RAG"/>
+                                                 </ComboBox>
+                                                 <Separator Width="4" Opacity="0"/>
+                                                 <!-- Model Selector -->
+                                                 <ComboBox x:Name="cmbComposerModel"
+                                                           Width="105" Height="28" Padding="4,2,4,2"
+                                                           FontSize="11.5"
+                                                           Margin="2,0"
+                                                           SelectedIndex="0"
+                                                           ToolTip="Hızlı Model Seçimi"
+                                                           SelectionChanged="CmbComposerModel_SelectionChanged">
+                                                     <ComboBoxItem Content="🤖 Otomatik"/>
+                                                     <ComboBoxItem Content="🏠 Yerel Model"/>
+                                                     <ComboBoxItem Content="⚡ Api Servisi"/>
+                                                     <ComboBoxItem Content="☁️ Bulut Model"/>
+                                                 </ComboBox>
+                                             </StackPanel>
+
+                                            <!-- Sağ Toolbar Grubu -->
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Button x:Name="btnVoice" Content="🎤"
+                                                        PreviewMouseLeftButtonDown="BtnVoice_PreviewMouseDown"
+                                                        PreviewMouseLeftButtonUp="BtnVoice_PreviewMouseUp"
+                                                        ToolTip="{local:Loc Key=BasiliTutarakKonusPushToTalk}"
+                                                        Width="32" Height="28" Padding="0"
+                                                        FontSize="13"
+                                                        Margin="2,0" Style="{StaticResource GhostButton}" IsEnabled="True"/>
+                                                <Button x:Name="btnClearHistory" Content="🗑️"
+                                                        Click="BtnClearHistory_Click"
+                                                        ToolTip="{local:Loc Key=SohbetGecmisiniTemizleProjeAyarlariKorunur}"
+                                                        Width="32" Height="28" Padding="0"
+                                                        FontSize="13"
+                                                        Margin="2,0" Style="{StaticResource GhostButton}"/>
+                                                <Separator Width="6" Opacity="0"/>
+                                                <!-- Gönder / Durdur butonları -->
+                                                <Grid Margin="4,0">
+                                                    <Button x:Name="btnSend" Content="{local:Loc Key=GonderEnter}"
+                                                            Click="BtnSend_Click"
+                                                            Width="90" Height="28" Padding="10,0"
+                                                            FontSize="13"
+                                                            Style="{StaticResource PrimaryButton}"/>
+                                                    <Button x:Name="btnStop" Content="{local:Loc Key=Durdur}"
+                                                            Click="BtnStop_Click"
+                                                            Visibility="Collapsed"
+                                                            Width="90" Height="28" Padding="8,0"
+                                                            FontSize="12"
+                                                            Style="{StaticResource SecondaryButton}"
+                                                            Foreground="White" Background="#FFc0392b" BorderBrush="Transparent"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </Grid>
+                                </Border>
+
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+        <StackPanel x:Name="toastOverlay" Grid.ColumnSpan="5" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,52,20,0">
+
+            <ItemsControl x:Name="toastItemsControl">
+
+                <ItemsControl.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+
+                        <StackPanel/>
+
+                    </ItemsPanelTemplate>
+
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border Style="{StaticResource ToastBorderStyle}" Background="{Binding Background}">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding Icon}" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+
+                                <TextBlock Grid.Column="1" Text="{Binding Message}" Style="{StaticResource ToastTextStyle}" VerticalAlignment="Center"/>
+
+                                <Button Grid.Column="2" Content="✕" Width="24" Height="24" Margin="8,0,0,0" Padding="0" FontSize="12" Click="ToastCloseButton_Click" Tag="{Binding Id}"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
+
+
+
+        <Border x:Name="paletteOverlay" Grid.ColumnSpan="5" Background="{StaticResource OverlayBackdropBrush}" Visibility="Collapsed">
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Width="640">
+
+                <Border Background="{StaticResource DarkPanelBackground}" CornerRadius="8" Padding="10" BorderBrush="{StaticResource DarkBorder}" BorderThickness="1">
+
+                    <StackPanel>
+
+                        <TextBox x:Name="txtCommandPalette" Height="34" FontSize="14" Margin="0,0,0,10"
+
+                                 VerticalContentAlignment="Center" TextChanged="TxtCommandPalette_TextChanged"
+
+                                 KeyDown="TxtCommandPalette_KeyDown" Background="{StaticResource PanelBrush}" Foreground="{StaticResource TextPrimaryBrush}"/>
+
+                        <ListBox x:Name="lstCommandPalette" Height="320" MouseDoubleClick="LstCommandPalette_MouseDoubleClick">
+
+                            <ListBox.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <StackPanel Margin="4">
+
+                                        <TextBlock Text="{Binding Label}" FontWeight="SemiBold" Foreground="{StaticResource DarkText}"/>
+
+                                        <TextBlock Text="{Binding Description}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap"/>
+
+                                    </StackPanel>
+
+                                </DataTemplate>
+
+                            </ListBox.ItemTemplate>
+
+                        </ListBox>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+
+
+        <!-- Inline Edit (Ctrl+K) Overlay -->
+
+        <Border x:Name="inlineEditOverlay" Grid.ColumnSpan="5" Background="#80000000" Visibility="Collapsed" MouseLeftButtonDown="InlineEditOverlay_MouseLeftButtonDown">
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="500">
+
+                <Border Background="{StaticResource DarkPanelBackground}" CornerRadius="8" Padding="15" BorderBrush="{StaticResource AccentBrush}" BorderThickness="1">
+
+                    <Border.Effect>
+
+                        <DropShadowEffect Color="Black" BlurRadius="20" Opacity="0.5" Direction="270" ShadowDepth="5"/>
+
+                    </Border.Effect>
+
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+
+                            <TextBlock x:Name="txtInlineEditTitle" Text="{local:Loc Key=AIIleDuzenle}" FontWeight="Bold" Foreground="{StaticResource DarkAccentLight}" FontSize="14"/>
+
+                            <TextBlock x:Name="tbInlineEditStatus" Text="{local:Loc Key=SeciliKodGuncellenecek}" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+                        </StackPanel>
+
+                        <TextBox x:Name="txtInlineEditPrompt" Height="60" TextWrapping="Wrap" AcceptsReturn="True" 
+
+                                 Background="{StaticResource SurfaceAlt1Brush}" Foreground="{StaticResource TextPrimaryBrush}" 
+
+                                 BorderBrush="{StaticResource DarkBorder}" BorderThickness="1" Padding="8"
+
+                                 KeyDown="TxtInlineEditPrompt_KeyDown"
+
+                                 ToolTip="{local:Loc Key=IsteginiziYazinVeEnterAVeyaCtrlEnterBasin}"/>
+
+                        
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+
+                            <Button x:Name="btnInlineEditCancel" Content="{local:Loc Key=InlineEditCancelEsc}" Width="80" Padding="5" Margin="0,0,10,0" Click="BtnInlineEditCancel_Click" Background="{StaticResource SurfaceAlt1Brush}" Foreground="{StaticResource TextPrimaryBrush}"/>
+
+                            <Button x:Name="btnInlineEditApply" Content="Uygula (Enter)" Width="100" Padding="5" Click="BtnInlineEditApply_Click" Background="{StaticResource AccentBrush}" Foreground="White" FontWeight="SemiBold"/>
+
+                        </StackPanel>
+
+                        
+
+                        <ProgressBar x:Name="pbInlineEditLoading" IsIndeterminate="True" Height="4" Margin="0,10,0,0" Visibility="Collapsed" Foreground="{StaticResource AccentBrush}"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+    </DockPanel>
+
+</Window>
+

@@ -1,0 +1,100 @@
+{"id":"001","task":"Web tabanlı çalışan basit bir dijital saat yap."}
+{"id":"002","task":"README dosyasını güncelle."}
+{"id":"003","task":"Projeyi derle ve oluşan hataları düzelt."}
+{"id":"004","task":"Projodaki README.md dosyasını oku ve projenin ne yaptığını özetle."}
+{"id":"005","task":"index.html dosyasının mevcut içeriğini incele."}
+{"id":"006","task":"Projede bulunan tüm JavaScript dosyalarını listele."}
+{"id":"007","task":"Projede TODO olarak bırakılmış görevleri bul."}
+{"id":"008","task":"CSS dosyalarındaki kullanılmayan stilleri tespit et."}
+{"id":"009","task":"Login ekranındaki hatanın nedenini bul ve düzelt."}
+{"id":"010","task":"Uygulamanın ana sayfasına bir iletişim bölümü ekle."}
+{"id":"011","task":"Projeye koyu tema desteği ekle."}
+{"id":"012","task":"Mevcut HTML sayfasına responsive tasarım desteği ekle."}
+{"id":"013","task":"Projede kullanılan bağımlılıkları kontrol et."}
+{"id":"014","task":"Package.json dosyasındaki bağımlılıkları incele ve güncel olmayanları belirle."}
+{"id":"015","task":"Projeyi çalıştır ve oluşan hataları raporla."}
+{"id":"016","task":"Projeyi derle ve başarılı olup olmadığını kontrol et."}
+{"id":"017","task":"Projeyi derledikten sonra testleri çalıştır."}
+{"id":"018","task":"Testlerden hangilerinin başarısız olduğunu belirle."}
+{"id":"019","task":"Uygulamadaki kullanıcı kayıt işlemini incele ve hata varsa düzelt."}
+{"id":"020","task":"Uygulamadaki mevcut navigasyon yapısını incele."}
+{"id":"021","task":"Yeni bir ayarlar sayfası oluştur."}
+{"id":"022","task":"Mevcut ayarlar sayfasına bildirimleri açıp kapatmak için bir seçenek ekle."}
+{"id":"023","task":"Projede kullanılan renkleri incele ve ana renklerin nerelerde tanımlandığını bul."}
+{"id":"024","task":"Uygulamanın ana ekranındaki başlığı değiştir."}
+{"id":"025","task":"Bir JSON dosyasındaki kullanıcı verilerini okuyup uygulamada kullanılabilir hale getir."}
+{"id":"026","task":"Projede kullanıcı bilgilerinin hangi dosyalarda işlendiğini bul."}
+{"id":"027","task":"Kod içerisinde sabit olarak yazılmış API URL'lerini bul."}
+{"id":"028","task":"API URL'lerinin configuration üzerinden okunmasını sağlayacak şekilde projeyi düzenle."}
+{"id":"029","task":"Projede kullanılan environment variable'ları tespit et."}
+{"id":"030","task":"Uygulamadaki hata mesajlarını daha anlaşılır hale getir."}
+{"id":"031","task":"Yeni bir kullanıcı profil ekranı oluştur."}
+{"id":"032","task":"Profil ekranına kullanıcı adı ve e-posta bilgilerini gösteren alanlar ekle."}
+{"id":"033","task":"Mevcut profil ekranının mobil cihazlarda düzgün görünmesini sağla."}
+{"id":"034","task":"Uygulamaya basit bir arama kutusu ekle."}
+{"id":"035","task":"Arama kutusunun mevcut liste üzerinde filtreleme yapmasını sağla."}
+{"id":"036","task":"Uygulamadaki liste elemanlarının alfabetik olarak sıralanmasını sağla."}
+{"id":"037","task":"Projede aynı işi yapan tekrar eden kod bloklarını bul."}
+{"id":"038","task":"Tekrar eden yardımcı fonksiyonları ortak bir yapıya taşı."}
+{"id":"039","task":"Kod içerisindeki kullanılmayan değişkenleri tespit et."}
+{"id":"040","task":"Kod içerisindeki kullanılmayan using/import ifadelerini temizle."}
+{"id":"041","task":"Uygulamanın başlangıç akışını incele ve hangi dosyanın ilk çalıştığını belirle."}
+{"id":"042","task":"Ana uygulama sınıfını bul ve sorumluluklarını incele."}
+{"id":"043","task":"Projede hata yönetiminin nasıl yapıldığını incele."}
+{"id":"044","task":"Yakalanmayan exception oluşabilecek noktaları bul."}
+{"id":"045","task":"Hata loglarının hangi dosyada veya serviste tutulduğunu bul."}
+{"id":"046","task":"Uygulamaya temel bir loglama mekanizması ekle."}
+{"id":"047","task":"Loglama seviyelerini bilgi, uyarı ve hata olarak ayır."}
+{"id":"048","task":"Uygulamanın performans açısından en yavaş görünen kod bölümlerini incele."}
+{"id":"049","task":"Projede gereksiz tekrar eden API çağrılarını bul."}
+{"id":"050","task":"Bir API çağrısının başarısız olması durumunda tekrar deneme mekanizması ekle."}
+{"id":"051","task":"İnternette kullandığımız kütüphanenin güncel API kullanımını araştır."}
+{"id":"052","task":"İnternette güncel bir JavaScript tarih kütüphanesi araştır ve uygun olanı belirle."}
+{"id":"053","task":"Kullandığımız frameworkün güncel sürümünde önerilen routing yöntemini araştır."}
+{"id":"054","task":"Projede kullanılan eski bir API'nin güncel kullanım şeklini araştır."}
+{"id":"055","task":"İnternette bu hata mesajının olası nedenlerini araştır ve çözüm önerilerini bul."}
+{"id":"056","task":"Bir projede SQLite kullanmak için güncel ve önerilen yöntemi araştır."}
+{"id":"057","task":"Uygulamaya grafik eklemek için uygun güncel bir JavaScript kütüphanesi araştır."}
+{"id":"058","task":"Kullandığımız CSS frameworkünün responsive tasarım için önerdiği yöntemi araştır."}
+{"id":"059","task":"Bir REST API için güncel authentication yöntemlerini araştır."}
+{"id":"060","task":"Kullandığımız kütüphanenin resmi dokümantasyonunda dosya yükleme örneğini bul."}
+{"id":"061","task":"Projeye yeni bir özellik eklemeden önce mevcut yapıyı inceleyip uygulanabilecek bir plan oluştur."}
+{"id":"062","task":"Uygulamaya kullanıcı bildirimleri eklemek için hangi dosyaların değiştirilmesi gerektiğini belirle ve plan oluştur."}
+{"id":"063","task":"Projeye dark mode eklemek için önce mevcut stil yapısını incele ve uygulama planı hazırla."}
+{"id":"064","task":"Mevcut authentication sistemini incele ve iki faktörlü doğrulama eklemek için bir plan oluştur."}
+{"id":"065","task":"Uygulamaya çoklu dil desteği eklemek için mevcut yapıyı analiz et ve uygulanabilir bir plan hazırla."}
+{"id":"066","task":"Mevcut projeyi incele ve performansını artırmak için yapılabilecek değişiklikleri planla."}
+{"id":"067","task":"Projeye yeni bir veritabanı katmanı eklemek için gerekli adımları planla."}
+{"id":"068","task":"Uygulamadaki kullanıcı profil sistemini yeniden düzenlemek için bir uygulama planı oluştur."}
+{"id":"069","task":"Projeye tema seçimi eklemek için gerekli dosya ve değişiklikleri belirleyen bir plan oluştur."}
+{"id":"070","task":"Mevcut kod yapısını incele ve büyük bir refactoring işlemi için uygulanabilir bir plan hazırla."}
+{"id":"071","task":"Projede bulunan bir bugı araştır, ilgili dosyaları incele ve çözümünü uygula."}
+{"id":"072","task":"Uygulama açıldığında oluşan hatayı bul ve düzelt."}
+{"id":"073","task":"Kullanıcı giriş yaptıktan sonra sayfanın boş kalmasına neden olan problemi bul."}
+{"id":"074","task":"Form gönderildiğinde verilerin kaydedilmemesi sorununu araştır ve düzelt."}
+{"id":"075","task":"Mobil görünümde taşan butonların nedenini bul ve düzelt."}
+{"id":"076","task":"Uygulamadaki tarihlerin yanlış gösterilmesine neden olan hatayı bul."}
+{"id":"077","task":"API'den gelen verilerin ekranda görünmemesine neden olan problemi araştır."}
+{"id":"078","task":"Uygulamada bazı kullanıcıların giriş yapamamasına neden olan problemi incele ve düzelt."}
+{"id":"079","task":"Console'da görünen JavaScript hatasının kaynağını bul ve düzelt."}
+{"id":"080","task":"Testlerden birinin başarısız olmasına neden olan kod değişikliğini bul ve düzelt."}
+{"id":"081","task":"Projede yapılan son değişiklikleri incele ve hangi dosyaların değiştiğini belirle."}
+{"id":"082","task":"Git deposundaki mevcut branchleri listele."}
+{"id":"083","task":"Çalışma dizininde commit edilmemiş değişiklikleri kontrol et."}
+{"id":"084","task":"Son committe hangi dosyaların değiştiğini incele."}
+{"id":"085","task":"Projede büyük dosyaları bul ve boyutlarını kontrol et."}
+{"id":"086","task":"Projede derleme çıktısı olarak oluşmuş gereksiz dosyaları tespit et."}
+{"id":"087","task":"Projede kaynak kodu dışında yanlışlıkla tutulmuş gizli veya hassas bilgileri ara."}
+{"id":"088","task":"Configuration dosyalarında API anahtarlarının doğrudan yazılıp yazılmadığını kontrol et."}
+{"id":"089","task":"Projede kullanılmayan eski configuration ayarlarını bul."}
+{"id":"090","task":"Projede dokümantasyonu eksik olan ana bileşenleri belirle."}
+{"id":"091","task":"Web tabanlı basit bir yapılacaklar uygulaması oluştur."}
+{"id":"092","task":"Kullanıcıların görev ekleyip silebildiği basit bir web uygulaması oluştur."}
+{"id":"093","task":"Mevcut web uygulamasına localStorage kullanarak veri kalıcılığı ekle."}
+{"id":"094","task":"Web uygulamasına basit bir responsive navbar ekle."}
+{"id":"095","task":"Mevcut uygulamaya kullanıcıların şifrelerini sıfırlayabileceği bir akış ekle."}
+{"id":"096","task":"Uygulamaya hata durumunda kullanıcıya gösterilecek bir hata sayfası ekle."}
+{"id":"097","task":"Projeyi incele, gerekli dosyaları belirle, uygulanacak çözüm için plan oluştur ve ardından değişiklikleri yap."}
+{"id":"098","task":"Bir web uygulamasındaki eski API kullanımını araştır, mevcut kodu incele ve güncel API'ye geçir."}
+{"id":"099","task":"Projeyi derle, oluşan hataları incele, ilgili dosyaları bul ve hataları düzelttikten sonra tekrar derle."}
+{"id":"100","task":"Mevcut projeyi analiz et, yeni bir kullanıcı ayarları sistemi için plan oluştur, gerekli dosyaları değiştir ve ardından projeyi kontrol et."}

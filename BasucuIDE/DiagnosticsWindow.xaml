@@ -1,0 +1,12 @@
+<Window x:Class="mdaiAgent.DiagnosticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tanılama"
+        Width="1100"
+        Height="720"
+        MinWidth="720"
+        MinHeight="420"
+        WindowStartupLocation="CenterOwner"
+        Background="#11151c">
+    <Grid x:Name="hostGrid" Background="#11151c"/>
+</Window>

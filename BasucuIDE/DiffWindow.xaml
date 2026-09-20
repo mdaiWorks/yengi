@@ -1,0 +1,129 @@
+<Window x:Class="mdaiAgent.DiffWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:local="clr-namespace:mdaiAgent"
+        Title="{local:Loc Key=DegisiklikleriInceleMdaiAgent}"
+        Height="720" Width="1240" MinHeight="560" MinWidth="900"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextPrimaryBrush}">
+    <Window.Resources>
+        <Style x:Key="DiffSecondaryButton" TargetType="Button" BasedOn="{StaticResource GhostButton}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="132"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontFamily" Value="Segoe UI Variable, Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style x:Key="DiffPrimaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="150"/>
+            <Setter Property="FontFamily" Value="Segoe UI Variable, Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="{StaticResource SuccessBrush}"/>
+            <Setter Property="Foreground" Value="#FF0D1117"/>
+        </Style>
+    </Window.Resources>
+    <Border Margin="16" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="12">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="28" ShadowDepth="8" Opacity="0.45"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="104"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="82"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="0,0,0,1" CornerRadius="12,12,0,0" Padding="24,18">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="28" Height="28" CornerRadius="8" Background="#2258A6FF" Margin="0,0,10,0">
+                                <TextBlock Text="&#x21C4;" Foreground="{StaticResource PrimaryBrush}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="CODE REVIEW" FontFamily="Segoe UI Variable, Segoe UI" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource PrimaryBrush}"/>
+                                <TextBlock Text="AI değişiklik önerisi" FontFamily="Segoe UI Variable, Segoe UI" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock x:Name="tbFilePath" Text="Dosya" Margin="38,8,0,0" FontFamily="Cascadia Code, Cascadia Mono, Consolas" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Background="#18F85149" BorderBrush="#55F85149" BorderThickness="1" CornerRadius="16" Padding="12,6" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="REMOVED" FontFamily="Segoe UI Variable, Segoe UI" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource ErrorBrush}" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="tbRemovedStats" Text="0" FontFamily="Cascadia Code, Cascadia Mono, Consolas" FontSize="12" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#183FB950" BorderBrush="#553FB950" BorderThickness="1" CornerRadius="16" Padding="12,6">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ADDED" FontFamily="Segoe UI Variable, Segoe UI" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="tbAddedStats" Text="0" FontFamily="Cascadia Code, Cascadia Mono, Consolas" FontSize="12" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1" Margin="20,18,20,14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="18"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="#12F85149" BorderBrush="#55F85149" BorderThickness="1" CornerRadius="9">
+                    <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Border Background="#18F85149" BorderBrush="#24F85149" BorderThickness="0,0,0,1" CornerRadius="9,9,0,0" Padding="14,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource ErrorBrush}" Margin="0,0,9,0"/>
+                                <TextBlock Text="ORIGINAL" FontFamily="Segoe UI Variable, Segoe UI" FontSize="11" FontWeight="Bold" Foreground="{StaticResource ErrorBrush}"/>
+                                <TextBlock Text="  mevcut içerik" FontFamily="Segoe UI Variable, Segoe UI" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="1" Margin="1" Background="{StaticResource BackgroundBrush}" CornerRadius="0,0,8,8">
+                            <avalonedit:TextEditor x:Name="editorOld" FontFamily="Cascadia Code, Cascadia Mono, Consolas" FontSize="13" Background="{StaticResource BackgroundBrush}" Foreground="{StaticResource TextPrimaryBrush}" IsReadOnly="True" ShowLineNumbers="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Rectangle Height="1" Fill="{StaticResource DividerBrush}"/>
+                    <Border Width="28" Height="28" Background="{StaticResource SurfaceAlt2Brush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1" CornerRadius="14" HorizontalAlignment="Center">
+                        <TextBlock Text="&#x2192;" Foreground="{StaticResource PrimaryBrush}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
+                <Border Grid.Column="2" Background="#123FB950" BorderBrush="#553FB950" BorderThickness="1" CornerRadius="9">
+                    <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Border Background="#183FB950" BorderBrush="#243FB950" BorderThickness="0,0,0,1" CornerRadius="9,9,0,0" Padding="14,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Ellipse Width="8" Height="8" Fill="{StaticResource SuccessBrush}" Margin="0,0,9,0"/>
+                                <TextBlock Text="PROPOSED" FontFamily="Segoe UI Variable, Segoe UI" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}"/>
+                                <TextBlock Text="  AI önerisi" FontFamily="Segoe UI Variable, Segoe UI" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="1" Margin="1" Background="{StaticResource BackgroundBrush}" CornerRadius="0,0,8,8">
+                            <avalonedit:TextEditor x:Name="editorNew" FontFamily="Cascadia Code, Cascadia Mono, Consolas" FontSize="13" Background="{StaticResource BackgroundBrush}" Foreground="{StaticResource TextPrimaryBrush}" IsReadOnly="True" ShowLineNumbers="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Border Grid.Row="2" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="0,1,0,0" CornerRadius="0,0,12,12" Padding="24,16">
+                <Grid>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="İnceleme tamamlandı mı?" FontFamily="Segoe UI Variable, Segoe UI" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        <TextBlock Text="Değişiklikleri uygulamadan önce iki tarafı da kontrol edin." FontFamily="Segoe UI Variable, Segoe UI" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,3,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="btnReject" Content="{local:Loc Key=ReddetVeIptalEt}" Style="{StaticResource DiffSecondaryButton}" Click="BtnReject_Click"/>
+                        <Button x:Name="btnAccept" Content="{local:Loc Key=ApplyChanges}" Style="{StaticResource DiffPrimaryButton}" Click="BtnAccept_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

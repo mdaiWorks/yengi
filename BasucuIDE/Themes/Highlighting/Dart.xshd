@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="Dart (mdaiAgent)" extensions=".dart" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+    <!-- VS Code Dark+ renk paleti -->
+    <Color name="Comment"    foreground="#6A9955" />
+    <Color name="String"     foreground="#CE9178" />
+    <Color name="Keyword"    foreground="#569CD6" fontWeight="bold" />
+    <Color name="Number"     foreground="#B5CEA8" />
+    <Color name="Function"   foreground="#DCDCAA" />
+    <Color name="TypeName"   foreground="#4EC9B0" />
+    <Color name="Operator"   foreground="#D4D4D4" />
+    <Color name="BuiltIn"    foreground="#4EC9B0" />
+
+    <RuleSet>
+        <Span color="Comment">
+            <Begin>//</Begin>
+        </Span>
+        <Span color="Comment" multiline="true">
+            <Begin>/\*</Begin>
+            <End>\*/</End>
+        </Span>
+
+        <Span color="String" multiline="true">
+            <Begin>"""</Begin>
+            <End>"""</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+        <Span color="String" multiline="true">
+            <Begin>'''</Begin>
+            <End>'''</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+
+        <Span color="String">
+            <Begin>"</Begin>
+            <End>"</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+        
+        <Span color="String">
+            <Begin>'</Begin>
+            <End>'</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+
+        <Keywords color="Keyword">
+            <Word>abstract</Word><Word>as</Word><Word>assert</Word><Word>async</Word>
+            <Word>await</Word><Word>break</Word><Word>case</Word><Word>catch</Word>
+            <Word>class</Word><Word>const</Word><Word>continue</Word><Word>covariant</Word>
+            <Word>default</Word><Word>deferred</Word><Word>do</Word><Word>dynamic</Word>
+            <Word>else</Word><Word>enum</Word><Word>export</Word><Word>extends</Word>
+            <Word>extension</Word><Word>external</Word><Word>factory</Word><Word>false</Word>
+            <Word>final</Word><Word>finally</Word><Word>for</Word><Word>Function</Word>
+            <Word>get</Word><Word>hide</Word><Word>if</Word><Word>implements</Word>
+            <Word>import</Word><Word>in</Word><Word>interface</Word><Word>is</Word>
+            <Word>late</Word><Word>library</Word><Word>mixin</Word><Word>new</Word>
+            <Word>null</Word><Word>on</Word><Word>operator</Word><Word>part</Word>
+            <Word>required</Word><Word>rethrow</Word><Word>return</Word><Word>set</Word>
+            <Word>show</Word><Word>static</Word><Word>super</Word><Word>switch</Word>
+            <Word>sync</Word><Word>this</Word><Word>throw</Word><Word>true</Word>
+            <Word>try</Word><Word>typedef</Word><Word>var</Word><Word>void</Word>
+            <Word>while</Word><Word>with</Word><Word>yield</Word>
+        </Keywords>
+
+        <Keywords color="TypeName">
+            <Word>int</Word><Word>double</Word><Word>String</Word><Word>bool</Word>
+            <Word>List</Word><Word>Set</Word><Word>Map</Word><Word>Future</Word>
+            <Word>Stream</Word><Word>Iterable</Word><Word>Object</Word>
+            <Word>Widget</Word><Word>StatefulWidget</Word><Word>StatelessWidget</Word>
+        </Keywords>
+
+        <!-- Method/Function calls -->
+        <Rule color="Function">[\w]+\(</Rule>
+
+        <!-- Numbers -->
+        <Rule color="Number">0x[\da-fA-F]+</Rule>
+        <Rule color="Number">[\d]+\.[\d]+</Rule>
+        <Rule color="Number">[\d]+</Rule>
+
+        <Rule color="Operator">[+\-*/=&lt;&gt;!|&amp;^~%?:,.;]</Rule>
+    </RuleSet>
+</SyntaxDefinition>

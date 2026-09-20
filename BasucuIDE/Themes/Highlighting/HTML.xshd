@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="HTML (mdaiAgent)" extensions=".html;.htm" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<!-- VS Code Dark+ Renkleri -->
+	<Color name="Comment" foreground="#6A9955" />
+	<Color name="TagBracket" foreground="#808080" />
+	<Color name="TagName" foreground="#569CD6" fontWeight="bold" />
+	<Color name="AttributeName" foreground="#9CDCFE" />
+	<Color name="AttributeValue" foreground="#CE9178" />
+	<Color name="Entity" foreground="#DCDCAA" />
+	<Color name="Doctype" foreground="#569CD6" />
+
+	<RuleSet>
+		<Span color="Comment" multiline="true">
+			<Begin>&lt;!--</Begin>
+			<End>--&gt;</End>
+		</Span>
+		
+		<!-- DOCTYPE -->
+		<Span color="Doctype" multiline="true">
+			<Begin>&lt;!DOCTYPE</Begin>
+			<End>&gt;</End>
+		</Span>
+		
+		<Span multiline="true">
+			<Begin>&lt;</Begin>
+			<End>&gt;</End>
+			<RuleSet>
+				<Rule color="TagBracket">&lt; | &gt; | / | =</Rule>
+				<Span color="AttributeValue" multiline="true">
+					<Begin>"</Begin>
+					<End>"</End>
+				</Span>
+				<Span color="AttributeValue" multiline="true">
+					<Begin>'</Begin>
+					<End>'</End>
+				</Span>
+				<!-- Attribute names: letter/digit followed by more chars, then optionally '=' -->
+				<!-- NO lookahead: just match the attribute name pattern itself -->
+				<Rule color="AttributeName">[a-zA-Z][a-zA-Z0-9_.:-]+</Rule>
+				<Rule color="AttributeName">[a-zA-Z]</Rule>
+				<!-- Tag names: must start after < or </ — use Span Begin to capture / -->
+				<!-- NO lookbehind: tag name is any letter sequence inside < > -->
+				<Rule color="TagName">[a-zA-Z][a-zA-Z0-9:-]+</Rule>
+				<Rule color="TagName">[a-zA-Z]</Rule>
+			</RuleSet>
+		</Span>
+		
+		<!-- Entities like &nbsp; -->
+		<Rule color="Entity">&amp;[a-z0-9#]+;</Rule>
+	</RuleSet>
+</SyntaxDefinition>

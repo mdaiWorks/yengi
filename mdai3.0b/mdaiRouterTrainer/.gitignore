@@ -1,0 +1,7 @@
+config.json
+raw/
+output/
+checkpoints/
+__pycache__/
+.pytest_cache/
+*.pyc

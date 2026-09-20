@@ -1,0 +1,152 @@
+<Window x:Class="mdaiAgent.LanguageSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:mdaiAgent"
+        Title="{local:Loc Key=LanguageSelectionTitle}"
+        Width="500"
+        Height="360"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        Foreground="#eef2ff">
+    <Window.Resources>
+        <Style x:Key="LanguageCardStyle" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Card"
+                                Background="#101827"
+                                BorderBrush="#2b3345"
+                                BorderThickness="1"
+                                CornerRadius="16"
+                                Padding="18,14"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Width="28" Height="28" CornerRadius="14" Background="#1d2942" BorderBrush="#3f4f72" BorderThickness="1">
+                                    <TextBlock Text="◉" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#c4b5fd" FontSize="13"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock x:Name="LanguageText" Text="{TemplateBinding Content}" FontSize="18" FontWeight="SemiBold" Foreground="#f3f4f6"/>
+                                    <TextBlock x:Name="LanguageSub" FontSize="11" Foreground="#94a3b8" Margin="0,2,0,0" Text=""/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Card" Property="Background" Value="#171f34"/>
+                                <Setter TargetName="Card" Property="BorderBrush" Value="#8b5cf6"/>
+                                <Setter TargetName="Card" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="18" ShadowDepth="0" Color="#8b5cf6" Opacity="0.45"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="LanguageText" Property="Foreground" Value="#ffffff"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Card" Property="BorderBrush" Value="#475569"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#0b1020" BorderBrush="#1f2a3d" BorderThickness="1" CornerRadius="20" Margin="18">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="30" ShadowDepth="12" Opacity="0.6"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="#111827" CornerRadius="20,20,0,0" Padding="20,18">
+                <Grid>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Width="34" Height="34" CornerRadius="17" Margin="0,0,12,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#8b5cf6" Offset="0"/>
+                                <GradientStop Color="#6366f1" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="🌐" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                        <TextBlock Text="{local:Loc Key=LanguageSelectionTitle}" FontSize="15" FontWeight="SemiBold" Foreground="#e2e8f0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Button Width="30" Height="30" Content="✕" HorizontalAlignment="Right" VerticalAlignment="Center"
+                            Background="Transparent" BorderThickness="0" Foreground="#94a3b8" FontSize="16"
+                            Click="BtnCancel_Click" Cursor="Hand"/>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" Margin="20,18,20,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="txtHeader" Grid.Row="0"
+                           Text="{local:Loc Key=LanguageSelectionHeader}"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#f8fafc"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,18"/>
+
+                <StackPanel Grid.Row="1">
+                    <RadioButton x:Name="rbTurkish" Style="{StaticResource LanguageCardStyle}" Content="{local:Loc Key=LanguageTurkish}" IsChecked="True"/>
+                    <RadioButton x:Name="rbEnglish" Style="{StaticResource LanguageCardStyle}" Content="{local:Loc Key=LanguageEnglish}"/>
+                    <RadioButton x:Name="rbChinese" Style="{StaticResource LanguageCardStyle}" Content="{local:Loc Key=LanguageChinese}"/>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="2" Background="#0f172a" CornerRadius="0,0,20,20" Padding="20,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="txtHint" Grid.Column="0" VerticalAlignment="Center" Foreground="#64748b" FontSize="11"
+                               Text="{local:Loc Key=LanguageSelectionHint}"/>
+
+                    <Button x:Name="btnCancel" Grid.Column="1" Width="110" Height="40" Margin="0,0,10,0" Click="BtnCancel_Click"
+                            Background="#1e293b" Foreground="#e2e8f0" BorderBrush="#334155" BorderThickness="1"
+                            FontWeight="SemiBold" Cursor="Hand"
+                            Content="{local:Loc Key=Cancel}"/>
+
+                    <Button x:Name="btnContinue" Grid.Column="2" Width="120" Height="40" Click="BtnContinue_Click"
+                            Foreground="White" BorderThickness="0" FontWeight="SemiBold" Cursor="Hand"
+                            Content="{local:Loc Key=Continue}">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#8b5cf6" Offset="0"/>
+                                <GradientStop Color="#6366f1" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

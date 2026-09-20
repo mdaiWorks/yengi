@@ -1,0 +1,222 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Colors - Slate Blue Theme -->
+  <Color x:Key="PrimaryColor">#FF58a6ff</Color>
+  <Color x:Key="AccentColor">#FF8b949e</Color>
+  <Color x:Key="SecondaryColor">#FF8b949e</Color>
+  <Color x:Key="SurfaceColor">#FF161b22</Color>
+  <Color x:Key="SurfaceAlt1">#FF21262d</Color>
+  <Color x:Key="SurfaceAlt2">#FF30363d</Color>
+  <Color x:Key="BackgroundColor">#FF0d1117</Color>
+  <Color x:Key="PanelColor">#FF161b22</Color>
+  <Color x:Key="TextPrimaryColor">#FFc9d1d9</Color>
+  <Color x:Key="TextSecondaryColor">#FF8b949e</Color>
+  <Color x:Key="DividerColor">#FF30363d</Color>
+  <Color x:Key="SuccessColor">#FF3fb950</Color>
+  <Color x:Key="WarningColor">#FFd29922</Color>
+  <Color x:Key="ErrorColor">#FFf85149</Color>
+
+  <!-- Brushes -->
+  <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+  <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+  <SolidColorBrush x:Key="AccentLightBrush" Color="{StaticResource AccentColor}"/>
+  <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}"/>
+  <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
+  <SolidColorBrush x:Key="SurfaceAlt1Brush" Color="{StaticResource SurfaceAlt1}"/>
+  <SolidColorBrush x:Key="SurfaceAlt2Brush" Color="{StaticResource SurfaceAlt2}"/>
+  <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+  <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource PanelColor}"/>
+  <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
+  <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
+  <SolidColorBrush x:Key="DividerBrush" Color="{StaticResource DividerColor}"/>
+  <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+  <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+  <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}"/>
+  <Color x:Key="ShadowColor">#FF000000</Color>
+  <Color x:Key="TerminalOutputColor">#FF58a6ff</Color>
+  <SolidColorBrush x:Key="TerminalOutputBrush" Color="{StaticResource TerminalOutputColor}"/>
+  <SolidColorBrush x:Key="PopupBackgroundBrush" Color="{StaticResource SurfaceAlt1}"/>
+  <SolidColorBrush x:Key="PopupBorderBrush" Color="{StaticResource DividerColor}"/>
+  <SolidColorBrush x:Key="OverlayBackdropBrush" Color="#80000000"/>
+  <SolidColorBrush x:Key="SelectedItemBrush" Color="{StaticResource SurfaceAlt2}"/>
+
+  <!-- Compatibility aliases for existing Dark* resources used across XAML files -->
+  <SolidColorBrush x:Key="DarkBackground" Color="{StaticResource BackgroundColor}"/>
+  <SolidColorBrush x:Key="DarkPanelBackground" Color="{StaticResource PanelColor}"/>
+  <SolidColorBrush x:Key="DarkBorder" Color="{StaticResource DividerColor}"/>
+  <SolidColorBrush x:Key="DarkText" Color="{StaticResource TextPrimaryColor}"/>
+  <SolidColorBrush x:Key="DarkAccentLight" Color="{StaticResource AccentColor}"/>
+  <SolidColorBrush x:Key="DarkAccent" Color="{StaticResource AccentColor}"/>
+  <SolidColorBrush x:Key="DarkHover" Color="{StaticResource SurfaceAlt1}"/>
+  <SolidColorBrush x:Key="DarkSelection" Color="{StaticResource AccentColor}"/>
+  <SolidColorBrush x:Key="CardBrush" Color="{StaticResource SurfaceAlt1}"/>
+  <SolidColorBrush x:Key="SubtleTextBrush" Color="{StaticResource TextSecondaryColor}"/>
+  <SolidColorBrush x:Key="ToolbarBrush" Color="{StaticResource PanelColor}"/>
+  <SolidColorBrush x:Key="AccentBorderBrush" Color="{StaticResource AccentColor}"/>
+
+  <!-- Accent gradient compatibility -->
+  <LinearGradientBrush x:Key="AccentGradient" StartPoint="0,0" EndPoint="1,1">
+    <GradientStop Color="{StaticResource AccentColor}" Offset="0"/>
+    <GradientStop Color="#FF7c8bff" Offset="0.5"/>
+    <GradientStop Color="{StaticResource PrimaryColor}" Offset="1"/>
+  </LinearGradientBrush>
+
+  <Style x:Key="ToolButton" TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+    <Setter Property="Background" Value="{StaticResource ToolbarBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+    <Setter Property="Padding" Value="10,4"/>
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="FontWeight" Value="SemiBold"/>
+  </Style>
+
+  <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource ToolButton}">
+    <Setter Property="Width" Value="42"/>
+    <Setter Property="Height" Value="28"/>
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+
+  <Style x:Key="PanelButton" TargetType="Button" BasedOn="{StaticResource ToolButton}">
+    <Setter Property="Background" Value="{StaticResource PanelBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+  </Style>
+
+  <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+    <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+    <Setter Property="Foreground" Value="#FF161b22"/>
+  </Style>
+
+  <!-- Global window style -->
+  <Style TargetType="Window">
+    <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+  </Style>
+
+  <!-- Base button template to support CornerRadius and shadow -->
+  <ControlTemplate x:Key="ModernButtonTemplate" TargetType="Button">
+    <Border x:Name="Bd"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="8"
+            SnapsToDevicePixels="True">
+      <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,4"/>
+    </Border>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter TargetName="Bd" Property="Opacity" Value="0.95"/>
+        <Setter TargetName="Bd" Property="RenderTransform">
+          <Setter.Value>
+            <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <Trigger Property="IsPressed" Value="True">
+        <Setter TargetName="Bd" Property="RenderTransform">
+          <Setter.Value>
+            <ScaleTransform ScaleX="0.995" ScaleY="0.995"/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Opacity" Value="0.45"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <!-- Primary button style -->
+  <Style x:Key="PrimaryButton" TargetType="Button">
+    <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+    <Setter Property="Foreground" Value="#FF161b22"/>
+    <Setter Property="BorderBrush" Value="Transparent"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Padding" Value="12,6"/>
+    <Setter Property="FontWeight" Value="SemiBold"/>
+    <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+    <Setter Property="Effect">
+      <Setter.Value>
+        <DropShadowEffect Color="#20161b22" BlurRadius="18" ShadowDepth="6" Opacity="0.6"/>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Secondary button style -->
+  <Style x:Key="SecondaryButton" TargetType="Button">
+    <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Padding" Value="10,6"/>
+    <Setter Property="FontWeight" Value="Normal"/>
+    <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+  </Style>
+
+  <!-- Ghost button style -->
+  <Style x:Key="GhostButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Padding" Value="8,6"/>
+    <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+  </Style>
+
+  <!-- Default button style -> secondary for safer changes -->
+  <Style TargetType="Button" BasedOn="{StaticResource SecondaryButton}"/>
+
+  <!-- Modern ContextMenu Style -->
+  <Style TargetType="ContextMenu">
+    <Setter Property="Background" Value="{StaticResource SurfaceAlt1Brush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource DividerBrush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+    <Setter Property="Padding" Value="4"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ContextMenu">
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="6"
+                  Padding="{TemplateBinding Padding}">
+            <Border.Effect>
+              <DropShadowEffect Color="#000000" BlurRadius="12" Opacity="0.4" ShadowDepth="4"/>
+            </Border.Effect>
+            <ItemsPresenter/>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Modern MenuItem Style -->
+  <Style TargetType="MenuItem">
+    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Padding" Value="12,8,20,8"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="MenuItem">
+          <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4" BorderThickness="0" Margin="0,1">
+            <Grid>
+              <ContentPresenter ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"/>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+              <Setter TargetName="Border" Property="Background" Value="{StaticResource SurfaceAlt2Brush}"/>
+              <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

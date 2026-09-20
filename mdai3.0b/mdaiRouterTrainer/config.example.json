@@ -1,0 +1,26 @@
+{
+  "providers": [
+    {
+      "name": "gemini",
+      "baseUrl": "",
+      "model": "",
+      "apiKeyEnv": "MDAI_GEMINI_API_KEY",
+      "timeoutSeconds": 60
+    },
+    {
+      "name": "cerebras",
+      "baseUrl": "https://api.cerebras.ai/v1",
+      "model": "gpt-oss-120b",
+      "apiKeyEnv": "MDAI_CEREBRAS_API_KEY",
+      "timeoutSeconds": 60,
+      "maxRetries": 3,
+      "backoffSeconds": 2
+    },
+    {
+      "name": "qwen",
+      "baseUrl": "",
+      "model": "",
+      "timeoutSeconds": 120
+    }
+  ]
+}

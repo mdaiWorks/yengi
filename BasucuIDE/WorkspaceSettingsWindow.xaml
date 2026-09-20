@@ -1,0 +1,103 @@
+<Window x:Class="mdaiAgent.WorkspaceSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:mdaiAgent"
+        Title="{local:Loc Key=WorkspaceSettingsTitle}" Height="500" Width="580"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="#1e1e1e" Foreground="White">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="txtTitle" Text="{local:Loc Key=WorkspaceSettingsTitle}" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" Foreground="#007acc"/>
+
+        <!-- Görsel Stüdyosu Ayarları Paneli -->
+        <StackPanel x:Name="panelImageStudio" Grid.Row="1" Visibility="Collapsed">
+            <CheckBox x:Name="chkUsePollinations" Content="{local:Loc Key=PublicCommunityGateway}" 
+                      Foreground="#00ffb7" FontWeight="SemiBold" IsChecked="True" 
+                      Checked="ChkUsePollinations_Changed" Unchecked="ChkUsePollinations_Changed" Margin="0,0,0,5"/>
+
+            <TextBlock x:Name="lblPublicBaseUrl" Text="{local:Loc Key=PublicBaseUrlLabel}" Margin="0,2,0,0" Foreground="Gray" FontSize="11"/>
+            <TextBox x:Name="txtPublicBaseUrl" Height="25" Margin="0,2,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
+
+            <CheckBox x:Name="chkEnhancePrompt" Content="{local:Loc Key=EnhanceImagePromptCheckBox}" 
+                      Foreground="#007acc" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+            <CheckBox x:Name="chkEnableMultiAgent" Content="{local:Loc Key=EnableMultiAgentLabel}" 
+                      Foreground="#ff9800" FontWeight="SemiBold" Margin="0,0,0,15"/>
+
+            <TextBlock x:Name="lblCustomApiTitle" Text="{local:Loc Key=CustomImageApiSettings}" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="Gray"/>
+            
+            <TextBlock Text="Base URL:" Margin="0,5,0,0"/>
+            <TextBox x:Name="txtImageBaseUrl" Height="25" Margin="0,2,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
+
+            <TextBlock Text="API Key:" Margin="0,0,0,0"/>
+            <TextBox x:Name="txtImageApiKey" Height="25" Margin="0,2,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
+
+            <TextBlock Text="Model Adı (Örn: dall-e-3, flux/schnell):" Margin="0,0,0,0"/>
+            <TextBox x:Name="txtImageModel" Height="25" Margin="0,2,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
+        </StackPanel>
+
+        <!-- Blender Ayarları Paneli -->
+        <StackPanel x:Name="panelBlender" Grid.Row="1" Visibility="Collapsed">
+            <TextBlock Text="{local:Loc Key=BlenderCopilotSettingsTitle}" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBlock Text="Yengi'nin Blender sahnelerini canlı olarak yönetmesi için eklentinin Blender'a kurulması gerekir." TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
+            
+            <!-- Otomatik Eklenti Kurulumu Bölümü -->
+            <Border Background="#252526" BorderBrush="#3e3e42" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="{local:Loc Key=BlenderAutoInstallHeader}" FontWeight="Bold" Foreground="#007acc" Margin="0,0,0,5"/>
+                    <TextBlock Text="{local:Loc Key=BlenderAutoInstallSubtext}" TextWrapping="Wrap" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBox x:Name="txtBlenderPath" Width="340" Height="26" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3" VerticalAlignment="Center" IsReadOnly="True" ToolTip="Tespit Edilen Blender Dizin Yolu"/>
+                        <Button x:Name="btnBrowseBlender" Content="{local:Loc Key=BrowseFolder}" Width="80" Height="26" Margin="8,0,0,0" VerticalAlignment="Center" Background="#3e3e42" Foreground="White" BorderThickness="0" Cursor="Hand" Click="BtnBrowseBlender_Click"/>
+                    </StackPanel>
+
+                    <Button x:Name="btnInstallAddon" Content="{local:Loc Key=AutoInstallAddonButton}" Height="28" Background="#007acc" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand" Click="BtnInstallAddon_Click"/>
+                    <TextBlock x:Name="txtBlenderInstallResult" Margin="0,6,0,0" FontSize="11" TextWrapping="Wrap" FontWeight="SemiBold"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="Port Ayarı (Varsayılan: 8181):" Margin="0,0,0,2"/>
+            <TextBox x:Name="txtBlenderPort" Height="25" Margin="0,0,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Button Content="{local:Loc Key=TestConnection}" Width="130" Height="28" HorizontalAlignment="Left" Background="#2d2d30" Foreground="White" BorderBrush="#007acc" BorderThickness="1" Cursor="Hand" Click="BtnTestBlenderConnection_Click"/>
+                <TextBlock x:Name="txtBlenderTestResult" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12" TextWrapping="Wrap" MaxWidth="320"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Unity Ayarları Paneli -->
+        <StackPanel x:Name="panelUnity" Grid.Row="1" Visibility="Collapsed">
+            <TextBlock Text="{local:Loc Key=UnityCopilotSettingsTitle}" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBlock Text="Yengi'nin Unity Editörü ile canlı haberleşmesi için `YengiUnityCopilot.cs` scriptinin projenizde bulunması gerekir." TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
+            
+            <Border Background="#252526" BorderBrush="#3e3e42" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="🎮 Unity Eklentisi Otomatik Kurulumu" FontWeight="Bold" Foreground="#007acc" Margin="0,0,0,5"/>
+                    <TextBlock Text="Unity projenizin ana klasörünü seçin. Yengi, `Assets/Editor/YengiUnityCopilot.cs` scriptini otomatik oluşturur." TextWrapping="Wrap" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+                    
+                    <Button x:Name="btnInstallUnityAddon" Content="🚀 Eklenti Scriptini Unity Projesine Yükle" Height="28" Background="#007acc" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand" Click="BtnInstallUnityAddon_Click"/>
+                    <TextBlock x:Name="txtUnityInstallResult" Margin="0,6,0,0" FontSize="11" TextWrapping="Wrap" FontWeight="SemiBold"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="TCP Socket Portu (Varsayılan: 8282):" Margin="0,0,0,2"/>
+            <TextBox x:Name="txtUnityPort" Height="25" Margin="0,0,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Button Content="{local:Loc Key=TestConnection}" Width="130" Height="28" HorizontalAlignment="Left" Background="#2d2d30" Foreground="White" BorderBrush="#007acc" BorderThickness="1" Cursor="Hand" Click="BtnTestUnityConnection_Click"/>
+                <TextBlock x:Name="txtUnityTestResult" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12" TextWrapping="Wrap" MaxWidth="320"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="İptal" Width="80" Height="30" Margin="0,0,10,0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="BtnCancel_Click" Cursor="Hand"/>
+            <Button Content="Kaydet" Width="80" Height="30" Background="#007acc" Foreground="White" BorderThickness="0" Click="BtnSave_Click" Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>

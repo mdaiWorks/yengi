@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="Generic (mdaiAgent)" extensions=".yaml;.yml;.md;.json;.xml;.kts;.sh;.bat;.txt" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+    <!-- VS Code Dark+ renk paleti (Evrensel Yedek Tema) -->
+    <Color name="Comment"    foreground="#6A9955" />
+    <Color name="String"     foreground="#CE9178" />
+    <Color name="Keyword"    foreground="#569CD6" fontWeight="bold" />
+    <Color name="Number"     foreground="#B5CEA8" />
+    <Color name="Operator"   foreground="#D4D4D4" />
+    <Color name="Attribute"  foreground="#9CDCFE" />
+
+    <RuleSet>
+        <!-- Yaygın Yorum Stilleri -->
+        <Span color="Comment">
+            <Begin>//</Begin>
+        </Span>
+        <Span color="Comment">
+            <Begin>\#</Begin>
+        </Span>
+        <Span color="Comment">
+            <Begin>&lt;!--</Begin>
+            <End>--&gt;</End>
+        </Span>
+        <Span color="Comment" multiline="true">
+            <Begin>/\*</Begin>
+            <End>\*/</End>
+        </Span>
+
+        <!-- Yaygın String Stilleri -->
+        <Span color="String">
+            <Begin>"</Begin>
+            <End>"</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+        <Span color="String">
+            <Begin>'</Begin>
+            <End>'</End>
+            <RuleSet>
+                <Span><Begin>\\</Begin><End>.</End></Span>
+            </RuleSet>
+        </Span>
+        <Span color="String" multiline="true">
+            <Begin>`</Begin>
+            <End>`</End>
+        </Span>
+
+        <!-- JSON veya YAML anahtarları (lookahead desteklenmiyor) -->
+        <Rule color="Attribute">[\w\-]+:</Rule>
+        <Rule color="Attribute">"[\w\-]+":</Rule>
+
+        <!-- Yaygın sayılar -->
+        <Rule color="Number">0x[\da-fA-F]+</Rule>
+        <Rule color="Number">[\d]+\.[\d]+</Rule>
+        <Rule color="Number">[\d]+</Rule>
+
+        <!-- Noktalama ve Operatörler -->
+        <Rule color="Operator">[+\-*/=&lt;&gt;!|&amp;^~%?:,.;]</Rule>
+    </RuleSet>
+</SyntaxDefinition>

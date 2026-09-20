@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="CSS (mdaiAgent)" extensions=".css;.scss;.sass" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+    <Color name="Comment"     foreground="#6A9955" />
+    <Color name="String"      foreground="#CE9178" />
+    <Color name="Keyword"     foreground="#569CD6" fontWeight="bold" />
+    <Color name="Selector"    foreground="#D7BA7D" fontWeight="bold" />
+    <Color name="Property"    foreground="#9CDCFE" />
+    <Color name="Number"      foreground="#B5CEA8" />
+    <Color name="Punctuation" foreground="#D4D4D4" />
+
+    <RuleSet>
+
+        <Span color="Comment" multiline="true">
+            <Begin>/\*</Begin>
+            <End>\*/</End>
+        </Span>
+
+        <Span color="String">
+            <Begin>"</Begin>
+            <End>"</End>
+        </Span>
+        <Span color="String">
+            <Begin>'</Begin>
+            <End>'</End>
+        </Span>
+
+        <Rule color="Keyword">!important</Rule>
+
+        <Span multiline="true">
+            <Begin>\{</Begin>
+            <End>\}</End>
+            <RuleSet>
+
+                <Span color="Comment" multiline="true">
+                    <Begin>/\*</Begin>
+                    <End>\*/</End>
+                </Span>
+                <Span color="String">
+                    <Begin>"</Begin>
+                    <End>"</End>
+                </Span>
+                <Span color="String">
+                    <Begin>'</Begin>
+                    <End>'</End>
+                </Span>
+
+                <Rule color="Keyword">!important</Rule>
+
+                <Rule color="Number">\#[\da-fA-F]+</Rule>
+                <Rule color="Number">[\d]+(px|em|rem|vw|vh|vmin|vmax|pt|pc|in|cm|mm|ms|deg|rad|grad|turn|fr|ch|ex|%)</Rule>
+                <Rule color="Number">[\d]+\.[\d]+</Rule>
+                <Rule color="Number">[\d]+</Rule>
+
+                <!-- CSS Properties -->
+                <Rule color="Property">[\w\-]+</Rule>
+
+                <!-- Punctuation -->
+                <Rule color="Punctuation">[:;]</Rule>
+
+            </RuleSet>
+        </Span>
+
+        <!-- Selectors -->
+        <Rule color="Selector">\.[\w\-]+</Rule>
+        <Rule color="Selector">\#[\w\-]+</Rule>
+        <Rule color="Keyword">\:[\w\-]+</Rule>
+        <Rule color="Keyword">\@[\w\-]+</Rule>
+
+        <Rule color="Selector">html|body|head|header|footer|main|nav|section|article|aside|div|span|p|a|ul|ol|li|dl|dt|dd|h1|h2|h3|h4|h5|h6|table|thead|tbody|tfoot|tr|th|td|form|input|button|select|option|textarea|label|img|picture|video|audio|canvas|svg|path|figure|figcaption|blockquote|pre|code|em|strong|b|i|u|s|small|sub|sup|br|hr</Rule>
+
+        <Rule color="Punctuation">[{},]</Rule>
+
+    </RuleSet>
+</SyntaxDefinition>

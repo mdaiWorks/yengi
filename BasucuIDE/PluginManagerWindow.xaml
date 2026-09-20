@@ -1,0 +1,423 @@
+<Window x:Class="mdaiAgent.PluginManagerWindow"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+        xmlns:local="clr-namespace:mdaiAgent"
+
+        mc:Ignorable="d"
+
+        Title="{local:Loc Key=EklentiYoneticisiMdaiAgent}" Height="600" Width="900"
+
+        WindowStartupLocation="CenterOwner"
+
+        Background="#1e1e1e"
+
+        Foreground="#d4d4d4">
+
+    <Window.Resources>
+
+        <local:StringJoinConverter x:Key="StringJoinConverter"/>
+
+        <local:InstalledToIconConverter x:Key="InstalledToIconConverter"/>
+
+        <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+
+        <local:LspInstallVisibilityConverter x:Key="LspInstallVisibilityConverter"/>
+
+        <SolidColorBrush x:Key="DarkBackground" Color="#111827"/>
+        <SolidColorBrush x:Key="DarkPanelBackground" Color="#1b2330"/>
+        <SolidColorBrush x:Key="DarkPanelAlt" Color="#212c3d"/>
+        <SolidColorBrush x:Key="DarkBorder" Color="#2d3a4f"/>
+        <SolidColorBrush x:Key="DarkText" Color="#e2e8f0"/>
+        <SolidColorBrush x:Key="DarkTextSoft" Color="#aab7c8"/>
+        <SolidColorBrush x:Key="DarkAccent" Color="#5aa9ff"/>
+        <SolidColorBrush x:Key="DarkAccentStrong" Color="#2d7ff9"/>
+        <SolidColorBrush x:Key="DarkHover" Color="#273549"/>
+
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#1f4e8c"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#ffffff"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#2a3442"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#dfe7f0"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#1b2330"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#111827"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="#e2e8f0"/>
+
+        <ControlTemplate x:Key="ModernButtonTemplate" TargetType="Button">
+            <Border x:Name="Root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" SnapsToDevicePixels="True">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,6"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Root" Property="Background" Value="{StaticResource DarkHover}"/>
+                    <Setter TargetName="Root" Property="BorderBrush" Value="{StaticResource DarkAccent}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Root" Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.45"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="PrimaryActionButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource DarkAccent}"/>
+            <Setter Property="Foreground" Value="#f8fafc"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkAccentStrong}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+        </Style>
+
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#243143"/>
+            <Setter Property="Foreground" Value="#edf6ff"/>
+            <Setter Property="BorderBrush" Value="#3d5a7d"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+        </Style>
+
+        <Style x:Key="SubtleButton" TargetType="Button">
+            <Setter Property="Background" Value="#1a2433"/>
+            <Setter Property="Foreground" Value="#dfeaf7"/>
+            <Setter Property="BorderBrush" Value="#334866"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,7"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#1f2c3d"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+            <Setter Property="BorderBrush" Value="#3a4f69"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource DarkPanelBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="RowBackground" Value="#1b2330"/>
+            <Setter Property="AlternatingRowBackground" Value="#212c3d"/>
+            <Setter Property="Margin" Value="0,14,0,0"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                        <Setter Property="Padding" Value="10,8"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#20354e"/>
+                                <Setter Property="Foreground" Value="#f8fafc"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#202b3b"/>
+            <Setter Property="Foreground" Value="#e2e8f0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="10,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="#1a2433"/>
+            <Setter Property="BorderBrush" Value="#2d3a4f"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid>
+                            <Track Name="PART_Track" IsDirectionReversed="True">
+                                <Track.Thumb>
+                                    <Thumb Background="#4b6387" BorderBrush="#5d7ca6" BorderThickness="1" Margin="1,0"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="#171f2b"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkTextSoft}"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#111827"/>
+                                <Setter Property="Foreground" Value="#f8fafc"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#f8fafc"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    
+
+    <Border Background="{StaticResource DarkBackground}" Padding="18" CornerRadius="16">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="*"/>
+
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+            
+
+            <TextBlock Grid.Row="0" Text="{local:Loc Key=EklentiYoneticisi}" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <TextBlock Grid.Row="1" Text="{local:Loc Key=MdaiAgentIcinDilEklentileriniYonetinVarsayilanEklentilerProgramlaBirlikteGelirIndirilebilirEklentilerIseIlerideEklenecek}" FontSize="12" Foreground="#999999" Margin="0,0,0,15"/>
+
+
+
+            <!-- Sekme Kontrolü -->
+
+            <TabControl Grid.Row="2" Background="#171f2b" BorderThickness="1" BorderBrush="#2d3a4f" Padding="6,6,6,0">
+
+                <TabItem Header="{local:Loc Key=LSPSunuculari}">
+
+                    <Border Padding="10">
+
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="Auto"/>
+
+                                <RowDefinition Height="*"/>
+
+                            </Grid.RowDefinitions>
+
+
+
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+
+                                <Button x:Name="btnRefreshLspStatus" Content="{local:Loc Key=RefreshStatus}" Click="BtnRefreshLspStatus_Click"/>
+
+                                <TextBlock x:Name="txtLspStatus" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#999999"/>
+
+                            </StackPanel>
+
+
+
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <DataGrid x:Name="dgLspServers" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" MinHeight="220">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Durum" Width="110">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="{Binding StatusBgColor}" CornerRadius="10" Padding="8,3" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{Binding StatusDetails}">
+                                                        <TextBlock Text="{Binding StatusLabel}" Foreground="{Binding StatusColor}" FontWeight="SemiBold" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTextColumn Header="{local:Loc Key=LspServer}" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="{local:Loc Key=DosyaUzantilari}" Binding="{Binding FileExtensions, Converter={StaticResource StringJoinConverter}}" Width="*"/>
+                                        <DataGridTextColumn Header="{local:Loc Key=Aciklama}" Binding="{Binding Description}" Width="*"/>
+
+                                        <DataGridTemplateColumn Width="150">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button x:Name="btnInstallLsp" Content="{local:Loc Key=Install}" Click="BtnInstallLsp_Click" Tag="{Binding}" Padding="8,3" Style="{StaticResource SubtleButton}" Visibility="{Binding Converter={StaticResource LspInstallVisibilityConverter}}"/>
+                                                        <Button x:Name="btnGuideLsp" Content="{local:Loc Key=Guide}" Click="BtnGuideLsp_Click" Tag="{Binding}" Padding="8,3" Style="{StaticResource SubtleButton}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
+
+                </TabItem>
+
+
+
+                <TabItem Header="{local:Loc Key=YukluEklentiler}">
+
+                    <Border Padding="10">
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <DataGrid x:Name="dgInstalledPlugins" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" MinHeight="220">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{local:Loc Key=DilAdi}" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="{local:Loc Key=DosyaUzantilari}" Binding="{Binding FileExtensions, Converter={StaticResource StringJoinConverter}}" Width="*"/>
+                                    <DataGridTextColumn Header="{local:Loc Key=Surum}" Binding="{Binding Version}" Width="100"/>
+                                    <DataGridTextColumn Header="{local:Loc Key=Aciklama}" Binding="{Binding Description}" Width="*"/>
+
+                                    <DataGridTemplateColumn Width="100">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Content="{local:Loc Key=Guncelle2}" Click="BtnUpdatePlugin_Click" Tag="{Binding}" Padding="8,3" Style="{StaticResource SubtleButton}" Visibility="{Binding IsBuiltIn, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </ScrollViewer>
+
+                    </Border>
+
+                </TabItem>
+
+
+
+                <TabItem Header="{local:Loc Key=IndirilebilirEklentiler}">
+
+                    <Border Padding="10">
+
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="Auto"/>
+
+                                <RowDefinition Height="*"/>
+
+                            </Grid.RowDefinitions>
+
+
+
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+
+                                <Button x:Name="btnCheckForUpdates" Content="{local:Loc Key=CheckForUpdates}" Click="BtnCheckForUpdates_Click"/>
+
+                                <TextBlock x:Name="txtUpdateStatus" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#999999" Text="{local:Loc Key=BuOzellikHenuzAktifDegil}"/>
+
+                            </StackPanel>
+
+
+
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <DataGrid x:Name="dgAvailablePlugins" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" MinHeight="220">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="{local:Loc Key=DilAdi}" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="{local:Loc Key=DosyaUzantilari}" Binding="{Binding FileExtensions, Converter={StaticResource StringJoinConverter}}" Width="*"/>
+                                        <DataGridTextColumn Header="{local:Loc Key=Surum}" Binding="{Binding Version}" Width="100"/>
+                                        <DataGridTextColumn Header="{local:Loc Key=Aciklama}" Binding="{Binding Description}" Width="*"/>
+
+                                        <DataGridTemplateColumn Width="100">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Content="{local:Loc Key=Download}" Click="BtnDownloadPlugin_Click" Tag="{Binding}" Padding="8,3" Style="{StaticResource ActionButton}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
+
+                </TabItem>
+
+            </TabControl>
+
+            
+
+            <!-- Alt Butonlar -->
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+
+                <Button x:Name="btnLoadExternal" Content="{local:Loc Key=DisaridanYukle}" Click="BtnLoadExternal_Click"/>
+
+                <Button x:Name="btnOpenPluginsFolder" Content="{local:Loc Key=EklentilerKlasoru}" Click="BtnOpenPluginsFolder_Click"/>
+
+                <Button x:Name="btnRefresh" Content="{local:Loc Key=Refresh}" Click="BtnRefresh_Click"/>
+
+                <Button x:Name="btnClose" Content="{local:Loc Key=Close}" Click="BtnClose_Click" Style="{StaticResource PrimaryActionButton}"/>
+
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+
+</Window>
+

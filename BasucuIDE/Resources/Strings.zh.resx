@@ -1,0 +1,8615 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="AIActions" xml:space="preserve">
+    <value>🤖 人工智能行动</value>
+  </data>
+
+    <data name="ADBHatasi" xml:space="preserve">
+
+    <value>⚠️亚行错误</value>
+
+  </data>
+
+  <data name="AIAciklamasiTamamlandi" xml:space="preserve">
+
+    <value>AI描述完成。</value>
+
+  </data>
+
+  <data name="AIAciklamasiTamamlandiRequestActionTitle" xml:space="preserve">
+
+    <value>AI描述完成：{request.ActionTitle}</value>
+
+  </data>
+
+  <data name="AIAracCagrilariBasariylaTamamlandi" xml:space="preserve">
+
+    <value>AI车辆呼叫成功完成。</value>
+
+  </data>
+
+  <data name="AIAracCagrilarininBazilariBasarisizOldu" xml:space="preserve">
+
+    <value>部分AI车辆调用失败。</value>
+
+  </data>
+
+  <data name="AIAracCagrisiBasariylaTamamlandiToolName" xml:space="preserve">
+
+    <value>AI车辆呼叫成功完成：{toolName}</value>
+
+  </data>
+
+  <data name="AIAracCagrisiHatasiToolName" xml:space="preserve">
+
+    <value>AI车辆调用错误：{toolName}</value>
+
+  </data>
+
+  <data name="AIAracCagrisiHatasiToolResultCallError" xml:space="preserve">
+
+    <value>AI车辆调用错误：{toolResultCall.Error}</value>
+
+  </data>
+
+  <data name="AIAsagidakiKomutuCalistirmakIstiyor" xml:space="preserve">
+
+    <value>AI想要运行以下命令：</value>
+
+  </data>
+
+  <data name="AIBuDosyadaDegisiklikOneriyorLutfenInceleyin" xml:space="preserve">
+
+    <value>⚠️ AI 建议更改此文件。请审查。</value>
+
+  </data>
+
+  <data name="AIDenGelenSonYanitiAktifDosyayaUygular" xml:space="preserve">
+
+    <value>将 AI 的最后响应应用于活动文件。</value>
+
+  </data>
+
+  <data name="AIDestekliKodAsistaninizCalismayaHazir" xml:space="preserve">
+
+    <value>Your Engineering Nexus, Generative Intelligence. (工程之枢，生成式智能)</value>
+
+  </data>
+
+  <data name="AIDosyayiAcikla" xml:space="preserve">
+
+    <value>AI解释文件</value>
+
+  </data>
+
+  <data name="AIDusunmeyeBasladi" xml:space="preserve">
+
+    <value>🧠AI开始思考</value>
+
+  </data>
+
+  <data name="AIEylemServisiHazirDegil" xml:space="preserve">
+
+    <value>AI 行动服务尚未准备好。</value>
+
+  </data>
+
+  <data name="AIEylemServisiKullanilamiyor" xml:space="preserve">
+
+    <value>AI动作服务不可用。</value>
+
+  </data>
+
+  <data name="AIEylemiBaslatildiRequestActionTitle" xml:space="preserve">
+
+    <value>AI行动开始：{request.ActionTitle}</value>
+
+  </data>
+
+  <data name="AIEylemiSirasindaHataOlustuResultMessage" xml:space="preserve">
+
+    <value>AI 操作期间发生错误：{result.Message}</value>
+
+  </data>
+
+  <data name="AIHatasiEx" xml:space="preserve">
+
+    <value>人工智能错误：{ex}</value>
+
+  </data>
+
+  <data name="AIHazirlanmadi" xml:space="preserve">
+
+    <value>人工智能尚未准备好</value>
+
+  </data>
+
+  <data name="AIIleDuzenle" xml:space="preserve">
+
+    <value>✨ 使用 AI 编辑</value>
+
+  </data>
+
+  <data name="AIIleDuzenleCtrlK" xml:space="preserve">
+
+    <value>✨ 使用 AI 编辑 (Ctrl+K)</value>
+
+  </data>
+
+  <data name="AIInCikardigiHamPlanMetniniGoruntule" xml:space="preserve">
+
+    <value>🤖 查看 AI 提取的原始计划文本</value>
+
+  </data>
+
+  <data name="AIIslemiSirasindaHataOlustuExMessage" xml:space="preserve">
+
+    <value>AI 操作期间发生错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="AIIslemiSirasindaHataOlustuResultErrorMessage" xml:space="preserve">
+
+    <value>AI 操作期间发生错误：{result.ErrorMessage}</value>
+
+  </data>
+
+  <data name="AIIstegiAnalizEdiyor" xml:space="preserve">
+
+    <value>🧠 AI 分析请求...</value>
+
+  </data>
+
+  <data name="AIKodIcerigiCikarilamadi" xml:space="preserve">
+
+    <value>无法提取AI代码内容。</value>
+
+  </data>
+
+  <data name="AIOnerisiGuvenliSekildeYazildiFilePath" xml:space="preserve">
+
+    <value>安全输入的 AI 推荐：{filePath}</value>
+
+  </data>
+
+  <data name="AIOnerisiHazirlandiDegisiklikleriInceleyipOnaylayabilirsiniz" xml:space="preserve">
+
+    <value>AI 提案已准备好。您可以查看并批准更改。</value>
+
+  </data>
+
+  <data name="AIOnerisiHazirlandiRequestActionTitle" xml:space="preserve">
+
+    <value>已准备的 AI 提案：{request.ActionTitle}</value>
+
+  </data>
+
+  <data name="AIOnerisiIcinYedekAlindiBackupPath" xml:space="preserve">
+
+    <value>AI 推荐替换：{backupPath}</value>
+
+  </data>
+
+  <data name="AIOnerisiKullaniciTarafindanReddedildi" xml:space="preserve">
+
+    <value>AI建议被用户拒绝。</value>
+
+  </data>
+
+  <data name="AIOnerisiReddedildi" xml:space="preserve">
+
+    <value>AI提案被拒绝。</value>
+
+  </data>
+
+  <data name="AIOnerisiUygulanamadi" xml:space="preserve">
+
+    <value>AI推荐无法实施。</value>
+
+  </data>
+
+  <data name="AIOnerisiYazilirkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>写入 AI 推荐时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="AIOnerisininUygulanmasiBasarisizOldu" xml:space="preserve">
+
+    <value>AI推荐实施失败。</value>
+
+  </data>
+
+  <data name="AIPlanCiktisiBos" xml:space="preserve">
+
+    <value>AI计划输出为空。</value>
+
+  </data>
+
+  <data name="AIPlanOlusturulamadi" xml:space="preserve">
+
+    <value>无法创建 AI 计划。</value>
+
+  </data>
+
+  <data name="AIPlanUretiliyor" xml:space="preserve">
+
+    <value>🤖 AI计划正在制定中...</value>
+
+  </data>
+
+  <data name="AIPlanUretimiBasarisizFallbackKullaniliyorExMessage" xml:space="preserve">
+
+    <value>⚠️ AI 计划生成失败，使用后备：{ex.Message}</value>
+
+  </data>
+
+  <data name="AIProjeDerlemesiBaslatmakIstiyorBuIslemGuvenliModdaKullaniciOnayiGerektirirOnayliyorMusun" xml:space="preserve">
+
+    <value>想要开始人工智能项目构建。此操作需要用户在安全模式下确认。你同意吗？</value>
+
+  </data>
+
+  <data name="AIRefaktorEt" xml:space="preserve">
+
+    <value>AI重构肉</value>
+
+  </data>
+
+  <data name="AIRouterKullanOnerilen" xml:space="preserve">
+
+    <value>使用AI路由器（推荐）</value>
+
+  </data>
+
+  <data name="AIRouterToolYonlendirici" xml:space="preserve">
+
+    <value>🤖 AI路由器（工具路由器）</value>
+
+  </data>
+
+  <data name="AISanaBirSeySoruyor" xml:space="preserve">
+
+    <value>人工智能问你一些问题</value>
+
+  </data>
+
+  <data name="AISuKomutuCalistirmakIstiyorCommandBuIslemGuvenliModdaKullaniciOnayiGerektirirOnayliyorMusun" xml:space="preserve">
+
+    <value>AI想要运行以下命令：{command}该操作需要用户在安全模式下确认。你同意吗？</value>
+
+  </data>
+
+  <data name="AITakipPlaniOlusturulamadi" xml:space="preserve">
+
+    <value>创建AI追踪计划失败。</value>
+
+  </data>
+
+  <data name="AITarafindanUretilenYolHaritasi" xml:space="preserve">
+
+    <value>人工智能生成的路线图</value>
+
+  </data>
+
+  <data name="AITestUret" xml:space="preserve">
+
+    <value>AI测试生成</value>
+
+  </data>
+
+  <data name="AITestleriCalistirmakIstiyorBuIslemGuvenliModdaKullaniciOnayiGerektirirOnayliyorMusun" xml:space="preserve">
+
+    <value>人工智能想要进行测试。此操作需要用户在安全模式下确认。你同意吗？</value>
+
+  </data>
+
+  <data name="AIUygulamanizIcinEnUygunGelistirmeAdimlariniHesapliyorBuIslemProjenizinBuyukluguneGore12DakikaSurebilir" xml:space="preserve">
+
+    <value>人工智能会计算您的应用程序的最佳开发步骤。此过程可能需要 1-2 分钟，具体取决于项目的大小。</value>
+
+  </data>
+
+  <data name="AIVeyaAracHizmetiYapilandirilmadi" xml:space="preserve">
+
+    <value>未配置AI或车辆服务。</value>
+
+  </data>
+
+  <data name="AIYanitiAlinamadi" xml:space="preserve">
+
+    <value>未收到 AI 回复。</value>
+
+  </data>
+
+  <data name="AIYanitiIsliyorTurIteration1" xml:space="preserve">
+
+    <value>🧠 AI 正在处理响应 (tur {iteration + 1} )...</value>
+
+  </data>
+
+  <data name="AIYanitiTamamlandiSiraSizde" xml:space="preserve">
+
+    <value>✅ AI 回复完成。轮到你了。</value>
+
+  </data>
+
+  <data name="AIYanitiUygula" xml:space="preserve">
+
+    <value>应用人工智能响应</value>
+
+  </data>
+
+  <data name="AIYanitindanKodCikarilamadiYanitinTumMetniniSeciliDosyayaYazmakIsterMisiniz" xml:space="preserve">
+
+    <value>无法从 AI 响应中提取代码。您想将响应的完整文本写入所选文件吗？</value>
+
+  </data>
+
+  <data name="AIYorumlariGelistir" xml:space="preserve">
+
+    <value>改进人工智能评论</value>
+
+  </data>
+
+  <data name="APIAnahtari" xml:space="preserve">
+
+    <value>API密钥</value>
+
+  </data>
+
+  <data name="APIAnahtarlariGeminiGroqVbAIRouterAyarlariVeTemaSeciminiYonetir" xml:space="preserve">
+
+    <value>API 密钥（Gemini、Groq 等）管理 AI 路由器设置和主题选择。</value>
+
+  </data>
+
+  <data name="APIBILGILERI" xml:space="preserve">
+
+    <value>API信息</value>
+
+  </data>
+
+  <data name="APIDenBeklenenJSONFormatiChoicesGelmedi" xml:space="preserve">
+
+    <value>API 未提供预期的 JSON 格式（选项）。</value>
+
+  </data>
+
+  <data name="APIDenBosYanitGeldi" xml:space="preserve">
+
+    <value>API 发出空响应。</value>
+
+  </data>
+
+  <data name="APIGoruntuDesteklemiyorGecmisMesajlardakiResimlerOtomatikTemizlendiLutfenIsteginiziTekrarYazin" xml:space="preserve">
+
+    <value>API 不支持图像。过去消息中的图像被自动清除。请重写您的请求。</value>
+
+  </data>
+
+  <data name="APIHatasiResponseStatusCodeErr" xml:space="preserve">
+
+    <value>API 错误（{response.StatusCode}）：{err}</value>
+
+  </data>
+
+  <data name="APIIstegiZamanAsiminaUgradiLutfenDahaSonraTekrarDeneyin" xml:space="preserve">
+
+    <value>API 请求超时。请稍后重试。</value>
+
+  </data>
+
+  <data name="APIIstegiZamanAsiminaUgradiTimeoutSecondsSaniyeLutfenDahaSonraTekrarDeneyin" xml:space="preserve">
+
+    <value>API 请求超时（{timeoutSeconds} 秒）。请稍后重试。</value>
+
+  </data>
+
+  <data name="APIIstemcisiBaslatildiApiClientModelName" xml:space="preserve">
+
+    <value>API 客户端已启动：{_apiClient.ModelName}</value>
+
+  </data>
+
+  <data name="APIKeyGerektirmeyenSunuculardaBuAlaniBosBirakabilirsiniz" xml:space="preserve">
+
+    <value>在不需要 API 密钥的服务器上，您可以将此字段留空。</value>
+
+  </data>
+
+  <data name="APIServisiAyarlari" xml:space="preserve">
+
+    <value>🌐 API 服务设置</value>
+
+  </data>
+
+  <data name="APIVeyaYerelModelBaglantisiBulunamadi" xml:space="preserve">
+
+    <value>未找到 API 或本机模型连接。</value>
+
+  </data>
+
+  <data name="APIYanitindaEmbeddingAlaniBulunamadi" xml:space="preserve">
+
+    <value>API 响应中未找到嵌入字段</value>
+
+  </data>
+
+  <data name="APIYanitindaResimURLSiBulunamadi" xml:space="preserve">
+
+    <value>API 响应中未找到图像 URL</value>
+
+  </data>
+
+  <data name="APIYanitindaTextAlaniBulunamadi" xml:space="preserve">
+
+    <value>在 API 响应中找不到字段“文本”</value>
+
+  </data>
+
+  <data name="APIZamanAsimiSaniye" xml:space="preserve">
+
+    <value>API 超时（秒）</value>
+
+  </data>
+
+  <data name="AboutTitle" xml:space="preserve">
+
+    <value>Yengi — 关于</value>
+
+  </data>
+
+  <data name="ChatWelcome" xml:space="preserve">
+    <value>你好！我是Yengi人工智能助理。我能提供什么帮助吗？</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>系统</value>
+  </data>
+
+  <data name="AboutTagline" xml:space="preserve"><value>Your Engineering Nexus, Generative Intelligence</value></data>
+  <data name="AboutDescription" xml:space="preserve"><value>功能齐全的基于代理的桌面开发环境，可在云和本地模型（例如 Gemini、OpenRouter、Ollama）上运行。</value></data>
+  <data name="AboutFooter" xml:space="preserve"><value>© 2026 Yengi — 保留所有权利。</value></data>
+  <data name="AboutOk" xml:space="preserve"><value>✓ 确定</value></data>
+  <data name="LspServer" xml:space="preserve"><value>LSP服务器</value></data>
+  <data name="RefreshStatus" xml:space="preserve"><value>🔄 刷新状态</value></data>
+  <data name="Install" xml:space="preserve"><value>📥 安装</value></data>
+  <data name="Refresh" xml:space="preserve"><value>刷新</value></data>
+  <data name="FileTreeRefresh" xml:space="preserve"><value>🔄 刷新</value></data>
+  <data name="FileTreeNewFile" xml:space="preserve"><value>📄 新建文件</value></data>
+  <data name="FileTreeNewFolder" xml:space="preserve"><value>📁 新建文件夹</value></data>
+  <data name="FileTreeDelete" xml:space="preserve"><value>❌ 删除</value></data>
+  <data name="FileTreeShowInExplorer" xml:space="preserve"><value>🔍 在资源管理器中显示</value></data>
+  <data name="LspStatusActive" xml:space="preserve"><value>活动</value></data>
+  <data name="LspStatusReady" xml:space="preserve"><value>就绪</value></data>
+  <data name="LspStatusInstalled" xml:space="preserve"><value>已安装</value></data>
+  <data name="LspStatusNotInstalled" xml:space="preserve"><value>未安装</value></data>
+  <data name="LspStatusError" xml:space="preserve"><value>错误</value></data>
+  <data name="LspStatusChecking" xml:space="preserve"><value>正在检查 LSP 状态...</value></data>
+  <data name="LspStatusRefreshed" xml:space="preserve"><value>LSP 状态已刷新</value></data>
+  <data name="LspNoOpenFile" xml:space="preserve"><value>没有打开的文件</value></data>
+  <data name="LspNoExternalServerForExt" xml:space="preserve"><value>内置代码检查器已激活。未为 '{ext}' 定义外部 LSP。</value></data>
+  <data name="LspStatusActiveDetail" xml:space="preserve"><value>✅ {serverName} 正在运行
+路径: {path}</value></data>
+  <data name="LspStatusErrorDetail" xml:space="preserve"><value>❌ 启动错误:
+{error}</value></data>
+  <data name="LspStatusReadyDetail" xml:space="preserve"><value>ℹ️ {serverName} 已安装并测试完成
+路径: {path}</value></data>
+  <data name="LspStatusInstalledDetail" xml:space="preserve"><value>⚠️ {serverName} 已安装，但尚未测试
+扩展 → 刷新状态 以进行测试</value></data>
+  <data name="LspStatusNotInstalledDetail" xml:space="preserve"><value>⚫ {serverName} 尚未安装
+可在插件窗口中安装</value></data>
+  <data name="LspUnknownPath" xml:space="preserve"><value>未知</value></data>
+  <data name="LspExecutableNotFound" xml:space="preserve"><value>未找到可执行的 LSP。</value></data>
+  <data name="LspExecutablePathInfo" xml:space="preserve"><value>{path} ({source})</value></data>
+
+  <data name="AcikDosyaCurrentFilePath" xml:space="preserve">
+
+    <value>打开文件：{currentFilePath}</value>
+
+  </data>
+
+  <data name="AcikDosyaPathGetFileNameCurrentFilePath" xml:space="preserve">
+
+    <value>打开文件：{Path.GetFileName(currentFilePath)}</value>
+
+  </data>
+
+  <data name="AcikDosyayiOtomatikOlarakBicimlendirirBosluklariDuzenler" xml:space="preserve">
+
+    <value>自动格式化打开的文件，编辑空格</value>
+
+  </data>
+
+  <data name="AcikTumDosyalariKaydeder" xml:space="preserve">
+
+    <value>保存所有打开的文件。</value>
+
+  </data>
+
+  <data name="AcikTumDosyalariKaydederCtrlShiftS" xml:space="preserve">
+
+    <value>保存所有打开的文件（Ctrl+Shift+S）</value>
+
+  </data>
+
+  <data name="Aciklama" xml:space="preserve">
+
+    <value>解释</value>
+
+  </data>
+
+  <data name="Aciklama2" xml:space="preserve">
+
+    <value>解释：</value>
+
+  </data>
+
+  <data name="AddToChatAndStart" xml:space="preserve">
+
+    <value>🚀 添加到聊天并开始</value>
+
+  </data>
+
+  <data name="AdimDetayi" xml:space="preserve">
+
+    <value>步骤详情</value>
+
+  </data>
+
+  <data name="AiAsksYou" xml:space="preserve">
+
+    <value>人工智能问你一些问题</value>
+
+  </data>
+
+  <data name="AiConnection" xml:space="preserve">
+
+    <value>🤖 人工智能连接</value>
+
+  </data>
+
+  <data name="AiGeneratedRoadmap" xml:space="preserve">
+
+    <value>人工智能生成的路线图</value>
+
+  </data>
+
+  <data name="AiPlanGeneratorBaslatmaHatasiExMessage" xml:space="preserve">
+
+    <value>⚠️ AiPlanGenerator 初始化错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="AiReady" xml:space="preserve">
+
+    <value>🟢准备好了</value>
+
+  </data>
+
+  <data name="AiSuggestsChanges" xml:space="preserve">
+
+    <value>⚠️ AI 建议更改此文件。请审查。</value>
+
+  </data>
+
+  <data name="AjanAkisiBaslatildi" xml:space="preserve">
+
+    <value>代理流程开始</value>
+
+  </data>
+
+  <data name="AjanModulleri" xml:space="preserve">
+
+    <value>🤖</value>
+
+  </data>
+
+  <data name="Ajani" xml:space="preserve">
+
+    <value>代理人</value>
+
+  </data>
+
+  <data name="AkilliKurtarma" xml:space="preserve">
+
+    <value>智能恢复</value>
+
+  </data>
+
+  <data name="AkilliKurtarmaBaslatiliyor" xml:space="preserve">
+
+    <value>🔧 开始智能恢复...</value>
+
+  </data>
+
+  <data name="AktifDosyaIcinTestSenaryosuOlusturur" xml:space="preserve">
+
+    <value>为活动文件创建测试场景。</value>
+
+  </data>
+
+  <data name="AktifDosyadaBasitBirBicimlendirmeUygular" xml:space="preserve">
+
+    <value>对活动文件应用简单的格式。</value>
+
+  </data>
+
+  <data name="AktifDosyaninNeYaptiginiAciklar" xml:space="preserve">
+
+    <value>解释活动文件的作用。</value>
+
+  </data>
+
+  <data name="AktifDosyayiAIIleYenidenDuzenler" xml:space="preserve">
+
+    <value>使用 AI 重新排列活动文件。</value>
+
+  </data>
+
+  <data name="AktifDosyayiKaydet" xml:space="preserve">
+
+    <value>保存活动文件</value>
+
+  </data>
+
+  <data name="AktifDuzenleyiciBaglami" xml:space="preserve">
+
+    <value>[活动编辑器上下文]</value>
+
+  </data>
+
+  <data name="AllRightsReserved" xml:space="preserve">
+
+    <value>© 2026 mdaiAgent — 保留所有权利。</value>
+
+  </data>
+
+  <data name="AltAjanEvRoleArkaPlandaGorevlendirildiEvPrompt" xml:space="preserve">
+
+    <value>分配给后台的子代理 ( {ev.Role} ): {ev.Prompt}</value>
+
+  </data>
+
+  <data name="AltAjanEvRoleGoreviniBitirdiStatus" xml:space="preserve">
+
+    <value>副特工（{ev.Role}）已完成他的任务。（{status}）</value>
+
+  </data>
+
+  <data name="AltAjanEvRoleKritikHataAldi" xml:space="preserve">
+
+    <value>子代理 ({ev.Role}) 收到严重错误。</value>
+
+  </data>
+
+  <data name="AltAjanGoreviBaslatilamadi" xml:space="preserve">
+
+    <value>无法启动子代理任务。</value>
+
+  </data>
+
+  <data name="AltAjanGoreviBaslatildiRole" xml:space="preserve">
+
+    <value>子代理任务已启动：{role}</value>
+
+  </data>
+
+  <data name="AltAjanaVerilecekNetVeEylemeGecirilebilirGorevTanimi" xml:space="preserve">
+
+    <value>向分代理提供清晰且可操作的职位描述。</value>
+
+  </data>
+
+  <data name="AltAjaninHangiDosyalarUzerindeCalismasiGerektigineDairEkBaglam" xml:space="preserve">
+
+    <value>有关子代理应处理哪些文件的其他上下文。</value>
+
+  </data>
+
+  <data name="AltAjaninRoluOrnBackendDeveloperResearcher" xml:space="preserve">
+
+    <value>子代理的角色（例如“后端开发人员”、“研究员”）</value>
+
+  </data>
+
+  <data name="AmacBelirtilmelidir" xml:space="preserve">
+
+    <value>必须说明目的。</value>
+
+  </data>
+
+  <data name="AnaModeldenOnceCalisarakSadeceGerekenAraclariSecerTokenTasarrufuSaglar" xml:space="preserve">
+
+    <value>它在主模型之前运行，仅选择所需的工具。它节省了令牌。</value>
+
+  </data>
+
+  <data name="AnalyzingProjectFiles" xml:space="preserve">
+
+    <value>正在分析项目文件...</value>
+
+  </data>
+
+  <data name="AndroidUygulamasiDurdurulmayaCalisiliyor" xml:space="preserve">
+
+    <value>⏹ 尝试停止 Android 应用程序...</value>
+
+  </data>
+
+  <data name="AnthropicAPIAnahtariAyarlanmamis" xml:space="preserve">
+
+    <value>未设置 Anthropic API 密钥。</value>
+
+  </data>
+
+  <data name="AnthropicAPIHatasiIntResponseStatusCodeAwaitResponseContentReadAsStringAsyncCancellationToken" xml:space="preserve">
+
+    <value>人为 API 错误 ( {(int)response.StatusCode} ): {await response.Content.ReadAsStringAsync(cancellationToken)}</value>
+
+  </data>
+
+  <data name="AnthropicAPIHatasiIntResponseStatusCodeBody" xml:space="preserve">
+
+    <value>人为 API 错误 ( {(int)response.StatusCode} ): {body}</value>
+
+  </data>
+
+  <data name="ApiInfo" xml:space="preserve">
+
+    <value>API信息</value>
+
+  </data>
+
+  <data name="ApiKey" xml:space="preserve">
+
+    <value>API密钥</value>
+
+  </data>
+
+  <data name="ApiServiceSettings" xml:space="preserve">
+
+    <value>🌐 API 服务设置</value>
+
+  </data>
+
+  <data name="ApiTimeoutSeconds" xml:space="preserve">
+
+    <value>API 超时（秒）</value>
+
+  </data>
+
+  <data name="AppLanguage" xml:space="preserve">
+
+    <value>应用语言</value>
+
+  </data>
+
+  <data name="ApplyChanges" xml:space="preserve">
+
+    <value>✔️ 应用更改</value>
+
+  </data>
+
+  <data name="ApplyChangesQuestion" xml:space="preserve">
+
+    <value>您想应用更改吗？</value>
+
+  </data>
+
+  <data name="ApplyTemplate" xml:space="preserve">
+
+    <value>模板 →</value>
+
+  </data>
+
+  <data name="AracAciklamasiYok" xml:space="preserve">
+
+    <value>无车辆描述</value>
+
+  </data>
+
+  <data name="AracBasariliAramaYapildiDetaylarGizlendi" xml:space="preserve">
+
+    <value>[工具成功：搜索完成（详情隐藏）]</value>
+
+  </data>
+
+  <data name="AracBasariliDosyaBasariylaKaydedildiGuncellendi" xml:space="preserve">
+
+    <value>[工具成功：文件已成功保存/更新]</value>
+
+  </data>
+
+  <data name="AracBasariliDosyaOkunduTokenTasarrufuIcinDetaylarGecmisteGizlendi" xml:space="preserve">
+
+    <value>[工具成功：文件读取（详细信息隐藏在历史记录中以保存令牌）]</value>
+
+  </data>
+
+  <data name="AracBasariliKlasorIcerigiListelendiTokenTasarrufuIcinDetaylarGecmisteGizlendi" xml:space="preserve">
+
+    <value>[工具成功：列出文件夹内容（详细信息隐藏在历史记录中以保存令牌）]</value>
+
+  </data>
+
+  <data name="AracBasariliTerminalKomutuCalistirildi" xml:space="preserve">
+
+    <value>[工具成功：终端命令执行]</value>
+
+  </data>
+
+  <data name="AracCagrisiToolName" xml:space="preserve">
+
+    <value>车辆呼叫：{toolName}</value>
+
+  </data>
+
+  <data name="AracCalistiriliyor" xml:space="preserve">
+
+    <value>🔄 启动车辆：</value>
+
+  </data>
+
+  <data name="AracHatasi" xml:space="preserve">
+
+    <value>❌ 车辆错误：</value>
+
+  </data>
+
+  <data name="AracHatasiEksikArgumanMsg" xml:space="preserve">
+
+    <value>工具错误（缺少参数）：{msg}</value>
+
+  </data>
+
+  <data name="AracHatasiExMessage" xml:space="preserve">
+
+    <value>车辆错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="AracHatasiJSONParseError" xml:space="preserve">
+
+    <value>工具错误（JSON）：{parseError}</value>
+
+  </data>
+
+  <data name="AracHatasiTaskResToolName" xml:space="preserve">
+
+    <value>车辆错误：{taskRes.ToolName}</value>
+
+  </data>
+
+  <data name="AracHatasiToolNameExMessage" xml:space="preserve">
+
+    <value>车辆错误：{toolName} - {ex.Message}</value>
+
+  </data>
+
+  <data name="AracToolNameIcinGecersizJSONArgumaniJsonExMessageLutfenArgumanlariDuzeltinVeTekrarDeneyin" xml:space="preserve">
+
+    <value>车辆“{toolName}”的 JSON 参数无效：{jsonEx.Message}。请更正参数并重试。</value>
+
+  </data>
+
+  <data name="AracToolNameIcinGerekliArgumanEksikKnfExMessageLutfenGerekliTumAlanlariSaglayin" xml:space="preserve">
+
+    <value>缺少车辆“{toolName}”所需的参数：{knfEx.Message}。请提供所有必填字段。</value>
+
+  </data>
+
+  <data name="AracYonetimi" xml:space="preserve">
+
+    <value>🛠️车辆管理</value>
+
+  </data>
+
+  <data name="Araclar" xml:space="preserve">
+
+    <value>🛠️工具</value>
+
+  </data>
+
+  <data name="AraclarMenusundeManuelModAktifRouterIAcabilmekIcinLutfenAraclarMenusundenOtomatikModAGecin" xml:space="preserve">
+
+    <value>手动模式在“工具”菜单中处于活动状态。要打开路由器，请从“工具”菜单切换到“自动模式”。</value>
+
+  </data>
+
+  <data name="AraclariKendinSecSadeceAcikAraclarModeleGider" xml:space="preserve">
+
+    <value>自己选择工具。只有打开的工具才能访问模型。</value>
+
+  </data>
+
+  <data name="AramaHatasiExMessage" xml:space="preserve">
+
+    <value>搜索错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="AramaHatasiExMessage2" xml:space="preserve">
+
+    <value>❌ 搜索错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="AramaIsleminiBaslatirEnterTusuDaAyniIsiYapar" xml:space="preserve">
+
+    <value>开始搜索过程（Enter 键也执行相同的工作）</value>
+
+  </data>
+
+  <data name="AramaSonucunuTemizlerVeDosyaAgaciniGeriGosterir" xml:space="preserve">
+
+    <value>清除搜索结果并返回文件树</value>
+
+  </data>
+
+  <data name="AramaYapilamiyor" xml:space="preserve">
+
+    <value>无法搜索</value>
+
+  </data>
+
+  <data name="AramaninBaslanacagiProjeKoku" xml:space="preserve">
+
+    <value>从其开始搜索的项目根目录</value>
+
+  </data>
+
+  <data name="Araniyor" xml:space="preserve">
+
+    <value>🔍想要...</value>
+
+  </data>
+
+  <data name="ArayuzVeDuzenIyilestirmesiYapar" xml:space="preserve">
+
+    <value>改进了界面和布局。</value>
+
+  </data>
+
+  <data name="ArkaPlanGorevHatasiCtxNull" xml:space="preserve">
+
+    <value>后台任务错误{(ctx != null ? $</value>
+
+  </data>
+
+  <data name="ArrayLengthItemsToKeepAtEnds2AdetObjeAtlandi" xml:space="preserve">
+
+    <value>, ... [ {arrayLength - (itemsToKeepAtEnds * 2)} 个对象已跳过] ... ,</value>
+
+  </data>
+
+  <data name="AsagidaMevcutProjeniziGelistirmekIcinAIInSunduguAdimAdimOnerilerListelenmistirIslemeAlmakIstediginizAdimiSecipQuotSohbet" xml:space="preserve">
+
+    <value>下面列出了 AI 为改进您当前项目而提供的分步建议。选择您要处理的步骤，然后单击“添加到聊天”。您可以通过按下按钮让 AI 为您编写这一步代码。</value>
+
+  </data>
+
+  <data name="AsistanKisisellestirmeIstegeBagli" xml:space="preserve">
+
+    <value>✨ 助理个性化（可选）</value>
+
+  </data>
+
+  <data name="AsistanKisisellestirmeAciklama" xml:space="preserve">
+
+    <value>您在此处编写的内容不会更改助手的基本行为，而是添加到其中。保留车辆信息和安全规则。</value>
+
+  </data>
+
+  <data name="AsistanKisisellestirmeOrnek" xml:space="preserve">
+
+    <value>示例：“始终用土耳其语回答。解释代码时，像老师一样解释。”</value>
+
+  </data>
+
+  <data name="AsistanKisisellestirmeYerTutucu" xml:space="preserve">
+
+    <value>示例：始终用土耳其语回答。解释的时候，像老师一样解释...</value>
+
+  </data>
+
+  <data name="CihazBekleniyor" xml:space="preserve">
+    <value>📱 等待设备...</value>
+  </data>
+  <data name="CihazlarTaraniyor" xml:space="preserve">
+    <value>🔄 设备正在扫描...</value>
+  </data>
+  <data name="CihazBulunamadi" xml:space="preserve">
+    <value>❌ 未找到设备</value>
+  </data>
+  <data name="AnaModeliKullan" xml:space="preserve">
+    <value>使用主模型</value>
+  </data>
+  <data name="KaraListe" xml:space="preserve">
+    <value>🚫 黑名单</value>
+  </data>
+  <data name="WebAramaTavily" xml:space="preserve">
+    <value>🔍 网页搜索（Tavily）</value>
+  </data>
+  <data name="OtomatikKaydetmeBaslik" xml:space="preserve">
+    <value>💾 自动保存</value>
+  </data>
+
+  <data name="AskUserOptionsDelegesiTanimlanmamis" xml:space="preserve">
+
+    <value>AskUserOptions 委托未定义。</value>
+
+  </data>
+
+  <data name="AtlandiNullVeyaZatenOzellestirilmis" xml:space="preserve">
+
+    <value>⏭️省略：空或已定制</value>
+
+  </data>
+
+  <data name="AutoModeTerminalKomutuOnaysizCalistiriliyorCommand" xml:space="preserve">
+
+    <value>自动模式：无需确认即可执行终端命令：{command}</value>
+
+  </data>
+
+  <data name="Ayarlar" xml:space="preserve">
+
+    <value>⚙️ 设置</value>
+
+  </data>
+
+  <data name="AyarlarButonunaTiklayarakAPIGirin" xml:space="preserve">
+
+    <value>⚙️ 点击“设置”按钮进入 API</value>
+
+  </data>
+
+  <data name="AyarlarKaydedildi" xml:space="preserve">
+
+    <value>设置已保存。</value>
+
+  </data>
+
+  <data name="AyarlarMenusundeAIRouterAktifManuelModAGecebilmekIcinLutfenOnceAyarlarDanRouterIKapatin" xml:space="preserve">
+
+    <value>AI Router 在设置菜单中处于活动状态。要切换到手动模式，请先从“设置”中关闭路由器。</value>
+
+  </data>
+
+  <data name="BackupHistory" xml:space="preserve">
+
+    <value>备份历史记录</value>
+
+  </data>
+
+  <data name="BaglamKesfiHatasiExMessage" xml:space="preserve">
+
+    <value>上下文发现错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="BaglantiBasarili" xml:space="preserve">
+
+    <value>✅ 连接成功！</value>
+
+  </data>
+
+  <data name="BaglantiModelVeDavranisAyarlariniDuzenleyin" xml:space="preserve">
+
+    <value>编辑连接、模型和行为设置</value>
+
+  </data>
+
+  <data name="BaglantiyiTestEt" xml:space="preserve">
+
+    <value>⚡ 测试连接</value>
+
+  </data>
+
+  <data name="Basari" xml:space="preserve">
+
+    <value>成功</value>
+
+  </data>
+
+  <data name="Basarili" xml:space="preserve">
+
+    <value>成功的</value>
+
+  </data>
+
+  <data name="Basarili2" xml:space="preserve">
+
+    <value>成功的</value>
+
+  </data>
+
+  <data name="BasarisizSD" xml:space="preserve">
+
+    <value>失败：\s+(\d+)</value>
+
+  </data>
+
+  <data name="BasarisizTestlerAnalizEdiliyor" xml:space="preserve">
+
+    <value>正在分析失败的测试...</value>
+
+  </data>
+
+  <data name="BasariylaYuklendiDegisikliklerinEtkiliOlmasiIcinLutfenProgramiYenidenBaslatin" xml:space="preserve">
+
+    <value>)} 上传成功！请重新启动程序以使更改生效。</value>
+
+  </data>
+
+  <data name="BaseURLOllamaIcinHttpLocalhost11434V1" xml:space="preserve">
+
+    <value>基本 URL（Ollama 为 http://localhost:11434/v1）</value>
+
+  </data>
+
+  <data name="BaseURLVeAPIAnahtariBosBirakilamaz" xml:space="preserve">
+
+    <value>⚠️ Base URL 和 API Key 不能留空！</value>
+
+  </data>
+
+  <data name="BaseURLVeModelAlanlariBosBirakilamaz" xml:space="preserve">
+
+    <value>⚠️ 基本 URL 和模型字段不能留空！</value>
+
+  </data>
+
+  <data name="BaseUrlOllama" xml:space="preserve">
+
+    <value>基本 URL（Ollama 为 http://localhost:11434/v1）</value>
+
+  </data>
+
+  <data name="BasiliTutarakKonusPushToTalk" xml:space="preserve">
+
+    <value>一键通</value>
+
+  </data>
+
+  <data name="Basladi" xml:space="preserve">
+
+    <value>开始了</value>
+
+  </data>
+
+  <data name="Baslatiliyor" xml:space="preserve">
+
+    <value>正在初始化...</value>
+
+  </data>
+
+  <data name="Baslik" xml:space="preserve">
+
+    <value>标题：</value>
+
+  </data>
+
+  <data name="BaziAIAracCagrilariBasarisizOldu" xml:space="preserve">
+
+    <value>部分AI车辆调用失败。</value>
+
+  </data>
+
+  <data name="BeklenmeyenKapanisEtiketiClosingTag" xml:space="preserve">
+
+    <value>意外的结束标记：&lt;/ {closingTag} &gt;</value>
+
+  </data>
+
+  <data name="BekleyenDegisikliklerYedeklendiCommit" xml:space="preserve">
+
+    <value>待处理的更改已备份（提交）。</value>
+
+  </data>
+
+  <data name="BelirlenenPlanaGoreKodlamayaVeUygulamayaBaslar" xml:space="preserve">
+
+    <value>根据确定的计划开始编码和实施</value>
+
+  </data>
+
+  <data name="BelirtilenBirURLInIceriginiOkur" xml:space="preserve">
+
+    <value>读取指定URL的内容</value>
+
+  </data>
+
+  <data name="BelirtilenDizininIceriginiListelerProjeYapisiniKesfetmekIcinKullanilir" xml:space="preserve">
+
+    <value>列出指定目录的内容；用于探索项目结构</value>
+
+  </data>
+
+  <data name="BelirtilenDosyaninIceriginiOkurBuyukDosyalardaTokenTasarrufuIcinStartLineEndLineIleBelirliSatirAraligiOkunabilir" xml:space="preserve">
+
+    <value>读取指定文件的内容。要在大文件中保存标记，可以使用 startLine/endLine 读取特定的行范围。</value>
+
+  </data>
+
+  <data name="BelirtilenProjeIcinBirCheckpointOlustururDahaSonraRollbackYapilabilir" xml:space="preserve">
+
+    <value>为指定项目创建检查点；稍后可以进行回滚</value>
+
+  </data>
+
+  <data name="BelirtilenProjeIcinSaklananSonGorevVeBaglamBilgisiniOkur" xml:space="preserve">
+
+    <value>读取为指定项目存储的最后一个任务和上下文信息</value>
+
+  </data>
+
+  <data name="BelirtilenProjeKlasoruIcindeDosyaAdiVeyaDesenineGoreDosyalarBulur" xml:space="preserve">
+
+    <value>在指定的项目文件夹中按文件名或模式查找文件</value>
+
+  </data>
+
+  <data name="BelirtilenProjeVeyaCozumuDerlerVeSonucRaporlar" xml:space="preserve">
+
+    <value>编译指定的项目或解决方案并报告结果</value>
+
+  </data>
+
+  <data name="BelirtilenTestProjesiniCalistirirVeSonuclariRaporlar" xml:space="preserve">
+
+    <value>运行指定的测试项目并报告结果</value>
+
+  </data>
+
+  <data name="BelirtilenURLNinIceriginiOkur" xml:space="preserve">
+
+    <value>读取指定URL的内容</value>
+
+  </data>
+
+  <data name="BellekOkumaHatasiExMessage" xml:space="preserve">
+
+    <value>内存读取错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="BellekTemizligiHatasiExMessage" xml:space="preserve">
+
+    <value>[内存清除错误] {ex.Message}</value>
+
+  </data>
+
+  <data name="BellekTemizligiSessionNameOturumundanMessagesToRemoveEskiMesajTemizlendi" xml:space="preserve">
+
+    <value>[内存清理] 已清除会话 {session.Name} 中的 {messagesToRemove} 旧消息</value>
+
+  </data>
+
+  <data name="BilgiDosyaIcerigiTokenTasarrufuIcinGizlendiIcerigiGormekIcinReadFileAraciniKullanabilirsiniz" xml:space="preserve">
+
+    <value>[信息：文件内容已被隐藏以保存令牌。您可以使用ReadFile工具查看内容。]</value>
+
+  </data>
+
+  <data name="BilgisayarinOAnkiAnaEkranGoruntusunuAlirVeBase64VeyaDosyaFormatindaDondururGorselUIHatalariniAnalizEtmekIcinKullanilir" xml:space="preserve">
+
+    <value>它获取计算机当前的主屏幕图像并以 base64 或文件格式返回。它用于分析视觉 UI 错误。</value>
+
+  </data>
+
+  <data name="BilgisayarinizdaCalisanOpenAIUyumluEmbeddingSunucusu" xml:space="preserve">
+
+    <value>在您的计算机上运行的 OpenAI 兼容嵌入服务器</value>
+
+  </data>
+
+  <data name="BilgisayarinizdanHizlicaDosyaSecipAcmaniziSaglar" xml:space="preserve">
+
+    <value>允许您快速选择并打开计算机中的文件</value>
+
+  </data>
+
+  <data name="BilinmeyenAracToolNameGecerliAraclariKullaninBuyukKucukHarfVeYaziminaDikkatEdin" xml:space="preserve">
+
+    <value>未知车辆：“{toolName}”。使用有效的工具（注意大小写和拼写）。</value>
+
+  </data>
+
+  <data name="BilinmeyenBirHataOlustu" xml:space="preserve">
+
+    <value>发生未知错误。</value>
+
+  </data>
+
+  <data name="BilinmeyenPythonFonksiyonuPrintYazimiKontrolEdin" xml:space="preserve">
+
+    <value>未知的 Python 函数。检查“打印”的拼写。</value>
+
+  </data>
+
+  <data name="BirDosyaninBelirliBirBolumunuDegistirirDosyaninTamaminiYenidenYazmakYerineDegistirilmesiGerekenSpesifikKodBloguIleYeniIc" xml:space="preserve">
+
+    <value>替换文件的特定部分。不要重写整个文件，而是使用需要替换的特定代码块指定新内容。对于非常大的文件的部分更新来说应该是首选。</value>
+
+  </data>
+
+  <data name="BirGorevIcinKisaBirPlanUretirHangiDosyalarinInceleneceginiVeAdimlariBelirtir" xml:space="preserve">
+
+    <value>为任务制定一个简短的计划；指定要检查的文件和步骤</value>
+
+  </data>
+
+  <data name="BirGorevYazinVeyaIleDosyaEkleyin" xml:space="preserve">
+
+    <value>输入任务或附加文件@...</value>
+
+  </data>
+
+  <data name="BirGorevinBagimliliklariniIcerenKisaBirTaskGraphPlaniUretir" xml:space="preserve">
+
+    <value>生成包含任务依赖项的简短任务图</value>
+
+  </data>
+
+  <data name="BirOncekiAdiminBasarisizOlmasininArdindanHatayiAnlamakVeCozmekIcinKisaBirRecoveryPlaniUretir" xml:space="preserve">
+
+    <value>上一步失败后，生成一个简短的恢复计划来理解并解决错误</value>
+
+  </data>
+
+  <data name="BirSecenekSecin" xml:space="preserve">
+
+    <value>选择一个选项</value>
+
+  </data>
+
+  <data name="BirdenFazlaSecenekSecebilirsiniz" xml:space="preserve">
+
+    <value>您可以选择多个选项</value>
+
+  </data>
+
+  <data name="BirdenFazlaSecenekSecilebilsinMiTemaFrameworkVeyaTekTercihSorularindaFalseBirlikteSecilebilecekOzellikListelerindeTrueKu" xml:space="preserve">
+
+    <value>Can multiple options be selected?对于主题、框架或单一偏好问题，错误； Use true in co-selectable property lists.</value>
+
+  </data>
+
+  <data name="BirimTestleriniCalistirir" xml:space="preserve">
+
+    <value>运行单元测试</value>
+
+  </data>
+
+  <data name="BitisDateTimeNowHHMmSs" xml:space="preserve">
+
+    <value>⏱️结束：{DateTime.Now:HH:mm:ss}</value>
+
+  </data>
+
+  <data name="BosYanitAlindi" xml:space="preserve">
+
+    <value>收到了空白回复。</value>
+
+  </data>
+
+  <data name="BuAraclarDevreDisi" xml:space="preserve">
+
+    <value>这些工具已被禁用</value>
+
+  </data>
+
+  <data name="BuDizinAltindakiTumDosyalariTarayipIlgiliDosyalariBulabilirsinAcikOlmayanDosyalariDaBulmakIcinFindFilesVeSearchCodeAracl" xml:space="preserve">
+
+    <value>您可以扫描该目录下的所有文件并找到相关文件。使用 FindFiles 和 SearchCode 工具查找未打开的文件。您可以在整个项目中搜索并在需要时编辑多个文件。</value>
+
+  </data>
+
+  <data name="BuEklentiIcinGuncellemeBulunamadi" xml:space="preserve">
+
+    <value>没有找到该插件的更新</value>
+
+  </data>
+
+  <data name="BuGorevIcinPlanZatenOlusturulduMevcutPlaniKullanarakUygulamayaDevamEtTekrarCreatePlanCagirma" xml:space="preserve">
+
+    <value>此次任务的计划已经制定。使用当前计划继续实施；再次调用CreatePlan。</value>
+
+  </data>
+
+  <data name="BuGorevIcinPlanZatenOlusturulduTekrarPlanlamaAtlandi" xml:space="preserve">
+
+    <value>ℹ️ 本次任务的计划已经制定；重新安排被跳过。</value>
+
+  </data>
+
+  <data name="BuIslemProjenizinBuyukluguneGoreBirazZamanAlabilir" xml:space="preserve">
+
+    <value>此过程可能需要一些时间，具体取决于项目的大小。</value>
+
+  </data>
+
+  <data name="BuKlasorBirGitDeposuDegilOnceGitBaslatin" xml:space="preserve">
+
+    <value>此文件夹不是 Git 存储库。首先启动 Git。</value>
+
+  </data>
+
+  <data name="BuKlasorFlutterProjesiGibiGorunmuyorFlutterKomutuYalnizcaFlutterProjesindeKullanilmalidir" xml:space="preserve">
+
+    <value>该文件夹看起来不像 Flutter 项目。`flutter` 命令只能在 Flutter 项目中使用。</value>
+
+  </data>
+
+  <data name="BuKlasorNodeJsProjesiGibiGorunmuyorNpmKomutuYalnizcaNodeJsProjesindeKullanilmalidir" xml:space="preserve">
+
+    <value>该文件夹看起来不像 Node.js 项目。`npm` 命令只能在 Node.js 项目中使用。</value>
+
+  </data>
+
+  <data name="BuKlasorZatenMevcut" xml:space="preserve">
+
+    <value>该文件夹已经存在！</value>
+
+  </data>
+
+  <data name="BuKlasordeNETProjeDosyasiBulunamadiDotnetKomutuYalnizcaNETProjeleriIcinKullanilmalidir" xml:space="preserve">
+
+    <value>在此文件夹中找不到 .NET 项目文件。`dotnet` 命令只能用于 .NET 项目。</value>
+
+  </data>
+
+  <data name="BuKlasordePackageJsonBulunamadiNpmVeyaYarnKomutlariSadeceNodeJsProjesindeKullanilmalidir" xml:space="preserve">
+
+    <value>在此文件夹中找不到 Package.json。`npm` 或 `yarn` 命令只能在 Node.js 项目中使用。</value>
+
+  </data>
+
+  <data name="BuKlasordePythonProjesiTespitEdilemediPythonVeyaPipKomutuSadecePythonProjesindeKullanilmalidir" xml:space="preserve">
+
+    <value>在此文件夹中未检测到 Python 项目。`python` 或 `pip` 命令只能在 Python 项目中使用。</value>
+
+  </data>
+
+  <data name="BuKomutPotansiyelOlarakTehlikeliLutfenDahaGuvenliBirKomutKullanin" xml:space="preserve">
+
+    <value>该命令有潜在危险。请使用更安全的命令。</value>
+
+  </data>
+
+  <data name="BuOzellikHenuzAktifDegil" xml:space="preserve">
+
+    <value>该功能尚未激活</value>
+
+  </data>
+
+  <data name="BuProjeIcinFriendlyNameLSPDestegiEksikVeyaBaslatilamadi" xml:space="preserve">
+
+    <value>{friendlyName} 此项目缺少 LSP 支持或初始化失败。</value>
+
+  </data>
+
+  <data name="BuProjeIcinFriendlyNameLSPDestegiEksikVeyaBaslatilamadiEklentiYoneticisiniAcmakIsterMisiniz" xml:space="preserve">
+
+    <value>{friendlyName} 此项目缺少 LSP 支持或初始化失败。您想打开插件管理器吗？</value>
+
+  </data>
+
+  <data name="BuProjeIcinFriendlyNameLSPDestegiEksikVeyaBaslatilamadiServerNameKurulumuGerekiyorEklentiYoneticisiniAcmakIsterMisiniz" xml:space="preserve">
+
+    <value>{friendlyName} 此项目缺少 LSP 支持或初始化失败。{server.Name} 需要安装。您想打开插件管理器吗？</value>
+
+  </data>
+
+  <data name="BuTypeNameKaliciOlarakSilmekIstediginizeEminMisinizYolTargetPath" xml:space="preserve">
+
+    <value>您确定要永久删除此 {typeName} 吗？路径：{targetPath}</value>
+
+  </data>
+
+  <data name="BuYanitIcinYenidenUretilecekKullaniciMesajiBulunamadi" xml:space="preserve">
+
+    <value>没有找到可以重现此响应的用户消息。</value>
+
+  </data>
+
+  <data name="BuYanitiYenidenUret" xml:space="preserve">
+
+    <value>Bu yanıtı yeniden üret</value>
+
+  </data>
+
+  <data name="BuYedegeDon" xml:space="preserve">
+
+    <value>✨ 返回此备份</value>
+
+  </data>
+
+  <data name="BuildBasarili" xml:space="preserve">
+
+    <value>✓ 构建成功</value>
+
+  </data>
+
+  <data name="BuildBasarisiz" xml:space="preserve">
+
+    <value>构建失败</value>
+
+  </data>
+
+  <data name="BuildBasarisizBuildResultError" xml:space="preserve">
+
+    <value>❌ 构建失败：{buildResult.Error}</value>
+
+  </data>
+
+  <data name="BuildDenemedeAttemptDuzeltildi" xml:space="preserve">
+
+    <value>✓ 修复了构建试用版中的 {attempt}！</value>
+
+  </data>
+
+  <data name="BuildDuzeltmeDenemesiAttemptAgentYanitiBasarisiz" xml:space="preserve">
+
+    <value>构建修复尝试 {attempt} 代理响应失败</value>
+
+  </data>
+
+  <data name="BuildDuzeltmeDenemesiAttemptMaxAutoFixAttempts" xml:space="preserve">
+
+    <value>🔧 构建修复尝试 {attempt} / {MaxAutoFixAttempts} ...</value>
+
+  </data>
+
+  <data name="BuildDuzeltmeDenemesiHatasiExMessage" xml:space="preserve">
+
+    <value>构建修复尝试错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="BuildHatasiIcinOtomatikDuzeltmeBaslatiliyor" xml:space="preserve">
+
+    <value>🔧 Build hatası için otomatik düzeltme başlatılıyor...</value>
+
+  </data>
+
+  <data name="BuildHatasiOtomatikDuzeltildiTestlerKontrolEdiliyor" xml:space="preserve">
+
+    <value>✓ 自动更正构建错误！测试正在检查中...</value>
+
+  </data>
+
+  <data name="BuildHatasiOtomatikDuzeltilemedi" xml:space="preserve">
+
+    <value>❌ 构建错误无法自动纠正</value>
+
+  </data>
+
+  <data name="BuildHatasiTespitEdildiProjeYenidenDerlenmeli" xml:space="preserve">
+
+    <value>检测到构建错误；必须重新编译该项目。</value>
+
+  </data>
+
+  <data name="BuyukGorevlerIcinAdimAdimPlanYapar" xml:space="preserve">
+
+    <value>为大任务制定分步计划</value>
+
+  </data>
+
+  <data name="CCVeObjectiveCIcinTamOzellikliLSPDestegi" xml:space="preserve">
+
+    <value>对 C、C++ 和 Objective-C 的全功能 LSP 支持</value>
+
+  </data>
+
+  <data name="CDiliIcinGercekSozdizimiDenetimi" xml:space="preserve">
+
+    <value>C# 语言的真实语法检查</value>
+
+  </data>
+
+  <data name="CSSPseudoElementiIleBaslamalidir" xml:space="preserve">
+
+    <value>CSS 伪元素必须以“::”开头。</value>
+
+  </data>
+
+  <data name="CVeCIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>C 和 C++ 的简单错误检查</value>
+
+  </data>
+
+  <data name="CVeNETIcinTamOzellikliLSPDestegi" xml:space="preserve">
+
+    <value>对 C# 和 .NET 的全功能 LSP 支持</value>
+
+  </data>
+
+  <data name="CalisanTerminalSureciDurduruluyor" xml:space="preserve">
+
+    <value>⏹ 停止正在运行的终端进程...</value>
+
+  </data>
+
+  <data name="CalisanUygulamayiDurdurur" xml:space="preserve">
+
+    <value>停止正在运行的应用程序</value>
+
+  </data>
+
+  <data name="Calisiyor" xml:space="preserve">
+
+    <value>🔄 它有效...</value>
+
+  </data>
+
+  <data name="Calisiyor2" xml:space="preserve">
+
+    <value>在职的</value>
+
+  </data>
+
+  <data name="Calisiyor3" xml:space="preserve">
+
+    <value>有用...</value>
+
+  </data>
+
+  <data name="CalistirilacakKayitliKomutunAdi" xml:space="preserve">
+
+    <value>要运行的已注册命令的名称</value>
+
+  </data>
+
+  <data name="CalistirilacakTerminalKomutu" xml:space="preserve">
+
+    <value>要运行的终端命令</value>
+
+  </data>
+
+  <data name="CalistirilacakTestCsprojDosyasi" xml:space="preserve">
+
+    <value>测试要运行的 .csproj 文件</value>
+
+  </data>
+
+  <data name="Calistiriliyor" xml:space="preserve">
+
+    <value>跑步</value>
+
+  </data>
+
+  <data name="CalistiriliyorCommand" xml:space="preserve">
+
+    <value>运行：{command}</value>
+
+  </data>
+
+  <data name="Cancel" xml:space="preserve">
+
+    <value>取消</value>
+
+  </data>
+
+  <data name="CancelPlan" xml:space="preserve">
+
+    <value>取消</value>
+
+  </data>
+
+  <data name="CapabilityIcinUygunFallbackProviderBulunamadi" xml:space="preserve">
+
+    <value>没有找到适合 {capability} 的后备提供程序。</value>
+
+  </data>
+
+  <data name="CeviriBasariliTranscribedText" xml:space="preserve">
+
+    <value>✅ 翻译成功：{transcribedText}</value>
+
+  </data>
+
+  <data name="ChatFlowServiceActiveSessionNameSohbetiniSilmekIstediginizeEminMisiniz" xml:space="preserve">
+
+    <value>您确定要删除聊天记录“{_chatFlowService.ActiveSession.Name}”吗？</value>
+
+  </data>
+
+  <data name="ChatFlowUyariAssistantMessageIcerikBosStreamingVeyaModelYanitiEksik" xml:space="preserve">
+
+    <value>[ChatFlow] 警告：assistantMessage 内容为空（缺少流或模型响应）。</value>
+
+  </data>
+
+  <data name="ChatNameUpdated" xml:space="preserve">
+
+    <value>聊天名称已更新。</value>
+
+  </data>
+
+  <data name="ChatPlaceholder" xml:space="preserve">
+
+    <value>输入任务或附加文件@...</value>
+
+  </data>
+
+  <data name="CheckForUpdates" xml:space="preserve">
+
+    <value>🔄 检查更新</value>
+
+  </data>
+
+  <data name="CheckpointGeriYuklendiLabel" xml:space="preserve">
+
+    <value>检查点已恢复：{label}</value>
+
+  </data>
+
+  <data name="CheckpointGeriYuklenemedi" xml:space="preserve">
+
+    <value>检查点无法恢复。</value>
+
+  </data>
+
+  <data name="CheckpointGeriYukleniyorLabel" xml:space="preserve">
+
+    <value>正在恢复检查点：{label}</value>
+
+  </data>
+
+  <data name="CheckpointOlusturulamadi" xml:space="preserve">
+
+    <value>无法创建检查点。</value>
+
+  </data>
+
+  <data name="CheckpointOlusturulduLabel" xml:space="preserve">
+
+    <value>创建检查点：{label}</value>
+
+  </data>
+
+  <data name="CheckpointOlusturuluyorLabel" xml:space="preserve">
+
+    <value>创建检查点：{label}</value>
+
+  </data>
+
+  <data name="CiktiCokUzunOlduguIcinKirpildi" xml:space="preserve">
+
+    <value>[输出因太长而被截断]</value>
+
+  </data>
+
+  <data name="CiktiKirpildiOrigLenN0Karakterden12000EIndirildi" xml:space="preserve">
+
+    <value>[⚠️ 输出修剪：从 {origLen:N0} 个字符减少到 12,000 个。</value>
+
+  </data>
+
+  <data name="CiktiOnizlemesiOutputPreview" xml:space="preserve">
+
+    <value>（输出预览：{outputPreview}）</value>
+
+  </data>
+
+  <data name="CizilenPlaniUygulanabilirGorevKutucuklarinaChecklistBolerTaskMd" xml:space="preserve">
+
+    <value>将绘制的计划划分为适用的任务框（清单）（task.md）</value>
+
+  </data>
+
+  <data name="ClaudeEmbeddingDesteklemiyorOllamaVeyaOpenAIFallbackIKullanin" xml:space="preserve">
+
+    <value>Claude Embedding 不支持。使用 Ollama 或 OpenAI 后备。</value>
+
+  </data>
+
+  <data name="ClaudeSTTDesteklemiyorGroqVeyaOpenAIFallbackIKullanin" xml:space="preserve">
+
+    <value>克劳德不支持STT。使用 Groq 或 OpenAI 后备。</value>
+
+  </data>
+
+  <data name="CleanupHatasiExMessage" xml:space="preserve">
+
+    <value>清理错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="ClearTerminalOutput" xml:space="preserve">
+
+    <value>清除终端输出</value>
+
+  </data>
+
+  <data name="Close" xml:space="preserve">
+
+    <value>关闭</value>
+
+  </data>
+
+  <data name="ClosePaletteOrWindows" xml:space="preserve">
+
+    <value>关闭命令面板/关闭窗口</value>
+
+  </data>
+
+  <data name="CloudCardDesc" xml:space="preserve">
+
+    <value>任何 OpenAI 兼容提供商（需要 API 密钥）</value>
+
+  </data>
+
+  <data name="CommandsCountHizliKomutYuklendi" xml:space="preserve">
+
+    <value>✓ {commands.Count} 快速命令加载</value>
+
+  </data>
+
+  <data name="CommitBasariylaOlusturuldu" xml:space="preserve">
+
+    <value>提交创建成功！</value>
+
+  </data>
+
+  <data name="CommitHatasiExMessage" xml:space="preserve">
+
+    <value>提交错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="CommitMesaji" xml:space="preserve">
+
+    <value>提交消息</value>
+
+  </data>
+
+  <data name="CommitMesajiniGirin" xml:space="preserve">
+
+    <value>输入提交消息：</value>
+
+  </data>
+
+  <data name="Confirm" xml:space="preserve">
+
+    <value>确认</value>
+
+  </data>
+
+  <data name="ConfirmCommandInstruction" xml:space="preserve">
+
+    <value>AI想要运行以下命令：</value>
+
+  </data>
+
+  <data name="ConstitutionCommandDesc" xml:space="preserve">
+
+    <value>创建项目的基本规则和构建块</value>
+
+  </data>
+
+  <data name="ContextDiscoveryHatasiExMessage" xml:space="preserve">
+
+    <value>[上下文发现错误] {ex.Message}</value>
+
+  </data>
+
+  <data name="ContextDiscoveryKeywordsCountKeywordRelevantFilesCountDosyaContextCodeSnippetsSumXXValueCountSnippetKesfedildi" xml:space="preserve">
+
+    <value>发现 [上下文发现] {keywords.Count} 关键字、{relevantFiles.Count} 文件、{context.CodeSnippets.Sum(x =&gt; x.Value.Count)} 代码段</value>
+
+  </data>
+
+  <data name="Continue" xml:space="preserve">
+
+    <value>继续</value>
+
+  </data>
+
+  <data name="CopyRawPlan" xml:space="preserve">
+
+    <value>📋 复制原始计划</value>
+
+  </data>
+
+  <data name="CreatePlanHatasiDevamEdiliyorExMessage" xml:space="preserve">
+
+    <value>⚠️ CreatePlan 错误（正在进行中）：{ex.Message}</value>
+
+  </data>
+
+  <data name="CriticalError" xml:space="preserve">
+
+    <value>严重错误</value>
+
+  </data>
+
+  <data name="CurrentContextKullaniciBaglamiAdditionalContext" xml:space="preserve">
+
+    <value>{currentContext} [用户上下文]：{additionalContext}</value>
+
+  </data>
+
+  <data name="DLLDosyalariDllDllTumDosyalar" xml:space="preserve">
+
+    <value>DLL 文件 (*.dll)|*.dll|所有文件 (*.*)|*.*</value>
+
+  </data>
+
+  <data name="DahaFazlaYukle" xml:space="preserve">
+
+    <value>📜 加载更多</value>
+
+  </data>
+
+  <data name="DahaFazlasinaIhtiyacDuyuyorsanReadFileIleStartLineEndLineParametreleriniKullan" xml:space="preserve">
+
+    <value>如果您需要更多，请使用带有 startLine/endLine 参数的 ReadFile。]</value>
+
+  </data>
+
+  <data name="DahaOnceKaydedilmisHizliKomutuYurutur" xml:space="preserve">
+
+    <value>执行之前记录的快速命令</value>
+
+  </data>
+
+  <data name="DahaOnceKaydedilmisHizliKomutunIceriginiYurutmeIcinHazirlar" xml:space="preserve">
+
+    <value>准备先前保存的快速命令的内容以供执行</value>
+
+  </data>
+
+  <data name="DartVeFlutterIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Dart 和 Flutter 的简单错误检查</value>
+
+  </data>
+
+  <data name="DegisiklikOnizlemePenceresiAcilamadiDegisiklikReddedildi" xml:space="preserve">
+
+    <value>无法打开更改预览窗口；该修正案被拒绝。</value>
+
+  </data>
+
+  <data name="DegisiklikleriInceleMdaiAgent" xml:space="preserve">
+
+    <value>审核更改 - Yengi</value>
+
+  </data>
+
+  <data name="DegisiklikleriUygula" xml:space="preserve">
+
+    <value>✔️ 应用更改</value>
+
+  </data>
+
+  <data name="DegisiklikleriUygulamakIstiyorMusunuz" xml:space="preserve">
+
+    <value>您想应用更改吗？</value>
+
+  </data>
+
+  <data name="Degistir" xml:space="preserve">
+
+    <value>改变</value>
+
+  </data>
+
+  <data name="DegistirildiColorNameNewColor" xml:space="preserve">
+
+    <value>✅ 更改：{colorName} -&gt; {newColor}</value>
+
+  </data>
+
+  <data name="DegistirilecekDosya" xml:space="preserve">
+
+    <value>要替换的文件</value>
+
+  </data>
+
+  <data name="DegistirilecekDosyaninTamYolu" xml:space="preserve">
+
+    <value>要替换的文件的完整路径</value>
+
+  </data>
+
+  <data name="DegistirilenDosyalarModifiedFilesCountStringJoin" xml:space="preserve">
+
+    <value>📝 替换文件 ( {modifiedFiles.Count} ): {string.Join(</value>
+
+  </data>
+
+  <data name="DegistirmeHatasiExMessage" xml:space="preserve">
+
+    <value>替换错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="Delete" xml:space="preserve">
+
+    <value>删除</value>
+
+  </data>
+
+  <data name="DeleteChat" xml:space="preserve">
+
+    <value>删除聊天记录</value>
+
+  </data>
+
+  <data name="DeleteChatConfirm" xml:space="preserve">
+
+    <value>您确定要删除聊天记录吗？</value>
+
+  </data>
+
+  <data name="DerlemeHatasiExMessage" xml:space="preserve">
+
+    <value>编译错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DerlemeKullaniciOnayiylaDurduruldu" xml:space="preserve">
+
+    <value>经用户批准停止编译。</value>
+
+  </data>
+
+  <data name="DerlemeTestKontroluYap" xml:space="preserve">
+
+    <value>检查构建/测试</value>
+
+  </data>
+
+  <data name="DerlenecekCsprojVeyaSlnDosyasi" xml:space="preserve">
+
+    <value>要编译的 .csproj 或 .sln 文件</value>
+
+  </data>
+
+  <data name="DetailedStats" xml:space="preserve">
+
+    <value>📊 详细统计</value>
+
+  </data>
+
+  <data name="DetayIcinBirAdimSecin" xml:space="preserve">
+
+    <value>选择一个步骤了解详细信息。</value>
+
+  </data>
+
+  <data name="DetayliIstatistikler" xml:space="preserve">
+
+    <value>📊 详细统计</value>
+
+  </data>
+
+  <data name="DevamEtmekVeBirGelistirmePlaniOlusturmakIstiyorMusunuz" xml:space="preserve">
+
+    <value>您想继续制定发展计划吗？</value>
+
+  </data>
+
+  <data name="DeveloperPrefix" xml:space="preserve">
+
+    <value>开发商：</value>
+
+  </data>
+
+  <data name="DevreDisiAraclar" xml:space="preserve">
+
+    <value>残疾车辆</value>
+
+  </data>
+
+  <data name="DevreDisiAraclarStringJoin" xml:space="preserve">
+
+    <value>[禁用工具：{string.Join(</value>
+
+  </data>
+
+  <data name="DiffOlusturmaHatasiExMessage" xml:space="preserve">
+
+    <value>差异创建错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DiffPenceresiAcilamadiGuvenliVarsayilanDavranisUygulaniyorExMessage" xml:space="preserve">
+
+    <value>无法打开差异窗口，应用安全默认行为：{ex.Message}</value>
+
+  </data>
+
+  <data name="DiffReviewChanges" xml:space="preserve">
+
+    <value>审查变更</value>
+
+  </data>
+
+  <data name="DilAdi" xml:space="preserve">
+
+    <value>语言名称</value>
+
+  </data>
+
+  <data name="DinleniyorKonusmayiBitirinceButonuBirakin" xml:space="preserve">
+
+    <value>🎤 休息...（说完后松开按钮）</value>
+
+  </data>
+
+  <data name="DisableRag" xml:space="preserve">
+
+    <value>🔴禁用 RAG</value>
+
+  </data>
+
+  <data name="DisaridanYukle" xml:space="preserve">
+
+    <value>📦 旁载</value>
+
+  </data>
+
+  <data name="DisplayNamePaketleriYuklendiLSPYenidenDeneniyor" xml:space="preserve">
+
+    <value>{displayName} 软件包已安装。LSP 正在再次尝试。</value>
+
+  </data>
+
+  <data name="DisplayNamePaketleriYukleniyorLutfenBekleyin" xml:space="preserve">
+
+    <value>正在安装 {displayName} 软件包...请稍候。</value>
+
+  </data>
+
+  <data name="DisposeHatasiExMessage" xml:space="preserve">
+
+    <value>处理错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DizinBulunamadiDirectoryPath" xml:space="preserve">
+
+    <value>未找到目录：{directoryPath}</value>
+
+  </data>
+
+  <data name="DizinListelemeHatasiExMessage" xml:space="preserve">
+
+    <value>目录列表错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DokumanBicimlendirildi" xml:space="preserve">
+
+    <value>该文档已格式化。</value>
+
+  </data>
+
+  <data name="DokumanZatenDuzgunFormatlanmis" xml:space="preserve">
+
+    <value>该文档的格式已经正确。</value>
+
+  </data>
+
+  <data name="DokumaniBicimlendir" xml:space="preserve">
+
+    <value>格式化文档</value>
+
+  </data>
+
+  <data name="DosyaAcikDegil" xml:space="preserve">
+
+    <value>📄 文件未打开</value>
+
+  </data>
+
+  <data name="DosyaAcma" xml:space="preserve">
+
+    <value>打开文件</value>
+
+  </data>
+
+  <data name="DosyaAgaciVeProjeTanilariYenileniyor" xml:space="preserve">
+
+    <value>文件树和项目诊断正在更新...</value>
+
+  </data>
+
+  <data name="DosyaAramaHatasiExMessage" xml:space="preserve">
+
+    <value>文件搜索错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DosyaAramasiBasarisizOldu" xml:space="preserve">
+
+    <value>文件搜索失败。</value>
+
+  </data>
+
+  <data name="DosyaAramasiTamamlandiPattern" xml:space="preserve">
+
+    <value>文件搜索完成：{pattern}</value>
+
+  </data>
+
+  <data name="DosyaBulunamadi" xml:space="preserve">
+
+    <value>找不到文件</value>
+
+  </data>
+
+  <data name="DosyaBulunamadiFilePath" xml:space="preserve">
+
+    <value>未找到文件：{filePath}</value>
+
+  </data>
+
+  <data name="DosyaBulunamadiResolvedPath" xml:space="preserve">
+
+    <value>未找到文件：{resolvedPath}</value>
+
+  </data>
+
+  <data name="DosyaDegisimiKullaniciTarafindanReddedildi" xml:space="preserve">
+
+    <value>文件交换被用户拒绝。</value>
+
+  </data>
+
+  <data name="DosyaDegisimiReddedildi" xml:space="preserve">
+
+    <value>文件交换被拒绝。</value>
+
+  </data>
+
+  <data name="DosyaDegistiriliyorPathGetFileNameFilePath" xml:space="preserve">
+
+    <value>更改文件：{Path.GetFileName(filePath)}</value>
+
+  </data>
+
+  <data name="DosyaGuncellendiPathGetFileNameFilePath" xml:space="preserve">
+
+    <value>✓ 文件更新：{Path.GetFileName(filePath)}</value>
+
+  </data>
+
+  <data name="DosyaIcerigiIlk2000KarakterCurrentFileContentLength2000CurrentFileContentSubstring02000" xml:space="preserve">
+
+    <value>文件内容（前 2000 个字符）： {(currentFileContent.Length &gt; 2000 ? currentFileContent.Substring(0, 2000) +</value>
+
+  </data>
+
+  <data name="DosyaIceriklerindeMetinKodArar" xml:space="preserve">
+
+    <value>在文件内容中搜索文本/代码</value>
+
+  </data>
+
+  <data name="DosyaKaydedilirkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>保存文件时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="DosyaKlasorIsimlerindeAramaYapar" xml:space="preserve">
+
+    <value>搜索文件/文件夹名称</value>
+
+  </data>
+
+  <data name="DosyaOkumaHatasiExMessage" xml:space="preserve">
+
+    <value>文件读取错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DosyaOkumaHatasiPathGetFileNameFilePath" xml:space="preserve">
+
+    <value>文件读取错误：{Path.GetFileName(filePath)}</value>
+
+  </data>
+
+  <data name="DosyaOkunamadiExMessage" xml:space="preserve">
+
+    <value>无法读取文件：{ex.Message}</value>
+
+  </data>
+
+  <data name="DosyaOkuyor" xml:space="preserve">
+
+    <value>📖 正在读取文件...</value>
+
+  </data>
+
+  <data name="DosyaOlusturulamadiExMessage" xml:space="preserve">
+
+    <value>无法创建文件：{ex.Message}</value>
+
+  </data>
+
+  <data name="DosyaTotalLinesSatirGosterilenBolgeSatirStartLine1EndLine1ImlecCaretLine" xml:space="preserve">
+
+    <value>[文件：{totalLines}行—显示区域：{startLine + 1}行-{endLine + 1}行（光标：{caretLine}）]</value>
+
+  </data>
+
+  <data name="DosyaTotalLinesSatirTamIcerik" xml:space="preserve">
+
+    <value>[文件：{totalLines}行-完整内容]</value>
+
+  </data>
+
+  <data name="DosyaUzantilari" xml:space="preserve">
+
+    <value>文件扩展名</value>
+
+  </data>
+
+  <data name="DosyaUzantisiExt" xml:space="preserve">
+
+    <value>📄 文件扩展名：{ext}</value>
+
+  </data>
+
+  <data name="DosyaYazmaHatasiExMessage" xml:space="preserve">
+
+    <value>文件写入错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="DosyaYazmaHatasiPathGetFileNameFilePath" xml:space="preserve">
+
+    <value>文件写入错误：{Path.GetFileName(filePath)}</value>
+
+  </data>
+
+  <data name="DosyaZatenAyniIcerigeSahipFilePath" xml:space="preserve">
+
+    <value>该文件已具有相同的内容：{filePath}</value>
+
+  </data>
+
+  <data name="DosyadaDegistirilmekIstenenMevcutKodBloguDosyadanTamOlarakKopyalanmisOlmalidirWhitespaceVeSatirSonlariDahil" xml:space="preserve">
+
+    <value>文件中要更改的现有代码块。必须从文件中准确复制（包括空格和换行符）</value>
+
+  </data>
+
+  <data name="DosyalarAraniyorPattern" xml:space="preserve">
+
+    <value>搜索文件：{pattern}</value>
+
+  </data>
+
+  <data name="DosyalariDuzenliyor" xml:space="preserve">
+
+    <value>✏️ 整理文件...</value>
+
+  </data>
+
+  <data name="DosyaninBelirliBirBolumunuDegistirir" xml:space="preserve">
+
+    <value>替换文件的特定部分</value>
+
+  </data>
+
+  <data name="DosyaninTamYolu" xml:space="preserve">
+
+    <value>文件的完整路径</value>
+
+  </data>
+
+  <data name="DosyayaYazilacakIcerik" xml:space="preserve">
+
+    <value>要写入文件的内容</value>
+
+  </data>
+
+  <data name="Dosyayi" xml:space="preserve">
+
+    <value>文件</value>
+
+  </data>
+
+  <data name="DosyayiAcikla" xml:space="preserve">
+
+    <value>描述文件</value>
+
+  </data>
+
+  <data name="DosyayiIncele" xml:space="preserve">
+
+    <value>审查文件</value>
+
+  </data>
+
+  <data name="DosyayiKaydet" xml:space="preserve">
+
+    <value>保存文件</value>
+
+  </data>
+
+  <data name="DosyayiRefaktorEt" xml:space="preserve">
+
+    <value>重构文件</value>
+
+  </data>
+
+  <data name="Download" xml:space="preserve">
+
+    <value>⬇️下载</value>
+
+  </data>
+
+  <data name="DryRunDerlemeSimulasyonuTamamlandi" xml:space="preserve">
+
+    <value>Dry run：编译模拟完成。</value>
+
+  </data>
+
+  <data name="DryRunKomutSimulasyonuTamamlandi" xml:space="preserve">
+
+    <value>试运行：命令模拟完成。</value>
+
+  </data>
+
+  <data name="DryRunTestSimulasyonuTamamlandi" xml:space="preserve">
+
+    <value>试运行：测试模拟完成。</value>
+
+  </data>
+
+  <data name="DurdurulacakAktifBirUygulamaBulunamadi" xml:space="preserve">
+
+    <value>⏹ 没有发现活动的应用程序停止。</value>
+
+  </data>
+
+  <data name="DusunceSureciThoughtProcess" xml:space="preserve">
+
+    <value>💡思维过程</value>
+
+  </data>
+
+  <data name="Dusunuyor" xml:space="preserve">
+
+    <value>🧠 思考...</value>
+
+  </data>
+
+  <data name="Dusunuyorum" xml:space="preserve">
+
+    <value>我在想...</value>
+
+  </data>
+
+  <data name="Duzelt" xml:space="preserve">
+
+    <value>düzelt</value>
+
+  </data>
+
+  <data name="Duzelt2" xml:space="preserve">
+
+    <value>修复它。</value>
+
+  </data>
+
+  <data name="Duzelt3" xml:space="preserve">
+
+    <value>修好它！</value>
+
+  </data>
+
+  <data name="Duzenle" xml:space="preserve">
+
+    <value>编辑</value>
+
+  </data>
+
+  <data name="EditWithAi" xml:space="preserve">
+
+    <value>✨ AI ile Düzenle</value>
+
+  </data>
+
+  <data name="EditordeAc" xml:space="preserve">
+
+    <value>在编辑器中打开</value>
+
+  </data>
+
+  <data name="EkDosyaAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开附件文件：{ex.Message}</value>
+
+  </data>
+
+  <data name="EkDosyaAcilirkenHataExMessage" xml:space="preserve">
+
+    <value>打开附件文件时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="EkDosyaAcmaBasarisizIcerikYok" xml:space="preserve">
+
+    <value>打开附件失败：无内容。</value>
+
+  </data>
+
+  <data name="EklentiDLLDosyasiniSec" xml:space="preserve">
+
+    <value>选择插件 DLL 文件</value>
+
+  </data>
+
+  <data name="EklentiGuncellenirkenBirHataOlustu" xml:space="preserve">
+
+    <value>更新插件时发生错误！</value>
+
+  </data>
+
+  <data name="EklentiIndirilirkenBirHataOlustu" xml:space="preserve">
+
+    <value>下载插件时发生错误！</value>
+
+  </data>
+
+  <data name="EklentiYoneticisi" xml:space="preserve">
+
+    <value>🔌 插件</value>
+
+  </data>
+
+  <data name="EklentiYoneticisiAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开插件管理器：{ex.Message}</value>
+
+  </data>
+
+  <data name="EklentiYoneticisiMdaiAgent" xml:space="preserve">
+
+    <value>插件管理器 - Yengi</value>
+
+  </data>
+
+  <data name="EklentiYuklenirkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>加载插件时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="EklentilerKlasoru" xml:space="preserve">
+
+    <value>📁 插件文件夹</value>
+
+  </data>
+
+  <data name="EklentilerKlasoruAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开插件文件夹：{ex.Message}</value>
+
+  </data>
+
+  <data name="EklentilerYuklenirkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>加载插件时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="EklerCokBuyukLutfen5MBDenKucukDosyalarEkleyinVeyaAyarlarUploadEndpointYapilandirmasiniKullanin" xml:space="preserve">
+
+    <value>泡芙很大。请添加小于 5MB 的文件或使用设置 -&gt; UploadEndpoint 配置。</value>
+
+  </data>
+
+  <data name="EkranGoruntusuAlindi" xml:space="preserve">
+
+    <value>📸 截图</value>
+
+  </data>
+
+  <data name="EkranGoruntusuAlindi2" xml:space="preserve">
+
+    <value>已截屏。</value>
+
+  </data>
+
+  <data name="EksikOzelliklerAraniyor" xml:space="preserve">
+
+    <value>寻找缺失的功能...</value>
+
+  </data>
+
+  <data name="EmbeddingIcinMetinBosOlamaz" xml:space="preserve">
+
+    <value>用于嵌入的文本不能为空</value>
+
+  </data>
+
+  <data name="EmbeddingOlusturmaBasarisizExMessage" xml:space="preserve">
+
+    <value>嵌入创建失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="EnableAutoSave" xml:space="preserve">
+
+    <value>启用自动保存</value>
+
+  </data>
+
+  <data name="EnterNewChatName" xml:space="preserve">
+
+    <value>输入新的聊天名称：</value>
+
+  </data>
+
+  <data name="EskiIcerik" xml:space="preserve">
+
+    <value>旧内容</value>
+
+  </data>
+
+  <data name="EskiIcerikDosyadaBulunamadi" xml:space="preserve">
+
+    <value>在文件中找不到旧内容。</value>
+
+  </data>
+
+  <data name="EskiKayitSilindiFile" xml:space="preserve">
+
+    <value>旧记录已删除：{file}</value>
+
+  </data>
+
+  <data name="EskiKodunYerineGececekYeniKodBlogu" xml:space="preserve">
+
+    <value>新代码块替换旧代码</value>
+
+  </data>
+
+  <data name="EskiVeYeniIcerikArasindaKisaBirDiffPatchOnizlemesiUretir" xml:space="preserve">
+
+    <value>在新旧内容之间生成简短的差异/补丁预览</value>
+
+  </data>
+
+  <data name="EvetOtomatikYuklemeHayirEklentiYoneticisiniAcIptalHicbirSeyYapma" xml:space="preserve">
+
+    <value>是：自动安装 否：打开插件管理器 取消：不执行任何操作</value>
+
+  </data>
+
+  <data name="EvrenselGenericVurgulamaKullanildi" xml:space="preserve">
+
+    <value>🎨 使用通用突出显示！</value>
+
+  </data>
+
+  <data name="FallbackProviderSecildiFallbackModelNameCapabilityCapability" xml:space="preserve">
+
+    <value>选择的后备提供程序：{fallback.ModelName}（功能：{capability}）</value>
+
+  </data>
+
+  <data name="FallbackProviderSecilemediExMessage" xml:space="preserve">
+
+    <value>无法选择后备提供商：{ex.Message}</value>
+
+  </data>
+
+  <data name="FallbackYuklemeBasarili" xml:space="preserve">
+
+    <value>后备安装成功。</value>
+
+  </data>
+
+  <data name="FeatureNotActive" xml:space="preserve">
+
+    <value>该功能尚未激活</value>
+
+  </data>
+
+  <data name="FileDiscoveryHatasiExMessage" xml:space="preserve">
+
+    <value>[文件发现错误] {ex.Message}</value>
+
+  </data>
+
+  <data name="FirstSMuSYoksaSSecondSMiSMi" xml:space="preserve">
+
+    <value>(?&lt;第一&gt;.+?)\s+mu\s+或\s+(?&lt;第二&gt;.+?)(?:\s+mi|\s+mi|\?)</value>
+
+  </data>
+
+  <data name="FlutterVeDartIcinTamOzellikliLSPDestegi" xml:space="preserve">
+
+    <value>对 Flutter 和 Dart 的全功能 LSP 支持</value>
+
+  </data>
+
+  <data name="FlutterWebOnizleme" xml:space="preserve">
+
+    <value>🌐 Flutter Web（预览）</value>
+
+  </data>
+
+  <data name="FlutterWindowsMasaustu" xml:space="preserve">
+
+    <value>🪟 Flutter Windows（桌面）</value>
+
+  </data>
+
+  <data name="FocusTerminalInput" xml:space="preserve">
+
+    <value>关注终端登录</value>
+
+  </data>
+
+  <data name="FormatlamaIcinAktifBirDosyaSekmesiSecin" xml:space="preserve">
+
+    <value>选择一个活动文件选项卡进行格式化。</value>
+
+  </data>
+
+  <data name="FriendlyNameLSPDestegiEksikEklentilerSekmesindenManuelOlarakEkleyebilirsiniz" xml:space="preserve">
+
+    <value>{friendlyName} 缺少 LSP 支持。您可以从“插件”选项卡手动添加它。</value>
+
+  </data>
+
+  <data name="FriendlyNameLSPDestegiEksikEklentilerSekmesiniAcmakIcinBurayaTiklayin" xml:space="preserve">
+
+    <value>{friendlyName} 缺少 LSP 支持。单击此处打开“插件”选项卡。</value>
+
+  </data>
+
+  <data name="GecerliBirAIYanitiBulunamadi" xml:space="preserve">
+
+    <value>未找到有效的 AI 响应。</value>
+
+  </data>
+
+  <data name="GecerliDosyayiKaydederCtrlS" xml:space="preserve">
+
+    <value>保存当前文件（Ctrl+S）</value>
+
+  </data>
+
+  <data name="GecersizProjeKlasoru" xml:space="preserve">
+
+    <value>项目文件夹无效</value>
+
+  </data>
+
+  <data name="GecmisiTemizle" xml:space="preserve">
+
+    <value>清除历史记录</value>
+
+  </data>
+
+  <data name="Gelistir" xml:space="preserve">
+
+    <value>提升</value>
+
+  </data>
+
+  <data name="Gelistirici" xml:space="preserve">
+
+    <value>开发商：</value>
+
+  </data>
+
+  <data name="GeminiAPIHatasiIntResponseStatusCodeAwaitResponseContentReadAsStringAsyncCancellationToken" xml:space="preserve">
+
+    <value>Gemini API 错误 ( {(int)response.StatusCode} ): {await response.Content.ReadAsStringAsync(cancellationToken)}</value>
+
+  </data>
+
+  <data name="GeminiAPIHatasiIntResponseStatusCodeBody" xml:space="preserve">
+
+    <value>Gemini API 错误 ( {(int)response.StatusCode} ): {body}</value>
+
+  </data>
+
+  <data name="GeminiEmbeddingDesteklemiyorOllamaVeyaOpenAIFallbackIKullanin" xml:space="preserve">
+
+    <value>Gemini Embedding 不支持。使用 Ollama 或 OpenAI 后备。</value>
+
+  </data>
+
+  <data name="GeminiSTTDesteklemiyorGroqVeyaOpenAIFallbackIKullanin" xml:space="preserve">
+
+    <value>Gemini 不支持 STT。使用 Groq 或 OpenAI 后备。</value>
+
+  </data>
+
+  <data name="GenelKurtarmaProseduruUygulaniyor" xml:space="preserve">
+
+    <value>一般救援程序适用...</value>
+
+  </data>
+
+  <data name="GerekliDegisiklikleriUygula" xml:space="preserve">
+
+    <value>应用必要的更改</value>
+
+  </data>
+
+  <data name="GeriDonulebilirBirProjeKayitNoktasiOlusturur" xml:space="preserve">
+
+    <value>创建可逆项目保存点</value>
+
+  </data>
+
+  <data name="GeriDonulecekCheckpointEtiketi" xml:space="preserve">
+
+    <value>返回检查点标签</value>
+
+  </data>
+
+  <data name="GetFreeTavilyKey" xml:space="preserve">
+
+    <value>→ Tavily.com 获取免费 API 密钥</value>
+
+  </data>
+
+  <data name="GezgindeGoster" xml:space="preserve">
+
+    <value>在资源管理器中显示</value>
+
+  </data>
+
+  <data name="GezgindeGosterilemediExMessage" xml:space="preserve">
+
+    <value>无法在资源管理器中显示：{ex.Message}</value>
+
+  </data>
+
+  <data name="Giris" xml:space="preserve">
+
+    <value>入口</value>
+
+  </data>
+
+  <data name="GirisAlaninaGec" xml:space="preserve">
+
+    <value>前往登录区域</value>
+
+  </data>
+
+  <data name="GirisGerekli" xml:space="preserve">
+
+    <value>需要登录</value>
+
+  </data>
+
+  <data name="GitDegisiklikleriniYenileyerekGuncelDurumuGosterir" xml:space="preserve">
+
+    <value>通过刷新 git 更改来显示当前状态</value>
+
+  </data>
+
+  <data name="GitHubAGonderimBasarisiz" xml:space="preserve">
+
+    <value>推送到 GitHub 失败。</value>
+
+  </data>
+
+  <data name="GitHubAKodlarYukleniyor" xml:space="preserve">
+
+    <value>代码正在上传到 GitHub...</value>
+
+  </data>
+
+  <data name="GitHubAOriginSenkronizeEdiliyorKullaniciSettingsGitHubUsername" xml:space="preserve">
+
+    <value>正在同步到 GitHub（原始）...用户：{_settings.GitHubUsername}</value>
+
+  </data>
+
+  <data name="GitHubIslemiSirasindaHataOlustu" xml:space="preserve">
+
+    <value>GitHub 提交期间发生错误。</value>
+
+  </data>
+
+  <data name="GitHubKullaniciAdi" xml:space="preserve">
+
+    <value>GitHub 用户名</value>
+
+  </data>
+
+  <data name="GitHubKullaniciAdiniziGirin" xml:space="preserve">
+
+    <value>输入您的 GitHub 用户名：</value>
+
+  </data>
+
+  <data name="GitHubPersonalAccessTokenGirinDeveloperSettingsPersonalAccessTokensUzerindenAlabilirsiniz" xml:space="preserve">
+
+    <value>输入GitHub个人访问令牌：（您可以通过开发者设置→个人访问令牌获取）</value>
+
+  </data>
+
+  <data name="GitHubRepositoryURLSiOrnHttpsGithubComUserRepoGit" xml:space="preserve">
+
+    <value>GitHub 存储库 URL（例如：https://github.com/user/repo.git）：</value>
+
+  </data>
+
+  <data name="GitHubSenkronizasyonHatasiExMessage" xml:space="preserve">
+
+    <value>GitHub 同步错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="GitHubSenkronizasyonuBASARILI" xml:space="preserve">
+
+    <value>GitHub 同步成功！</value>
+
+  </data>
+
+  <data name="GitHubSenkronizasyonuBASARISIZTokenYetkiVeyaInternetBaglantisiniKontrolEdin" xml:space="preserve">
+
+    <value>GitHub 同步失败！（检查令牌、授权或互联网连接。）</value>
+
+  </data>
+
+  <data name="GitHubSenkronizasyonuTamamlandi" xml:space="preserve">
+
+    <value>GitHub 同步完成。</value>
+
+  </data>
+
+  <data name="GitKomutlariCalistirmadanOnceKullaniciyaDahaFazlaDogrulamaGerekebilir" xml:space="preserve">
+
+    <value>用户在运行 Git 命令之前可能需要进一步的身份验证。</value>
+
+  </data>
+
+  <data name="GlobalYuklemeBasarili" xml:space="preserve">
+
+    <value>全局上传成功。</value>
+
+  </data>
+
+  <data name="GlobalYuklemeDeneniyorIzinGerektirebilir" xml:space="preserve">
+
+    <value>正在尝试全局安装（可能需要权限）...</value>
+
+  </data>
+
+  <data name="GoDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Go语言的简单错误检查</value>
+
+  </data>
+
+  <data name="Gonder" xml:space="preserve">
+
+    <value>发送</value>
+
+  </data>
+
+  <data name="GoogleGeminiAPIAnahtariAyarlanmamis" xml:space="preserve">
+
+    <value>未设置 Google Gemini API 密钥。</value>
+
+  </data>
+
+  <data name="Gorev" xml:space="preserve">
+
+    <value>责任</value>
+
+  </data>
+
+  <data name="GorevGrafigiHatasiExMessage" xml:space="preserve">
+
+    <value>任务图错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="GorevGrafigiUretiliyor" xml:space="preserve">
+
+    <value>🔗 任务图正在制作中...</value>
+
+  </data>
+
+  <data name="GoreviBaskaBirAIAltAjanaDevreder" xml:space="preserve">
+
+    <value>将任务委托给另一个 AI 子代理</value>
+
+  </data>
+
+  <data name="GorevinBagimlilikGrafiginiCikarir" xml:space="preserve">
+
+    <value>提取任务的依赖图</value>
+
+  </data>
+
+  <data name="GoruntuOlusturmaBasarisizExMessage" xml:space="preserve">
+
+    <value>图像创建失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="GoruntuUretimiIcinPromptBosOlamaz" xml:space="preserve">
+
+    <value>提示生成图片不能为空</value>
+
+  </data>
+
+  <data name="GoruntuUretme" xml:space="preserve">
+
+    <value>🖼️ 图像生成</value>
+
+  </data>
+
+  <data name="Guide" xml:space="preserve">
+
+    <value>📖 指南</value>
+
+  </data>
+
+  <data name="Guncelle" xml:space="preserve">
+
+    <value>更新</value>
+
+  </data>
+
+  <data name="Guncelle2" xml:space="preserve">
+
+    <value>🔄 更新</value>
+
+  </data>
+
+  <data name="GuncellemeBasarisizOldu" xml:space="preserve">
+
+    <value>更新失败</value>
+
+  </data>
+
+  <data name="GuncellemeDenetimiBasarisiz" xml:space="preserve">
+
+    <value>更新检查失败</value>
+
+  </data>
+
+  <data name="GuncellemelerMevcut" xml:space="preserve">
+
+    <value>可用更新</value>
+
+  </data>
+
+  <data name="GuncellemeleriDenetle" xml:space="preserve">
+
+    <value>🔄 检查更新</value>
+
+  </data>
+
+  <data name="GuncellemeleriDenetleniyor" xml:space="preserve">
+
+    <value>正在检查更新...</value>
+
+  </data>
+
+  <data name="GuncellemeleriDenetlerkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>检查更新时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="Guncellendi" xml:space="preserve">
+
+    <value>已更新</value>
+
+  </data>
+
+  <data name="GuncellenenDosyaYollariStringJoin" xml:space="preserve">
+
+    <value>📂 更新文件路径：{string.Join(</value>
+
+  </data>
+
+  <data name="GuncelleniyorLocalManifestName" xml:space="preserve">
+
+    <value>正在更新：{localManifest.Name} ...</value>
+
+  </data>
+
+  <data name="GuvenEsigi0010" xml:space="preserve">
+
+    <value>置信阈值（0.0 - 1.0）</value>
+
+  </data>
+
+  <data name="GuvenliMod" xml:space="preserve">
+
+    <value>🛡 安全模式</value>
+
+  </data>
+
+  <data name="GuvenliModACIK" xml:space="preserve">
+
+    <value>安全模式：开</value>
+
+  </data>
+
+  <data name="GuvenliModDevreDisiBirakildi" xml:space="preserve">
+
+    <value>安全模式已禁用</value>
+
+  </data>
+
+  <data name="GuvenliModEtkinlestirildi" xml:space="preserve">
+
+    <value>安全模式已启用</value>
+
+  </data>
+
+  <data name="GuvenliModKAPAL" xml:space="preserve">
+
+    <value>安全模式：关闭</value>
+
+  </data>
+
+  <data name="HATAKomutCalistirilamadiExMessage" xml:space="preserve">
+
+    <value>[错误] 无法执行命令：{ex.Message}</value>
+
+  </data>
+
+  <data name="HATAXshdPathDosyasiBULUNAMADI" xml:space="preserve">
+
+    <value>！！！错误：找不到文件 {xshdPath}！ ！！！</value>
+
+  </data>
+
+  <data name="HIZLISABLONSEC" xml:space="preserve">
+
+    <value>选择快速模板</value>
+
+  </data>
+
+  <data name="HTMLVeCSSIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>HTML 和 CSS 的简单错误检查</value>
+
+  </data>
+
+  <data name="HamPlaniKopyala" xml:space="preserve">
+
+    <value>📋 复制原始计划</value>
+
+  </data>
+
+  <data name="HangiYapayZekaModeliniKullanirsanizKullaninWebAramasiBuAPIUzerindenCalisir" xml:space="preserve">
+
+    <value>无论您使用哪种 AI 模型，网络搜索都通过此 API 进行。</value>
+
+  </data>
+
+  <data name="Hata" xml:space="preserve">
+
+    <value>❌ 错误</value>
+
+  </data>
+
+  <data name="HataBilgisiAlinamadiLutfenTerminalCiktisiniKontrolEdin" xml:space="preserve">
+
+    <value>无法接收错误信息。请检查终端输出。</value>
+
+  </data>
+
+  <data name="HataDetayiDecisionErrorMessage" xml:space="preserve">
+
+    <value>└─ 错误详细信息：{decision.ErrorMessage}</value>
+
+  </data>
+
+  <data name="HataDetayiExStackTrace" xml:space="preserve">
+
+    <value>📋错误详细信息：{ex.StackTrace}</value>
+
+  </data>
+
+  <data name="HataDurumundaKurtarmaPlaniYapar" xml:space="preserve">
+
+    <value>制定发生错误时的恢复计划</value>
+
+  </data>
+
+  <data name="HataDuzelt" xml:space="preserve">
+
+    <value>修复错误</value>
+
+  </data>
+
+  <data name="HataIleTamamlandi" xml:space="preserve">
+
+    <value>已完成但有错误</value>
+
+  </data>
+
+  <data name="HataIyilesmePlaniHatasiExMessage" xml:space="preserve">
+
+    <value>错误恢复计划错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="HataIyilesmePlaniUretiliyor" xml:space="preserve">
+
+    <value>🔧 错误恢复计划正在制定中...</value>
+
+  </data>
+
+  <data name="HataOlustuDevamEt" xml:space="preserve">
+
+    <value>发生错误，继续。</value>
+
+  </data>
+
+  <data name="HataVarsaDuzeltVeTekrarKontrolEt" xml:space="preserve">
+
+    <value>如果有错误，请更正并再次检查</value>
+
+  </data>
+
+  <data name="HatalariDuzeltiyor" xml:space="preserve">
+
+    <value>🔧 修复错误...</value>
+
+  </data>
+
+  <data name="Hatali" xml:space="preserve">
+
+    <value>不正确</value>
+
+  </data>
+
+  <data name="Hayir" xml:space="preserve">
+
+    <value>不</value>
+
+  </data>
+
+  <data name="Hazir" xml:space="preserve">
+
+    <value>准备好</value>
+
+  </data>
+
+  <data name="Hazir2" xml:space="preserve">
+
+    <value>✅ 准备好了</value>
+
+  </data>
+
+  <data name="Hazir3" xml:space="preserve">
+
+    <value>🟢准备好了</value>
+
+  </data>
+
+  <data name="HeadIcerikCokUzunOlduguIcinTextLengthMaxLengthKarakterAtlandiTail" xml:space="preserve">
+
+    <value>{head} ... [{text.Length - maxLength} 由于内容太长而省略字符] ... {tail}</value>
+
+  </data>
+
+  <data name="HedefIceriktenMatchCountAdetEslesmeBulunduLutfenDahaSpesifikBirHedefIcerikBelirterekTekrarDeneyin" xml:space="preserve">
+
+    <value>从目标内容中找到了 {matchCount} 匹配项。请使用更具体的目标内容重试。</value>
+
+  </data>
+
+  <data name="HenuzYedekBulunmuyor" xml:space="preserve">
+
+    <value>还没有备份。</value>
+
+  </data>
+
+  <data name="HerhangiBirYedekSecilmedi" xml:space="preserve">
+
+    <value>没有选择替补。</value>
+
+  </data>
+
+  <data name="HizliBaslangic" xml:space="preserve">
+
+    <value>快速入门：</value>
+
+  </data>
+
+  <data name="HizliDosyaAc" xml:space="preserve">
+
+    <value>快速打开文件</value>
+
+  </data>
+
+  <data name="HizliKomutHazirlandiName" xml:space="preserve">
+
+    <value>准备好的快速命令：{name}</value>
+
+  </data>
+
+  <data name="HizliKomutKaydediliyorName" xml:space="preserve">
+
+    <value>注册快速命令：{name}</value>
+
+  </data>
+
+  <data name="HizliKomutOlusturulamadiName" xml:space="preserve">
+
+    <value>无法创建快速命令：{name}</value>
+
+  </data>
+
+  <data name="HizliKomutOlusturulduName" xml:space="preserve">
+
+    <value>✓ 创建的快速命令：{name}</value>
+
+  </data>
+
+  <data name="HizliKomutOlusturulduName2" xml:space="preserve">
+
+    <value>创建的快速命令：{name}</value>
+
+  </data>
+
+  <data name="HizliKomutYurutuluyorName" xml:space="preserve">
+
+    <value>✓ 快速执行命令：{name}</value>
+
+  </data>
+
+  <data name="HotReloadKomutuRGonderiliyor" xml:space="preserve">
+
+    <value>⚡ 发送热重载命令 (r)...</value>
+
+  </data>
+
+  <data name="HotReloadSadeceCalisanFlutterProjelerindeKullanilabilir" xml:space="preserve">
+
+    <value>⚠️ Hot Reload 只能在运行 Flutter 项目时使用。</value>
+
+  </data>
+
+  <data name="Icerik" xml:space="preserve">
+
+    <value>内容：</value>
+
+  </data>
+
+  <data name="IlgiliBilgi" xml:space="preserve">
+
+    <value>相关资讯</value>
+
+  </data>
+
+  <data name="IlgiliDosyalarContextRelevantFilesCount" xml:space="preserve">
+
+    <value>## 相关文件 ( {context.RelevantFiles.Count} )</value>
+
+  </data>
+
+  <data name="IlgiliDosyalariGuncelle" xml:space="preserve">
+
+    <value>更新相关文件</value>
+
+  </data>
+
+  <data name="IlgiliDosyalariIncele" xml:space="preserve">
+
+    <value>查看相关文件</value>
+
+  </data>
+
+  <data name="IlkKurulum" xml:space="preserve">
+
+    <value>首次设置</value>
+
+  </data>
+
+  <data name="ImplementCommandDesc" xml:space="preserve">
+
+    <value>根据确定的计划开始编码和实施</value>
+
+  </data>
+
+  <data name="IndekslenenDosyalar" xml:space="preserve">
+
+    <value>📁 索引文件：</value>
+
+  </data>
+
+  <data name="Indir" xml:space="preserve">
+
+    <value>⬇️下载</value>
+
+  </data>
+
+  <data name="IndirilebilirEklentiler" xml:space="preserve">
+
+    <value>⬇️ 可下载的插件</value>
+
+  </data>
+
+  <data name="IndiriliyorManifestName" xml:space="preserve">
+
+    <value>正在下载：{manifest.Name} ...</value>
+
+  </data>
+
+  <data name="IndirmeBasarisizOldu" xml:space="preserve">
+
+    <value>下载失败</value>
+
+  </data>
+
+  <data name="InlineEditCancelEsc" xml:space="preserve">
+
+    <value>取消 (Esc)</value>
+
+  </data>
+
+  <data name="InlineEditHatasiExMessage" xml:space="preserve">
+
+    <value>内联编辑错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="InputRequired" xml:space="preserve">
+
+    <value>需要登录</value>
+
+  </data>
+
+  <data name="InspectFile" xml:space="preserve">
+
+    <value>审查文件</value>
+
+  </data>
+
+  <data name="InternetUzerindeAramaYapar" xml:space="preserve">
+
+    <value>在互联网上搜索</value>
+
+  </data>
+
+  <data name="InternetUzerindeAramaYaparTavilyAPIKullanarak" xml:space="preserve">
+
+    <value>搜索互联网（使用 Tavily API）</value>
+
+  </data>
+
+  <data name="Iptal" xml:space="preserve">
+
+    <value>取消</value>
+
+  </data>
+
+  <data name="IptalEdildi" xml:space="preserve">
+
+    <value>取消。</value>
+
+  </data>
+
+  <data name="IptalEdildi2" xml:space="preserve">
+
+    <value>取消</value>
+
+  </data>
+
+  <data name="IptalEsc" xml:space="preserve">
+
+    <value>取消 (Esc)</value>
+
+  </data>
+
+  <data name="IptalEt" xml:space="preserve">
+
+    <value>取消</value>
+
+  </data>
+
+  <data name="Ipucu" xml:space="preserve">
+
+    <value>线索：</value>
+
+  </data>
+
+  <data name="IsinYurutulecegiProjeKoku" xml:space="preserve">
+
+    <value>将执行作业的项目根目录</value>
+
+  </data>
+
+  <data name="IslemBasariylaTamamlandi" xml:space="preserve">
+
+    <value>交易成功完成</value>
+
+  </data>
+
+  <data name="IslemDonguLimitineUlastiVeDurduruldu" xml:space="preserve">
+
+    <value>⚠️ 该进程达到其循环限制并被停止。</value>
+
+  </data>
+
+  <data name="IslemHazirlaniyor" xml:space="preserve">
+
+    <value>流程正在准备中...</value>
+
+  </data>
+
+  <data name="IslemIptalEdildi" xml:space="preserve">
+
+    <value>交易已被取消。</value>
+
+  </data>
+
+  <data name="IslemIptalEdildiYarimKalanYanitGecmiseKaydedildi" xml:space="preserve">
+
+    <value>⚠️ 交易已取消。不完整的答案已保存到历史记录中。</value>
+
+  </data>
+
+  <data name="IslemKullaniciTarafindanIptalEdildi" xml:space="preserve">
+
+    <value>该交易已被用户取消。</value>
+
+  </data>
+
+  <data name="IslemSirasindaHataOlustuExMessage" xml:space="preserve">
+
+    <value>操作期间发生错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="IslemTamamlandi" xml:space="preserve">
+
+    <value>✅ 交易完成</value>
+
+  </data>
+
+  <data name="IslemTamamlandi2" xml:space="preserve">
+
+    <value>整个过程就完成了！</value>
+
+  </data>
+
+  <data name="IslemYapiliyor" xml:space="preserve">
+
+    <value>交易进行中</value>
+
+  </data>
+
+  <data name="Islemler" xml:space="preserve">
+
+    <value>交易</value>
+
+  </data>
+
+  <data name="IslenenRenkColorNameTipTypeName" xml:space="preserve">
+
+    <value>🔍渲染颜色：'{colorName}'（类型：{type.Name}）</value>
+
+  </data>
+
+  <data name="IstediginizProjeninTeknikMimariPlaniniCizerImplementationPlanMd" xml:space="preserve">
+
+    <value>画出你想要的项目的技术架构规划（implementation_plan.md）</value>
+
+  </data>
+
+  <data name="IstegiAnalizEdiyorum" xml:space="preserve">
+
+    <value>我分析了这个请求...</value>
+
+  </data>
+
+  <data name="IstegiAnlamlandirVePlaniCikar" xml:space="preserve">
+
+    <value>理解请求并制定计划</value>
+
+  </data>
+
+  <data name="IsteginiziYazinVeEnterAVeyaCtrlEnterBasin" xml:space="preserve">
+
+    <value>输入您的请求并按 Enter（或 Ctrl+Enter）。</value>
+
+  </data>
+
+  <data name="IzinSorunlariCozuluyor" xml:space="preserve">
+
+    <value>权限问题正在解决...</value>
+
+  </data>
+
+  <data name="IzinVer" xml:space="preserve">
+
+    <value>允许</value>
+
+  </data>
+
+  <data name="JavaDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Java 语言的简单错误检查</value>
+
+  </data>
+
+  <data name="JavaIcinTamOzellikliLSPDestegi" xml:space="preserve">
+
+    <value>对 Java 的全功能 LSP 支持</value>
+
+  </data>
+
+  <data name="JavaScriptVeTypeScriptIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>JavaScript 和 TypeScript 的简单错误检查</value>
+
+  </data>
+
+  <data name="KULLANICIKISISELLESTIRMESIBuTalimatlaraUyAncakAracKullanimiVeGuvenlikKurallariniAslaAtlatma" xml:space="preserve">
+
+    <value>--- [用户个性化 - 遵循这些说明，但切勿绕过车辆操作和安全规则]</value>
+
+  </data>
+
+  <data name="Kaldir" xml:space="preserve">
+
+    <value>消除</value>
+
+  </data>
+
+  <data name="KapanmamisEtiketBulunamadi" xml:space="preserve">
+
+    <value>未找到未闭合标签 (&gt;)。</value>
+
+  </data>
+
+  <data name="KapanmamisEtiketUnclosedTag" xml:space="preserve">
+
+    <value>未闭合标签：&lt; {unclosedTag} &gt;</value>
+
+  </data>
+
+  <data name="KaydedilmemisDegisiklikler" xml:space="preserve">
+
+    <value>未保存的更改</value>
+
+  </data>
+
+  <data name="Kaydet" xml:space="preserve">
+
+    <value>节省</value>
+
+  </data>
+
+  <data name="Kaydet2" xml:space="preserve">
+
+    <value>✓ 保存</value>
+
+  </data>
+
+  <data name="KaydetmeAraligiSaniye" xml:space="preserve">
+
+    <value>记录间隔（秒）</value>
+
+  </data>
+
+  <data name="KaydetmeHatasiTabInfoFilePathExMessage" xml:space="preserve">
+
+    <value>保存错误（{tabInfo.FilePath}）：{ex.Message}</value>
+
+  </data>
+
+  <data name="KayitBaslatilamadiExMessage" xml:space="preserve">
+
+    <value>无法开始录制：{ex.Message}</value>
+
+  </data>
+
+  <data name="KayitDosyasiBulunamadi" xml:space="preserve">
+
+    <value>未找到日志文件</value>
+
+  </data>
+
+  <data name="KayitDurdurulurkenHataExMessage" xml:space="preserve">
+
+    <value>停止录制时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="KayitKapatildi" xml:space="preserve">
+
+    <value>登记已截止</value>
+
+  </data>
+
+  <data name="KayitSonlandirmaHatasiExMessage" xml:space="preserve">
+
+    <value>记录终止错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KayitZatenDevamEdiyor" xml:space="preserve">
+
+    <value>注册已在进行中</value>
+
+  </data>
+
+  <data name="KaynakDosyalariSourceFilesLengthAdet" xml:space="preserve">
+
+    <value>## 源文件：{sourceFiles.Length} 数量</value>
+
+  </data>
+
+  <data name="KendimBelirleyecegim" xml:space="preserve">
+
+    <value>我自己决定</value>
+
+  </data>
+
+  <data name="KesfedilecekProjeKokuOpsiyonel" xml:space="preserve">
+
+    <value>要探索的项目根（可选）</value>
+
+  </data>
+
+  <data name="KesinlikleIhtiyacinVarsaKullaniciyaAraclarMenusundenAracAdiAraciniAcinizSeklindeBilgiVer" xml:space="preserve">
+
+    <value>如果您确实需要它，请提示用户“从工具菜单中打开工具[工具名称]”。</value>
+
+  </data>
+
+  <data name="KeywordsKesfedildiContextExtractedKeywordsCount" xml:space="preserve">
+
+    <value>## 发现关键字 ( {context.ExtractedKeywords.Count} )</value>
+
+  </data>
+
+  <data name="Kilavuz" xml:space="preserve">
+
+    <value>📖 指南</value>
+
+  </data>
+
+  <data name="KilavuzAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开指南：{ex.Message}</value>
+
+  </data>
+
+  <data name="Kirpildi" xml:space="preserve">
+
+    <value>...（裁剪）...</value>
+
+  </data>
+
+  <data name="Kisayol" xml:space="preserve">
+
+    <value>捷径</value>
+
+  </data>
+
+  <data name="Kisayollar" xml:space="preserve">
+
+    <value>⌨️</value>
+
+  </data>
+
+  <data name="KisayollarVeKomutlar" xml:space="preserve">
+
+    <value>⚡ 快捷键和命令</value>
+
+  </data>
+
+  <data name="KisayollarVeKomutlarMdaiAgent" xml:space="preserve">
+
+    <value>快捷键和命令 - Yengi</value>
+
+  </data>
+
+  <data name="KlasorAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开文件夹：{ex.Message}</value>
+
+  </data>
+
+  <data name="KlasorIceriginiListeler" xml:space="preserve">
+
+    <value>列出文件夹内容</value>
+
+  </data>
+
+  <data name="KlasorOkunurkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>读取文件夹时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="KlasorOlusturulamadiExMessage" xml:space="preserve">
+
+    <value>无法创建文件夹：{ex.Message}</value>
+
+  </data>
+
+  <data name="KlasorSecildiSelectedFolder" xml:space="preserve">
+
+    <value>所选文件夹：{_selectedFolder}</value>
+
+  </data>
+
+  <data name="KlasorSilindiTargetPath" xml:space="preserve">
+
+    <value>已删除文件夹：{targetPath}</value>
+
+  </data>
+
+  <data name="Klasoru" xml:space="preserve">
+
+    <value>文件夹</value>
+
+  </data>
+
+  <data name="KlavyeKisayollari" xml:space="preserve">
+
+    <value>⌨️ 键盘快捷键</value>
+
+  </data>
+
+  <data name="KodAramaHatasiExMessage" xml:space="preserve">
+
+    <value>代码查找错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KodAramasiBasarisizOldu" xml:space="preserve">
+
+    <value>代码搜索失败。</value>
+
+  </data>
+
+  <data name="KodAramasiTamamlandiSearchTerm" xml:space="preserve">
+
+    <value>代码搜索完成：{searchTerm}</value>
+
+  </data>
+
+  <data name="KodAraniyorSearchTerm" xml:space="preserve">
+
+    <value>搜索代码：{searchTerm}</value>
+
+  </data>
+
+  <data name="KodBlogunuKopyala" xml:space="preserve">
+
+    <value>复制代码块</value>
+
+  </data>
+
+  <data name="KodKalitesiniOtomatikDenetlerVeRefaktorOnerir" xml:space="preserve">
+
+    <value>自动检查代码质量并建议重构。</value>
+
+  </data>
+
+  <data name="KodTaslaginiKaydet" xml:space="preserve">
+
+    <value>保存代码草稿</value>
+
+  </data>
+
+  <data name="KodTaslakSekmesindeAcildiDisplayName" xml:space="preserve">
+
+    <value>在草稿选项卡中打开的代码：{displayName}</value>
+
+  </data>
+
+  <data name="KodlarGitHubABasariylaGonderildi" xml:space="preserve">
+
+    <value>代码已成功推送到GitHub。</value>
+
+  </data>
+
+  <data name="KodlarGuncellendiEChunksIndexedYeniChunkEFilesProcessedDosyaEDurationTotalSecondsF2S" xml:space="preserve">
+
+    <value>🔄 更新代码：{e.ChunksIndexed} 新块，{e.FilesProcessed} 文件（{e.Duration.TotalSeconds:F2} s）</value>
+
+  </data>
+
+  <data name="KoduYeniBirTaslakSekmesindeAc" xml:space="preserve">
+
+    <value>在新的草稿选项卡中打开代码</value>
+
+  </data>
+
+  <data name="KomutAdi" xml:space="preserve">
+
+    <value>命令名称</value>
+
+  </data>
+
+  <data name="KomutAdiZorunlu" xml:space="preserve">
+
+    <value>命令名称是必需的。</value>
+
+  </data>
+
+  <data name="KomutBosOlamaz" xml:space="preserve">
+
+    <value>命令不能为空。</value>
+
+  </data>
+
+  <data name="KomutBulunamadiName" xml:space="preserve">
+
+    <value>未找到命令：{name}</value>
+
+  </data>
+
+  <data name="KomutCalistiriliyorCommand" xml:space="preserve">
+
+    <value>⚙️运行命令：{command}</value>
+
+  </data>
+
+  <data name="KomutCalistiriliyorCommand2" xml:space="preserve">
+
+    <value>运行命令：{command}</value>
+
+  </data>
+
+  <data name="KomutCokUzunLutfenDahaKisaBirKomutKullanin" xml:space="preserve">
+
+    <value>命令太长。请使用更短的命令。</value>
+
+  </data>
+
+  <data name="KomutDogrulamaHatasiValidationError" xml:space="preserve">
+
+    <value>命令验证错误：{validationError}</value>
+
+  </data>
+
+  <data name="KomutKullaniciOnayiylaDurduruldu" xml:space="preserve">
+
+    <value>该命令在用户确认后停止。</value>
+
+  </data>
+
+  <data name="KomutOlusturmaHatasiExMessage" xml:space="preserve">
+
+    <value>命令创建错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KomutOnayi" xml:space="preserve">
+
+    <value>命令确认</value>
+
+  </data>
+
+  <data name="KomutPaletindeGezinTerminalGecmisiniGezin" xml:space="preserve">
+
+    <value>导航命令面板/导航终端历史记录</value>
+
+  </data>
+
+  <data name="KomutPaletindeSeciliKomutuCalistirSohbetMesajiGonder" xml:space="preserve">
+
+    <value>运行命令面板中选定的命令/发送聊天消息</value>
+
+  </data>
+
+  <data name="KomutPaletiniAc" xml:space="preserve">
+
+    <value>命令面板</value>
+
+  </data>
+
+  <data name="KomutPaletiniKapatPencereleriKapat" xml:space="preserve">
+
+    <value>关闭命令面板/关闭窗口</value>
+
+  </data>
+
+  <data name="KomutYuklemeHatasiExMessage" xml:space="preserve">
+
+    <value>⚠️命令加载错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KomutYurutmeHatasiExMessage" xml:space="preserve">
+
+    <value>命令执行错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KomutYurutuluyorCommand" xml:space="preserve">
+
+    <value>执行命令：{command}</value>
+
+  </data>
+
+  <data name="KomutunCalistirilacagiKlasorYoluOpsiyonelBelirtilmezseProjeninKokKlasoruKullanilirOrnekEAndoridGamesKiloTakip" xml:space="preserve">
+
+    <value>将运行命令的文件夹路径（可选）。如果未指定，则使用项目的根文件夹。示例：“C:/Projects/MyApp”</value>
+
+  </data>
+
+  <data name="Konusun" xml:space="preserve">
+
+    <value>🎤 说话...</value>
+
+  </data>
+
+  <data name="Kopyalandi" xml:space="preserve">
+
+    <value>复制的</value>
+
+  </data>
+
+  <data name="KoseliParantezDengesiBozukAciktaMathAbsOpenBracketTane" xml:space="preserve">
+
+    <value>方括号不平衡！{Math.Abs(openBracket)} 颗粒暴露。</value>
+
+  </data>
+
+  <data name="KoseliParantezDengesiBozukAciktaMathAbsOpenBracketTaneVar" xml:space="preserve">
+
+    <value>方括号不平衡！有{Math.Abs(openBracket)}暴露。</value>
+
+  </data>
+
+  <data name="KotlinDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Kotlin 语言的简单错误检查</value>
+
+  </data>
+
+  <data name="KotlinDiliIcinHataDenetimi" xml:space="preserve">
+
+    <value>Kotlin 语言的错误检查</value>
+
+  </data>
+
+  <data name="KullanBuAraclari" xml:space="preserve">
+
+    <value>使用这些工具</value>
+
+  </data>
+
+  <data name="KullaniciAsagidakiSecimleriYapti" xml:space="preserve">
+
+    <value>用户做出以下选择：</value>
+
+  </data>
+
+  <data name="KullaniciBirGorevGonderdi" xml:space="preserve">
+
+    <value>用户提交了任务。</value>
+
+  </data>
+
+  <data name="KullaniciBuAraclariKapatmisEgerBirGoreviYapmakIcinBuAraclardanBirine" xml:space="preserve">
+
+    <value>用户已关闭这些工具。如果您使用这些工具之一来完成任务</value>
+
+  </data>
+
+  <data name="KullaniciIptalEtti" xml:space="preserve">
+
+    <value>用户已取消。</value>
+
+  </data>
+
+  <data name="KullaniciProjeKlasoru" xml:space="preserve">
+
+    <value>用户项目文件夹</value>
+
+  </data>
+
+  <data name="KullaniciSecimiAlinamadi" xml:space="preserve">
+
+    <value>无法检索用户选择。</value>
+
+  </data>
+
+  <data name="KullaniciSecimiAlindi" xml:space="preserve">
+
+    <value>已收到用户选择。</value>
+
+  </data>
+
+  <data name="KullaniciSecimiAnswer" xml:space="preserve">
+
+    <value>用户选择：{answer}</value>
+
+  </data>
+
+  <data name="KullaniciSecimiAnswer2" xml:space="preserve">
+
+    <value>✓ 用户选择：{answer}</value>
+
+  </data>
+
+  <data name="KullaniciSecimiBekleniyor" xml:space="preserve">
+
+    <value>用户选择待定。</value>
+
+  </data>
+
+  <data name="KullaniciSecimiBekleniyor2" xml:space="preserve">
+
+    <value>等待用户选择...</value>
+
+  </data>
+
+  <data name="KullaniciSecimiHatasiExMessage" xml:space="preserve">
+
+    <value>用户选择错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KullaniciSecimiQuestion" xml:space="preserve">
+
+    <value>❓ 用户选择：{question}</value>
+
+  </data>
+
+  <data name="KullaniciyaPopupPenceresindeSecimliBirSoruSorarSecenekliBirSoruSormakIstedigindeSoruyuDuzMetinOlarakYazmaBuAraciMutlakaC" xml:space="preserve">
+
+    <value>它在弹出窗口中询问用户一个选择问题。当你想问一个有多个选项的问题时，不要用纯文本写问题；请务必调用此工具。在只有一个答案的问题中使用allowMultiple=false，在有多个选项有效的问题中使用allowMultiple=true。用户可以从选项中进行选择或输入自己的文本。</value>
+
+  </data>
+
+  <data name="KullaniciyaPopupPenceresindeSoruSorar" xml:space="preserve">
+
+    <value>在弹出窗口中询问用户问题</value>
+
+  </data>
+
+  <data name="KullaniciyaSorulacakSoruOrnMarkaAdiniNeYapalim" xml:space="preserve">
+
+    <value>向用户询问的问题（例如：“我们应该如何处理品牌名称？”）</value>
+
+  </data>
+
+  <data name="KullaniciyaSunulacakSeceneklerDizisi" xml:space="preserve">
+
+    <value>要呈现给用户的选项集</value>
+
+  </data>
+
+  <data name="KurtarmaBaslatildiErrorType" xml:space="preserve">
+
+    <value>🔧 恢复开始：{errorType}</value>
+
+  </data>
+
+  <data name="KurtarmaHatasiExMessage" xml:space="preserve">
+
+    <value>恢复错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniCiktisiBos" xml:space="preserve">
+
+    <value>恢复计划打印输出为空白。</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniOlusturulamadi" xml:space="preserve">
+
+    <value>救援计划无法制定。</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniOlusturuldu" xml:space="preserve">
+
+    <value>救援计划已经制定。</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniOlusturuluyorErrorType" xml:space="preserve">
+
+    <value>制定救援计划：{errorType}</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniUretildi" xml:space="preserve">
+
+    <value>✅ 救援计划已制定</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniUretiliyor" xml:space="preserve">
+
+    <value>🔧 救援计划正在制定中...</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniUretimindeYanitAlinamadi" xml:space="preserve">
+
+    <value>救援计划的制定过程中未收到任何回复。</value>
+
+  </data>
+
+  <data name="KurtarmaPlaniUretmeHatasiExMessage" xml:space="preserve">
+
+    <value>❌ 救援计划生成错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KuruCalistir" xml:space="preserve">
+
+    <value>干涸</value>
+
+  </data>
+
+  <data name="KurulumHatasiError" xml:space="preserve">
+
+    <value>安装错误：{error}</value>
+
+  </data>
+
+  <data name="KurulumHatasiExMessage" xml:space="preserve">
+
+    <value>安装错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="KurulumKilavuzu" xml:space="preserve">
+
+    <value>安装指南</value>
+
+  </data>
+
+  <data name="KurulumKlasoruHazirlaniyor" xml:space="preserve">
+
+    <value>正在准备安装文件夹...</value>
+
+  </data>
+
+  <data name="KurulumTamamlandiktanSonraYenileyin" xml:space="preserve">
+
+    <value>安装完成后刷新...</value>
+
+  </data>
+
+  <data name="LSPBaslatmaHatasiExMessage" xml:space="preserve">
+
+    <value>LSP 初始化错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="LSPDestegiEksik" xml:space="preserve">
+
+    <value>缺少 LSP 支持</value>
+
+  </data>
+
+  <data name="LSPDosyaAcmaSirasindaHataExMessage" xml:space="preserve">
+
+    <value>[LSP] 打开文件时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="LSPEksikVeyaHataliLSPDestegiBulunanDillerStringJoin" xml:space="preserve">
+
+    <value>[LSP] LSP支持缺失或不正确的语言：{string.Join(</value>
+
+  </data>
+
+  <data name="LSPLangExtToUpperInvariantDosyalariBulunduLSPBaslatiliyor" xml:space="preserve">
+
+    <value>找到 [LSP] {langExt.ToUpperInvariant()} 文件，正在启动 LSP...</value>
+
+  </data>
+
+  <data name="LSPLangExtToUpperInvariantIcinLSPBaslatilamadiGerekliProgramYukluMu" xml:space="preserve">
+
+    <value>[LSP] ❌ 初始化 {langExt.ToUpperInvariant()} 的 LSP 失败。是否安装了所需的程序？</value>
+
+  </data>
+
+  <data name="LSPPaketleriniYuklemekIstediginizProjeKlasorunuSecin" xml:space="preserve">
+
+    <value>选择要安装LSP包的项目文件夹</value>
+
+  </data>
+
+  <data name="LSPPathGetFileNameFilePathIcinLSPSunucusuHazirDegil" xml:space="preserve">
+
+    <value>[LSP] {Path.GetFileName(filePath)} 的 LSP 服务器未准备好。</value>
+
+  </data>
+
+  <data name="LSPProjeIcinUygunLSPSunucusuBulunamadiVeyaBaslatilamadi" xml:space="preserve">
+
+    <value>[LSP] 无法找到或启动适合该项目的 LSP 服务器。</value>
+
+  </data>
+
+  <data name="LSPServerNameBasariylaBaslatildi" xml:space="preserve">
+
+    <value>[LSP] ✅ {serverName}启动成功！</value>
+
+  </data>
+
+  <data name="LSPSunuculari" xml:space="preserve">
+
+    <value>🚀 LSP 服务器</value>
+
+  </data>
+
+  <data name="LSPSunuculariYuklendi" xml:space="preserve">
+
+    <value>安装LSP服务器</value>
+
+  </data>
+
+  <data name="LSPSunuculariYuklenirkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>加载 LSP 服务器时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="LSPYurutulebilirBulunamadiServerInfoExecutable" xml:space="preserve">
+
+    <value>未找到 LSP 可执行文件：{serverInfo.Executable}</value>
+
+  </data>
+
+  <data name="LanguageEnglish" xml:space="preserve">
+
+    <value>英语</value>
+
+  </data>
+
+  <data name="LanguageSelectionHeader" xml:space="preserve">
+
+    <value>请选择应用语言</value>
+
+  </data>
+
+  <data name="LanguageSelectionHint" xml:space="preserve">
+
+    <value>您的使用体验将得到相应的准备。</value>
+
+  </data>
+
+  <data name="LanguageSelectionTitle" xml:space="preserve">
+
+    <value>语言选择</value>
+
+  </data>
+
+  <data name="LanguageTurkish" xml:space="preserve">
+
+    <value>土耳其</value>
+
+  </data>
+
+  <data name="LanguageChinese" xml:space="preserve">
+    <value>中文</value>
+  </data>
+
+  <data name="DiagnosticsTab" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="ProjectDiagnostics" xml:space="preserve">
+    <value>项目诊断</value>
+  </data>
+  <data name="TelemetryProjectHint" xml:space="preserve">
+    <value>工具和验证性能数据将按项目保存。</value>
+  </data>
+  <data name="ClearTelemetry" xml:space="preserve">
+    <value>清除遥测数据</value>
+  </data>
+  <data name="TelemetrySuccess" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="TelemetryFailed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="AverageDuration" xml:space="preserve">
+    <value>平均耗时</value>
+  </data>
+  <data name="LastVerification" xml:space="preserve">
+    <value>上次验证</value>
+  </data>
+  <data name="NoVerificationYet" xml:space="preserve">
+    <value>尚未运行验证</value>
+  </data>
+  <data name="ToolUsage" xml:space="preserve">
+    <value>工具使用情况</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>调用次数</value>
+  </data>
+  <data name="SuccessRate" xml:space="preserve">
+    <value>成功率</value>
+  </data>
+  <data name="TelemetryClearConfirmation" xml:space="preserve">
+    <value>此项目的工具和验证遥测数据将被删除，Token 和费用总数将保留。是否继续？</value>
+  </data>
+  <data name="TelemetryClearTitle" xml:space="preserve">
+    <value>清除遥测数据</value>
+  </data>
+  <data name="TelemetryCleared" xml:space="preserve">
+    <value>此项目的工具和验证遥测数据已清除。</value>
+  </data>
+  <data name="VerificationStatusNone" xml:space="preserve">
+    <value>尚未运行验证</value>
+  </data>
+  <data name="VerificationStatusAllChecksPassed" xml:space="preserve">
+    <value>所有检查均已通过</value>
+  </data>
+  <data name="ModelPerformance" xml:space="preserve"><value>模型性能</value></data>
+  <data name="Requests" xml:space="preserve"><value>请求</value></data>
+  <data name="Latency" xml:space="preserve"><value>延迟</value></data>
+  <data name="Retries" xml:space="preserve"><value>重试</value></data>
+
+  <data name="LoadCustomHtmlHighlightingBASLADI" xml:space="preserve">
+
+    <value>=== 加载自定义HtmlHighlighting 已启动 ===</value>
+
+  </data>
+
+  <data name="LoadCustomHtmlHighlightingBITTI" xml:space="preserve">
+
+    <value>=== 加载自定义 Html 突出显示完成 ===</value>
+
+  </data>
+
+  <data name="LoadExternal" xml:space="preserve">
+
+    <value>📦 旁载</value>
+
+  </data>
+
+  <data name="LocalCardDesc" xml:space="preserve">
+
+    <value>在您的计算机上运行的 OpenAI 兼容嵌入服务器</value>
+
+  </data>
+
+  <data name="LocalManifestNameBasariylaGuncellendi" xml:space="preserve">
+
+    <value>{localManifest.Name}更新成功！</value>
+
+  </data>
+
+  <data name="LocalManifestNameEklentisiBasariylaGuncellendi" xml:space="preserve">
+
+    <value>{localManifest.Name}插件更新成功！</value>
+
+  </data>
+
+  <data name="LocalModelContextDiscoveryAtlandiTokenTasarrufu" xml:space="preserve">
+
+    <value>⚡ [本地模型] 上下文发现已跳过（令牌保存）。</value>
+
+  </data>
+
+  <data name="LocalModelSettings" xml:space="preserve">
+
+    <value>🏠 本地模型设置</value>
+
+  </data>
+
+  <data name="LocalSetupAbout" xml:space="preserve">
+
+    <value>🏠 关于本地模型安装</value>
+
+  </data>
+
+  <data name="LocalSetupLine1" xml:space="preserve">
+
+    <value>要使用本机模型，您的计算机上必须运行与 OpenAI 兼容的嵌入服务器。</value>
+
+  </data>
+
+  <data name="LocalSetupLine2" xml:space="preserve">
+
+    <value>在Base URL中写入服务器监听的地址，在Model Name中写入它支持的嵌入模型名称。</value>
+
+  </data>
+
+  <data name="LocalSetupLine3" xml:space="preserve">
+
+    <value>在不需要 API 密钥的服务器上，您可以将此字段留空。</value>
+
+  </data>
+
+  <data name="LogAt" xml:space="preserve">
+
+    <value>日志：</value>
+
+  </data>
+
+  <data name="LutfenAcikDosyaninIceriginiAlVeKoduDahaOkunabilirDahaIyiYapilandirilmisVeMevcutIslevselligiKoruyacakSekildeRefaktorEtYan" xml:space="preserve">
+
+    <value>请获取打开文件的内容并重构代码，使其更具可读性、结构更好，并保留现有功能。只需将代码块中的响应输出为更新的文件内容即可。</value>
+
+  </data>
+
+  <data name="LutfenAcikDosyaninNeYaptiginiVeOnemliKisimlariniNetVeKisaBirSekildeAcikla" xml:space="preserve">
+
+    <value>请清楚、简洁地解释打开的文件的作用及其重要部分。</value>
+
+  </data>
+
+  <data name="LutfenAcikDosyayiAlVeKoduAnlatanAnlamliSatirIciYorumlarEkleYanitiYalnizcaGuncellenmisDosyaIcerigiOlarakKodBlogundaVer" xml:space="preserve">
+
+    <value>请打开打开的文件并添加描述代码的有意义的内联注释。只需将代码块中的响应输出为更新的文件内容即可。</value>
+
+  </data>
+
+  <data name="LutfenAsagidakiAdrestenIndirinVeKurun" xml:space="preserve">
+
+    <value>请从下面下载并安装：</value>
+
+  </data>
+
+  <data name="LutfenAsagidakiPlanAdiminiProjemeUygulaSelectedOptionTitleGerekliDosyalariOkuyupDuzenleVeIslemiTamamla" xml:space="preserve">
+
+    <value>请将以下计划步骤应用于我的项目：{selectedOption.Title} 阅读并编辑必要的文件并完成该过程。</value>
+
+  </data>
+
+  <data name="LutfenAyarlardanAPIAnahtariniziEkleyin" xml:space="preserve">
+
+    <value>请在设置中添加您的 API 密钥！</value>
+
+  </data>
+
+  <data name="LutfenBirIsimGirin" xml:space="preserve">
+
+    <value>请输入姓名：</value>
+
+  </data>
+
+  <data name="LutfenDuzenlemekIstediginizKoduSecin" xml:space="preserve">
+
+    <value>请选择您要编辑的代码。</value>
+
+  </data>
+
+  <data name="LutfenOnceAPIAnahtariniAyarlardanEkleyin" xml:space="preserve">
+
+    <value>请首先从设置中添加 API 密钥。</value>
+
+  </data>
+
+  <data name="LutfenOnceBirDosyaAcin" xml:space="preserve">
+
+    <value>请先打开一个文件。</value>
+
+  </data>
+
+  <data name="LutfenOnceBirProjeKlasoruSecin" xml:space="preserve">
+
+    <value>请先选择一个项目文件夹。</value>
+
+  </data>
+
+  <data name="LutfenOnceBirSecenekSecin" xml:space="preserve">
+
+    <value>请先选择一个选项。</value>
+
+  </data>
+
+  <data name="LutfenOnceBirSohbetOturumuBaslatin" xml:space="preserve">
+
+    <value>请先开始聊天会话。</value>
+
+  </data>
+
+  <data name="LutfenOnceListedenBirDosyaVeyaKlasorSecin" xml:space="preserve">
+
+    <value>请先从列表中选择一个文件或文件夹。</value>
+
+  </data>
+
+  <data name="LutfenOncekiIstegeKisaVeOzBirYanitVerSadeceKisaBirMetinIleCevapVeriniz" xml:space="preserve">
+
+    <value>请对先前的请求作出简要答复。只需回复简短的文字即可。</value>
+
+  </data>
+
+  <data name="LutfenServerNameIcinIndirmeSayfasiniAcamiyoruzLutfenSuAdreseGidinServerDownloadUrls0KurulumTamamlandiktanSonraDurumuYeni" xml:space="preserve">
+
+    <value>我们无法打开 {server.Name} 的下载页面。请转至：{server.DownloadUrls[0]} 安装完成后，单击“刷新状态”按钮。</value>
+
+  </data>
+
+  <data name="LutfenSettingsTeEnAzBirProviderInAPIAnahtariniGirin" xml:space="preserve">
+
+    <value>请在设置中输入至少一个提供商的 API 密钥。</value>
+
+  </data>
+
+  <data name="LutfenSuDosyaIcinUygunBirTestDosyasiOlusturPathGetFileNameTabInfoFilePathSadeceTestDosyasiIceriginiVerVeDosyaYolunuBelir" xml:space="preserve">
+
+    <value>请为以下文件创建合适的测试文件： {Path.GetFileName(tabInfo.FilePath)} 。只需给出测试文件内容，不指定文件路径。</value>
+
+  </data>
+
+  <data name="MainWindowTitle" xml:space="preserve">
+
+    <value>Yengi - AI 支持的代码编辑器</value>
+
+  </data>
+
+  <data name="MaksimumSonucSayisi" xml:space="preserve">
+
+    <value>最大结果数</value>
+
+  </data>
+
+  <data name="ManifestNameBasariylaYuklendi" xml:space="preserve">
+
+    <value>{manifest.Name}加载成功！</value>
+
+  </data>
+
+  <data name="ManifestNameEklentisiBasariylaYuklendi" xml:space="preserve">
+
+    <value>{manifest.Name}插件安装成功！</value>
+
+  </data>
+
+  <data name="MatchGroups1ValueTestBasarisizOldu" xml:space="preserve">
+
+    <value>{match.Groups[1].Value}测试失败</value>
+
+  </data>
+
+  <data name="MaxRetrySayisiAsildi" xml:space="preserve">
+
+    <value>⚠️超过最大重试次数</value>
+
+  </data>
+
+  <data name="MdaiAgentAHosGeldiniz" xml:space="preserve">
+
+    <value>欢迎来到mdai代理！🚀</value>
+
+  </data>
+
+  <data name="MdaiAgentAIDestekliKodEditoru" xml:space="preserve">
+
+    <value>Yengi - AI 支持的代码编辑器</value>
+
+  </data>
+
+  <data name="MdaiAgentBaslatildi" xml:space="preserve">
+
+    <value>Yengi 已启动。</value>
+
+  </data>
+
+  <data name="MdaiAgentEklentileriniYukleyipYonetmeniziSaglar" xml:space="preserve">
+
+    <value>允许您安装和管理 Yengi 插件</value>
+
+  </data>
+
+  <data name="MdaiAgentHakkinda" xml:space="preserve">
+
+    <value>Yengi — 关于</value>
+
+  </data>
+
+  <data name="MdaiAgentHakkindaBilgiVerir" xml:space="preserve">
+
+    <value>提供有关 Yengi 的信息</value>
+
+  </data>
+
+  <data name="MdaiAgentIcinDilEklentileriniYonetinVarsayilanEklentilerProgramlaBirlikteGelirIndirilebilirEklentilerIseIlerideEklenecek" xml:space="preserve">
+
+    <value>管理 mdaiAgent 的语言插件。程序附带默认插件，将来会添加可下载的插件。</value>
+
+  </data>
+
+  <data name="MerhabaBenMdaiAgentYapayZekaAsistaniyimNasilYardimciOlabilirim" xml:space="preserve">
+
+    <value>你好！我是mdaiAgent人工智能助理。我能提供什么帮助吗？</value>
+
+  </data>
+
+  <data name="MesajBos" xml:space="preserve">
+
+    <value>该消息为空。</value>
+
+  </data>
+
+  <data name="MesajiDuzenle" xml:space="preserve">
+
+    <value>编辑留言</value>
+
+  </data>
+
+  <data name="MesajiDuzenleGecmisiBuNoktadanItibarenSifirlar" xml:space="preserve">
+
+    <value>编辑消息（从此时重置历史记录）</value>
+
+  </data>
+
+  <data name="MesajiDuzenleyin" xml:space="preserve">
+
+    <value>编辑消息：</value>
+
+  </data>
+
+  <data name="MetinEditorundeArama" xml:space="preserve">
+
+    <value>在文本编辑器中搜索</value>
+
+  </data>
+
+  <data name="MevcutBaglam" xml:space="preserve">
+
+    <value>===当前背景===</value>
+
+  </data>
+
+  <data name="MevcutEklentilerYuklenirkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>加载现有插件时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="MevcutProjeIcinAdimAdimUygulamaPlaniHazirlar" xml:space="preserve">
+
+    <value>为当前项目准备分步实施计划</value>
+
+  </data>
+
+  <data name="MevcutProjeIcinUygulanabilirBirGelistirmePlaniOlustur" xml:space="preserve">
+
+    <value>为当前项目制定可行的发展计划。</value>
+
+  </data>
+
+  <data name="ModelAdi" xml:space="preserve">
+
+    <value>型号名称</value>
+
+  </data>
+
+  <data name="ModelName" xml:space="preserve">
+
+    <value>型号名称</value>
+
+  </data>
+
+  <data name="ModelRouterKararVerirTumAraclarGonderilirVeyaRouterSecer" xml:space="preserve">
+
+    <value>型号/路由器决定。所有工具均发送或路由器选择。</value>
+
+  </data>
+
+  <data name="ModelinKullanabilecegiSistemAraclariniYonetmeniziSaglarOtomatikManuelModSecimiYapilabilir" xml:space="preserve">
+
+    <value>允许您管理模型可用的系统工具。可以选择自动/手动模式。</value>
+
+  </data>
+
+  <data name="NativeAndroidProjesiAlgilandiDerleniyorVeYukleniyor" xml:space="preserve">
+
+    <value>🚀 检测到原生 Android 项目。编译并安装...</value>
+
+  </data>
+
+  <data name="NavigatePaletteOrHistory" xml:space="preserve">
+
+    <value>导航命令面板/导航终端历史记录</value>
+
+  </data>
+
+  <data name="NewChat" xml:space="preserve">
+
+    <value>新聊天</value>
+
+  </data>
+
+  <data name="NewChatCreated" xml:space="preserve">
+
+    <value>新聊天已创建。</value>
+
+  </data>
+
+  <data name="NewCodeAiSuggestion" xml:space="preserve">
+
+    <value>新代码（人工智能推荐）</value>
+
+  </data>
+
+  <data name="NewLineInChat" xml:space="preserve">
+
+    <value>聊天消息中出现新行</value>
+
+  </data>
+
+  <data name="No" xml:space="preserve">
+
+    <value>不</value>
+
+  </data>
+
+  <data name="NoBackupSelected" xml:space="preserve">
+
+    <value>没有选择替补。</value>
+
+  </data>
+
+  <data name="NoFileOpen" xml:space="preserve">
+
+    <value>📄 文件未打开</value>
+
+  </data>
+
+  <data name="NoProjectWarning" xml:space="preserve">
+
+    <value>未选择项目：您可以聊天，但工具将无法使用，并且对话不会被记录。</value>
+
+  </data>
+
+  <data name="NodeReactProjesiAlgilandiNPMBaslatiliyor" xml:space="preserve">
+
+    <value>📦 检测到 Node/React 项目。启动 NPM...</value>
+
+  </data>
+
+  <data name="NotBuSohbetinNonSystemHistoryCountMesajlikGecmisiVarTokenButcesiIsLocalModelLocalModelHistoryTokenBudgetCloudModelHistor" xml:space="preserve">
+
+    <value>[注意：此聊天有 {nonSystemHistory.Count} 条消息历史记录。由于超出了代币预算 ( {(isLocalModel ? LocalModelHistoryTokenBudget : CloudModelHistoryTokenBudget):N0} )，因此仅发送了最后一条 {nonSystemHistory.Count - dropped} 消息。]</value>
+
+  </data>
+
+  <data name="NotMevcutTokenGuvenlikIcinGosterilmezDegistirmekIstiyorsanYenisiniGirDegistirmeyeceksenBosBirak" xml:space="preserve">
+
+    <value>注意：出于安全考虑，不会显示当前令牌。如果要更改，请输入新的，如果不需要，请将其留空。</value>
+
+  </data>
+
+  <data name="NpmBasarisizVeyaYokPipIlePyrightYuklemesiDeneniyor" xml:space="preserve">
+
+    <value>npm 失败或不存在；尝试使用 pip 安装 Pyright...</value>
+
+  </data>
+
+  <data name="NpmBulunamadiLutfenSisteminizeNodeJsVeNpmYukleyin" xml:space="preserve">
+
+    <value>未找到 npm。请在您的系统上安装 Node.js 和 npm。</value>
+
+  </data>
+
+  <data name="NpmBulunduPyrightNpmYuklemesiDeneniyor" xml:space="preserve">
+
+    <value>发现 npm，正在尝试安装 Pyright (npm)...</value>
+
+  </data>
+
+  <data name="OK" xml:space="preserve">
+
+    <value>好的</value>
+
+  </data>
+
+  <data name="OZELHTMLVURGULAMASIBASARIYLAYUKLENDI" xml:space="preserve">
+
+    <value>=== ✅ 自定义 HTML 突出显示已成功安装！===</value>
+
+  </data>
+
+  <data name="OZELTALIMATGOREVLISTESIOLUSTURMAKullaniciSendenMevcutPlaniAdimAdimUygulanabilirBirGorevListesineOrnMdaiTaskMdDonusturmen" xml:space="preserve">
+
+    <value>[特别说明：创建任务列表] 用户要求您将当前计划逐步转换为可操作的任务列表（例如“.mdai/task.md”）。制作一个带有复选框的列表。不要编写任何代码。只需创建任务列表即可。用户请求：{args}</value>
+
+  </data>
+
+  <data name="OZELTALIMATKODLAMAVEUYGULAMAKullaniciSendenDahaOnceOlusturulanPlanVeGorevListesineTaskMdSadikKalarakKodlamayaBaslamaniIs" xml:space="preserve">
+
+    <value>[特别说明：编码和应用] 用户要求您按照之前创建的计划和任务列表 (task.md) 开始编码。阅读计划并创建和编辑相关文件并完成任务。用户请求：{args}</value>
+
+  </data>
+
+  <data name="OZELTALIMATMIMARIPLANOLUSTURMAKullaniciSendenTeknikBirMimariPlanOrnMdaiImplementationPlanMdOlusturmaniIstiyorHangiTeknol" xml:space="preserve">
+
+    <value>[特别说明：创建架构计划] 用户要求您创建技术架构计划（例如“.mdai/implementation_plan.md”）。详细说明将使用哪些技术以及将添加/更改哪些文件。不要编写任何代码。只需将计划创建为降价即可。用户请求：{args}</value>
+
+  </data>
+
+  <data name="OZELTALIMATPROJEANAYASASIOLUSTURMAKullaniciSendenBuProjeIcinBirMdaiConstitutionMdProjeAnayasasiDosyasiOlusturmaniIstiyor" xml:space="preserve">
+
+    <value>[特别说明：创建项目章程] 用户要求您为此项目创建“.mdai/constitution.md”（项目章程）文件。该文件应包括项目中使用的技术、编码标准和架构规则。不要编写代码，只需创建或更新此 Markdown 文件（使用 CreateOrUpdateFile 工具）。用户请求：{args}</value>
+
+  </data>
+
+  <data name="OZELTALIMATYAZILIMSPESIFIKASYONUOLUSTURMAKullaniciSendenBirYazilimSpesifikasyonuOrnMdaiSpecMdOlusturmaniIstiyorOzellikle" xml:space="preserve">
+
+    <value>[特别说明：创建软件规范] 用户要求您创建软件规范（例如：“.mdai/spec.md”）。详细功能、用户故事和要求。不要编写任何代码。只需将规范创建为 markdown 即可。用户请求：{args}</value>
+
+  </data>
+
+  <data name="OkunacakDosyaninTamYolu" xml:space="preserve">
+
+    <value>要读取的文件的完整路径</value>
+
+  </data>
+
+  <data name="OkunacakWebSayfasininURLSi" xml:space="preserve">
+
+    <value>要读取的网页的 URL</value>
+
+  </data>
+
+  <data name="OlasiCozumUygulamayiYoneticiOlarakCalistirmayin" xml:space="preserve">
+
+    <value>可能的解决方案：不要以管理员身份运行该应用程序。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiConsoleKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“控制台”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiEchoKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“echo”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiFuncKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“func”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiFunctionKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“功能”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiImportKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“导入”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiIncludeKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“包含”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiIntKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“int”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiPackageKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“包”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiPrintKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“打印”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiPrivateKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：选中“私人”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiPublicKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“公共”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiStdCoutKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“std::cout”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiStringKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“字符串”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiVoidKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“void”。</value>
+
+  </data>
+
+  <data name="OlasiYazimHatasiWidgetKontrolEdin" xml:space="preserve">
+
+    <value>可能的拼写错误：检查“小部件”。</value>
+
+  </data>
+
+  <data name="OllamaBulunamadi" xml:space="preserve">
+
+    <value>未找到奥拉玛</value>
+
+  </data>
+
+  <data name="OllamaCalisiyor" xml:space="preserve">
+
+    <value>奥拉玛正在努力</value>
+
+  </data>
+
+  <data name="Olustur" xml:space="preserve">
+
+    <value>创造</value>
+
+  </data>
+
+  <data name="OlusturulanDosyalarCreatedFilesCountStringJoin" xml:space="preserve">
+
+    <value>✨ 创建的文件 ( {createdFiles.Count} ): {string.Join(</value>
+
+  </data>
+
+  <data name="Olusturuldu" xml:space="preserve">
+
+    <value>已创建</value>
+
+  </data>
+
+  <data name="OnayPenceresiAcilamadiGuvenliVarsayilanDavranisUygulaniyorExMessage" xml:space="preserve">
+
+    <value>无法打开确认窗口，应用安全默认行为：{ex.Message}</value>
+
+  </data>
+
+  <data name="OnayPenceresiAcilamadiIslemGuvenliSekildeIptalEdildi" xml:space="preserve">
+
+    <value>无法打开确认窗口；交易已被安全取消。</value>
+
+  </data>
+
+  <data name="OnceMevcutAIIslemininTamamlanmasiniBekleyin" xml:space="preserve">
+
+    <value>首先等待当前的AI进程完成。</value>
+
+  </data>
+
+  <data name="OncekiBirCheckpointEGeriDoner" xml:space="preserve">
+
+    <value>返回上一个检查点</value>
+
+  </data>
+
+  <data name="OncekiHataninMetni" xml:space="preserve">
+
+    <value>先前错误的文本</value>
+
+  </data>
+
+  <data name="OnizlemeHatasiError" xml:space="preserve">
+
+    <value>预览错误：{error}</value>
+
+  </data>
+
+  <data name="OnizlemeStatus" xml:space="preserve">
+
+    <value>预览：{status}</value>
+
+  </data>
+
+  <data name="OnizlemeUrl" xml:space="preserve">
+
+    <value>预览：{url}</value>
+
+  </data>
+
+  <data name="OpenAIUyumluHerhangiBirSaglayiciAPIKeyGerektirir" xml:space="preserve">
+
+    <value>任何 OpenAI 兼容提供商（需要 API 密钥）</value>
+
+  </data>
+
+  <data name="OpenCommandPalette" xml:space="preserve">
+
+    <value>命令面板</value>
+
+  </data>
+
+  <data name="OpsiyonelOkumaninBitecegiSatirNumarasi1IndexedDahilBelirtilmezseDosyaninSonunaKadarOkunur" xml:space="preserve">
+
+    <value>（可选）读取结束的行号（1-索引，包含在内）。如果未指定，则读取到文件末尾。</value>
+
+  </data>
+
+  <data name="OpsiyonelOkunmayaBaslanacakSatirNumarasi1IndexedBelirtilmezseDosyaninBasindanOkunur" xml:space="preserve">
+
+    <value>（可选）开始读取的行号（1 索引）。如果未指定，则从文件开头读取。</value>
+
+  </data>
+
+  <data name="OrWriteYourAnswer" xml:space="preserve">
+
+    <value>或者写下你自己的答案：</value>
+
+  </data>
+
+  <data name="OrnekCsJsonNameCs" xml:space="preserve">
+
+    <value>示例：*.cs、*.json、名称*.cs</value>
+
+  </data>
+
+  <data name="OrnekCsXaml" xml:space="preserve">
+
+    <value>示例：*.cs、*.xaml</value>
+
+  </data>
+
+  <data name="OrnekSonuc1" xml:space="preserve">
+
+    <value>结果示例 1</value>
+
+  </data>
+
+  <data name="OrnekSonuc2" xml:space="preserve">
+
+    <value>结果示例 2</value>
+
+  </data>
+
+  <data name="OtomatikDuzeltmeBasarili" xml:space="preserve">
+
+    <value>✓ 自动更正成功！</value>
+
+  </data>
+
+  <data name="OtomatikDuzeltmeBasarisiz" xml:space="preserve">
+
+    <value>❌ 自动更正失败</value>
+
+  </data>
+
+  <data name="OtomatikKaydetmeyiEtkinlestir" xml:space="preserve">
+
+    <value>启用自动保存</value>
+
+  </data>
+
+  <data name="OtomatikKesfedilenContext" xml:space="preserve">
+
+    <value># 🔍 自动发现的上下文</value>
+
+  </data>
+
+  <data name="OtomatikOlarakInstallInfoValueDisplayNamePaketleriniYuklemekIsterMisiniz" xml:space="preserve">
+
+    <value>想要自动安装 {installInfo.Value.displayName} 软件包？</value>
+
+  </data>
+
+  <data name="OtomatikYuklemeBasarisizOlduError" xml:space="preserve">
+
+    <value>自动加载失败：{error}</value>
+
+  </data>
+
+  <data name="OtomatikYuklemeDesteklenmiyorLutfenKurulumKilavuzunuTakipEdin" xml:space="preserve">
+
+    <value>不支持自动安装；请遵循安装指南。</value>
+
+  </data>
+
+  <data name="OtomatikYuklemeSirasindaHataOlustuExMessage" xml:space="preserve">
+
+    <value>自动加载期间出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="OzelGorevlerTestUIIcinUzmanlasmisAltAjanlariYonetir" xml:space="preserve">
+
+    <value>管理特定任务（测试、UI）的专用子代理。</value>
+
+  </data>
+
+  <data name="OzelPathGetFileNameWithoutExtensionXshdFileNameSablonuYuklendiXshdPath" xml:space="preserve">
+
+    <value>🎨 自定义 {Path.GetFileNameWithoutExtension(xshdFileName)} 模板已加载：{xshdPath}</value>
+
+  </data>
+
+  <data name="PHPDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>PHP 语言的简单错误检查</value>
+
+  </data>
+
+  <data name="PHPDosyasiPhpVeyaIleBaslamalidir" xml:space="preserve">
+
+    <value>PHP 文件必须以“&lt;?php”或“&lt;?=”开头。</value>
+
+  </data>
+
+  <data name="PROJEKURALLARIVEANAYASASICONSTITUTIONAsagidakiKurallarBuProjeIcinOzelOlarakTanimlanmistirVeDigerHerSeydenDahaOnceliklidi" xml:space="preserve">
+
+    <value>[项目规则和章程] 以下规则是专门为本项目定义的，并且优先于其他任何规则。请务必遵守以下规则：{constitutionContent}</value>
+
+  </data>
+
+  <data name="ParantezDengesiBozukAciktaMathAbsOpenParenParantezVar" xml:space="preserve">
+
+    <value>括号不平衡！有暴露的 {Math.Abs(openParen)} 括号。</value>
+
+  </data>
+
+  <data name="ParantezDengesiBozukAciktaMathAbsOpenParenTane" xml:space="preserve">
+
+    <value>括号不平衡！{Math.Abs(openParen)} 颗粒暴露。</value>
+
+  </data>
+
+  <data name="PathGetFileNameExecutablePathLSPSunucusuBasariylaBaslatildi" xml:space="preserve">
+
+    <value>{Path.GetFileName(executablePath)} LSP服务器启动成功。</value>
+
+  </data>
+
+  <data name="PathGetFileNameTabInfoFilePathDosyasindaKaydedilmemisDegisikliklerVarKaydetmekIstiyorMusunuz" xml:space="preserve">
+
+    <value>文件“{Path.GetFileName(tabInfo.FilePath)}”有未保存的更改。你想保存吗？</value>
+
+  </data>
+
+  <data name="PathGuardProjeDisiYolReddedildiPath" xml:space="preserve">
+
+    <value>[PathGuard] 非项目路径被拒绝：“{path}”</value>
+
+  </data>
+
+  <data name="PathGuardProjeDisinaErisimReddedildiPath" xml:space="preserve">
+
+    <value>⚠️ [PathGuard] 项目外部访问被拒绝：{path}</value>
+
+  </data>
+
+  <data name="PatternDeseniIcinDosyaBulunamadi" xml:space="preserve">
+
+    <value>未找到模式“{pattern}”的文件。</value>
+
+  </data>
+
+  <data name="PayloadCokBuyukJsonLength1024KBBuIstekAPITarafindan413PayloadTooLargeHatasiAlabilirLutfenDahaAzDosyaSecinVeyaIstegiDaral" xml:space="preserve">
+
+    <value>有效负载太大 ({(json.Length / 1024)} KB)。此请求可能会收到来自 API 的 413 Payload Too Large 错误。请选择较少的文件或缩小请求范围。</value>
+
+  </data>
+
+  <data name="PinnedPaketBasarisizFallbackDeneniyor" xml:space="preserve">
+
+    <value>固定包失败，正在尝试回退...</value>
+
+  </data>
+
+  <data name="PinnedPaketYuklemesiDeneniyor" xml:space="preserve">
+
+    <value>正在尝试安装固定包...</value>
+
+  </data>
+
+  <data name="PinnedYuklemeBasarili" xml:space="preserve">
+
+    <value>固定上传成功。</value>
+
+  </data>
+
+  <data name="PlanAkisi" xml:space="preserve">
+
+    <value>──────── 计划流程────────</value>
+
+  </data>
+
+  <data name="PlanAkisiSonu" xml:space="preserve">
+
+    <value>──────── 计划流程结束────────</value>
+
+  </data>
+
+  <data name="PlanCalculationNote" xml:space="preserve">
+
+    <value>人工智能会计算您的应用程序的最佳开发步骤。此过程可能需要 1-2 分钟，具体取决于项目的大小。</value>
+
+  </data>
+
+  <data name="PlanCikariliyor" xml:space="preserve">
+
+    <value>计划正在制定中...</value>
+
+  </data>
+
+  <data name="PlanCommandDesc" xml:space="preserve">
+
+    <value>画出你想要的项目的技术架构规划（implementation_plan.md）</value>
+
+  </data>
+
+  <data name="PlanHatasi" xml:space="preserve">
+
+    <value>计划错误</value>
+
+  </data>
+
+  <data name="PlanMetniPanoyaKopyalandi" xml:space="preserve">
+
+    <value>计划文本已复制到剪贴板。</value>
+
+  </data>
+
+  <data name="PlanModePreparing" xml:space="preserve">
+
+    <value>计划模式已经在准备中。请稍等。</value>
+
+  </data>
+
+  <data name="PlanModuIcinProjeAnalizEdiliyorLutfenBekleyin" xml:space="preserve">
+
+    <value>该项目正在分析计划模式，请稍候...</value>
+
+  </data>
+
+  <data name="PlanModuNuBaslat" xml:space="preserve">
+
+    <value>启动计划模式</value>
+
+  </data>
+
+  <data name="PlanModuNuKullanabilmekIcinLutfenSolTaraftanBirProjeKlasoruSecin" xml:space="preserve">
+
+    <value>要使用计划模式，请选择左侧的项目文件夹。</value>
+
+  </data>
+
+  <data name="PlanModuOlustur" xml:space="preserve">
+
+    <value>计划模式</value>
+
+  </data>
+
+  <data name="PlanModuProjeniziInceleyerekBirGelistirmeYolHaritasiMimariOnerilerEklenecekOzelliklerVsCikarir" xml:space="preserve">
+
+    <value>计划模式检查您的项目并创建开发路线图（架构建议、要添加的功能等）。</value>
+
+  </data>
+
+  <data name="PlanModuSirasindaHataOlustuExMessage" xml:space="preserve">
+
+    <value>计划模式期间发生错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="PlanModuZatenHazirlaniyorLutfenBekleyin" xml:space="preserve">
+
+    <value>计划模式已经在准备中。请稍等。</value>
+
+  </data>
+
+  <data name="PlanOlusturmaHatasiExMessage" xml:space="preserve">
+
+    <value>计划创建错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="PlanOlusturulamadi" xml:space="preserve">
+
+    <value>无法创建该计划。</value>
+
+  </data>
+
+  <data name="PlanOlusturuldu" xml:space="preserve">
+
+    <value>该计划已创建。</value>
+
+  </data>
+
+  <data name="PlanOlusturulduPlanFile" xml:space="preserve">
+
+    <value>✓ 已创建计划：{planFile}</value>
+
+  </data>
+
+  <data name="PlanOlusturulduPlanText" xml:space="preserve">
+
+    <value>已创建计划：{planText}</value>
+
+  </data>
+
+  <data name="PlanOlusturulduVeKaydedildi" xml:space="preserve">
+
+    <value>✓ 创建并保存计划</value>
+
+  </data>
+
+  <data name="PlanOlusturulurkenHataOlustuExMessage" xml:space="preserve">
+
+    <value>创建计划时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="PlanOlusturuluyor" xml:space="preserve">
+
+    <value>该计划正在制定中。</value>
+
+  </data>
+
+  <data name="PlanRoadmapDescription" xml:space="preserve">
+
+    <value>下面列出了 AI 为改进您当前项目而提供的分步建议。您可以通过选择要处理的步骤并按“添加到聊天”按钮来获取此步骤的 AI 代码。</value>
+
+  </data>
+
+  <data name="PlanSecimiSohbeteEklendiVeCountAdimlikTODOListesineAktarildiAINinOnerdigiAdimlariTODOPanelindenTakipEdebilirsiniz" xml:space="preserve">
+
+    <value>计划选择已添加到聊天中并传输到 {count} 步骤的 TODO 列表。您可以按照 TODO (✅) 面板中 AI 建议的步骤进行操作。</value>
+
+  </data>
+
+  <data name="PlanStepsLoaded" xml:space="preserve">
+
+    <value>已加载 0 个计划步骤。</value>
+
+  </data>
+
+  <data name="PlanUretildiPlanContentLengthKarakter" xml:space="preserve">
+
+    <value>✅ 已生成计划（{planContent.Length} 个字符）</value>
+
+  </data>
+
+  <data name="PlanUretiliyorObjective" xml:space="preserve">
+
+    <value>🧠 生成计划：{objective}</value>
+
+  </data>
+
+  <data name="PlanUretmeHatasiExMessage" xml:space="preserve">
+
+    <value>❌ 计划生成错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="PlanWindowTitle" xml:space="preserve">
+
+    <value>💡 项目发展计划</value>
+
+  </data>
+
+  <data name="PlaniIncele" xml:space="preserve">
+
+    <value>审查计划</value>
+
+  </data>
+
+  <data name="PleaseEnterName" xml:space="preserve">
+
+    <value>请输入姓名：</value>
+
+  </data>
+
+  <data name="PluginManagerSubtitle" xml:space="preserve">
+
+    <value>管理 mdaiAgent 的语言插件。程序附带默认插件，将来会添加可下载的插件。</value>
+
+  </data>
+
+  <data name="PluginManagerTitle" xml:space="preserve">
+
+    <value>🔌 插件管理器</value>
+
+  </data>
+
+  <data name="PluginsFolder" xml:space="preserve">
+
+    <value>📁 插件文件夹</value>
+
+  </data>
+
+  <data name="ProcessBaslatilamadi" xml:space="preserve">
+
+    <value>进程启动失败</value>
+
+  </data>
+
+  <data name="ProgramCrashMessage" xml:space="preserve">
+
+    <value>该程序遇到错误并将关闭。</value>
+
+  </data>
+
+  <data name="ProgramIciKlavyeKisayollariniGoruntuler" xml:space="preserve">
+
+    <value>显示程序内键盘快捷键。</value>
+
+  </data>
+
+  <data name="ProjeBaglamiKesfi" xml:space="preserve">
+
+    <value># 项目上下文发现</value>
+
+  </data>
+
+  <data name="ProjeBaglamiKesfiBasarisizOldu" xml:space="preserve">
+
+    <value>项目上下文发现失败。</value>
+
+  </data>
+
+  <data name="ProjeBaglamiKesfiTamamlandi" xml:space="preserve">
+
+    <value>项目上下文发现已完成。</value>
+
+  </data>
+
+  <data name="ProjeBasariylaDerlendi" xml:space="preserve">
+
+    <value>项目编译成功！</value>
+
+  </data>
+
+  <data name="ProjeBellegiBos" xml:space="preserve">
+
+    <value>项目内存为空。</value>
+
+  </data>
+
+  <data name="ProjeDerlemeBaslatildi" xml:space="preserve">
+
+    <value>项目编译开始...</value>
+
+  </data>
+
+  <data name="ProjeDerlenirkenHataOlustu" xml:space="preserve">
+
+    <value>编译项目时出错！</value>
+
+  </data>
+
+  <data name="ProjeDerleniyor" xml:space="preserve">
+
+    <value>🔨 项目正在编译中...</value>
+
+  </data>
+
+  <data name="ProjeDisinaErisimReddedildiPath" xml:space="preserve">
+
+    <value>项目外部的访问被拒绝：“{path}”</value>
+
+  </data>
+
+  <data name="ProjeDiziniBulunamadiProjectPath" xml:space="preserve">
+
+    <value>未找到项目目录：{projectPath}</value>
+
+  </data>
+
+  <data name="ProjeDosyalari" xml:space="preserve">
+
+    <value>项目文件</value>
+
+  </data>
+
+  <data name="ProjeDosyalariAnalizEdiliyor" xml:space="preserve">
+
+    <value>正在分析项目文件...</value>
+
+  </data>
+
+  <data name="ProjeGelistirmePlani" xml:space="preserve">
+
+    <value>💡 项目发展计划</value>
+
+  </data>
+
+  <data name="ProjeGenelindeCalisAcikOlmayanDosyalarDaDahilOlmakUzereGerekliDosyalariFindFilesSearchCodeIleBulDuzenlemeGerekiyorsaIlgi" xml:space="preserve">
+
+    <value>整个项目的工作。使用 FindFiles/SearchCode 查找所需的文件，包括未打开的文件。如果需要编辑，请转到相关文件并进行更改。</value>
+
+  </data>
+
+  <data name="ProjeIcindeBelirliMetinVeyaKodKalibiniArarVeEslesenDosyalariDondurur" xml:space="preserve">
+
+    <value>在项目中搜索特定文本或代码模式并返回匹配的文件</value>
+
+  </data>
+
+  <data name="ProjeIcindenHizliDosyaAcar" xml:space="preserve">
+
+    <value>从项目内快速打开文件。</value>
+
+  </data>
+
+  <data name="ProjeKlasoruSecildiPathGetFileNameSelectedFolder" xml:space="preserve">
+
+    <value>选定的项目文件夹：{Path.GetFileName(_selectedFolder)}</value>
+
+  </data>
+
+  <data name="ProjeKlasoruSecildigindeRAGBaslatilacak" xml:space="preserve">
+
+    <value>📁 当选择项目文件夹时，RAG 将启动</value>
+
+  </data>
+
+  <data name="ProjeKlasoruSecilmediManuelKurulumKilavuzunaYonlendiriliyor" xml:space="preserve">
+
+    <value>项目文件夹没有选择；重定向到手动安装指南。</value>
+
+  </data>
+
+  <data name="ProjeKlasorundekiDosyalardaMetinArayin" xml:space="preserve">
+
+    <value>在项目文件夹中的文件中搜索文本</value>
+
+  </data>
+
+  <data name="ProjeKlasorunuSec" xml:space="preserve">
+
+    <value>选择项目文件夹</value>
+
+  </data>
+
+  <data name="ProjeKokProjectPath" xml:space="preserve">
+
+    <value>项目根目录：{projectPath}</value>
+
+  </data>
+
+  <data name="ProjeKoku" xml:space="preserve">
+
+    <value>项目根目录</value>
+
+  </data>
+
+  <data name="ProjeSecilmedi" xml:space="preserve">
+
+    <value>项目未选定</value>
+
+  </data>
+
+  <data name="ProjeSecilmediSohbetEdebilirsinizAncakAraclarCalismazVeKonusmaKaydedilmez" xml:space="preserve">
+
+    <value>未选择项目：您可以聊天，但工具将无法使用，并且对话不会被记录。</value>
+
+  </data>
+
+  <data name="ProjeSiniriDisindaDosyaErisimineIzinVerilmiyor" xml:space="preserve">
+
+    <value>不允许在项目边界之外访问文件。</value>
+
+  </data>
+
+  <data name="ProjeSiniriDisindaDosyaOlusturulamaz" xml:space="preserve">
+
+    <value>无法在项目边界之外创建文件。</value>
+
+  </data>
+
+  <data name="ProjeTaramasiSirasindaHataOlustuExMessage" xml:space="preserve">
+
+    <value>项目扫描期间出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="ProjeTuruAlgilanamadiCalistirmakIcinBirFlutterAndroidVeyaHTMLProjesiAcin" xml:space="preserve">
+
+    <value>⚠️ 无法检测到项目类型。打开 Flutter、Android 或 HTML 项目来运行它。</value>
+
+  </data>
+
+  <data name="ProjeYapisiniTeknolojiTurunuVeOnemliDosyalariKesfeder" xml:space="preserve">
+
+    <value>发现项目结构、技术类型和重要文件</value>
+
+  </data>
+
+  <data name="ProjeYedekleriniGosterir" xml:space="preserve">
+
+    <value>显示项目备份。</value>
+
+  </data>
+
+  <data name="ProjectPathProjesindeLocalPaketAramasiYapilacak" xml:space="preserve">
+
+    <value>将在 {projectPath} 项目中进行本地包搜索。</value>
+
+  </data>
+
+  <data name="ProjedekiHerhangiBirDosyaninIceriginiOkur" xml:space="preserve">
+
+    <value>读取项目中任意文件的内容</value>
+
+  </data>
+
+  <data name="ProjeninHafizasindanGenelKurallariOkur" xml:space="preserve">
+
+    <value>从项目内存中读取一般规则</value>
+
+  </data>
+
+  <data name="ProjeninTemelKurallariniVeYapiTaslariniOlusturur" xml:space="preserve">
+
+    <value>创建项目的基本规则和构建块</value>
+
+  </data>
+
+  <data name="ProjenizIcinGereksinimlerDosyasiOlustururSpecMd" xml:space="preserve">
+
+    <value>为您的项目创建需求文件 (spec.md)</value>
+
+  </data>
+
+  <data name="ProjeniziAIATamAnlatmakIcinBirEmbeddingAPIGirin" xml:space="preserve">
+
+    <value>输入嵌入 API 向 AI 完整描述您的项目</value>
+
+  </data>
+
+  <data name="ProjeyeUygunBirAIYolHaritasiHazirlar" xml:space="preserve">
+
+    <value>准备适合该项目的人工智能路线图。</value>
+
+  </data>
+
+  <data name="ProjeyiEskiBirKayitNoktasinaGeriDondurur" xml:space="preserve">
+
+    <value>将项目恢复到旧的保存点</value>
+
+  </data>
+
+  <data name="ProjeyiSifirdanIndeksle" xml:space="preserve">
+
+    <value>从头开始索引项目</value>
+
+  </data>
+
+  <data name="PromptBosOlamaz" xml:space="preserve">
+
+    <value>提示不能为空。</value>
+
+  </data>
+
+  <data name="ProviderOlusturulurkenHataExMessage" xml:space="preserve">
+
+    <value>创建提供程序时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="ProviderSelectedProviderModelNameCapabilityCapabilityDesteklemiyorFallbackAraniyor" xml:space="preserve">
+
+    <value>提供商 {_selectedProvider.ModelName} 功能 {capability} 不支持，正在寻找后备...</value>
+
+  </data>
+
+  <data name="ProviderSelectedProviderModelNameCapabilityCapabilityIcinKullanilacak" xml:space="preserve">
+
+    <value>提供者 {_selectedProvider.ModelName} 将用于功能 {capability}</value>
+
+  </data>
+
+  <data name="ProviderServiceBaslatildiAktifProviderSelectedProviderModelName" xml:space="preserve">
+
+    <value>ProviderService 已启动。活跃提供者：{_selectedProvider.ModelName}</value>
+
+  </data>
+
+  <data name="PyrightNpmBasariylaYuklendi" xml:space="preserve">
+
+    <value>Pyright（npm）已成功安装。</value>
+
+  </data>
+
+  <data name="PyrightPipBasariylaYuklendi" xml:space="preserve">
+
+    <value>Pyright（pip）安装成功。</value>
+
+  </data>
+
+  <data name="PyrightYuklemesiBasarisizOlduVeyaGerekliPaketYoneticisiBulunamadi" xml:space="preserve">
+
+    <value>Pyright 安装失败或未找到所需的包管理器。</value>
+
+  </data>
+
+  <data name="PythonDiliIcinGercekSozdizimiDenetimi" xml:space="preserve">
+
+    <value>Python 语言的真实语法检查</value>
+
+  </data>
+
+  <data name="PythonIcinHizliVeModernLSPDestegi" xml:space="preserve">
+
+    <value>对 Python 的快速且现代的 LSP 支持</value>
+
+  </data>
+
+  <data name="PythonSozdizimiHatasi" xml:space="preserve">
+
+    <value>Python 语法错误</value>
+
+  </data>
+
+  <data name="QADenetimAjani" xml:space="preserve">
+
+    <value>质量检查代理</value>
+
+  </data>
+
+  <data name="QADenetimAjaniCalisiyor" xml:space="preserve">
+
+    <value>🔍 QA 审核代理正在工作...</value>
+
+  </data>
+
+  <data name="QADenetimAjaniDevrede" xml:space="preserve">
+
+    <value>🔍 QA 审核代理已激活...</value>
+
+  </data>
+
+  <data name="QADenetimAjaniKodIncelemesi" xml:space="preserve">
+
+    <value>QA 审计代理（代码审查）</value>
+
+  </data>
+
+  <data name="QADenetimAjaniTamamlandi" xml:space="preserve">
+
+    <value>✅ QA审核代理完成</value>
+
+  </data>
+
+  <data name="QaAuditAgent" xml:space="preserve">
+
+    <value>QA 审计代理（代码审查）</value>
+
+  </data>
+
+  <data name="QuestionQuestionKullaniciSecimiAlinamadi" xml:space="preserve">
+
+    <value>{question.Question}：无法检索用户选择</value>
+
+  </data>
+
+  <data name="QuickStart" xml:space="preserve">
+
+    <value>快速入门：</value>
+
+  </data>
+
+  <data name="QuickStep1" xml:space="preserve">
+
+    <value>从右上角的设置 (⚙) 菜单输入您的 API 密钥。</value>
+
+  </data>
+
+  <data name="QuickStep2" xml:space="preserve">
+
+    <value>单击左上角的“选择项目文件夹”打开文件夹。</value>
+
+  </data>
+
+  <data name="QuickStep3" xml:space="preserve">
+
+    <value>从右侧的聊天面板中给出您的任务，然后坐下来！</value>
+
+  </data>
+
+  <data name="QuickTemplateSelect" xml:space="preserve">
+
+    <value>选择快速模板</value>
+
+  </data>
+
+  <data name="RAGAPIAyarlariniDuzenleSagTikDaCalisir" xml:space="preserve">
+
+    <value>编辑 RAG API 设置（右键单击也可以）</value>
+
+  </data>
+
+  <data name="RAGAktif" xml:space="preserve">
+
+    <value>🧠 RAG 活跃</value>
+
+  </data>
+
+  <data name="RAGAktifEdildiVeIndekslemeTamamlandi" xml:space="preserve">
+
+    <value>✅ RAG 已激活，索引已完成！</value>
+
+  </data>
+
+  <data name="RAGAktifProjeBaglamiAIAEnjekteEdiliyor" xml:space="preserve">
+
+    <value>RAG 已激活！项目上下文被注入到人工智能中。</value>
+
+  </data>
+
+  <data name="RAGBaslatildiChunksIndexedKodChunkIIndekslendiOtomatikIzlemeBasladi" xml:space="preserve">
+
+    <value>✅ RAG 已启动：{chunksIndexed} 代码块已索引，自动跟踪已启动</value>
+
+  </data>
+
+  <data name="RAGBaslatiliyor" xml:space="preserve">
+
+    <value>⏳ 启动 RAG...</value>
+
+  </data>
+
+  <data name="RAGBaslatmaHatasiExMessage" xml:space="preserve">
+
+    <value>❌ RAG 初始化错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="RAGBaslatmaHatasiExMessage2" xml:space="preserve">
+
+    <value>⚠️ RAG初始化错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="RAGButunselProjeZekasi" xml:space="preserve">
+
+    <value>RAG：整体项目情报</value>
+
+  </data>
+
+  <data name="RAGButunselProjeZekasiAyarlari" xml:space="preserve">
+
+    <value>RAG：整体项目智能设置</value>
+
+  </data>
+
+  <data name="RAGDevreDisi" xml:space="preserve">
+
+    <value>RAG 已禁用</value>
+
+  </data>
+
+  <data name="RAGDevreDisiBirakildi" xml:space="preserve">
+
+    <value>⚪ RAG 已禁用。</value>
+
+  </data>
+
+  <data name="RAGIDevreDisiBirak" xml:space="preserve">
+
+    <value>🔴禁用 RAG</value>
+
+  </data>
+
+  <data name="RAGIndekslemeHatasiExMessage" xml:space="preserve">
+
+    <value>❌ RAG 索引错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="RAGKapatildi" xml:space="preserve">
+
+    <value>RAG 被关闭。</value>
+
+  </data>
+
+  <data name="RAGServisiAyarlandigindaBaslatilacakBkzRAGSekmesi" xml:space="preserve">
+
+    <value>⚪ RAG 服务将在设置后启动（参见：RAG 选项卡）</value>
+
+  </data>
+
+  <data name="RAGSisteminiYapilandiriliyorTumKodDosyalariIndeksleniyor" xml:space="preserve">
+
+    <value>📚 配置 RAG 系统（所有代码文件均已索引）...</value>
+
+  </data>
+
+  <data name="RAGYenidenIndekslemeTamamlandi" xml:space="preserve">
+
+    <value>✅ RAG 重新索引已完成。</value>
+
+  </data>
+
+  <data name="RagChunksIndexed" xml:space="preserve">
+
+    <value>0 个代码块已索引</value>
+
+  </data>
+
+  <data name="RagDisabled" xml:space="preserve">
+
+    <value>RAG 已禁用</value>
+
+  </data>
+
+  <data name="RagDisabledHint" xml:space="preserve">
+
+    <value>左键进入API，右键设置</value>
+
+  </data>
+
+  <data name="RagReindex" xml:space="preserve">
+
+    <value>🔄 重新索引</value>
+
+  </data>
+
+  <data name="RagServiceChunkCount0KodBloguIndekslendi" xml:space="preserve">
+
+    <value>{_ragService?.ChunkCount ?? 0} 代码块索引</value>
+
+  </data>
+
+  <data name="RagSettingsSubtitle" xml:space="preserve">
+
+    <value>输入嵌入 API 向 AI 完整描述您的项目</value>
+
+  </data>
+
+  <data name="RagSettingsTitle" xml:space="preserve">
+
+    <value>RAG：整体项目情报</value>
+
+  </data>
+
+  <data name="RecoveryPlanGorevObjectiveHataErrorHataAnalizEdilipDuzeltmeUygulanmalidir" xml:space="preserve">
+
+    <value># 恢复计划任务：{objective} 错误：{error} 必须分析该错误并应用更正。</value>
+
+  </data>
+
+  <data name="ReddetVeIptalEt" xml:space="preserve">
+
+    <value>❌ 拒绝并取消</value>
+
+  </data>
+
+  <data name="RefaktorYorumEklemeTestUretmePlanlamaGibiAIIslemleriniIcerir" xml:space="preserve">
+
+    <value>重构包括添加注释、生成测试、调度等人工智能操作</value>
+
+  </data>
+
+  <data name="RejectAndCancel" xml:space="preserve">
+
+    <value>❌ 拒绝并取消</value>
+
+  </data>
+
+  <data name="RenameChat" xml:space="preserve">
+
+    <value>更改聊天名称</value>
+
+  </data>
+
+  <data name="RenkHaritasiHazirColorMapCountAdetRenk" xml:space="preserve">
+
+    <value>🎨 颜色图已准备好：{colorMap.Count} 颜色</value>
+
+  </data>
+
+  <data name="RenkOzellestirmeBasladiHighlightingName" xml:space="preserve">
+
+    <value>🔧 颜色定制开始：{突出显示？.名称？？</value>
+
+  </data>
+
+  <data name="RenkOzellestirmeTamamlandi" xml:space="preserve">
+
+    <value>✅ 颜色定制完成！</value>
+
+  </data>
+
+  <data name="ReplaceStreamedItemContentHatasiExMessage" xml:space="preserve">
+
+    <value>ReplaceStreamedItemContent 错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="RepositoryURLBosBirakilamazIslemIptalEdildi" xml:space="preserve">
+
+    <value>存储库 URL 不能留空。交易已被取消。</value>
+
+  </data>
+
+  <data name="RestoreThisBackup" xml:space="preserve">
+
+    <value>✨ 返回此备份</value>
+
+  </data>
+
+  <data name="ResultOptionsCountSecenekYuklendi" xml:space="preserve">
+
+    <value>已加载 {result.Options.Count} 选项。</value>
+
+  </data>
+
+  <data name="Retry" xml:space="preserve">
+
+    <value>再试一次</value>
+
+  </data>
+
+  <data name="RoleAdliAltAjanGoreviTaskResultTaskIdArkaPlandaBaslatildi" xml:space="preserve">
+
+    <value>名为 [ {role} ] 的子代理任务 ( {taskResult.TaskId} ) 在后台启动。</value>
+
+  </data>
+
+  <data name="RouterAPIAnahtari" xml:space="preserve">
+
+    <value>路由器 API 密钥</value>
+
+  </data>
+
+  <data name="RouterActiveToolsCountAracSecildiGuvenDecisionConfidenceP0PlanNeedsPlan" xml:space="preserve">
+
+    <value>✅ 选择 [路由器] {activeTools.Count} 车辆（信任：{decision.Confidence:P0}，计划：{needsPlan}）</value>
+
+  </data>
+
+  <data name="RouterApiKey" xml:space="preserve">
+
+    <value>路由器 API 密钥</value>
+
+  </data>
+
+  <data name="RouterGorevAnalizEdiliyorAracSecimi" xml:space="preserve">
+
+    <value>🤖 [路由器] 分析任务（车辆选择）...</value>
+
+  </data>
+
+  <data name="RouterJSONGomuluMetinIcindenCikarildi" xml:space="preserve">
+
+    <value>[Router] JSON 是从嵌入文本中提取的。</value>
+
+  </data>
+
+  <data name="RouterKismiKurtarmaToolNamesCountAracRegexIleCikarildi" xml:space="preserve">
+
+    <value>[路由器]部分恢复：使用正则表达式删除{toolNames.Count}车辆。</value>
+
+  </data>
+
+  <data name="RouterParseTamamenBasarisizHamIcerikRawContentSubstring0MathMin200RawContentLength" xml:space="preserve">
+
+    <value>[路由器解析完全失败]原始内容：{rawContent.Substring(0, Math.Min(200, rawContent.Length))} ...</value>
+
+  </data>
+
+  <data name="RouterTimeoutRouterIstegiHttpClientTimeoutTotalSecondsSIcindeYanitAlamadi" xml:space="preserve">
+
+    <value>[路由器超时] 路由器请求在 {_httpClient.Timeout.TotalSeconds} 秒内未收到响应。</value>
+
+  </data>
+
+  <data name="RouterYetersizGuvenVeyaHataTumAraclaraDonuluyorFallback" xml:space="preserve">
+
+    <value>⚠️ [Router] 信任不足或错误，恢复到所有工具（Fallback）。</value>
+
+  </data>
+
+  <data name="RubyDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Ruby 语言的简单错误检查</value>
+
+  </data>
+
+  <data name="RunPaletteOrSendMsg" xml:space="preserve">
+
+    <value>运行命令面板中选定的命令/发送聊天消息</value>
+
+  </data>
+
+  <data name="RustDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Rust 语言的简单错误检查</value>
+
+  </data>
+
+  <data name="SAVEDPATHFilePathDosyaBasariylaGuncellendi" xml:space="preserve">
+
+    <value>SAVED_PATH: {filePath} 文件已成功更新。</value>
+
+  </data>
+
+  <data name="SAVEDPATHFilePathDosyaBasariylaOperation" xml:space="preserve">
+
+    <value>SAVED_PATH: {filePath} 文件成功 {operation} 。</value>
+
+  </data>
+
+  <data name="SISTEMBILGISIBuGorevIcinAsagidakiPlanOlusturulduLutfenAdimlaraSadikKalarakIlerlePlanText" xml:space="preserve">
+
+    <value>[系统信息] 为此任务制定了以下计划。请按照以下步骤操作：{planText}</value>
+
+  </data>
+
+  <data name="SQLDosyalariIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>SQL 文件的简单错误检查</value>
+
+  </data>
+
+  <data name="STTAPIAnahtariAyarlanmamisMikrofonButonunaSagTiklayarakAyarlayin" xml:space="preserve">
+
+    <value>未设置 STT API 密钥。右键单击麦克风按钮进行调整。</value>
+
+  </data>
+
+  <data name="STTAPIHatasiIntResponseStatusCodeErrBody" xml:space="preserve">
+
+    <value>STT API 错误（{(int)response.StatusCode}）：{errBody}</value>
+
+  </data>
+
+  <data name="Sablon" xml:space="preserve">
+
+    <value>模板 →</value>
+
+  </data>
+
+  <data name="SablonYuklendiHighlightingName" xml:space="preserve">
+
+    <value>✅ 模板已加载！[ {highlighting.Name} ]</value>
+
+  </data>
+
+  <data name="SafeMode" xml:space="preserve">
+
+    <value>🛡 安全模式</value>
+
+  </data>
+
+  <data name="SagUsttekiAyarlarMenusundenAPIKeyIniziGirin" xml:space="preserve">
+
+    <value>从右上角的设置 (⚙) 菜单输入您的 API 密钥。</value>
+
+  </data>
+
+  <data name="SagdakiSohbetPanelindenGoreviniziVerinVeArkanizaYaslanin" xml:space="preserve">
+
+    <value>从右侧的聊天面板中给出您的任务，然后坐下来！</value>
+
+  </data>
+
+  <data name="SaglayiciSecin" xml:space="preserve">
+
+    <value>✨ 选择提供商</value>
+
+  </data>
+
+  <data name="SaglayicinizinBaseURLAPIKeyVeModelBilgileriniGirin" xml:space="preserve">
+
+    <value>输入提供商的基本 URL、API 密钥和型号信息。</value>
+
+  </data>
+
+  <data name="SatirIciDuzenlemeUygulandiCtrlK" xml:space="preserve">
+
+    <value>应用内联编辑 (Ctrl+K)。</value>
+
+  </data>
+
+  <data name="SatirSayisiLineCountBoyutCharCountN0Karakter" xml:space="preserve">
+
+    <value>行数：{lineCount} |大小：{charCount:N0} 个字符</value>
+
+  </data>
+
+  <data name="SatirVurgulamaHatasiExMessage" xml:space="preserve">
+
+    <value>行突出显示错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="Save" xml:space="preserve">
+
+    <value>节省</value>
+
+  </data>
+
+  <data name="SaveActiveFile" xml:space="preserve">
+
+    <value>保存活动文件</value>
+
+  </data>
+
+  <data name="SaveAllFiles" xml:space="preserve">
+
+    <value>保存所有文件</value>
+
+  </data>
+
+  <data name="SaveIntervalSeconds" xml:space="preserve">
+
+    <value>记录间隔（秒）</value>
+
+  </data>
+
+  <data name="SayfaYuklemeHatasiExMessage" xml:space="preserve">
+
+    <value>页面加载错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="SayfaYukleniyorUrl" xml:space="preserve">
+
+    <value>📥 页面加载：{url}</value>
+
+  </data>
+
+  <data name="SearchInTextEditor" xml:space="preserve">
+
+    <value>在文本编辑器中搜索</value>
+
+  </data>
+
+  <data name="SearchTermIcinKodBulunamadi" xml:space="preserve">
+
+    <value>找不到“{searchTerm}”的代码。</value>
+
+  </data>
+
+  <data name="Sec" xml:space="preserve">
+
+    <value>选择</value>
+
+  </data>
+
+  <data name="SecilenAraclarRouterDanGIZLENECEKTIRRouterBuAraclariKullanamaz" xml:space="preserve">
+
+    <value>选定的车辆将从路由器中隐藏。路由器无法使用这些工具。</value>
+
+  </data>
+
+  <data name="SecilenKodInlineEditSelectedTextKullaniciIstegiPrompt" xml:space="preserve">
+
+    <value>所选代码：{_inlineEditSelectedText} 用户请求：{prompt}</value>
+
+  </data>
+
+  <data name="SeciliKlasorSelectedFolder" xml:space="preserve">
+
+    <value>所选文件夹：{selectedFolder}</value>
+
+  </data>
+
+  <data name="SeciliKodGuncellenecek" xml:space="preserve">
+
+    <value>（所选代码将被更新）</value>
+
+  </data>
+
+  <data name="SeciliPlanSelectedId" xml:space="preserve">
+
+    <value>已选择： 计划 {selected.Id}</value>
+
+  </data>
+
+  <data name="SeciliSelectedDisplayPath" xml:space="preserve">
+
+    <value>已选择：{selected.DisplayPath}</value>
+
+  </data>
+
+  <data name="SeciliYedekYok" xml:space="preserve">
+
+    <value>没有选择备份。</value>
+
+  </data>
+
+  <data name="SecimGerekli" xml:space="preserve">
+
+    <value>需要选择</value>
+
+  </data>
+
+  <data name="SecimYapilmadi" xml:space="preserve">
+
+    <value>没有举行选举。</value>
+
+  </data>
+
+  <data name="SeciminizNedir" xml:space="preserve">
+
+    <value>你的选择是什么？</value>
+
+  </data>
+
+  <data name="SecimlerAlindiAIGoreviDegerlendiriyor" xml:space="preserve">
+
+    <value>✅ 收到选举；人工智能评估任务...</value>
+
+  </data>
+
+  <data name="SekmeAITarafindanGuncellendiVeYenidenYuklendiPathGetFileNameFullPath" xml:space="preserve">
+
+    <value>由 Tab AI 更新并重新加载：{Path.GetFileName(fullPath)}</value>
+
+  </data>
+
+  <data name="SekmeCanliGuncellemeHatasiExMessage" xml:space="preserve">
+
+    <value>选项卡实时更新错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="SelectProvider" xml:space="preserve">
+
+    <value>✨ 选择提供商</value>
+
+  </data>
+
+  <data name="SelectStepForDetails" xml:space="preserve">
+
+    <value>选择一个步骤了解详细信息。</value>
+
+  </data>
+
+  <data name="SelectedCodeWillBeUpdated" xml:space="preserve">
+
+    <value>（所选代码将被更新）</value>
+
+  </data>
+
+  <data name="SenBirAltAjansinRolunEvRoleGorevinEvPromptSadeceHedefiniGerceklestirVeAraclariKullanKullaniciSanaCevapVeremez" xml:space="preserve">
+
+    <value>您是一个子机构。您的角色： {ev.Role} 。你的任务：{ev.Prompt}。只需实现您的目标并使用这些工具即可。用户无法回复您。</value>
+
+  </data>
+
+  <data name="SenBirKodDenetimUzmanisinAsagidakiKoduInceleOlasiHatalarEksikEdgeCaseLerGuvenlikSorunlariVeIyilestirmelerOlupOlmadiginiK" xml:space="preserve">
+
+    <value>您是代码审核专家。检查下面的代码：检查可能的错误、缺失的边缘情况、安全问题和改进。只需在代码块中给出更正的代码，无需附加注释。</value>
+
+  </data>
+
+  <data name="SenBirKodTemizlemeVeUIGelistirmeUzmanisinAsagidakiKoduAlKodTemizligiYapDahaOkunabilirHaleGetirEgerUIKoduVarsaIyilestirSa" xml:space="preserve">
+
+    <value>您是代码清理和 UI 开发专家。采取以下代码：清理代码，使其更具可读性，改进任何 UI 代码。只需在代码块中给出最终版本即可。</value>
+
+  </data>
+
+  <data name="SenKidemliBirYazilimUzmanisinKullaniciSanaSectigiBirKodParcasiniVeNeYapmakIstediginiVerecekSadeceVeSadeceIstenenDegisikl" xml:space="preserve">
+
+    <value>您是一名高级软件专业人员。用户会给你一段他们选择的代码以及他们想要做什么。仅进行所需的更改。不要使用 Markdown，不要注释，只是返回将直接替换它的新代码。如果您不想碰该代码，只需恢复旧代码即可。</value>
+
+  </data>
+
+  <data name="SenMdaiAgentAdindaKullanicininBilgisayarindaCalisanKodYazmaDuzenlemeVeDosyaYonetimiAraclarinaSahipGelismisBirYapayZekaYa" xml:space="preserve">
+
+    <value>你是mdaiAgent，一个高级人工智能软件助手，具有在用户计算机上运行的编码、编辑和文件管理工具。向用户提供清晰、简短、技术性和建设性的答案。</value>
+
+  </data>
+
+  <data name="ServerNameIcinProjeIcineOtomatikYuklemeYapmakIsterMisinizOnerilen" xml:space="preserve">
+
+    <value>您想将 {server.Name} 自动加载到项目中吗？（受到推崇的）</value>
+
+  </data>
+
+  <data name="SesAlgilanamadiVeyaCeviriBosDondu" xml:space="preserve">
+
+    <value>⚠️ 未检测到音频或翻译返回为空。</value>
+
+  </data>
+
+  <data name="SesDosyasiBulunamadiWavFilePath" xml:space="preserve">
+
+    <value>未找到音频文件：{wavFilePath}</value>
+
+  </data>
+
+  <data name="SesGeciciKlasoruOlusturulamadiExMessage" xml:space="preserve">
+
+    <value>无法创建音频临时文件夹：{ex.Message}</value>
+
+  </data>
+
+  <data name="SesKaydiniMetneCevirmekIcinBirAPIGirin" xml:space="preserve">
+
+    <value>输入 API 将录音转换为文本</value>
+
+  </data>
+
+  <data name="SesTranskripsiyonuBasarisizExMessage" xml:space="preserve">
+
+    <value>音频转录失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="SesliKayitBasladi" xml:space="preserve">
+
+    <value>🎤 录音已开始</value>
+
+  </data>
+
+  <data name="SesliKayitBasladiCurrentRecordingFile" xml:space="preserve">
+
+    <value>录音开始：{_currentRecordingFile}</value>
+
+  </data>
+
+  <data name="SesliKayitDurduruldu" xml:space="preserve">
+
+    <value>🎤 录音停止</value>
+
+  </data>
+
+  <data name="SesliKomutAyarlari" xml:space="preserve">
+
+    <value>语音命令设置</value>
+
+  </data>
+
+  <data name="SesliKomutAyarlariKaydedildiArtikMikrofonaBasarakKonusabilirsiniz" xml:space="preserve">
+
+    <value>✅ 已保存语音命令设置。现在您可以通过按麦克风讲话了！</value>
+
+  </data>
+
+  <data name="SesliKomutBaslatmaHatasiExMessage" xml:space="preserve">
+
+    <value>⚠️语音命令初始化错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="SesliKomutHatasiExMessage" xml:space="preserve">
+
+    <value>语音命令错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="SesliKomutIlkKurulum" xml:space="preserve">
+
+    <value>语音命令 — 初始设置</value>
+
+  </data>
+
+  <data name="SesliKomutKurulumuTamamlandi" xml:space="preserve">
+
+    <value>语音命令设置完成！</value>
+
+  </data>
+
+  <data name="SesliKomutServisiBaslatilamadi" xml:space="preserve">
+
+    <value>语音命令服务启动失败</value>
+
+  </data>
+
+  <data name="SesliKomutServisiBaslatildi" xml:space="preserve">
+
+    <value>🎤 推出语音命令服务</value>
+
+  </data>
+
+  <data name="SessionNameSohbetiniSilmekIstediginizeEminMisiniz" xml:space="preserve">
+
+    <value>您确定要删除聊天记录“{session.Name}”吗？</value>
+
+  </data>
+
+  <data name="SessizlikAlgilandiKayitOtomatikDurduruldu" xml:space="preserve">
+
+    <value>检测到静音，录音自动停止</value>
+
+  </data>
+
+  <data name="SessizlikDetectionHatasiExMessage" xml:space="preserve">
+
+    <value>静音检测错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="SestenMetneCevriliyorLutfenBekleyin" xml:space="preserve">
+
+    <value>⏳ 正在从语音转换为文字，请稍候...</value>
+
+  </data>
+
+  <data name="SettingsRagModelModeliIleBaglaniyor" xml:space="preserve">
+
+    <value>与模型 {_settings.RagModel} 连接</value>
+
+  </data>
+
+  <data name="SettingsSubtitle" xml:space="preserve">
+
+    <value>配置连接、模型和行为设置</value>
+
+  </data>
+
+  <data name="SettingsTitle" xml:space="preserve">
+
+    <value>设置</value>
+
+  </data>
+
+  <data name="Shortcuts" xml:space="preserve">
+
+    <value>⌨️ 快捷方式</value>
+
+  </data>
+
+  <data name="ShortcutsWindowSubtitle" xml:space="preserve">
+
+    <value>键盘快捷键和 AI 命令可更有效地使用应用程序</value>
+
+  </data>
+
+  <data name="ShortcutsWindowTitle" xml:space="preserve">
+
+    <value>⚡ 快捷键和命令</value>
+
+  </data>
+
+  <data name="ShowInExplorer" xml:space="preserve">
+
+    <value>在资源管理器中显示</value>
+
+  </data>
+
+  <data name="Sifirdan" xml:space="preserve">
+
+    <value>从头开始</value>
+
+  </data>
+
+  <data name="SilmeIslemiBasarisizOlduExMessage" xml:space="preserve">
+
+    <value>删除失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="SilmeOnayi" xml:space="preserve">
+
+    <value>删除确认</value>
+
+  </data>
+
+  <data name="SkippedSatirAtlandiOptimizasyon" xml:space="preserve">
+
+    <value>... [ {skipped} 行已跳过（优化）] ...</value>
+
+  </data>
+
+  <data name="SlashKomutlari" xml:space="preserve">
+
+    <value>🤖 斜线命令 (/)</value>
+
+  </data>
+
+  <data name="SnippetExtractionHatasiFilePathExMessage" xml:space="preserve">
+
+    <value>[片段提取错误] {filePath} : {ex.Message}</value>
+
+  </data>
+
+  <data name="SohbetAdiGuncellendi" xml:space="preserve">
+
+    <value>聊天名称已更新。</value>
+
+  </data>
+
+  <data name="SohbetAdiniDegistir" xml:space="preserve">
+
+    <value>更改聊天名称</value>
+
+  </data>
+
+  <data name="SohbetGecmisiTemizlendi" xml:space="preserve">
+
+    <value>聊天记录已被清除。</value>
+
+  </data>
+
+  <data name="SohbetGecmisiTemizlendiProjeAyarlariVeBaglamiKorunmaktadir" xml:space="preserve">
+
+    <value>🗑️聊天记录已被清除。项目设置和上下文将被保留。</value>
+
+  </data>
+
+  <data name="SohbetGecmisiTemizlenecekProjeAyarlariVeProjeKlasoruKorunacakDevamEdilsinMi" xml:space="preserve">
+
+    <value>聊天记录将被清除。将保留项目设置和项目文件夹。我们应该继续吗？</value>
+
+  </data>
+
+  <data name="SohbetGecmisiniTemizleProjeAyarlariKorunur" xml:space="preserve">
+
+    <value>清除聊天记录（保留项目设置）</value>
+
+  </data>
+
+  <data name="SohbetGecmisiniTemizlemekIsterMisiniz" xml:space="preserve">
+
+    <value>想要清除聊天记录吗？</value>
+
+  </data>
+
+  <data name="SohbetMesajindaYeniSatir" xml:space="preserve">
+
+    <value>聊天消息中出现新行</value>
+
+  </data>
+
+  <data name="SohbeteEkleVeBasla" xml:space="preserve">
+
+    <value>🚀 添加到聊天并开始</value>
+
+  </data>
+
+  <data name="SohbetiSil" xml:space="preserve">
+
+    <value>删除聊天记录</value>
+
+  </data>
+
+  <data name="SolTiklayarakAPIGirinSagTiklayarakAyarlayin" xml:space="preserve">
+
+    <value>左键进入API，右键设置</value>
+
+  </data>
+
+  <data name="SonAIYanitiAktifDosyayaUygulandi" xml:space="preserve">
+
+    <value>最终的 AI 响应应用于活动文件。</value>
+
+  </data>
+
+  <data name="SonAIYanitiniDosyayaUygula" xml:space="preserve">
+
+    <value>将最终 AI 响应应用于文件</value>
+
+  </data>
+
+  <data name="SonAIYanitiniUygula" xml:space="preserve">
+
+    <value>应用最新的人工智能响应</value>
+
+  </data>
+
+  <data name="SonucBulunamadi" xml:space="preserve">
+
+    <value>❌ 未找到结果。</value>
+
+  </data>
+
+  <data name="SoruPenceresiAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开问题窗口：{ex.Message}</value>
+
+  </data>
+
+  <data name="SoruVeSeceneklerZorunlu" xml:space="preserve">
+
+    <value>问题和选项是强制性的。</value>
+
+  </data>
+
+  <data name="SpecCommandDesc" xml:space="preserve">
+
+    <value>为您的项目创建需求文件 (spec.md)</value>
+
+  </data>
+
+  <data name="StageAllHatasiExMessage" xml:space="preserve">
+
+    <value>阶段全部错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="StageHatasiExMessage" xml:space="preserve">
+
+    <value>阶段错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="StartLineSatirGizlendi" xml:space="preserve">
+
+    <value>...（{startLine} 行隐藏）...</value>
+
+  </data>
+
+  <data name="StartNewChat" xml:space="preserve">
+
+    <value>➕ 开始新聊天</value>
+
+  </data>
+
+  <data name="StatikWebOnizleme" xml:space="preserve">
+
+    <value>📄 静态网页（预览）</value>
+
+  </data>
+
+  <data name="StepDetails" xml:space="preserve">
+
+    <value>步骤详情</value>
+
+  </data>
+
+  <data name="SubAgentBaslatilamadiExMessage" xml:space="preserve">
+
+    <value>无法初始化子代理：{ex.Message}</value>
+
+  </data>
+
+  <data name="SunucununDinledigiAdresiBaseURLEDestekledigiEmbeddingModelAdiniModelAdiNaYazin" xml:space="preserve">
+
+    <value>在Base URL中写入服务器监听的地址，在Model Name中写入它支持的嵌入模型名称。</value>
+
+  </data>
+
+  <data name="SurecDurdurulamadiVeyaCalistirilacakSurecYok" xml:space="preserve">
+
+    <value>进程无法停止或没有进程可运行。</value>
+
+  </data>
+
+  <data name="SurecDurduruldu" xml:space="preserve">
+
+    <value>⏹ 进程停止。</value>
+
+  </data>
+
+  <data name="SurecKapatilamadi" xml:space="preserve">
+
+    <value>❌ 进程无法关闭。</value>
+
+  </data>
+
+  <data name="SurecKullaniciTarafindanIptalEdildi" xml:space="preserve">
+
+    <value>--- 进程被用户取消 ---</value>
+
+  </data>
+
+  <data name="SurecTamamlandiCikisKoduExitCode" xml:space="preserve">
+
+    <value>--- 过程完成（退出代码： {exitCode} ） ---</value>
+
+  </data>
+
+  <data name="Surum" xml:space="preserve">
+
+    <value>版本</value>
+
+  </data>
+
+  <data name="SusluParantezDengesiBozuk" xml:space="preserve">
+
+    <value>大括号不平衡。</value>
+
+  </data>
+
+  <data name="SusluParantezDengesiBozukAciktaMathAbsOpenBraceTane" xml:space="preserve">
+
+    <value>大括号不平衡！{Math.Abs(openBrace)} 颗粒暴露。</value>
+
+  </data>
+
+  <data name="SusluParantezDengesiBozukAciktaMathAbsOpenBraceTaneVar" xml:space="preserve">
+
+    <value>大括号不平衡！有{Math.Abs(openBrace)}暴露。</value>
+
+  </data>
+
+  <data name="SwarmMimarisindeBelirliBirGoreviYerineGetirmekUzereBagimsizBirAltAjanSubagentBaslatirAnaAjanBeklerkenArkaPlandaCalisir" xml:space="preserve">
+
+    <value>它启动一个独立的子代理来执行 Swarm 架构中的特定任务。当主代理等待时，它在后台运行。</value>
+
+  </data>
+
+  <data name="SwiftDiliIcinBasitHataDenetimi" xml:space="preserve">
+
+    <value>Swift 语言的简单错误检查</value>
+
+  </data>
+
+  <data name="SwiftDiliIcinHataDenetimi" xml:space="preserve">
+
+    <value>Swift 语言的错误检查</value>
+
+  </data>
+
+  <data name="TODOGorevleriniTakipEtmeniziSaglar" xml:space="preserve">
+
+    <value>允许您跟踪 TODO 任务</value>
+
+  </data>
+
+  <data name="TODOListesiVeCanliDurumGuncellemeleriAktif" xml:space="preserve">
+
+    <value>TODO 列表和实时状态更新处于活动状态。</value>
+
+  </data>
+
+  <data name="TRUNCATEDCokUzunOlduguIcinKirpildi" xml:space="preserve">
+
+    <value>[截断：由于太长而被修剪]</value>
+
+  </data>
+
+  <data name="TTSIcinMetinBosOlamaz" xml:space="preserve">
+
+    <value>对于 TTS，文本不能为空</value>
+
+  </data>
+
+  <data name="TTSOlusturmaBasarisizExMessage" xml:space="preserve">
+
+    <value>TTS 创建失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="Tamamlandi" xml:space="preserve">
+
+    <value>完全的</value>
+
+  </data>
+
+  <data name="Tamamlandi2" xml:space="preserve">
+
+    <value>完全的</value>
+
+  </data>
+
+  <data name="TaskGraphCiktisiBos" xml:space="preserve">
+
+    <value>任务图输出为空。</value>
+
+  </data>
+
+  <data name="TaskGraphUretildi" xml:space="preserve">
+
+    <value>✅ 制作任务图</value>
+
+  </data>
+
+  <data name="TaskGraphUretiliyor" xml:space="preserve">
+
+    <value>🔗 任务图正在生成中...</value>
+
+  </data>
+
+  <data name="TaskGraphUretimindeYanitAlinamadi" xml:space="preserve">
+
+    <value>任务图生成中未收到响应。</value>
+
+  </data>
+
+  <data name="TaskGraphUretmeHatasiExMessage" xml:space="preserve">
+
+    <value>❌ 任务图生成错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="TaskResToolNameAracindaBirHataOlustuAIHatayiInceleyipDuzeltmeDenemesiYapiyor" xml:space="preserve">
+
+    <value>❌ {taskRes.ToolName} 中发生错误。人工智能检查错误并尝试修复它。</value>
+
+  </data>
+
+  <data name="TaskResToolNameTamamlandi" xml:space="preserve">
+
+    <value>✅ {taskRes.ToolName} 已完成</value>
+
+  </data>
+
+  <data name="TasksCommandDesc" xml:space="preserve">
+
+    <value>将绘制的计划划分为适用的任务框（清单）（task.md）</value>
+
+  </data>
+
+  <data name="TavilyAPIAnahtari" xml:space="preserve">
+
+    <value>泰维利 API 密钥</value>
+
+  </data>
+
+  <data name="TavilyApiKey" xml:space="preserve">
+
+    <value>泰维利 API 密钥</value>
+
+  </data>
+
+  <data name="TekrarKullanilmakUzereHizliBirTerminalKomutuKaydeder" xml:space="preserve">
+
+    <value>保存快速终端命令以供重复使用</value>
+
+  </data>
+
+  <data name="Temizle" xml:space="preserve">
+
+    <value>清除</value>
+
+  </data>
+
+  <data name="TemplateFallbackPlanKullaniliyorAIYok" xml:space="preserve">
+
+    <value>📋 使用模板后备计划（无AI）</value>
+
+  </data>
+
+  <data name="TerminalAmpIslem" xml:space="preserve">
+
+    <value>💻 终端和📊 交易</value>
+
+  </data>
+
+  <data name="TerminalAndProcess" xml:space="preserve">
+
+    <value>💻 终端 &amp; 📊 交易</value>
+
+  </data>
+
+  <data name="TerminalCiktisiniTemizle" xml:space="preserve">
+
+    <value>清除终端输出</value>
+
+  </data>
+
+  <data name="TerminalGirisineOdaklan" xml:space="preserve">
+
+    <value>关注终端登录</value>
+
+  </data>
+
+  <data name="TerminalIslem" xml:space="preserve">
+
+    <value>💻 终端 &amp; 📊 交易</value>
+
+  </data>
+
+  <data name="TerminalKomutuCalisiyor" xml:space="preserve">
+
+    <value>💻 终端命令有效...</value>
+
+  </data>
+
+  <data name="TerminalKomutuHatasiExMessage" xml:space="preserve">
+
+    <value>终端命令错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="TerminalMetnindenGecerliBirDosyaYoluBulunamadi" xml:space="preserve">
+
+    <value>从终端文本中找不到有效的文件路径。</value>
+
+  </data>
+
+  <data name="TerminalServisiDevreDisiOtomatikYuklemeYapilamiyor" xml:space="preserve">
+
+    <value>终端服务被禁用，无法执行自动安装。</value>
+
+  </data>
+
+  <data name="TerminalShellKomutuCalistirir" xml:space="preserve">
+
+    <value>终端/shell 运行命令</value>
+
+  </data>
+
+  <data name="TerminalSuAndaMesgulOtomatikYuklemeYapilamiyor" xml:space="preserve">
+
+    <value>终端当前正忙，无法自动上传。</value>
+
+  </data>
+
+  <data name="TerminalSureciKapatildi" xml:space="preserve">
+
+    <value>✅ 终端进程已关闭。</value>
+
+  </data>
+
+  <data name="TerminaldeBirKomutCalistirirIstegeBagliOlarakFarkliBirKlasordeCalistirmakIcinWorkingDirectoryParametresiKullanilabilir" xml:space="preserve">
+
+    <value>在终端中运行命令。（可选）workingDirectory 参数可用于在不同的文件夹中运行它。</value>
+
+  </data>
+
+  <data name="TerminaldeDosyaYoluBulunamadi" xml:space="preserve">
+
+    <value>在终端中找不到文件路径。</value>
+
+  </data>
+
+  <data name="TerminaldeUygunBirSatirBulunamadi" xml:space="preserve">
+
+    <value>在终端中找不到合适的线路。</value>
+
+  </data>
+
+  <data name="TestCalistirmasiBasarisizOldu" xml:space="preserve">
+
+    <value>试运行失败！</value>
+
+  </data>
+
+  <data name="TestCalistirmasiBaslatildi" xml:space="preserve">
+
+    <value>试运行开始了...</value>
+
+  </data>
+
+  <data name="TestCalistirmasiKullaniciOnayiylaDurduruldu" xml:space="preserve">
+
+    <value>测试运行经用户确认后停止。</value>
+
+  </data>
+
+  <data name="TestConnection" xml:space="preserve">
+
+    <value>⚡ 测试连接</value>
+
+  </data>
+
+  <data name="TestDenemedeAttemptDuzeltildi" xml:space="preserve">
+
+    <value>✓ 在测试中修复了{attempt}！</value>
+
+  </data>
+
+  <data name="TestDosyalariTestFilesLengthAdet" xml:space="preserve">
+
+    <value>## 测试文件：{testFiles.Length} 数量</value>
+
+  </data>
+
+  <data name="TestDuzeltmeDenemesiAttemptBasarisiz" xml:space="preserve">
+
+    <value>测试修复尝试 {attempt} 失败</value>
+
+  </data>
+
+  <data name="TestDuzeltmeDenemesiAttemptMaxAutoFixAttempts" xml:space="preserve">
+
+    <value>🔧 测试修正尝试 {attempt} / {MaxAutoFixAttempts} ...</value>
+
+  </data>
+
+  <data name="TestDuzeltmeDenemesiHatasiExMessage" xml:space="preserve">
+
+    <value>测试修复尝试错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="TestHatasiExMessage" xml:space="preserve">
+
+    <value>测试错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="TestSenaryosuUret" xml:space="preserve">
+
+    <value>生成测试场景</value>
+
+  </data>
+
+  <data name="TestlerBasarisiz" xml:space="preserve">
+
+    <value>测试失败</value>
+
+  </data>
+
+  <data name="TestlerBasarisizTestResultError" xml:space="preserve">
+
+    <value>❌ 测试失败：{testResult.Error}</value>
+
+  </data>
+
+  <data name="TestlerBasariylaTamamlandi" xml:space="preserve">
+
+    <value>测试成功完成！</value>
+
+  </data>
+
+  <data name="TestlerCalisiyor" xml:space="preserve">
+
+    <value>🧪 测试正在进行中...</value>
+
+  </data>
+
+  <data name="TestlerCalistiriliyor" xml:space="preserve">
+
+    <value>🧪 测试正在进行中...</value>
+
+  </data>
+
+  <data name="TiklayarakDetayliIstatistikleriGorebilirsiniz" xml:space="preserve">
+
+    <value>点击查看详细统计数据</value>
+
+  </data>
+
+  <data name="TimeLineIleAICalismasiniIzlemeniziSaglar" xml:space="preserve">
+
+    <value>允许您使用 TimeLine 监控 AI 工作。</value>
+
+  </data>
+
+  <data name="TokenBosBirakilamazIslemIptalEdildi" xml:space="preserve">
+
+    <value>令牌不能留空。交易已被取消。</value>
+
+  </data>
+
+  <data name="ToolNameCalistiriliyor" xml:space="preserve">
+
+    <value>⚙️ {toolName} 正在运行...</value>
+
+  </data>
+
+  <data name="ToolNameIcinAracCalistiricisiMevcutDegil" xml:space="preserve">
+
+    <value>⚠️ {toolName} 没有可用的车辆跑步者。</value>
+
+  </data>
+
+  <data name="ToolDescriptionReadProjectMemory" xml:space="preserve">
+    <value>读取项目记忆中的最新任务、计划和持久化项目信息。</value>
+  </data>
+  <data name="ToolDescriptionWriteProjectMemory" xml:space="preserve">
+    <value>将架构或编码约定保存到版本化项目记忆中。</value>
+  </data>
+  <data name="ToolDescriptionSearchProjectMemory" xml:space="preserve">
+    <value>在项目记忆的架构和编码约定记录中搜索。</value>
+  </data>
+  <data name="ToolDescriptionArchiveProjectMemory" xml:space="preserve">
+    <value>归档已过时的记忆记录，但不删除它。</value>
+  </data>
+  <data name="ToolDescriptionWriteDecision" xml:space="preserve">
+    <value>记录架构决策及其理由。</value>
+  </data>
+  <data name="ToolDescriptionWriteTask" xml:space="preserve">
+    <value>记录长期任务的状态和进度说明。</value>
+  </data>
+
+  <data name="Tools" xml:space="preserve">
+
+    <value>🛠️工具</value>
+
+  </data>
+
+  <data name="UiFilesTab" xml:space="preserve"><value>📁 文件</value></data>
+  <data name="UiGitStatus" xml:space="preserve"><value>Git 状态</value></data>
+  <data name="UiBackups" xml:space="preserve"><value>🗄️ 备份</value></data>
+  <data name="UiRefresh" xml:space="preserve"><value>🔄 刷新</value></data>
+  <data name="UiRagDisabled" xml:space="preserve"><value>RAG 已禁用</value></data>
+  <data name="UiSettings" xml:space="preserve"><value>⚙️ 设置</value></data>
+  <data name="UiSearchFilesTooltip" xml:space="preserve"><value>在项目文件中搜索文本</value></data>
+  <data name="UiStartSearchTooltip" xml:space="preserve"><value>开始搜索（按 Enter 也可以）</value></data>
+  <data name="UiClearSearchTooltip" xml:space="preserve"><value>清除搜索结果并恢复文件树</value></data>
+  <data name="UiGitHubSyncTooltip" xml:space="preserve"><value>将项目同步到 GitHub（推送）</value></data>
+  <data name="UiChats" xml:space="preserve"><value>💬 聊天</value></data>
+  <data name="UiNewChat" xml:space="preserve"><value>➕ 开始新聊天</value></data>
+  <data name="UiNoProjectWarning" xml:space="preserve"><value>未选择项目：您可以聊天，但工具不会运行且对话不会保存。</value></data>
+  <data name="UiInlineEditTitle" xml:space="preserve"><value>✨ 使用 AI 编辑</value></data>
+  <data name="UiInlineEditStatus" xml:space="preserve"><value>（将更新选中的代码）</value></data>
+  <data name="UiNoFileOpen" xml:space="preserve"><value>📄 未打开文件</value></data>
+  <data name="UiUnknown" xml:space="preserve"><value>未知</value></data>
+  <data name="UiZeroTokens" xml:space="preserve"><value>0 个 Token（$0.000）</value></data>
+
+  <data name="TotalLinesEndLine1SatirGizlendi" xml:space="preserve">
+
+    <value>...（{totalLines - endLine - 1} 行隐藏）...</value>
+
+  </data>
+
+  <data name="TranskripsiyonBasarisizExMessage" xml:space="preserve">
+
+    <value>转录失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="TranskripsiyonBasladiCurrentRecordingFile" xml:space="preserve">
+
+    <value>转录开始：{_currentRecordingFile}</value>
+
+  </data>
+
+  <data name="TranskripsiyonHatasi" xml:space="preserve">
+
+    <value>❌ 转录错误</value>
+
+  </data>
+
+  <data name="TranskripsiyonHatasiEMessage" xml:space="preserve">
+
+    <value>❌ 转录错误：{e.Message}</value>
+
+  </data>
+
+  <data name="TranskripsiyonHatasiEMessage2" xml:space="preserve">
+
+    <value>转录错误：{e.Message}</value>
+
+  </data>
+
+  <data name="TranskripsiyonHatasiExMessage" xml:space="preserve">
+
+    <value>转录错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="TranskripsiyonIsleniyor" xml:space="preserve">
+
+    <value>🔄 转录正在处理中...</value>
+
+  </data>
+
+  <data name="TranskripsiyonTamamlandi" xml:space="preserve">
+
+    <value>✅ 转录完成</value>
+
+  </data>
+
+  <data name="TranskripsiyonTamamlandiETextSubstring0MathMin50ETextLength" xml:space="preserve">
+
+    <value>✅ 转录完成：{e.Text.Substring(0, Math.Min(50, e.Text.Length))}</value>
+
+  </data>
+
+  <data name="TranskripsiyonTamamlandiTextMathMin80TextLength" xml:space="preserve">
+
+    <value>转录完成：{text[..Math.Min(80, text.Length)]}</value>
+
+  </data>
+
+  <data name="TrueIseDosyayaKaydederVeYolunuDonerFalseIseBase64StringOlarakDoner" xml:space="preserve">
+
+    <value>如果为 true，则保存到文件并返回路径；如果为 false，则返回一个 base64 字符串。</value>
+
+  </data>
+
+  <data name="TrustThreshold" xml:space="preserve">
+
+    <value>置信阈值（0.0 - 1.0）</value>
+
+  </data>
+
+  <data name="TumAcikSekmelerKaydedildi" xml:space="preserve">
+
+    <value>所有打开的选项卡都会被保存。</value>
+
+  </data>
+
+  <data name="TumDosyalar" xml:space="preserve">
+
+    <value>所有文件|*.*</value>
+
+  </data>
+
+  <data name="TumDosyalarMetinDosyalariTxt" xml:space="preserve">
+
+    <value>所有文件|*.*|文本文件|*.txt</value>
+
+  </data>
+
+  <data name="TumDosyalarResimlerPngJpgJpegGifMetinTxtMdPDFPdf" xml:space="preserve">
+
+    <value>所有文件|*.*|图片|*.png;*.jpg;*.jpeg;*.gif|文本|*.txt;*.md|PDF|*.pdf</value>
+
+  </data>
+
+  <data name="TumDosyalariKaydet" xml:space="preserve">
+
+    <value>保存所有文件</value>
+
+  </data>
+
+  <data name="TumEklentilerGuncel" xml:space="preserve">
+
+    <value>所有插件都是最新的！</value>
+
+  </data>
+
+  <data name="TumGuncellemelerYuklendi" xml:space="preserve">
+
+    <value>所有更新均已安装！</value>
+
+  </data>
+
+  <data name="TumIslemlerIcinOnayIsterYanlisliklariVeHatalariOnler" xml:space="preserve">
+
+    <value>需要批准所有交易，防止不准确和错误</value>
+
+  </data>
+
+  <data name="TumKodDegisiklikleriDogrulaniyorBuildTest" xml:space="preserve">
+
+    <value>🔍 所有代码更改均经过验证（构建+测试）...</value>
+
+  </data>
+
+  <data name="TumKomutlariArayarakBulmaniziSaglarCtrlP" xml:space="preserve">
+
+    <value>允许您搜索所有命令 (Ctrl+P)</value>
+
+  </data>
+
+  <data name="TumTestlerGecti" xml:space="preserve">
+
+    <value>✓ 所有测试均已通过！</value>
+
+  </data>
+
+  <data name="TumunuKaydet" xml:space="preserve">
+
+    <value>全部保存</value>
+
+  </data>
+
+  <data name="Turkce" xml:space="preserve">
+
+    <value>土耳其</value>
+
+  </data>
+
+  <data name="TypeScriptKurulumuBulunamadiLutfenProjeKokundeNpmInstallSaveDevTypescript59TypescriptLanguageServerVeyaGlobalNpmInstallG" xml:space="preserve">
+
+    <value>未找到 TypeScript 安装。请在项目根目录中运行“npm install --save-dev typescript@^5.9 typescript-language-server”或全局“npm install -g typescript@^5.9 typescript-language-server”。</value>
+
+  </data>
+
+  <data name="TypeScriptLanguageServerPaketleriNpmIleYuklenemediManuelKurulumDeneyin" xml:space="preserve">
+
+    <value>无法使用 npm 安装 TypeScript/语言服务器包。尝试手动安装。</value>
+
+  </data>
+
+  <data name="TypeScriptVeJavaScriptIcinTamOzellikliLSPDestegi" xml:space="preserve">
+
+    <value>对 TypeScript 和 JavaScript 的全功能 LSP 支持</value>
+
+  </data>
+
+  <data name="UIAmpRefaktorAjani" xml:space="preserve">
+
+    <value>用户界面与重构代理</value>
+
+  </data>
+
+  <data name="UIHandlerOlmadanIlkSecenekDonduruluyor" xml:space="preserve">
+
+    <value>⚠️ 在没有 UI 处理程序的情况下返回第一个选项</value>
+
+  </data>
+
+  <data name="UIRefaktorAjani" xml:space="preserve">
+
+    <value>UI重构代理</value>
+
+  </data>
+
+  <data name="UIRefaktorAjaniCalisiyor" xml:space="preserve">
+
+    <value>🎨 UI 和重构代理正在工作...</value>
+
+  </data>
+
+  <data name="UIRefaktorAjaniDevrede" xml:space="preserve">
+
+    <value>🎨 UI 和重构代理已激活...</value>
+
+  </data>
+
+  <data name="UIRefaktorAjaniTamamlandi" xml:space="preserve">
+
+    <value>✅ UI 和重构代理完成</value>
+
+  </data>
+
+  <data name="UcretsizAPIAnahtariAlmakIcinTavilyCom" xml:space="preserve">
+
+    <value>→ Tavily.com 获取免费 API 密钥</value>
+
+  </data>
+
+  <data name="UiRefactorAgent" xml:space="preserve">
+
+    <value>UI 和重构代理</value>
+
+  </data>
+
+  <data name="UnstageHatasiExMessage" xml:space="preserve">
+
+    <value>取消暂存错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="Update" xml:space="preserve">
+
+    <value>🔄 更新</value>
+
+  </data>
+
+  <data name="UpdatesCountGuncellemeMevcut" xml:space="preserve">
+
+    <value>{updates.Count} 有更新！</value>
+
+  </data>
+
+  <data name="UseAiRouter" xml:space="preserve">
+
+    <value>使用AI路由器</value>
+
+  </data>
+
+  <data name="Uyari" xml:space="preserve">
+
+    <value>警告</value>
+
+  </data>
+
+  <data name="Uyari2" xml:space="preserve">
+
+    <value>警告</value>
+
+  </data>
+
+  <data name="UygulamaDiliAppLanguage" xml:space="preserve">
+
+    <value>应用语言</value>
+
+  </data>
+
+  <data name="UygulamaninEkraninGoruntusunuAlir" xml:space="preserve">
+
+    <value>截取应用程序/屏幕的屏幕截图</value>
+
+  </data>
+
+  <data name="UygulamayiCalistirmakIcinHedefCihaziSecin" xml:space="preserve">
+
+    <value>选择运行应用程序的目标设备</value>
+
+  </data>
+
+  <data name="UygulamayiDahaVerimliKullanmakIcinKlavyeKisayollariVeAIKomutlari" xml:space="preserve">
+
+    <value>键盘快捷键和 AI 命令可更有效地使用应用程序</value>
+
+  </data>
+
+  <data name="UygulamayiKapatmadanDegisiklikleriCanliOlarakUygular" xml:space="preserve">
+
+    <value>实时应用更改，无需关闭应用程序</value>
+
+  </data>
+
+  <data name="UygulamayiSeciliCihazdaCalistirir" xml:space="preserve">
+
+    <value>在选定的设备上运行应用程序</value>
+
+  </data>
+
+  <data name="UzerindeDegisiklikYapilanDosyalariGormeniziSaglar" xml:space="preserve">
+
+    <value>它允许您查看已修改的文件。</value>
+
+  </data>
+
+  <data name="VarsayilanKullaniciSecimiKullanildi" xml:space="preserve">
+
+    <value>使用默认用户选择。</value>
+
+  </data>
+
+  <data name="VarsayilanSeninSectigin" xml:space="preserve">
+
+    <value>默认/您的选择</value>
+
+  </data>
+
+  <data name="VarsayilanVurgulamaKullanildiHighlightingName" xml:space="preserve">
+
+    <value>🎨 使用默认突出显示：{highlighting?.Name ??</value>
+
+  </data>
+
+  <data name="VeResultsCount100EslesmeDaha" xml:space="preserve">
+
+    <value>...以及 {results.Count - 100} 个更多匹配项</value>
+
+  </data>
+
+  <data name="VerificationBasariliTumTestlerGecti" xml:space="preserve">
+
+    <value>✅ 验证成功 - 所有测试均通过！</value>
+
+  </data>
+
+  <data name="VerificationBasarisizVerificationResultStatusVerificationResultErrorSummary" xml:space="preserve">
+
+    <value>⚠️验证失败：{verificationResult.Status} - {verificationResult.ErrorSummary}</value>
+
+  </data>
+
+  <data name="VerificationFlutterTestDosyasiBulunamadiTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 未找到 Flutter 测试文件。测试步骤被跳过。</value>
+
+  </data>
+
+  <data name="VerificationIcinDegisenDosyalarStringJoin" xml:space="preserve">
+
+    <value>🔍 为验证而更改的文件：{string.Join(</value>
+
+  </data>
+
+  <data name="VerificationLoopBasladi" xml:space="preserve">
+
+    <value>🔄 验证循环已开始...</value>
+
+  </data>
+
+  <data name="VerificationNETTestProjesiBulunamadiTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 未找到.NET测试项目。测试步骤被跳过。</value>
+
+  </data>
+
+  <data name="VerificationPackageJsonBulunamadiTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证]未找到package.json。测试步骤被跳过。</value>
+
+  </data>
+
+  <data name="VerificationPackageJsonDaTestScriptiBulunamadiTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] package.json中没有找到测试脚本。测试步骤被跳过。</value>
+
+  </data>
+
+  <data name="VerificationPackageJsonOkunamadiTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 读取package.json失败。测试步骤被跳过。</value>
+
+  </data>
+
+  <data name="VerificationProjectTypeProjesiIcinBuildAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 跳过项目 {projectType} 的构建步骤。</value>
+
+  </data>
+
+  <data name="VerificationProjectTypeProjesiIcinTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 跳过项目 {projectType} 的测试步骤。</value>
+
+  </data>
+
+  <data name="VerificationPythonTestDosyasiBulunamadiTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 未找到Python测试文件。测试步骤被跳过。</value>
+
+  </data>
+
+  <data name="VerificationSafWebProjesiHTMLCSSJSIcinTestAdimiAtlaniyor" xml:space="preserve">
+
+    <value>[验证] 跳过纯Web项目（HTML/CSS/JS）的测试步骤。</value>
+
+  </data>
+
+  <data name="Veritabani" xml:space="preserve">
+
+    <value>数据库</value>
+
+  </data>
+
+  <data name="VeyaKendiCevabiniYaz" xml:space="preserve">
+
+    <value>或者写下你自己的答案：</value>
+
+  </data>
+
+  <data name="VolumeAlgilamadaHataExMessage" xml:space="preserve">
+
+    <value>音量检测错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="WebAramaHatasiExMessage" xml:space="preserve">
+
+    <value>网络搜索错误：{ex.Message}</value>
+
+  </data>
+
+  <data name="WebAramasiBasarisizOldu" xml:space="preserve">
+
+    <value>网络搜索失败。</value>
+
+  </data>
+
+  <data name="WebAramasiQuery" xml:space="preserve">
+
+    <value>🔍 网络搜索：{query}</value>
+
+  </data>
+
+  <data name="WebAramasiTamamlandi" xml:space="preserve">
+
+    <value>网络搜索完成。</value>
+
+  </data>
+
+  <data name="WebAraniyorQuery" xml:space="preserve">
+
+    <value>搜索网页：{query}</value>
+
+  </data>
+
+  <data name="WebOnizlemeBaslatilamadiExMessage" xml:space="preserve">
+
+    <value>无法启动网页预览：{ex.Message}</value>
+
+  </data>
+
+  <data name="WebProjesiAlgilandiTarayicidaAciliyor" xml:space="preserve">
+
+    <value>🌐 检测到 Web 项目。在浏览器中打开...</value>
+
+  </data>
+
+  <data name="WebSayfasiYuklendi" xml:space="preserve">
+
+    <value>网页已加载。</value>
+
+  </data>
+
+  <data name="WebSayfasiYuklenemedi" xml:space="preserve">
+
+    <value>网页加载失败。</value>
+
+  </data>
+
+  <data name="WebSayfasiYukleniyor" xml:space="preserve">
+
+    <value>网页正在加载。</value>
+
+  </data>
+
+  <data name="WebSearchApiNote" xml:space="preserve">
+
+    <value>无论您使用哪种 AI 模型，网络搜索都通过此 API 进行。</value>
+
+  </data>
+
+  <data name="WebView2Hatasi" xml:space="preserve">
+
+    <value>WebView2错误</value>
+
+  </data>
+
+  <data name="WelcomeSubtitle" xml:space="preserve">
+
+    <value>您的人工智能编码助手已准备就绪。</value>
+
+  </data>
+
+  <data name="WelcomeTitle" xml:space="preserve">
+
+    <value>欢迎来到mdai代理！🚀</value>
+
+  </data>
+
+  <data name="WorkspaceTaTypeScriptVersionYukluAncakTsserverJsVeyaUyumluTsserverYoluBulunamadiTypescriptLanguageServerIcinTypeScript5X" xml:space="preserve">
+
+    <value>工作区已安装 TypeScript {version}，但未找到 tsserver.js 或兼容的 tsserver 路径。对于“typescript-language-server”，请使用 TypeScript 5.x/6.x。运行 `npm install --save-dev typescript@^5.9 typescript-language-server` 或 `npm install -g typescript@^5.9 typescript-language-server`。</value>
+
+  </data>
+
+  <data name="XSHDYuklendiXshdName" xml:space="preserve">
+
+    <value>已加载 XSHD：{xshd.Name}</value>
+
+  </data>
+
+  <data name="XshdFileNameBulunamadiVarsayilanKullanilacak" xml:space="preserve">
+
+    <value>❌{xshdFileName}未找到！将使用默认值。</value>
+
+  </data>
+
+  <data name="XshdFileNameIcinAramaBasliyor" xml:space="preserve">
+
+    <value>🔍 开始搜索 {xshdFileName}...</value>
+
+  </data>
+
+  <data name="XshdFileNameYuklenirkenHataExMessage" xml:space="preserve">
+
+    <value>❌加载 {xshdFileName} 时出错：{ex.Message}</value>
+
+  </data>
+
+  <data name="YanitiPanoyaKopyala" xml:space="preserve">
+
+    <value>将答案复制到剪贴板</value>
+
+  </data>
+
+  <data name="YapilacakGorev" xml:space="preserve">
+
+    <value>待完成的任务</value>
+
+  </data>
+
+  <data name="YapilanKodDegisikliklerininOnizlemesiniSunar" xml:space="preserve">
+
+    <value>提供代码更改的预览</value>
+
+  </data>
+
+  <data name="Yapistir" xml:space="preserve">
+
+    <value>粘贴</value>
+
+  </data>
+
+  <data name="YazimHatasi" xml:space="preserve">
+
+    <value>打字错误</value>
+
+  </data>
+
+  <data name="YedegiGeriYukle" xml:space="preserve">
+
+    <value>恢复备份</value>
+
+  </data>
+
+  <data name="YedegiGeriYuklemekIstediginizeEminMisinizYedekEntryDisplayPathUyariMevcutDosyaUzerineYazilacaktir" xml:space="preserve">
+
+    <value>您确定要恢复备份吗？备份：{entry.DisplayPath} 警告：现有文件将被覆盖。</value>
+
+  </data>
+
+  <data name="YedekBasariylaGeriYuklendiOriginalFilePath" xml:space="preserve">
+
+    <value>备份已成功恢复。{originalFilePath}</value>
+
+  </data>
+
+  <data name="YedekDosyaAcilamadiExMessage" xml:space="preserve">
+
+    <value>无法打开备份文件：{ex.Message}</value>
+
+  </data>
+
+  <data name="YedekGecmisiMdaiAgent" xml:space="preserve">
+
+    <value>备份历史记录 - Yengi</value>
+
+  </data>
+
+  <data name="YedekGeriYuklenemediExMessage" xml:space="preserve">
+
+    <value>恢复备份失败：{ex.Message}</value>
+
+  </data>
+
+  <data name="YedekKlasoruBulunamadi" xml:space="preserve">
+
+    <value>找不到备份文件夹。</value>
+
+  </data>
+
+  <data name="YedekleriGoruntule" xml:space="preserve">
+
+    <value>查看备份</value>
+
+  </data>
+
+  <data name="YeniBirDosyaOlustururVeyaVarOlaniGunceller" xml:space="preserve">
+
+    <value>创建新文件或更新现有文件</value>
+
+  </data>
+
+  <data name="YeniDosyaAdiniUzantisiylaYazinOrnDenemePy" xml:space="preserve">
+
+    <value>写入新文件名及其扩展名（例如：Trial.py）：</value>
+
+  </data>
+
+  <data name="YeniDosyaOlusturulduNewFilePath" xml:space="preserve">
+
+    <value>创建的新文件：{newFilePath}</value>
+
+  </data>
+
+  <data name="YeniDosyaOlustururVeyaMevcutDosyayiGunceller" xml:space="preserve">
+
+    <value>创建新文件或更新现有文件</value>
+
+  </data>
+
+  <data name="YeniGuncellemelerMevcutUpdateListGuncellemekIsterMisiniz" xml:space="preserve">
+
+    <value>有新更新！{updateList} 您想更新吗？</value>
+
+  </data>
+
+  <data name="YeniIcerik" xml:space="preserve">
+
+    <value>新内容</value>
+
+  </data>
+
+  <data name="YeniKlasor" xml:space="preserve">
+
+    <value>新建文件夹</value>
+
+  </data>
+
+  <data name="YeniKlasorAdiniYazin" xml:space="preserve">
+
+    <value>输入新文件夹名称：</value>
+
+  </data>
+
+  <data name="YeniKlasorOlusturulduNewFolderPath" xml:space="preserve">
+
+    <value>创建新文件夹：{newFolderPath}</value>
+
+  </data>
+
+  <data name="YeniKodYapayZekaOnerisi" xml:space="preserve">
+
+    <value>新代码（人工智能推荐）</value>
+
+  </data>
+
+  <data name="YeniPlanOlusturuluyor" xml:space="preserve">
+
+    <value>一个新的计划正在制定中......</value>
+
+  </data>
+
+  <data name="YeniSohbet" xml:space="preserve">
+
+    <value>新聊天</value>
+
+  </data>
+
+  <data name="YeniSohbetAdiniGirin" xml:space="preserve">
+
+    <value>输入新的聊天名称：</value>
+
+  </data>
+
+  <data name="YeniSohbetBaslat" xml:space="preserve">
+
+    <value>➕ 开始新聊天</value>
+
+  </data>
+
+  <data name="YeniSohbetOlusturuldu" xml:space="preserve">
+
+    <value>新聊天已创建。</value>
+
+  </data>
+
+  <data name="YenidenAdlandir" xml:space="preserve">
+
+    <value>重命名</value>
+
+  </data>
+
+  <data name="YenidenDenenecekGorev" xml:space="preserve">
+
+    <value>要重试的任务</value>
+
+  </data>
+
+  <data name="YenidenIndeksle" xml:space="preserve">
+
+    <value>🔄 重新索引</value>
+
+  </data>
+
+  <data name="YenidenIndeksleniyor" xml:space="preserve">
+
+    <value>🔄 重新索引...</value>
+
+  </data>
+
+  <data name="YenilemeTamamlandi" xml:space="preserve">
+
+    <value>装修完成。</value>
+
+  </data>
+
+  <data name="YenilemeYapilamiyor" xml:space="preserve">
+
+    <value>无法续订</value>
+
+  </data>
+
+  <data name="YerelModelAyarlari" xml:space="preserve">
+
+    <value>🏠 本地模型设置</value>
+
+  </data>
+
+  <data name="YerelModelKullanmakIcinBilgisayarinizdaOpenAIUyumluBirEmbeddingSunucusuCalisiyorOlmalidir" xml:space="preserve">
+
+    <value>要使用本机模型，您的计算机上必须运行与 OpenAI 兼容的嵌入服务器。</value>
+
+  </data>
+
+  <data name="YerelModelKurulumHakkinda" xml:space="preserve">
+
+    <value>🏠 关于本地模型安装</value>
+
+  </data>
+
+  <data name="YerelSunucunuzunAdresiniVeEmbeddingModelAdiniGirin" xml:space="preserve">
+
+    <value>输入本地服务器的地址和嵌入模型名称。</value>
+
+  </data>
+
+  <data name="Yes" xml:space="preserve">
+
+    <value>是的</value>
+
+  </data>
+
+  <data name="YolHaritasiOlusturuluyor" xml:space="preserve">
+
+    <value>路线图正在创建中...</value>
+
+  </data>
+
+  <data name="YolYapilandirmasiKontrolEdiliyor" xml:space="preserve">
+
+    <value>检查路径配置...</value>
+
+  </data>
+
+  <data name="YorumlariGelistir" xml:space="preserve">
+
+    <value>改进评论</value>
+
+  </data>
+
+  <data name="YuklemeKomutuGonderildiCihaziniziKontrolEdin" xml:space="preserve">
+
+    <value>✅ 安装命令已发送。检查您的设备。</value>
+
+  </data>
+
+  <data name="YuklemeUpdateItem2" xml:space="preserve">
+
+    <value>[上传] {update.Item2}</value>
+
+  </data>
+
+  <data name="YukluEklentiler" xml:space="preserve">
+
+    <value>🧪 代码诊断</value>
+
+  </data>
+
+  <data name="_0KodBloguIndekslendi" xml:space="preserve">
+
+    <value>0 个代码块已索引</value>
+
+  </data>
+
+  <data name="_0PlanAdimiYuklendi" xml:space="preserve">
+
+    <value>已加载 0 个计划步骤。</value>
+
+  </data>
+
+  <data name="_1SecenekYuklendi" xml:space="preserve">
+
+    <value>已加载 1 个选项。</value>
+
+  </data>
+
+  <data name="_2026MdaiAgentTumHaklariSaklidir" xml:space="preserve">
+
+    <value>© 2026 mdaiAgent — 保留所有权利。</value>
+
+  </data>
+
+  <data name="GoToDefinitionShortcut" xml:space="preserve">
+
+    <value>转到符号定义</value>
+
+  </data>
+
+  <data name="FindReferencesShortcut" xml:space="preserve">
+
+    <value>查找符号引用</value>
+
+  </data>
+
+  <data name="ShowDocumentSymbolsShortcut" xml:space="preserve">
+
+    <value>显示当前文件中的符号</value>
+
+  </data>
+
+  <data name="YerelDahiliRouterOnerilen" xml:space="preserve"><value>⚡ 本地内置路由器（yengi-router:1.5b - 0.2s）[推荐]</value></data>
+  <data name="YerelRouterModelDurumuKontrolEdiliyor" xml:space="preserve"><value>模型状态：正在检查...</value></data>
+  <data name="YerelRouterModelDurumuHazir" xml:space="preserve"><value>模型状态：✓ 已安装并准备就绪（0.2s）</value></data>
+  <data name="YerelRouterModelDurumuGgufHazirDegil" xml:space="preserve"><value>模型状态：已找到 GGUF，尚未完成 Ollama 设置</value></data>
+  <data name="YerelRouterModelDurumuYukluDegil" xml:space="preserve"><value>模型状态：未安装（934 MB）</value></data>
+  <data name="YerelRouterModeliniIndir" xml:space="preserve"><value>下载（934 MB）</value></data>
+  <data name="YerelRouterOllamaKur" xml:space="preserve"><value>安装到 Ollama</value></data>
+  <data name="YerelRouterKuruluyor" xml:space="preserve"><value>正在安装...</value></data>
+  <data name="YerelRouterGgufOllamayaKaydediliyor" xml:space="preserve"><value>正在向 Ollama 注册 GGUF...</value></data>
+  <data name="YerelRouterModelIndiriliyor" xml:space="preserve"><value>正在下载模型...</value></data>
+  <data name="YerelRouterKurulumBasarili" xml:space="preserve"><value>本地路由器模型已注册到 Ollama！</value></data>
+  <data name="YerelRouterIndirmeKurulumBasarili" xml:space="preserve"><value>本地路由器模型已下载并注册到 Ollama！</value></data>
+  <data name="YerelRouterKurulumBasarisiz" xml:space="preserve"><value>Ollama 设置失败。</value></data>
+  <data name="YerelRouterIndirmeBasarisiz" xml:space="preserve"><value>下载失败。</value></data>
+  <data name="YerelRouterModeliGerekli" xml:space="preserve"><value>安装 Yengi 路由器模型到 Ollama 后才能使用此选项。</value></data>
+  <data name="ModelGerekli" xml:space="preserve"><value>需要模型</value></data>
+  <data name="YeniGuncellemeMevcut" xml:space="preserve"><value>有新版本可用！</value></data>
+  <data name="SimdiGuncelle" xml:space="preserve"><value>🚀 立即更新</value></data>
+
+  <data name="OllamaKuruluDegilRouterIcinGerekli" xml:space="preserve">
+    <value>🔴 系统上未安装 Ollama。Yengi Router 运行需要 Ollama。</value>
+  </data>
+
+  <data name="OllamaIndir" xml:space="preserve">
+    <value>🌐 下载 Ollama</value>
+  </data>
+
+  <data name="GgufDosyasiSec" xml:space="preserve">
+    <value>📁 选择 GGUF 文件</value>
+  </data>
+
+  <data name="YengiRouterIndirUcretsiz" xml:space="preserve">
+    <value>⬇️ 下载 Yengi Router（免费）</value>
+  </data>
+
+  <data name="YerelRouterModeliHenuzYuklenmedi" xml:space="preserve">
+    <value>🟡 yengi-router:1.5b 模型尚未加载。您可以免费下载，或从计算机中选择 .gguf 文件。</value>
+  </data>
+
+  <data name="GgufDosyasiHazirOllamayaKaydet" xml:space="preserve">
+    <value>🔵 GGUF 文件已准备就绪。单击以将模型保存到 Ollama。</value>
+  </data>
+
+  <data name="ModeliKaydet" xml:space="preserve">
+    <value>⚙️ 保存模型</value>
+  </data>
+
+  <data name="GizlilikVeTelemetri" xml:space="preserve">
+    <value>🔒 隐私和遥测</value>
+  </data>
+
+  <data name="AnonimKullanimIstatistikleriniPaylas" xml:space="preserve">
+    <value>共享匿名使用统计信息（遥测）</value>
+  </data>
+
+  <data name="TelemetriAciklama" xml:space="preserve">
+    <value>为了帮助我们改进 Yengi，将发送匿名设备 ID、操作系统和版本信息。您的代码和个人数据绝不会被收集。</value>
+  </data>
+
+  <data name="RouterBaseURL" xml:space="preserve">
+    <value>路由器基础 URL</value>
+  </data>
+
+  <data name="RouterModel" xml:space="preserve">
+    <value>路由器模型</value>
+  </data>
+
+  <data name="OllamaIndirTooltip" xml:space="preserve">
+    <value>从 ollama.com 打开 Ollama 下载页面</value>
+  </data>
+
+  <data name="OllamaIndiripKurduktanSonraKontrolEt" xml:space="preserve">
+    <value>从网站下载并安装 Ollama 后，点击“🔄 检查”按钮。</value>
+  </data>
+
+  <data name="KontrolEdiliyor" xml:space="preserve">
+    <value>正在检查...</value>
+  </data>
+
+  <data name="KontrolEt" xml:space="preserve">
+    <value>🔄 检查</value>
+  </data>
+
+  <data name="GgufDosyasiTasiniyor" xml:space="preserve">
+    <value>📁 正在移动 GGUF 文件...</value>
+  </data>
+
+  <data name="ModeliOllamayaKaydediliyor" xml:space="preserve">
+    <value>⚙️ 正在向 Ollama 注册模型...</value>
+  </data>
+
+  <data name="YengiRouterModeliKurulduVeKaydedildi" xml:space="preserve">
+    <value>yengi-router:1.5b 模型已成功安装并注册到 Ollama！</value>
+  </data>
+
+  <data name="GgufSecinTitle" xml:space="preserve">
+    <value>选择 Yengi Router GGUF 模型文件</value>
+  </data>
+
+  <data name="OllamaTespitEdildi" xml:space="preserve">
+    <value>✅ 成功检测到 Ollama 并已正常运行！</value>
+  </data>
+
+  <data name="OllamaHenuzTespitEdilemedi" xml:space="preserve">
+    <value>❌ 未检测到 Ollama。请完成 Ollama 安装并确保服务已在后台运行。</value>
+  </data>
+
+  <data name="OllamaDurumu" xml:space="preserve">
+    <value>Ollama 状态</value>
+  </data>
+
+  <data name="DilDegisikligiYenidenBaslatGerekli" xml:space="preserve">
+    <value>为了在整个界面完全应用语言更改，需要重新启动 Yengi。现在重新启动吗？</value>
+  </data>
+
+  <data name="YenidenBaslatBaslik" xml:space="preserve">
+    <value>重新启动</value>
+  </data>
+
+  <data name="GgufDosyasiSecTooltip" xml:space="preserve">
+    <value>选择本地 .gguf 模型文件</value>
+  </data>
+
+  <data name="ModelLabel" xml:space="preserve">
+    <value>模型：</value>
+  </data>
+
+  <data name="BuOturumToken" xml:space="preserve">
+    <value>本次会话（Token）：</value>
+  </data>
+
+  <data name="BuOturumGirdi" xml:space="preserve">
+    <value>  输入：</value>
+  </data>
+
+  <data name="BuOturumCikti" xml:space="preserve">
+    <value>  输出：</value>
+  </data>
+
+  <data name="BuOturumMaliyet" xml:space="preserve">
+    <value>本次会话（成本）：</value>
+  </data>
+
+  <data name="ProjeToplamToken" xml:space="preserve">
+    <value>项目总计（Token）：</value>
+  </data>
+
+  <data name="ProjeToplamGirdi" xml:space="preserve">
+    <value>  输入：</value>
+  </data>
+
+  <data name="ProjeToplamCikti" xml:space="preserve">
+    <value>  输出：</value>
+  </data>
+
+  <data name="ProjeToplamMaliyet" xml:space="preserve">
+    <value>项目总计（成本）：</value>
+  </data>
+
+  <data name="MerkeziTelemetri" xml:space="preserve">
+    <value>中央遥测</value>
+  </data>
+
+  <data name="HenuzVeriYok" xml:space="preserve">
+    <value>暂无数据</value>
+  </data>
+
+  <data name="MerkeziTelemetriOzet" xml:space="preserve">
+    <value>模型成功率：{0:N0}% | 提供方错误：{1:N0} | 重试：{2:N0} | 会话：{3:N0}</value>
+  </data>
+
+  <data name="GonderEnter" xml:space="preserve">
+    <value>发送 ⏎</value>
+  </data>
+
+  <data name="Durdur" xml:space="preserve">
+    <value>停止 🛑</value>
+  </data>
+
+  <data name="ModeCodeIDE" xml:space="preserve">
+    <value>代码 IDE</value>
+  </data>
+  <data name="ModeImageStudio" xml:space="preserve">
+    <value>图像工作室</value>
+  </data>
+  <data name="ModeBlenderCopilot" xml:space="preserve">
+    <value>Blender 助手</value>
+  </data>
+  <data name="ModeUnityCopilot" xml:space="preserve">
+    <value>Unity 助手</value>
+  </data>
+  <data name="ADBBaslatilamadiExMessage" xml:space="preserve"><value>ADB 无法启动：{0}</value></data>
+  <data name="OnizlemeServisiHazirDegil" xml:space="preserve"><value>❌ 预览服务尚未准备就绪。</value></data>
+  <data name="FlutterWebOnizlemesiBaslatiliyor" xml:space="preserve"><value>🚀 正在启动 Flutter Web 预览...</value></data>
+  <data name="FlutterWindowsUygulamasiBaslatiliyor" xml:space="preserve"><value>🚀 正在启动 Flutter Windows 应用...</value></data>
+  <data name="StatikWebOnizlemesiBaslatiliyor" xml:space="preserve"><value>🚀 正在启动静态 Web 预览...</value></data>
+  <data name="FlutterYurutulebilirBulunamadi" xml:space="preserve"><value>❌ 未找到 Flutter 可执行文件。请将 Flutter SDK 路径添加到 PATH。</value></data>
+  <data name="FlutterProjesiAlgilandiBaslatiliyor" xml:space="preserve"><value>🚀 已检测到 Flutter 项目。正在启动...</value></data>
+  <data name="WorkspaceModeChanged" xml:space="preserve">
+    <value>模式已更改：{0}</value>
+  </data>
+  <data name="WorkspaceModeChangedSystem" xml:space="preserve">
+    <value>[系统] 工作区模式已更改：{0}</value>
+  </data>
+  <data name="ModeSelectorTooltip" xml:space="preserve">
+    <value>选择 Yengi Agent 的专业工作区模式</value>
+  </data>
+  <data name="WorkspaceSettingsTitle" xml:space="preserve">
+    <value>工作区模式设置</value>
+  </data>
+  <data name="ImageStudioSettingsTitle" xml:space="preserve">
+    <value>🎨 图像工作室设置</value>
+  </data>
+  <data name="BlenderCopilotSettingsTitle" xml:space="preserve">
+    <value>🧊 Blender 助手设置</value>
+  </data>
+  <data name="UnityCopilotSettingsTitle" xml:space="preserve">
+    <value>🎮 Unity 助手设置</value>
+  </data>
+  <data name="UseFreePollinationsService" xml:space="preserve">
+    <value>使用免费服务 (Pollinations.ai — 无需 API 密钥)</value>
+  </data>
+  <data name="CustomImageApiSettings" xml:space="preserve">
+    <value>自定义图像 API 设置 (DALL-E 3 / Flux / OpenRouter)</value>
+  </data>
+  <data name="BlenderAutoInstallHeader" xml:space="preserve">
+    <value>🛠️ 自动安装 Blender 插件</value>
+  </data>
+  <data name="BlenderAutoInstallSubtext" xml:space="preserve">
+    <value>Yengi 自动检测 Blender AppData 文件夹并一键安装插件。</value>
+  </data>
+  <data name="AutoInstallAddonButton" xml:space="preserve">
+    <value>🚀 自动将插件安装到 Blender</value>
+  </data>
+  <data name="BrowseFolder" xml:space="preserve">
+    <value>浏览...</value>
+  </data>
+  <data name="ImageViewerTitle" xml:space="preserve">
+    <value>图像预览</value>
+  </data>
+  <data name="OpenInWindows" xml:space="preserve">
+    <value>🖥️ 在 Windows 中打开</value>
+  </data>
+  <data name="ShowInFolder" xml:space="preserve">
+    <value>📁 在文件夹中显示</value>
+  </data>
+
+  <data name="EnhanceImagePromptCheckBox" xml:space="preserve">
+    <value>使用提示词优化 (通过 LLM 丰富提示词)</value>
+  </data>
+  <data name="PublicCommunityGateway" xml:space="preserve">
+    <value>使用公共社区网关 (无需 Key)</value>
+  </data>
+  <data name="PublicBaseUrlLabel" xml:space="preserve">
+    <value>社区网关 URL:</value>
+  </data>
+  <data name="EnableMultiAgentLabel" xml:space="preserve">
+    <value>🎨 AI 图像生成支持：编写代码时自动生成图像</value>
+  </data>
+  <data name="MultiAgentToggleToolTip" xml:space="preserve">
+    <value>🎨 AI 图像生成支持（左键：切换 | 右键：图像设置）</value>
+  </data>
+  <data name="MultiAgentActiveToast" xml:space="preserve">
+    <value>🎨 AI 图像生成支持已启用：AI 在编写代码时可自动生成图像。</value>
+  </data>
+  <data name="MultiAgentInactiveToast" xml:space="preserve">
+    <value>🎨 AI 图像生成支持已禁用：AI 将仅在标准代码模式下运行。</value>
+  </data>
+  <data name="YerelRouterModeliGuncelle" xml:space="preserve">
+    <value>🔄 更新模型</value>
+  </data>
+  <data name="YerelRouterModeliGuncellensinMi" xml:space="preserve">
+    <value>您想从 Hugging Face 下载最新的 yengi-router 模型并重新在 Ollama 中注册吗？</value>
+  </data>
+  <data name="ModeliGuncelleTitle" xml:space="preserve">
+    <value>模型更新</value>
+  </data>
+  <data name="YerelRouterModelGuncellendi" xml:space="preserve">
+    <value>yengi-router:1.5b 模型已成功更新并重新注册到 Ollama！</value>
+  </data>
+  <data name="DosyaOlusturuldu" xml:space="preserve">
+    <value>✓ 已创建文件: {fileName}</value>
+  </data>
+  <data name="DosyaGuncellendi" xml:space="preserve">
+    <value>✓ 已更新文件: {fileName}</value>
+  </data>
+  <data name="VerificationIcinDegisenDosyalar" xml:space="preserve">
+    <value>🔍 用于验证的变更文件: {files}</value>
+  </data>
+  <data name="BuildKontrolEdiliyor" xml:space="preserve">
+    <value>📦 正在检查构建...</value>
+  </data>
+  <data name="TestKontrolEdiliyor" xml:space="preserve">
+    <value>🧪 正在检查测试...</value>
+  </data>
+  <data name="VerificationBuildStepSkipped" xml:space="preserve">
+    <value>[Verification] 跳过 {projectType} 项目的构建步骤。</value>
+  </data>
+  <data name="VerificationPureWebTestSkipped" xml:space="preserve">
+    <value>[Verification] 跳过纯 Web 项目 (HTML/CSS/JS) 的测试步骤。</value>
+  </data>
+  <data name="StatikAnalizCalistiriliyor" xml:space="preserve">
+    <value>🔍 正在运行静态分析 (Diagnostics)...</value>
+  </data>
+  <data name="StatikAnalizTemiz" xml:space="preserve">
+    <value>✓ 静态分析正常。</value>
+  </data>
+  <data name="BuildBasariliLog" xml:space="preserve">
+    <value>✓ 构建成功</value>
+  </data>
+  <data name="TumTestlerGectiLog" xml:space="preserve">
+    <value>✓ 所有测试已通过！</value>
+  </data>
+  <data name="KomutCalistiriliyor" xml:space="preserve">
+    <value>正在执行命令: {cmd}</value>
+  </data>
+  <data name="TerminalKomutu" xml:space="preserve">
+    <value>终端命令: {cmd}</value>
+  </data>
+  <data name="VerificationBasarili" xml:space="preserve">
+    <value>✅ 验证成功: {summary}</value>
+  </data>
+  <data name="VerificationBasarisiz" xml:space="preserve">
+    <value>⚠️ 验证失败: {summary}</value>
+  </data>
+  <data name="BlenderGorevAlindi" xml:space="preserve">
+    <value>[🧊 Blender] 收到任务: {req}</value>
+  </data>
+  <data name="BlenderScriptUretiliyor" xml:space="preserve">
+    <value>[🧊 Blender] 正在生成 bpy 脚本...</value>
+  </data>
+  <data name="BlenderScriptUretildi" xml:space="preserve">
+    <value>[🧊 Blender] 脚本已生成（{len} 字符）。正在发送至 Blender...</value>
+  </data>
+  <data name="BlenderScriptHata" xml:space="preserve">
+    <value>[🧊 Blender] 脚本生成错误: {msg}</value>
+  </data>
+  <data name="BlenderWebsocketHata" xml:space="preserve">
+    <value>[🧊 Blender] WebSocket 连接错误: {msg}</value>
+  </data>
+  <data name="UnityGorevAlindi" xml:space="preserve">
+    <value>[🎮 Unity] 收到任务: {req}</value>
+  </data>
+  <data name="UnityScriptUretiliyor" xml:space="preserve">
+    <value>[🎮 Unity] 正在生成 C# 脚本...</value>
+  </data>
+  <data name="UnityScriptUretildi" xml:space="preserve">
+    <value>[🎮 Unity] 脚本已生成（{len} 字符）。正在发送至 Unity Editor...</value>
+  </data>
+  <data name="UnityScriptHata" xml:space="preserve">
+    <value>[🎮 Unity] 脚本生成错误: {msg}</value>
+  </data>
+  <data name="UnitySocketHata" xml:space="preserve">
+    <value>[🎮 Unity] Socket 连接错误: {msg}</value>
+  </data>
+  <data name="RouterSimpleChatSkipped" xml:space="preserve">
+    <value>ℹ️ [Router] 检测到简单对话；跳过工具选择。</value>
+  </data>
+  <data name="PlanCreatedAndSaved" xml:space="preserve">
+    <value>✓ 计划已创建并保存</value>
+  </data>
+  <data name="OperationCancelledPartialSaved" xml:space="preserve">
+    <value>⚠️ 操作已取消。部分响应已保存至历史记录。</value>
+  </data>
+  <data name="PlanAlreadyExistsSkipped" xml:space="preserve">
+    <value>ℹ️ 此任务的计划已创建；跳过重新规划。</value>
+  </data>
+</root>

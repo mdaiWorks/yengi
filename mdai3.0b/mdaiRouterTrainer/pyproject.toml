@@ -1,0 +1,13 @@
+[project]
+name = "mdai-router-trainer"
+version = "0.1.0"
+description = "Independent dataset generator for the mdai tool router"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,239 @@
+<Window x:Class="mdaiAgent.AskUserDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AI Question"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResizeWithGrip"
+        MinWidth="480" MaxWidth="720"
+        MinHeight="300"
+        SizeToContent="Height"
+        Background="{StaticResource DarkBackground}"
+        Foreground="{StaticResource DarkText}" xmlns:local="clr-namespace:mdaiAgent">
+
+    <Window.Resources>
+        <!-- Option Button Style -->
+        <Style x:Key="OptionButtonStyle" TargetType="RadioButton">
+            <Setter Property="Background" Value="#1e1e30"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="#3a3a5c"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Custom Radio Circle -->
+                                <Ellipse x:Name="radioCircle" Width="16" Height="16" Margin="0,0,12,0"
+                                         Stroke="#5a5a8a" StrokeThickness="2" Fill="Transparent"
+                                         VerticalAlignment="Center"/>
+                                <Ellipse x:Name="radioDot" Width="8" Height="8" Margin="0,0,12,0"
+                                         Fill="Transparent" VerticalAlignment="Center"
+                                         HorizontalAlignment="Left"/>
+                                <ContentPresenter Grid.Column="1" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2a2a45"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#7c6af5"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1a1a3e"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#7c6af5"/>
+                                <Setter TargetName="radioCircle" Property="Stroke" Value="#7c6af5"/>
+                                <Setter TargetName="radioDot" Property="Fill" Value="#7c6af5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- CheckBox Style for Multi-Select Options -->
+        <Style x:Key="MultiSelectOptionStyle" TargetType="CheckBox">
+            <Setter Property="Background" Value="#1e1e30"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="#3a3a5c"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Custom CheckBox Square -->
+                                <Border x:Name="checkBoxSquare" Width="16" Height="16" Margin="0,0,12,0"
+                                        BorderBrush="#5a5a8a" BorderThickness="2" Background="Transparent"
+                                        CornerRadius="4" VerticalAlignment="Center"/>
+                                <!-- Checkmark Path -->
+                                <Path x:Name="checkMark" Margin="0,0,12,0"
+                                      VerticalAlignment="Center" HorizontalAlignment="Center"
+                                      Data="M 3,8 L 6,11 L 12,4"
+                                      Stroke="#7c6af5" StrokeThickness="2"
+                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      Visibility="Collapsed"/>
+                                <ContentPresenter Grid.Column="1" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2a2a45"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#7c6af5"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1a1a3e"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#7c6af5"/>
+                                <Setter TargetName="checkBoxSquare" Property="BorderBrush" Value="#7c6af5"/>
+                                <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Action Button Style -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#252540"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="#3a3a5c"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="20,8"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3a3a60"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#7c6af5"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4a3a80"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Padding="0">
+        <Grid>
+            <!-- Accent top bar -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" CornerRadius="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#7c6af5" Offset="0"/>
+                        <GradientStop Color="#a855f7" Offset="0.5"/>
+                        <GradientStop Color="#ec4899" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Border Grid.Row="1" Padding="24,20,24,24">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+                        <TextBlock Text="🤖" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <StackPanel>
+                            <TextBlock x:Name="tbHeaderTitle" Text="{local:Loc Key=AISanaBirSeySoruyor}" FontSize="11"
+                                       Foreground="#7c6af5" FontWeight="SemiBold" Opacity="0.9"/>
+                            <TextBlock x:Name="tbQuestion" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="#E8E8E8" TextWrapping="Wrap" MaxWidth="620"/>
+                            <TextBlock x:Name="tbSelectionMode" FontSize="11" Foreground="#8a8aaa" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Divider -->
+                    <Border Grid.Row="1" Height="1" Background="#2a2a45" Margin="0,0,0,16"/>
+
+                    <!-- Options List -->
+                    <StackPanel x:Name="panelOptions" Grid.Row="2" Margin="0,0,0,16"/>
+
+                    <!-- Custom Answer Section -->
+                    <StackPanel Grid.Row="3" Margin="0,0,0,20">
+                        <TextBlock x:Name="tbCustomAnswerHint" Text="{local:Loc Key=OrWriteYourAnswer}" FontSize="12"
+                                   Foreground="#8a8aaa" Margin="0,0,0,6"/>
+                        <Border Background="#1e1e30" BorderBrush="#3a3a5c" BorderThickness="1" CornerRadius="6">
+                            <TextBox x:Name="txtCustomAnswer"
+                                     Background="Transparent" Foreground="#D4D4D4"
+                                     BorderThickness="0" Padding="12,10"
+                                     FontSize="13" CaretBrush="#7c6af5"
+                                     AcceptsReturn="False"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     MinHeight="38"
+                                     KeyDown="TxtCustomAnswer_KeyDown"
+                                     TextChanged="TxtCustomAnswer_TextChanged"
+                                     VerticalContentAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnCancel" Content="{local:Loc Key=Cancel}" Click="BtnCancel_Click"/>
+                        <Button x:Name="btnSubmit" Content="✓  Onayla"
+                                Background="#7c6af5" Foreground="White"
+                                BorderBrush="#9575f5"
+                                Click="BtnSubmit_Click" IsDefault="True"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

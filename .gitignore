@@ -1,0 +1,34 @@
+## Visual Studio / .NET Build Outputs
+bin/
+obj/
+publish/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResults/
+dist/
+*.exe
+*.dll
+*.pdb
+
+## Sensitive Files & Tokens
+*token*
+*api*.txt
+*.txt
+!README*.md
+
+## Python / Environments
+.venv/
+__pycache__/
+*.pyc
+
+## IDE / Tool Folders
+.qodo/
+.vscode/
+
+## Backup / Temporary Files
+*.rar
+*.log
+scratch/

@@ -1,0 +1,43 @@
+<Window x:Class="mdaiAgent.ImageViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:mdaiAgent"
+        Title="{local:Loc Key=ImageViewerTitle}" Height="600" Width="800"
+        WindowStartupLocation="CenterOwner"
+        Background="#181818" Foreground="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Üst Bilgi ve Butonlar Barları -->
+        <Border Grid.Row="0" Background="#252526" BorderBrush="#3e3e42" BorderThickness="0,0,0,1" Padding="12,8">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="🖼️ " FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtFileName" Text="Görsel Adı" FontSize="14" FontWeight="Bold" Foreground="#007acc" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                    <TextBlock x:Name="txtImageDetails" Text="1024x1024 • 1.2 MB" FontSize="12" Foreground="Gray" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Content="{local:Loc Key=OpenInWindows}" Padding="10,4" Margin="0,0,8,0" Background="#2d2d30" Foreground="White" BorderBrush="#3e3e42" BorderThickness="1" Cursor="Hand" Click="BtnOpenExternal_Click"/>
+                    <Button Content="{local:Loc Key=ShowInFolder}" Padding="10,4" Background="#2d2d30" Foreground="White" BorderBrush="#3e3e42" BorderThickness="1" Cursor="Hand" Click="BtnOpenFolder_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Görsel Alanı -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="#121212">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image x:Name="imgPreview" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" Margin="20"/>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Alt Durum Çubuğu -->
+        <Border Grid.Row="2" Background="#007acc" Padding="10,4">
+            <TextBlock x:Name="txtFilePath" Text="C:\path\to\image.png" FontSize="11" Foreground="White" TextTrimming="CharacterEllipsis"/>
+        </Border>
+    </Grid>
+</Window>
