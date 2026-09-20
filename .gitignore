@@ -32,3 +32,6 @@ __pycache__/
 *.rar
 *.log
 scratch/
+github_push.py
+github_guncelle.bat
+

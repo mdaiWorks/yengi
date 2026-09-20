@@ -27,7 +27,7 @@ This README was prepared by directly scanning the project's source code (100+ fi
 
 ## 🎬 Video Showcase & Walkthrough
 
-[![Yengi AI IDE Demo](https://img.youtube.com/vi/l0tdhvCmwNI/maxresdefault.jpg)](https://youtu.be/l0tdhvCmwNI)
+[![Yengi AI IDE Demo](https://img.youtube.com/vi/l0tdhvCmwNI/hqdefault.jpg)](https://youtu.be/l0tdhvCmwNI)
 > 👆 *Click above to watch the full video walkthrough: Local Yengi Router Setup, Live Web Tetris Game Creation & Multi-tool Execution!*
 
 ---

@@ -27,7 +27,7 @@ Bu README, projenin kaynak kodunun (100+ dosya) doğrudan taranması ve içindek
 
 ## 🎬 Video Gösterimi ve İnceleme
 
-[![Yengi AI IDE Demo](https://img.youtube.com/vi/l0tdhvCmwNI/maxresdefault.jpg)](https://youtu.be/l0tdhvCmwNI)
+[![Yengi AI IDE Demo](https://img.youtube.com/vi/l0tdhvCmwNI/hqdefault.jpg)](https://youtu.be/l0tdhvCmwNI)
 > 👆 *Yerel Yengi Router kurulumu, canlı Web Tetris oyunu yapımı ve canlı oyun deneyimini izlemek için yukarıdaki görsele tıklayın!*
 
 ---
