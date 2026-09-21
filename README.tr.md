@@ -11,6 +11,7 @@ Dili Değiştir: 🇹🇷 Türkçe | [🇺🇸 Read in English](README.md)
 > **Y**our **E**ngineering **N**exus, **G**enerative **I**ntelligence — *Mühendisliğinin Merkezi, Üretken Zekâ.*  
 > *"Yengi; Uzun süre uğraştığın bir şeyin sonunda başarıyla sonuçlanması, emeğinin karşılığında ulaştığın o mutlu sonucun adı."*
 
+[![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Framework: .NET 8 WPF](https://img.shields.io/badge/Framework-.NET%208%20WPF-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)

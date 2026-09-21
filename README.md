@@ -11,6 +11,7 @@ Read this in: [🇹🇷 Türkçe](README.tr.md) | 🇺🇸 English
 > **Y**our **E**ngineering **N**exus, **G**enerative **I**ntelligence.  
 > *"Yengi: the name for the happy outcome you finally reach after working on something for a long time — the reward for your effort."*
 
+[![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Framework: .NET 8 WPF](https://img.shields.io/badge/Framework-.NET%208%20WPF-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)

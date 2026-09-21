@@ -18,6 +18,7 @@ dist/
 *api*.txt
 github_push.py
 github_guncelle.bat
+*.txt
 
 ## Internal Metadata & Unnecessary Backups/Notes
 .mdai/
@@ -56,6 +57,10 @@ mdai3.0b/
 data/
 packaging/
 mdaiAgent.Tests/
+
+## Scratch Python & CSV files in BasucuIDE
+BasucuIDE/*.py
+BasucuIDE/*.csv
 
 ## Python / Environments
 .venv/
