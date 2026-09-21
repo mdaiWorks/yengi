@@ -56,7 +56,7 @@ theme-picker.html
 mdai3.0b/
 data/
 packaging/
-mdaiAgent.Tests/
+/mdaiAgent.Tests/
 
 ## Scratch Python & CSV files in BasucuIDE
 BasucuIDE/*.py
