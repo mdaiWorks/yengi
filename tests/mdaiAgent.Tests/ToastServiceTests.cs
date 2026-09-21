@@ -7,7 +7,7 @@ namespace mdaiAgent.Tests;
 
 public class ToastServiceTests
 {
-    [Fact]
+    [WpfFact]
     public void AddToast_InsertsNotificationIntoCollection()
     {
         var dispatcher = Dispatcher.CurrentDispatcher;
@@ -20,7 +20,7 @@ public class ToastServiceTests
         Assert.Equal("ℹ️", service.Notifications.First().Icon);
     }
 
-    [Fact]
+    [WpfFact]
     public void RemoveToast_RemovesNotificationFromCollection()
     {
         var dispatcher = Dispatcher.CurrentDispatcher;

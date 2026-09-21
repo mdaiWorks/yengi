@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
     <PackageReference Include="xunit" Version="2.6.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.6.5" />
+    <PackageReference Include="Xunit.StaFact" Version="1.1.11" />
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
   </ItemGroup>
   <ItemGroup>
