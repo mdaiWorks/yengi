@@ -6,6 +6,11 @@ namespace mdaiAgent.Tests;
 
 public class LspExecutableResolverTests
 {
+    public LspExecutableResolverTests()
+    {
+        LocalizationManager.Instance.SetLanguage("tr");
+    }
+
     [Fact]
     public void Resolve_PrefersProjectNodeModulesCommandShim()
     {
