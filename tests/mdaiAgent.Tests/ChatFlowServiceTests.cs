@@ -9,6 +9,11 @@ namespace mdaiAgent.Tests;
 
 public class ChatFlowServiceTests
 {
+    public ChatFlowServiceTests()
+    {
+        LocalizationManager.Instance.SetLanguage("tr");
+    }
+
     [Fact]
     public void Initialize_CreatesDefaultSession_WhenNoSessionFileExists()
     {

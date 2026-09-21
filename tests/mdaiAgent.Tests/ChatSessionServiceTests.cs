@@ -8,6 +8,11 @@ namespace mdaiAgent.Tests;
 [Collection("Localization")]
 public class ChatSessionServiceTests
 {
+    public ChatSessionServiceTests()
+    {
+        LocalizationManager.Instance.SetLanguage("tr");
+    }
+
     [Fact]
     public void LoadSessions_ReturnsEmptyList_WhenNoFileExists()
     {
