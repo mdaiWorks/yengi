@@ -5,6 +5,7 @@ using Xunit;
 
 namespace mdaiAgent.Tests;
 
+[Collection("Localization")]
 public class ChatSessionServiceTests
 {
     [Fact]
