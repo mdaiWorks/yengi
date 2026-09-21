@@ -49,7 +49,7 @@ Sürümleme: [Semantic Versioning](https://semver.org/lang/tr/)
 - **`.gitignore` güncellendi:** `*.bak`, `*_lines.txt`, `*_numbered.txt`, `bin/`, `obj/`, `.vs/` artık takip dışı.
 - **`DecisionRecord` record modeli:** PlanningService içindeki `WriteDecisionAsync` metodu artık `List<object>` yerine tip güvenli `List<DecisionRecord(Date, Topic, Decision, Reason)>` kullanıyor. Bozuk bir JSON dosyası kararların sessizce kaybolmasına neden olmuyor (deserialization toleranslı).
 - **`MemorySearchResult` record modeli:** `SearchProjectMemoryAsync` içindeki anonim nesneler yerine `List<MemorySearchResult(Category, Key, Value)>` kullanılıyor.
-- **Standart release dosyaları:** `VERSION`, `LICENSE` (MIT), `CHANGELOG.md` oturtuldu.
+- **Standart release dosyaları:** `VERSION`, `LICENSE` (AGPL-3.0), `CHANGELOG.md` oturtuldu.
 
 ### 🛡️ Önceden Var Olan, Doğrulanmış Özellikler
 v1 UPDATE'de yanlışlıkla "eksik" olarak işaretlenen ancak zaten çalışan özellikler:
