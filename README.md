@@ -22,7 +22,33 @@ Read this in: [🇹🇷 Türkçe](README.tr.md) | 🇺🇸 English
 
 Rather than being a classic "AI chat window," Yengi is a WPF/.NET 8 desktop application designed to carry out the full **code understanding → planning → tool selection → file modification → terminal/build/test → verification → result** loop end-to-end on a software project chosen by the user.
 
-This README was prepared by directly scanning the project's source code (100+ files) and verifying every concrete numeric/technical claim in it (limits, file paths, default values) one by one against the code.
+---
+
+## 👤 About the Creator & The Philosophy Behind Yengi
+
+If you are looking at this repository wondering how a single person built a complex .NET 8 WPF AI IDE with RAG, LSP integration, a custom 1.5B local router, and 200+ passing tests, here is the honest truth:
+
+**I am a teacher, not a professional C# developer.**
+
+I did not manually write every line of C# syntax. Instead, I built Yengi by acting as the **Architect and AI Orchestrator**. I leveraged advanced AI coding assistants (like Google Antigravity and GitHub Copilot) to generate the code, while *I* made every single architectural and strategic decision:
+
+- Designing the self-healing verification loop (Build → Test → Auto-Fix)
+- Defining strict security boundaries (path traversal protection & symlink checks)
+- Training, fine-tuning, and integrating the 1.5B local AI router model
+- Debugging AI edge-cases and guiding the system until all 200+ tests passed cleanly
+
+Yengi is living proof of a new paradigm: **In the AI era, vision, system architecture, and prompt orchestration matter far more than memorizing syntax.**
+
+### 💡 Why 100% Free & Open Source?
+Yengi was born out of pure curiosity and a passion to build the ultimate local-first AI IDE for my own workflow. 
+
+- 🚫 **No Corporate Backing**
+- 🚫 **No Paid Paywalls or Subscriptions**
+- 🚫 **No Hidden Telemetry or Data Tracking**
+
+This project is my gift to the developer community. If Yengi saves you time, inspires you to build your own AI tools, or demonstrates what is possible when human vision guides AI execution — that is the ultimate reward for me.
+
+If you enjoy Yengi, the best way to support the project is to ⭐ **star this repository**, share it with others, or contribute to the codebase!
 
 ---
 

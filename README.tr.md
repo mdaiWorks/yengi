@@ -22,7 +22,33 @@ Dili Değiştir: 🇹🇷 Türkçe | [🇺🇸 Read in English](README.md)
 
 Yengi, klasik bir "AI sohbet penceresi" olmaktan ziyade, kullanıcının seçtiği bir yazılım projesi üzerinde **kod anlama → planlama → araç seçimi → dosya değişikliği → terminal/derleme/test → doğrulama → sonuç** döngüsünü uçtan uca yürütmek üzere tasarlanmış bir WPF/.NET 8 masaüstü uygulamasıdır.
 
-Bu README, projenin kaynak kodunun (100+ dosya) doğrudan taranması ve içindeki somut sayısal/teknik iddiaların (limitler, dosya yolları, varsayılan değerler) tek tek koddan doğrulanmasıyla hazırlanmıştır.
+---
+
+## 👤 Geliştirici Hakkında & Yengi'nin Arkasındaki Felsefe
+
+Bu depoya bakıp tek bir kişinin RAG, LSP entegrasyonu, özel 1.5B yerel router modeli ve 200+'den fazla geçen birim testi olan karmaşık bir .NET 8 WPF AI IDE'sini nasıl kurduğunu merak ediyorsanız, dürüst cevap şudur:
+
+**Ben bir öğretmenim, profesyonel bir C# yazılımcısı değilim.**
+
+C# kodunun her bir satırını manuel olarak yazmadım. Bunun yerine Yengi'yi bir **Mimarlık ve AI Orchestrator (Yapay Zeka Yöneticisi)** rolü üstlenerek inşa ettim. Kodu üretmek için gelişmiş AI kodlama asistanlarından (Google Antigravity ve GitHub Copilot gibi) yararlandım; ancak *tüm* mimari ve stratejik kararları ben aldım:
+
+- Kendi kendini iyileştiren doğrulama döngüsünün tasarımı (Derle → Test Et → Otomatik Düzelt)
+- Sıkı güvenlik sınırlarının tanımlanması (yol ihlali koruması ve symlink kontrolleri)
+- 1.5B yerel AI router modelinin eğitilmesi, ince ayarı (fine-tune) ve entegrasyonu
+- AI köşe durumlarının (edge-case) ayıklanması ve 200+'den fazla testin tamamı temiz bir şekilde geçene kadar sistemin yönlendirilmesi
+
+Yengi yeni bir paradigmaya canlı bir kanıttır: **Yapay zeka çağında vizyon, sistem mimarisi ve prompt orchestration (yönlendirme), sentaks ezberlemekten çok daha önemlidir.**
+
+### 💡 Neden %100 Ücretsiz & Açık Kaynak?
+Yengi tamamen saf bir merak ve kendi iş akışım için en gelişmiş yerel AI IDE'sini oluşturma tutkusundan doğdu.
+
+- 🚫 **Kurumsal Destek / Şirket Arkası Yok**
+- 🚫 **Ücretli Ödeme Duvarları veya Abonelik Yok**
+- 🚫 **Gizli Telemetri veya Veri Takibi Yok**
+
+Bu proje geliştirici topluluğuna benim hediyemdir. Yengi size zaman kazandırıyorsa, kendi AI araçlarınızı geliştirmeniz için ilham veriyorsa veya insan vizyonunun AI yeteneklerine rehberlik ettiğinde nelerin mümkün olabileceğini gösteriyorsa — benim için en büyük ödül budur.
+
+Yengi'yi beğendiyseniz projenizi desteklemenin en iyi yolu bu depoya ⭐ **star vermek**, başkalarıyla paylaşmak veya kod tabanına katkıda bulunmaktır!
 
 ---
 
