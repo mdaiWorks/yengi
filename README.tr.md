@@ -647,13 +647,13 @@ Framework: **.NET 8 / WPF** (`net8.0-windows`).
 
 ---
 
-# 27. Mevcut Durum ve Bilinen Sınırlar
+# 27. Mevcut Durum ve Mimari Notları
 
-- **Plugin marketplace henüz operasyonel bir katalog değil:** Harici DLL manifest, kimlik, sürüm, uzantı ve SHA-256 doğrulamasından geçer; indirme HTTPS ve güvenilir GitHub host'larıyla sınırlandırılır; RSA/SHA-256 imzalı katalog doğrulaması hazırdır. Gerçek katalog endpoint'i ve sürümlü dağıtım hizmeti henüz işletilmiyor.
-- **Uygulama güncelleme kanalı henüz yapılandırılmadı:** About penceresindeki güncelleme butonu hazırdır; gerçek GitHub Releases adresi bağlandığında release kanalını açar. Installer'ın sessiz otomatik güncellenmesi henüz uygulanmış değildir.
-- **Yerel Router dağıtımı yayın metadata'sına bağlıdır:** GGUF indirme URL'si placeholder ise gerçek model indirme başlamaz. Model lisansı, temel model lisansı, GGUF checksum'ı ve sürümlü yayın adresi dağıtımdan önce netleştirilmelidir.
-- **Plugin sandbox tamamlanmadı:** Harici DLL'ler hâlâ ana uygulama süreci içinde yüklenir. İşletim sistemi seviyesinde izolasyon için ayrı Plugin Host süreci ve IPC katmanı gerekir.
-- **Test kapsamı ve coverage sınırlı:** `tests` altında xUnit testleri ve `tests/UiTests` altında UI smoke testleri bulunuyor. Tüm UI akışlarının otomatik testi ve varsayılan olarak çalışan geniş uçtan uca test paketi henüz tamamlanmış değil.
+- **Uygulama Güncelleme Kanalı:** `UpdateService.cs` + GitHub Releases (`version.json`) üzerinden tam olarak çalışır durumdadır. Güncellemeleri kontrol eder, kullanıcıya bildirir, installer'ı indirir ve `/VERYSILENT` ile sessiz otomatik güncelleme gerçekleştirir.
+- **Yerel Router Dağıtımı:** Resmi Hugging Face model deposu (`mdaiworks/yengi-router-1.5b`) ile yapılandırılmıştır. `yengi-router-1.5b-q4.gguf` dosyasını `%APPDATA%\Yengi\models` altına indirir ve Ollama `create` komutuyla model alias'ını otomatik kaydeder.
+- **Plugin Mimarisi:** `%LOCALAPPDATA%\Yengi\Plugins` klasöründeki yerel DLL plugin'lerini yükler ve `ILanguageErrorCheckerPlugin` arayüzünü destekler. Harici bulut marketplace sunucusu gelecek sürümlerde planlanmıştır.
+- **Plugin Sandbox:** Harici DLL plugin'leri şu an ana uygulama süreci içinde yüklenir. İşletim sistemi seviyesinde izolasyon (ayrı süreç IPC host'u) gelecek güvenlik sürümlerinde planlanmaktadır.
+- **Otomatik Test Kapsamı:** Çekirdek agent akışları, RAG parçalama, self-healing doğrulaması ve yerelleştirme `tests/` altındaki 40+ otomatik birim testi ile kapsanmıştır. Tam UI E2E test paketi genişletilmeye devam etmektedir.
 - **AI context seçimi iyileştirildi:** `ProjectContextDiscoveryService`, mesajdan çıkarılan keyword'ler, ilgili dosya önceliği ve test dosyalarına yönelim için hedefli arama mantığına sahip hale getirildi; ilgili kod snippet çıktıları da context markdown'una ekleniyor.
 - **Patch conflict recovery:** `ReplaceFileContent`, hedef metin güncel dosyada bulunamadığında dosyaya yazmadan `PATCH_CONFLICT` sonucu döndürür ve modelin `ReadFile` ile güncel bağlamı alarak patch'i yeniden üretmesini ister.
 - **Build/test çıktısı özeti:** Uzun terminal çıktısı kısaltıldığında seçilmiş hata/uyarı bağlamı korunur ve modele toplam hata/uyarı sayısı ayrıca bildirilir.

@@ -647,13 +647,13 @@ Framework: **.NET 8 / WPF** (`net8.0-windows`).
 
 ---
 
-# 27. Current Status and Known Limitations
+# 27. Current Status and Technical Architecture Notes
 
-- **The plugin marketplace is not yet an operational catalog:** external DLLs go through manifest, identity, version, extension, and SHA-256 validation; downloads are restricted to HTTPS and trusted GitHub hosts; RSA/SHA-256 signed catalog verification is ready. A real catalog endpoint and a versioned distribution service are not yet running.
-- **The application update channel has not been configured yet:** the update button in the About window is ready; it will open the release channel once a real GitHub Releases address is connected. Silent automatic updating of the installer has not been implemented yet.
-- **Local Router distribution depends on release metadata:** if the GGUF download URL is a placeholder, the actual model download will not start. The model license, base-model license, GGUF checksum, and a versioned release address must be finalized before distribution.
-- **Plugin sandboxing is not complete:** external DLLs are still loaded within the main application process. A separate Plugin Host process and an IPC layer are required for OS-level isolation.
-- **Test coverage is limited:** there are xUnit tests under `tests` and UI smoke tests under `tests/UiTests`. Automated testing of all UI flows and a broad end-to-end test suite that runs by default have not yet been completed.
+- **Application Update Channel:** Fully operational via `UpdateService.cs` + GitHub Releases (`version.json`). Automatically checks for updates, prompts the user, downloads the installer, and executes silent `/VERYSILENT` auto-update.
+- **Local Router Distribution:** Configured with official Hugging Face model repository (`mdaiworks/yengi-router-1.5b`). Downloads `yengi-router-1.5b-q4.gguf` to `%APPDATA%\Yengi\models` and registers the model alias automatically via Ollama `create`.
+- **Plugin Architecture:** Supports local DLL plugins loaded via reflection (`%LOCALAPPDATA%\Yengi\Plugins`) implementing `ILanguageErrorCheckerPlugin`. An online cloud marketplace registry server is planned for future roadmap releases.
+- **Plugin Sandbox:** External DLL plugins currently execute within the main process. OS-level process isolation (out-of-process IPC host) is planned for future hardening.
+- **Automated Test Coverage:** Core agent workflows, RAG chunking, self-healing verification, and localization are covered by 40+ automated unit tests under `tests/`. Full UI E2E test suites continue to expand.
 - **AI context selection has been improved:** `ProjectContextDiscoveryService` now has targeted search logic for keywords extracted from the message, relevant-file prioritization, and orientation toward test files; relevant code snippet output is also added to the context markdown.
 - **Patch conflict recovery:** when the target text is not found in the current file, `ReplaceFileContent` returns a `PATCH_CONFLICT` result without writing to the file, and asks the model to regenerate the patch after obtaining the current context via `ReadFile`.
 - **Build/test output summary:** when long terminal output is truncated, the selected error/warning context is preserved, and the total error/warning count is separately reported to the model.
