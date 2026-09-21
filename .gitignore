@@ -14,7 +14,7 @@ dist/
 *.pdb
 
 ## Sensitive Files & Helper Scripts
-*token*
+*token*.txt
 *api*.txt
 github_push.py
 github_guncelle.bat
