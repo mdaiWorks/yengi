@@ -108,7 +108,7 @@ public class BuildService
             : null;
         var timeoutSeconds = arguments.TryGetProperty("timeoutSeconds", out var timeoutProp) && timeoutProp.ValueKind == JsonValueKind.Number
             ? timeoutProp.GetInt32()
-            : 0;
+            : 30; // Default to 30s to prevent infinite hangs on servers like http-server/npm start
 
         var resolvedWorkDir = ResolvePath(workingDirectory ?? (_projectFolder ?? "."));
 
@@ -127,7 +127,7 @@ public class BuildService
 
             if (!result.Success && string.IsNullOrWhiteSpace(result.Error) && timeoutSeconds > 0 && timeoutCts?.IsCancellationRequested == true)
             {
-                result = (false, result.Output, $"Komut zaman aşıldı ({timeoutSeconds} saniye). ");
+                result = (false, result.Output, $"Komut zaman aşıldı ({timeoutSeconds} saniye). Arka plan sunucu komutları (npx http-server) yerine 'start index.html' kullanın.");
             }
 
             return CreateProcessResult(result, "terminal");
@@ -208,8 +208,19 @@ public class BuildService
                     // best-effort; child may already be gone
                 }
 
-                var timedOutOutput = await outputTask;
-                var timedOutError = await errorTask;
+                string timedOutOutput = "";
+                string timedOutError = "";
+                try
+                {
+                    var readTasks = Task.WhenAll(outputTask, errorTask);
+                    if (await Task.WhenAny(readTasks, Task.Delay(300)) == readTasks)
+                    {
+                        timedOutOutput = await outputTask;
+                        timedOutError = await errorTask;
+                    }
+                }
+                catch { }
+
                 return (false, timedOutOutput, $"Komut zaman aşıldı veya iptal edildi. {timedOutError}");
             }
 
