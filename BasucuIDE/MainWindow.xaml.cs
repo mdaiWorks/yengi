@@ -462,12 +462,26 @@ public partial class MainWindow : Window
 
             await Dispatcher.InvokeAsync(() =>
             {
-                txtUpdateDetails.Text = $"v{update.Version}";
-                txtUpdateDetails.ToolTip = string.IsNullOrWhiteSpace(update.Changelog) ? null : update.Changelog;
+                txtUpdateVersion.Text = $" (v{update.Version})";
                 updateBanner.Visibility = Visibility.Visible;
             });
         }
         catch { /* Güncelleme kontrolü başarısız oldu — sessizce yut */ }
+    }
+
+    private void BtnViewOnGitHub_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var url = _pendingUpdateInfo?.DownloadUrl ?? "https://github.com/mdaiWorks/yengi/releases/latest";
+            if (!url.StartsWith("http")) url = "https://github.com/mdaiWorks/yengi/releases/latest";
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch { }
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD100:Avoid async void methods", Justification = "WPF event handler")]
