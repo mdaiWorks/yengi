@@ -25,12 +25,40 @@ public class UpdateInfo
     public bool Mandatory { get; set; } = false;
 }
 
+public class GitHubReleaseInfo
+{
+    [JsonPropertyName("tag_name")]
+    public string TagName { get; set; } = "";
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = "";
+
+    [JsonPropertyName("body")]
+    public string Body { get; set; } = "";
+
+    [JsonPropertyName("html_url")]
+    public string HtmlUrl { get; set; } = "";
+
+    [JsonPropertyName("assets")]
+    public System.Collections.Generic.List<GitHubReleaseAsset>? Assets { get; set; }
+}
+
+public class GitHubReleaseAsset
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = "";
+
+    [JsonPropertyName("browser_download_url")]
+    public string BrowserDownloadUrl { get; set; } = "";
+}
+
 public class UpdateService
 {
     private static readonly Lazy<UpdateService> _instance = new(() => new UpdateService());
     public static UpdateService Instance => _instance.Value;
 
-    public const string CurrentVersion = "1.0.0";
+    public const string CurrentVersion = "1.0.3";
+    private const string GitHubLatestReleaseUrl = "https://api.github.com/repos/mdaiWorks/yengi/releases/latest";
     private const string VersionManifestUrl = "https://raw.githubusercontent.com/mdaiWorks/yengi/main/version.json";
     private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromSeconds(10) };
 
@@ -42,10 +70,59 @@ public class UpdateService
     private UpdateService() { }
 
     /// <summary>
-    /// Arka planda sunucudan en son sürümü kontrol eder.
+    /// Arka planda GitHub Releases API üzerinden en son sürümü kontrol eder.
     /// Yeni sürüm varsa UpdateInfo nesnesini döndürür, yoksa null döner.
     /// </summary>
     public async Task<UpdateInfo?> CheckForUpdateAsync()
+    {
+        try
+        {
+            using var response = await HttpClient.GetAsync(GitHubLatestReleaseUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    var release = JsonSerializer.Deserialize<GitHubReleaseInfo>(json);
+                    if (release != null && !string.IsNullOrWhiteSpace(release.TagName))
+                    {
+                        string cleanRemoteVer = CleanVersionString(release.TagName);
+                        if (IsNewerVersion(cleanRemoteVer, CurrentVersion))
+                        {
+                            string downloadUrl = "";
+                            if (release.Assets != null && release.Assets.Count > 0)
+                            {
+                                var exeAsset = release.Assets.Find(a => a.Name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                                               ?? release.Assets[0];
+                                downloadUrl = exeAsset.BrowserDownloadUrl;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(downloadUrl))
+                            {
+                                downloadUrl = release.HtmlUrl;
+                            }
+
+                            return new UpdateInfo
+                            {
+                                Version = cleanRemoteVer,
+                                DownloadUrl = downloadUrl,
+                                Changelog = !string.IsNullOrWhiteSpace(release.Body) ? release.Body : release.Name,
+                                Mandatory = false
+                            };
+                        }
+                    }
+                }
+            }
+        }
+        catch
+        {
+            // GitHub API hatası olursa yedek kanalı dene
+        }
+
+        return await CheckFallbackVersionManifestAsync();
+    }
+
+    private async Task<UpdateInfo?> CheckFallbackVersionManifestAsync()
     {
         try
         {
