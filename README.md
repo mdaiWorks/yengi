@@ -776,10 +776,7 @@ If Yengi saves you even one hour of work, consider leaving a ⭐ on GitHub — i
 
 This project is licensed under **AGPL-3.0 (GNU Affero General Public License v3.0)**.
 
-It is a free and open-source project. You can use, inspect, and contribute to the project. If you'd like to support the developer:
-- ☕ [Buy Me A Coffee](https://buymeacoffee.com/mdaiyazilim)
-- 🧠 [Get the Yengi Router Model via Gumroad](https://gumroad.com)
-
+It is a free and open-source project. 
 ---
 
 *This README was prepared by scanning the source code of the Yengi project and verifying the numeric/technical claims within it directly against the code.*
