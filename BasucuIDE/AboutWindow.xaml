@@ -155,7 +155,7 @@
                     <Border Style="{StaticResource BadgeStyle}" Background="#0a2a1a" BorderBrush="#0d5a30" BorderThickness="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🪟 " FontSize="11"/>
-                            <TextBlock Text="Windows · WPF · .NET 8" FontSize="11" Foreground="#4ade80" FontWeight="SemiBold"/>
+                            <TextBlock Text="Windows · WPF · .NET 9" FontSize="11" Foreground="#4ade80" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
