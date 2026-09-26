@@ -68,10 +68,16 @@ flowchart TD
 
 ---
 
+## 📖 Detailed Documentation & Full Tool Reference
+
+For a complete breakdown of all **30+ AI Agent Tools**, internal Verification Loop mechanisms, RAG architecture, and UI button references, see the **[Full Technical Documentation (DOCS_FULL.md)](DOCS_FULL.md)** | **[Detaylı Türkçe Dokümantasyon (DOCS_FULL.tr.md)](DOCS_FULL.tr.md)**.
+
+---
+
 ## 🚀 Quick Start
 
 ### Option A: Install Executable (Recommended)
-1. Download `Yengi_Setup_v1.0.4.exe` from [GitHub Releases](https://github.com/mdaiWorks/yengi/releases/latest).
+1. Download the latest `Yengi_Setup.exe` installer from [GitHub Releases](https://github.com/mdaiWorks/yengi/releases/latest).
 2. Run the installer and launch Yengi.
 3. Configure your preferred model in **Settings** (Ollama, Anthropic, OpenAI, or Gemini) and start building!
 

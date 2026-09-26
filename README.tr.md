@@ -68,12 +68,18 @@ flowchart TD
 
 ---
 
+## 📖 Detaylı Dokümantasyon & Tüm Araçlar Rehberi
+
+30'dan fazla **AI Agent Aracı**, Kendi Kendini İyileştiren Doğrulama Döngüsü detayları, RAG mimarisi ve arayüz buton kılavuzu için **[Detaylı Dokümantasyon Dosyasına (DOCS_FULL.tr.md)](DOCS_FULL.tr.md)** göz atabilirsiniz | **[Read Full English Docs (DOCS_FULL.md)](DOCS_FULL.md)**.
+
+---
+
 ## 🚀 Hızlı Başlangıç
 
 ### Yöntem A: Kurulum Exe'si (Önerilen)
-1. `Yengi_Setup_v1.0.4.exe` dosyasını [GitHub Releases](https://github.com/mdaiWorks/yengi/releases/latest) sayfasından indir.
-2. Kurulumu tamamla ve Yengi'yi başlat.
-3. **Ayarlar** sayfasından istediğin modeli (Ollama, Anthropic, OpenAI veya Gemini) seçip kodlamaya başla!
+1. En son `Yengi_Setup.exe` kurulum dosyasını [GitHub Releases](https://github.com/mdaiWorks/yengi/releases/latest) sayfasından indirin.
+2. Kurulumu tamamlayın ve Yengi'yi başlatın.
+3. **Ayarlar** sayfasından istediğiniz modeli (Ollama, Anthropic, OpenAI veya Gemini) seçip kodlamaya başlayın!
 
 ### Yöntem B: Kaynak Koddan Çalıştırma (.NET 10 SDK)
 ```bash
