@@ -95,7 +95,7 @@ dotnet run --project BasucuIDE/mdaiAgent.csproj
 
 ## 👤 Creator's Note & Philosophy
 
-> *"I am a high school computer science teacher, not a corporate C# developer."*
+> *"I am a teacher, not a corporate C# developer."*
 
 Yengi was built by acting as an **Architect and AI Orchestrator**. Using AI tools (Google Antigravity & GitHub Copilot) for code generation while designing the architecture, verification loops, security boundaries, and local router model myself.
 

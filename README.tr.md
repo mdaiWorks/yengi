@@ -95,7 +95,7 @@ dotnet run --project BasucuIDE/mdaiAgent.csproj
 
 ## 👤 Geliştiriciden Not
 
-> *"Ben bir bilgisayar öğretmeniyim, profesyonel bir şirket yazılımcısı değilim."*
+> *"Ben bir öğretmenim, profesyonel bir şirket yazılımcısı değilim."*
 
 Yengi'yi bir **Mimarlık ve AI Orchestrator (Yapay Zeka Yöneticisi)** rolü üstlenerek inşa ettim. Kodu üretmek için AI asistanlarından yararlanırken mimariyi, doğrulama döngülerini ve güvenlik sınırlarını kendim kurguladım.
 
