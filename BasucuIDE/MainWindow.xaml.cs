@@ -462,7 +462,8 @@ public partial class MainWindow : Window
 
             await Dispatcher.InvokeAsync(() =>
             {
-                txtUpdateDetails.Text = $"v{update.Version}" + (string.IsNullOrWhiteSpace(update.Changelog) ? "" : $" — {update.Changelog}");
+                txtUpdateDetails.Text = $"v{update.Version}";
+                txtUpdateDetails.ToolTip = string.IsNullOrWhiteSpace(update.Changelog) ? null : update.Changelog;
                 updateBanner.Visibility = Visibility.Visible;
             });
         }

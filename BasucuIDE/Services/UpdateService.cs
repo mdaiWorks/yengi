@@ -187,11 +187,11 @@ public class UpdateService
             App.SaveSessionState(mainWindow);
         }
 
-        // 3. Inno Setup'ı sessiz modda çalıştır ve uygulamayı kapat
+        // 3. Inno Setup'ı çalıştır ve uygulamayı kapat
         var psi = new ProcessStartInfo
         {
             FileName = setupExePath,
-            Arguments = "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
+            Arguments = "",
             UseShellExecute = true
         };
 

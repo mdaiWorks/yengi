@@ -1041,8 +1041,8 @@
 
     <DockPanel>
         <!-- Top Auto-Update Banner -->
-        <Border x:Name="updateBanner" DockPanel.Dock="Top" Background="#1e1b4b" BorderBrush="#6366f1" BorderThickness="0,0,0,1" Padding="14,8" Visibility="Collapsed">
-            <Grid>
+        <Border x:Name="updateBanner" DockPanel.Dock="Top" Background="#1e1b4b" BorderBrush="#6366f1" BorderThickness="0,0,0,1" Padding="14,6" Height="40" Visibility="Collapsed">
+            <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -1050,11 +1050,11 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="🚀" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="🚀" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
                     <TextBlock x:Name="txtUpdateTitle" Text="{local:Loc Key=YeniGuncellemeMevcut}" FontWeight="Bold" Foreground="#a5b4fc" FontSize="13" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <TextBlock x:Name="txtUpdateDetails" Grid.Column="1" Text="Yengi v1.1.0" Foreground="#cbd5e1" FontSize="12" VerticalAlignment="Center" Margin="16,0" TextTrimming="CharacterEllipsis"/>
+                <TextBlock x:Name="txtUpdateDetails" Grid.Column="1" Text="Yengi v1.05" Foreground="#cbd5e1" FontSize="12" VerticalAlignment="Center" Margin="16,0" TextTrimming="CharacterEllipsis"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
                     <ProgressBar x:Name="pbUpdateProgress" Width="130" Height="14" Margin="0,0,10,0" Visibility="Collapsed" Foreground="#6366f1" Background="#312e81"/>
