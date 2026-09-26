@@ -12,7 +12,7 @@ Dili Değiştir: 🇹🇷 Türkçe | [🇺🇸 Read in English](README.md)
 > *"Yengi: Uğraşlarının sonunda ulaştığın o mutlu ve başarılı sonucun adı."*
 
 [![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
-[![Sürüm: v1.05](https://img.shields.io/badge/S%C3%BCr%C3%BCm-v1.05-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
+[![Sürüm: v1.06](https://img.shields.io/badge/S%C3%BCr%C3%BCm-v1.06-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
 [![Altyapı: .NET 10 LTS](https://img.shields.io/badge/Altyap%C4%B1-.NET%2010%20LTS-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)
 [![Lisans: AGPL-3.0](https://img.shields.io/badge/Lisans-AGPL--3.0-green.svg)](LICENSE)
