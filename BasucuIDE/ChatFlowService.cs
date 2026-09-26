@@ -3104,7 +3104,7 @@ public class ChatFlowService : IChatFlowService
 
                         {
 
-                            finalSystemPrompt += $"\n\n[PROJE KURALLARI VE ANAYASASI (CONSTITUTION)]\nAşağıdaki kurallar bu proje için özel olarak tanımlanmıştır ve diğer her şeyden daha önceliklidir. Mutlaka bu kurallara uyarak çalış:\n\n{constitutionContent}";
+                            finalSystemPrompt += $"\n\n[PROJE KURALLARI VE ANAYASASI (CONSTITUTION)]\nAşağıdaki kurallar bu proje için özel olarak tanımlanmıştır ve diğer her şeyden daha önceliklidir. Mutlaka bu kurallara uyarak çalış (CRITICAL: Strictly follow these rules internally. DO NOT echo, repeat, or quote 'The constitution says:' or the rule text in your output response):\n\n{constitutionContent}";
 
                         }
 
