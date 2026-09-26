@@ -462,64 +462,26 @@ public partial class MainWindow : Window
 
             await Dispatcher.InvokeAsync(() =>
             {
-                txtUpdateVersion.Text = $" (v{update.Version})";
-                updateBanner.Visibility = Visibility.Visible;
+                StartHeartPulseAnimation(update.Version);
             });
         }
         catch { /* Güncelleme kontrolü başarısız oldu — sessizce yut */ }
     }
 
-    private void BtnViewOnGitHub_Click(object sender, RoutedEventArgs e)
+    private void StartHeartPulseAnimation(string version)
     {
-        try
+        var anim = new System.Windows.Media.Animation.DoubleAnimation
         {
-            var url = _pendingUpdateInfo?.DownloadUrl ?? "https://github.com/mdaiWorks/yengi/releases/latest";
-            if (!url.StartsWith("http")) url = "https://github.com/mdaiWorks/yengi/releases/latest";
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true
-            });
-        }
-        catch { }
-    }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD100:Avoid async void methods", Justification = "WPF event handler")]
-    private async void BtnInstallUpdate_Click(object sender, RoutedEventArgs e)
-    {
-        if (_pendingUpdateInfo == null) return;
-
-        btnInstallUpdate.IsEnabled = false;
-        btnDismissUpdate.IsEnabled = false;
-        pbUpdateProgress.Visibility = Visibility.Visible;
-
-        var progress = new Progress<int>(pct =>
-        {
-            pbUpdateProgress.Value = pct;
-        });
-
-        try
-        {
-            await UpdateService.Instance.DownloadAndInstallUpdateAsync(_pendingUpdateInfo, progress, this);
-        }
-        catch (Exception ex)
-        {
-            pbUpdateProgress.Visibility = Visibility.Collapsed;
-            btnInstallUpdate.IsEnabled = true;
-            btnDismissUpdate.IsEnabled = true;
-            MessageBox.Show(
-                Localization.IsEnglish()
-                    ? $"Update failed: {ex.Message}"
-                    : $"Güncelleme başarısız: {ex.Message}",
-                "Yengi Update",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-        }
-    }
-
-    private void BtnDismissUpdate_Click(object sender, RoutedEventArgs e)
-    {
-        updateBanner.Visibility = Visibility.Collapsed;
+            From = 1.0,
+            To = 0.35,
+            Duration = TimeSpan.FromSeconds(0.9),
+            AutoReverse = true,
+            RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever
+        };
+        btnAbout.BeginAnimation(UIElement.OpacityProperty, anim);
+        btnAbout.ToolTip = Localization.IsEnglish()
+            ? $"🚀 New update available (v{version})! Click to update."
+            : $"🚀 Yeni güncelleme mevcut (v{version})! Yüklemek için tıklayın.";
     }
 
     private LanguageServerService GetLanguageServerService(string languageExtension)
@@ -4422,19 +4384,15 @@ public partial class MainWindow : Window
     }
 
     private void BtnAbout_Click(object sender, RoutedEventArgs e)
-
     {
+        btnAbout.BeginAnimation(UIElement.OpacityProperty, null);
+        btnAbout.Opacity = 1.0;
 
-        var aboutWindow = new AboutWindow
-
+        var aboutWindow = new AboutWindow(_pendingUpdateInfo)
         {
-
             Owner = this
-
         };
-
         aboutWindow.ShowDialog();
-
     }
 
     private void BtnPluginManager_Click(object sender, RoutedEventArgs e)

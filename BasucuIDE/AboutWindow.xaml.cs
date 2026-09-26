@@ -11,13 +11,71 @@ namespace mdaiAgent;
 
 public partial class AboutWindow : Window
 {
-    public AboutWindow()
+    private UpdateInfo? _pendingUpdate;
+
+    public AboutWindow(UpdateInfo? pendingUpdate = null)
     {
         InitializeComponent();
+        _pendingUpdate = pendingUpdate;
         ApplyLanguage();
 
         // Versiyon bilgisini dinamik doldur
         tbVersion.Text = $"v{UpdateService.CurrentVersion}";
+
+        if (_pendingUpdate != null)
+        {
+            ShowUpdateNowButton(_pendingUpdate);
+        }
+        else
+        {
+            _ = CheckForUpdateSilentlyAsync();
+        }
+    }
+
+    private void ShowUpdateNowButton(UpdateInfo info)
+    {
+        _pendingUpdate = info;
+        btnUpdateNow.Content = Localization.IsEnglish()
+            ? $"🚀 Install Update (v{info.Version})"
+            : $"🚀 Yeni Sürüm İndir & Kur (v{info.Version})";
+        btnUpdateNow.Visibility = Visibility.Visible;
+    }
+
+    private async Task CheckForUpdateSilentlyAsync()
+    {
+        try
+        {
+            var info = await UpdateService.Instance.CheckForUpdateAsync();
+            if (info != null)
+            {
+                Dispatcher.Invoke(() => ShowUpdateNowButton(info));
+            }
+        }
+        catch { }
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD100:Avoid async void methods", Justification = "WPF event handler")]
+    private async void BtnUpdateNow_Click(object sender, RoutedEventArgs e)
+    {
+        if (_pendingUpdate == null) return;
+
+        btnUpdateNow.IsEnabled = false;
+        btnUpdateNow.Content = Localization.IsEnglish() ? "⏳ Downloading..." : "⏳ İndiriliyor...";
+
+        var mainWindow = Application.Current?.Windows.OfType<MainWindow>().FirstOrDefault();
+        Close();
+
+        if (mainWindow != null)
+        {
+            await mainWindow.Dispatcher.InvokeAsync(async () =>
+            {
+                await UpdateService.Instance.DownloadAndInstallUpdateAsync(_pendingUpdate, null, mainWindow);
+            });
+        }
+        else
+        {
+            await UpdateService.Instance.DownloadAndInstallUpdateAsync(_pendingUpdate, null, null);
+        }
     }
 
     private void ApplyLanguage()

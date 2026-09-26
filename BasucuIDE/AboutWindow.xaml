@@ -184,8 +184,41 @@
                             Click="BtnEmail_Click"/>
                 </StackPanel>
 
+                <!-- YENİ GÜNCELLEME İNDİR & KUR BUTONU -->
+                <Button x:Name="btnUpdateNow" Visibility="Collapsed" Margin="0,16,0,0" HorizontalAlignment="Center"
+                        Click="BtnUpdateNow_Click" Cursor="Hand" Content="🚀 Yeni Sürüm İndir &amp; Kur">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="updBd" CornerRadius="12" Padding="20,10">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#4f46e5" Offset="0"/>
+                                        <GradientStop Color="#7c3aed" Offset="0.5"/>
+                                        <GradientStop Color="#059669" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#6366f1" BlurRadius="18" ShadowDepth="0" Opacity="0.6"/>
+                                </Border.Effect>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🚀" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding Content}" TextBlock.FontSize="13" TextBlock.FontWeight="Bold" TextBlock.Foreground="White"/>
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="updBd" Property="Opacity" Value="0.88"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="updBd" Property="Opacity" Value="0.75"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
                 <!-- GITHUB STAR BUTONU -->
-                <Button x:Name="btnGitHubStar" Margin="0,18,0,0" HorizontalAlignment="Center"
+                <Button x:Name="btnGitHubStar" Margin="0,12,0,0" HorizontalAlignment="Center"
                         Click="BtnGitHubStar_Click" Cursor="Hand" Content="GitHub'da Yıldız Ver (Star)">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
