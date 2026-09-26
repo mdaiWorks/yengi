@@ -9,9 +9,9 @@
     <AssemblyName>Yengi</AssemblyName>
     <RootNamespace>mdaiAgent</RootNamespace>
     <ApplicationIcon>logo.ico</ApplicationIcon>
-    <Version>1.0.3</Version>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.4</Version>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
     <NoWarn>CS1998;CS8601;CS8604</NoWarn>
   </PropertyGroup>
   <ItemGroup>

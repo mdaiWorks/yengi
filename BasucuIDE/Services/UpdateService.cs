@@ -57,7 +57,7 @@ public class UpdateService
     private static readonly Lazy<UpdateService> _instance = new(() => new UpdateService());
     public static UpdateService Instance => _instance.Value;
 
-    public const string CurrentVersion = "1.0.3";
+    public const string CurrentVersion = "1.0.4";
     private const string GitHubLatestReleaseUrl = "https://api.github.com/repos/mdaiWorks/yengi/releases/latest";
     private const string VersionManifestUrl = "https://raw.githubusercontent.com/mdaiWorks/yengi/main/version.json";
     private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromSeconds(10) };
