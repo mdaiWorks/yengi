@@ -947,30 +947,32 @@ namespace mdaiAgent
                 {
                     var lines = content.Split('\n');
                     int openParen = 0, openBracket = 0, openBrace = 0;
+                    int lastOpenParenLine = 1, lastOpenBracketLine = 1, lastOpenBraceLine = 1;
                     
                     for (int i = 0; i < lines.Length; i++)
                     {
                         var line = lines[i];
+                        var lineNum = i + 1;
                         var trimmed = line.Trim();
                         
                         // Yazım hataları kontrolü
                         if (trimmed.StartsWith("consol.") || trimmed.StartsWith("consol(") || trimmed.StartsWith("consol;"))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'console' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'console' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("func "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'function' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'function' kontrol edin.", lineNum, 1));
                         }
                         
                         // Parantez, köşeli parantez ve süslü parantez dengesi
                         foreach (char c in line)
                         {
-                            if (c == '(') openParen++;
+                            if (c == '(') { openParen++; lastOpenParenLine = lineNum; }
                             if (c == ')') openParen--;
-                            if (c == '[') openBracket++;
+                            if (c == '[') { openBracket++; lastOpenBracketLine = lineNum; }
                             if (c == ']') openBracket--;
-                            if (c == '{') openBrace++;
+                            if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                             if (c == '}') openBrace--;
                         }
                     }
@@ -978,15 +980,15 @@ namespace mdaiAgent
                     // Genel denge kontrolleri
                     if (openParen != 0)
                     {
-                        diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} parantez var.", 1, 1));
+                        diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} parantez var.", lastOpenParenLine, 1));
                     }
                     if (openBracket != 0)
                     {
-                        diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane var.", 1, 1));
+                        diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane var.", lastOpenBracketLine, 1));
                     }
                     if (openBrace != 0)
                     {
-                        diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane var.", 1, 1));
+                        diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane var.", lastOpenBraceLine, 1));
                     }
                 }
                 catch { }
@@ -1012,33 +1014,34 @@ namespace mdaiAgent
                     if (ext is ".css" or ".scss" or ".sass")
                     {
                         int openBrace = 0;
+                        int lastOpenBraceLine = 1;
                         for (int i = 0; i < lines.Length; i++)
                         {
                             var line = lines[i];
+                            var lineNum = i + 1;
                             var trimmed = line.Trim();
                             
                             foreach (char c in line)
                             {
-                                if (c == '{') openBrace++;
+                                if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                                 if (c == '}') openBrace--;
                             }
 
                             // CSS için basit kontroller
                             if (trimmed.StartsWith(":") && !trimmed.StartsWith("::"))
                             {
-                                diagnostics.Add(new LanguageDiagnostic("CSS pseudo-elementi '::' ile başlamalıdır.", i + 1, 1));
+                                diagnostics.Add(new LanguageDiagnostic("CSS pseudo-elementi '::' ile başlamalıdır.", lineNum, 1));
                             }
                         }
                         
                         if (openBrace != 0)
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Süslü parantez dengesi bozuk.", 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Süslü parantez dengesi bozuk.", lastOpenBraceLine, 1));
                         }
                     }
                     else if (ext is ".html" or ".htm")
                     {
                         // HTML için öncelik LSP sunucusundadır. Basit ayrıştırma hatalarını önlemek için sadece temel kontroller yapılır.
-                        // inline script/style blokları veya özel şablon etiketleri hatalı kırmızı işaretleme üretmesin.
                     }
                 }
                 catch { }
@@ -1060,45 +1063,47 @@ namespace mdaiAgent
                 {
                     var lines = content.Split('\n');
                     int openParen = 0, openBracket = 0, openBrace = 0;
+                    int lastOpenParenLine = 1, lastOpenBracketLine = 1, lastOpenBraceLine = 1;
                     
                     for (int i = 0; i < lines.Length; i++)
                     {
                         var line = lines[i];
+                        var lineNum = i + 1;
                         var trimmed = line.Trim();
                         
                         // Parantez, köşeli parantez ve süslü parantez dengesi
                         foreach (char c in line)
                         {
-                            if (c == '(') openParen++;
+                            if (c == '(') { openParen++; lastOpenParenLine = lineNum; }
                             if (c == ')') openParen--;
-                            if (c == '[') openBracket++;
+                            if (c == '[') { openBracket++; lastOpenBracketLine = lineNum; }
                             if (c == ']') openBracket--;
-                            if (c == '{') openBrace++;
+                            if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                             if (c == '}') openBrace--;
                         }
                         
                         // Yazım hataları
                         if (trimmed.StartsWith("pubic "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'public' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'public' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("privte "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'private' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'private' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("voif "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'void' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'void' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("inte "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'int' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'int' kontrol edin.", lineNum, 1));
                         }
                     }
                     
-                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", 1, 1));
-                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", 1, 1));
-                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", 1, 1));
+                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", lastOpenParenLine, 1));
+                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", lastOpenBracketLine, 1));
+                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", lastOpenBraceLine, 1));
                 }
                 catch { }
                 return diagnostics;
@@ -1119,6 +1124,7 @@ namespace mdaiAgent
                 {
                     var lines = content.Split('\n');
                     int openParen = 0, openBracket = 0, openBrace = 0;
+                    int lastOpenParenLine = 1, lastOpenBracketLine = 1, lastOpenBraceLine = 1;
                     bool hasPhpOpen = content.Contains("<?php") || content.Contains("<?=");
                     
                     if (!hasPhpOpen && !string.IsNullOrWhiteSpace(content))
@@ -1129,33 +1135,34 @@ namespace mdaiAgent
                     for (int i = 0; i < lines.Length; i++)
                     {
                         var line = lines[i];
+                        var lineNum = i + 1;
                         var trimmed = line.Trim();
                         
                         // Parantez, köşeli parantez ve süslü parantez dengesi
                         foreach (char c in line)
                         {
-                            if (c == '(') openParen++;
+                            if (c == '(') { openParen++; lastOpenParenLine = lineNum; }
                             if (c == ')') openParen--;
-                            if (c == '[') openBracket++;
+                            if (c == '[') { openBracket++; lastOpenBracketLine = lineNum; }
                             if (c == ']') openBracket--;
-                            if (c == '{') openBrace++;
+                            if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                             if (c == '}') openBrace--;
                         }
                         
                         // Yazım hataları
                         if (trimmed.StartsWith("ech "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'echo' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'echo' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("prin "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'print' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'print' kontrol edin.", lineNum, 1));
                         }
                     }
                     
-                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", 1, 1));
-                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", 1, 1));
-                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", 1, 1));
+                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", lastOpenParenLine, 1));
+                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", lastOpenBracketLine, 1));
+                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", lastOpenBraceLine, 1));
                 }
                 catch { }
                 return diagnostics;
@@ -1176,41 +1183,43 @@ namespace mdaiAgent
                 {
                     var lines = content.Split('\n');
                     int openParen = 0, openBracket = 0, openBrace = 0;
+                    int lastOpenParenLine = 1, lastOpenBracketLine = 1, lastOpenBraceLine = 1;
                     
                     for (int i = 0; i < lines.Length; i++)
                     {
                         var line = lines[i];
+                        var lineNum = i + 1;
                         var trimmed = line.Trim();
                         
                         // Parantez, köşeli parantez ve süslü parantez dengesi
                         foreach (char c in line)
                         {
-                            if (c == '(') openParen++;
+                            if (c == '(') { openParen++; lastOpenParenLine = lineNum; }
                             if (c == ')') openParen--;
-                            if (c == '[') openBracket++;
+                            if (c == '[') { openBracket++; lastOpenBracketLine = lineNum; }
                             if (c == ']') openBracket--;
-                            if (c == '{') openBrace++;
+                            if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                             if (c == '}') openBrace--;
                         }
                         
                         // Yazım hataları
                         if (trimmed.StartsWith("fun "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'func' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'func' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("packge "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'package' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'package' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("imprt "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'import' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'import' kontrol edin.", lineNum, 1));
                         }
                     }
                     
-                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", 1, 1));
-                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", 1, 1));
-                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", 1, 1));
+                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", lastOpenParenLine, 1));
+                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", lastOpenBracketLine, 1));
+                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", lastOpenBraceLine, 1));
                 }
                 catch { }
                 return diagnostics;
@@ -1231,37 +1240,39 @@ namespace mdaiAgent
                 {
                     var lines = content.Split('\n');
                     int openParen = 0, openBracket = 0, openBrace = 0;
+                    int lastOpenParenLine = 1, lastOpenBracketLine = 1, lastOpenBraceLine = 1;
                     
                     for (int i = 0; i < lines.Length; i++)
                     {
                         var line = lines[i];
+                        var lineNum = i + 1;
                         var trimmed = line.Trim();
                         
                         // Parantez, köşeli parantez ve süslü parantez dengesi
                         foreach (char c in line)
                         {
-                            if (c == '(') openParen++;
+                            if (c == '(') { openParen++; lastOpenParenLine = lineNum; }
                             if (c == ')') openParen--;
-                            if (c == '[') openBracket++;
+                            if (c == '[') { openBracket++; lastOpenBracketLine = lineNum; }
                             if (c == ']') openBracket--;
-                            if (c == '{') openBrace++;
+                            if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                             if (c == '}') openBrace--;
                         }
                         
                         // Yazım hataları
                         if (trimmed.StartsWith("inclue "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'include' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'include' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("std::cint "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'std::cout' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'std::cout' kontrol edin.", lineNum, 1));
                         }
                     }
                     
-                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", 1, 1));
-                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", 1, 1));
-                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", 1, 1));
+                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", lastOpenParenLine, 1));
+                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", lastOpenBracketLine, 1));
+                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", lastOpenBraceLine, 1));
                 }
                 catch { }
                 return diagnostics;
@@ -1282,45 +1293,47 @@ namespace mdaiAgent
                 {
                     var lines = content.Split('\n');
                     int openParen = 0, openBracket = 0, openBrace = 0;
+                    int lastOpenParenLine = 1, lastOpenBracketLine = 1, lastOpenBraceLine = 1;
                     
                     for (int i = 0; i < lines.Length; i++)
                     {
                         var line = lines[i];
+                        var lineNum = i + 1;
                         var trimmed = line.Trim();
                         
                         // Parantez, köşeli parantez ve süslü parantez dengesi
                         foreach (char c in line)
                         {
-                            if (c == '(') openParen++;
+                            if (c == '(') { openParen++; lastOpenParenLine = lineNum; }
                             if (c == ')') openParen--;
-                            if (c == '[') openBracket++;
+                            if (c == '[') { openBracket++; lastOpenBracketLine = lineNum; }
                             if (c == ']') openBracket--;
-                            if (c == '{') openBrace++;
+                            if (c == '{') { openBrace++; lastOpenBraceLine = lineNum; }
                             if (c == '}') openBrace--;
                         }
                         
                         // Yazım hataları
                         if (trimmed.StartsWith("funct "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'function' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'function' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("strig "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'String' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'String' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("intt "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'int' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'int' kontrol edin.", lineNum, 1));
                         }
                         if (trimmed.StartsWith("widg "))
                         {
-                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'Widget' kontrol edin.", i + 1, 1));
+                            diagnostics.Add(new LanguageDiagnostic("Olası yazım hatası: 'Widget' kontrol edin.", lineNum, 1));
                         }
                     }
                     
-                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", 1, 1));
-                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", 1, 1));
-                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", 1, 1));
+                    if (openParen != 0) diagnostics.Add(new LanguageDiagnostic($"Parantez dengesi bozuk! Açıkta {Math.Abs(openParen)} tane.", lastOpenParenLine, 1));
+                    if (openBracket != 0) diagnostics.Add(new LanguageDiagnostic($"Köşeli parantez dengesi bozuk! Açıkta {Math.Abs(openBracket)} tane.", lastOpenBracketLine, 1));
+                    if (openBrace != 0) diagnostics.Add(new LanguageDiagnostic($"Süslü parantez dengesi bozuk! Açıkta {Math.Abs(openBrace)} tane.", lastOpenBraceLine, 1));
                 }
                 catch { }
                 return diagnostics;
