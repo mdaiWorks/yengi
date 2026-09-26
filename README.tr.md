@@ -57,9 +57,19 @@ flowchart TD
 
 ---
 
+## 💡 Neden Yengi?
+
+Yengi yalın bir fikir etrafında doğdu: **Yapay zeka geliştirme ortamınız tek bir sağlayıcıya, modele veya kullanım kotasına bağımlı kalmamalıdır.**
+
+Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı (Claude, OpenAI, Gemini) bağlayın veya Yengi'nin özel fine-tune edilmiş yerel yönlendiricisini (Router) kullanın. Araçlarınız ve verileriniz üzerinde tam kontrol sahibiyken otonom agent iş akışlarıyla geliştirme yapın.
+
+---
+
 ## ✨ Öne Çıkan Özellikler
 
-- 🔒 **Yerel Odaklı & Model Bağımsız**: **Ollama (Qwen 35B, DeepSeek-R1)**, Claude 3.5, OpenAI veya Gemini ile çalışır. Yerel modellerle %100 veri gizliliği sağlar.
+- 🧠 **Özel 1.5B Yerel AI Router**: Doğru AI iş akışını ve araç bağlamını otonom olarak seçmek üzere özel eğitilmiş 1.5B yönlendirme modeli.
+- 🎛️ **4 Uzmanlaşmış Geliştirme Modu**: **Code IDE**, **Görsel Üretim Stüdyosu**, **Blender 3D Copilot** ve **Unity Oyun Motoru Copilot**.
+- 🔒 **Yerel Odaklı & Model Bağımsız**: **Ollama (Qwen 35B, DeepSeek-R1)**, Claude 3.5, OpenAI veya Gemini ile çalışır. Yerel sağlayıcı seçildiğinde kod verileriniz bilgisayarınızda kalır.
 - 🛡️ **Kendi Kendini İyileştiren Doğrulama Döngüsü**: Derleme ve test hatalarını (`dotnet build`, `npm test`, Python linters) otomatik tespit eder ve insan müdahalesi olmadan düzeltir.
 - 🔄 **Tek Tıkla Otomatik Güncelleme**: Entegre GitHub Releases API kontrolcüsü ile yeni sürümleri otomatik algılar ve günceller.
 - 🧊 **Blender & Unity Copilot Entegrasyonu**: Canlı 3D sahneleri ve oyun motoru bileşenlerini yapay zeka talimatlarıyla doğrudan yönetir.

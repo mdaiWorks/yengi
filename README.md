@@ -57,9 +57,21 @@ flowchart TD
 
 ---
 
+---
+
+## 💡 Why Yengi?
+
+Yengi was created around a simple idea: **your AI development environment shouldn't depend on a single provider, model, or usage quota.**
+
+Use local open-weights models through Ollama, connect your own API keys (Claude, OpenAI, Gemini), or leverage Yengi's custom fine-tuned local router. Build with autonomous agent workflows while maintaining total control over your models, tools, and privacy.
+
+---
+
 ## ✨ Key Features
 
-- 🔒 **Local-First & Model Agnostic**: Connects seamlessly to **Ollama (Qwen 35B, DeepSeek-R1)**, Claude 3.5, OpenAI, or Gemini. Total data privacy with local models.
+- 🧠 **Custom 1.5B Local AI Router**: Fine-tuned 1.5B routing model designed to select the appropriate AI workflow and tool context autonomously.
+- 🎛️ **4 Specialized Development Modes**: **Code IDE**, **Image Generation Studio**, **Blender 3D Copilot**, and **Unity Engine Copilot**.
+- 🔒 **Local-First & Model Agnostic**: Connects seamlessly to **Ollama (Qwen 35B, DeepSeek-R1)**, Claude 3.5, OpenAI, or Gemini. Keeps your project data on your machine when choosing local providers.
 - 🛡️ **Self-Healing Verification Loop**: Automatically runs build/syntax checks (`dotnet build`, `npm test`, Python linters) and repairs errors autonomously.
 - 🔄 **1-Click Auto-Updates**: Integrated GitHub Releases API updater detects and installs new setup releases automatically.
 - 🧊 **Blender & Unity Copilots**: Live two-way integration scripts to manipulate 3D scenes and game engine objects directly via AI instructions.
