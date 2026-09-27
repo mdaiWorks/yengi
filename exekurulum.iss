@@ -1,5 +1,5 @@
 #define MyAppName "Yengi"
-#define MyAppVersion "1.06"
+#define MyAppVersion "1.07"
 #define MyAppPublisher "mdaiWorks"
 #define MyAppURL "https://github.com/mdaiWorks/yengi"
 #define MyAppExeName "Yengi.exe"
@@ -18,7 +18,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
 OutputDir=dist
-OutputBaseFilename=Yengi_Setup_v1.06
+OutputBaseFilename=Yengi_Setup_v1.07
 SetupIconFile=BasucuIDE\logo.ico
 SolidCompression=yes
 WizardStyle=modern
