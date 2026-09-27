@@ -53,6 +53,8 @@ flowchart TD
     H -->|"✅ Success"| I["🎉 Complete & Report Result"]
     H -->|"❌ Build Error / Failed Test"| J["🩹 Self-Healing Repair Agent"]
     J --> C
+```
+
 ---
 
 ## 🎨 Two-Stage 3D Asset & Component Architect Pipeline

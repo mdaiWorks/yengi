@@ -53,6 +53,8 @@ flowchart TD
     H -->|"✅ Başarılı"| I["🎉 Tamamlandı & Raporla"]
     H -->|"❌ Derleme / Test Hatası"| J["🩹 Kendi Kendini İyileştiren Agent"]
     J --> C
+```
+
 ---
 
 ## 🎨 Çift Aşamalı 3D & Oyun Motoru Architect Mimarisi
