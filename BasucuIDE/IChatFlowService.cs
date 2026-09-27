@@ -15,5 +15,6 @@ public interface IChatFlowService
         Action<string>? onTokenReceived = null,
         Action<ChatFlowMessage>? onMessageAdded = null,
         bool appendUserMessageToHistory = true,
-        ChatSession? targetSession = null);
+        ChatSession? targetSession = null,
+        Func<int, Task<bool>>? onRequestStepContinuationAsync = null);
 }

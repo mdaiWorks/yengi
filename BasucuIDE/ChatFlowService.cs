@@ -447,7 +447,7 @@ public class ChatFlowService : IChatFlowService
 
     {
 
-        return SendMessageAsync(message, currentFilePath, currentFileContent, selectedFolder, systemPrompt, qaAgentEnabled, uiAgentEnabled, attachments, cancellationToken, onTokenReceived, onMessageAdded, false, appendUserMessageToHistory, targetSession, contextMode);
+        return SendMessageAsync(message, currentFilePath, currentFileContent, selectedFolder, systemPrompt, qaAgentEnabled, uiAgentEnabled, attachments, cancellationToken, onTokenReceived, onMessageAdded, appendUserMessageToHistory, targetSession, null);
 
     }
 
@@ -479,80 +479,46 @@ public class ChatFlowService : IChatFlowService
 
         ChatSession? targetSession)
     {
-        return SendMessageAsync(message, currentFilePath, currentFileContent, selectedFolder, systemPrompt, qaAgentEnabled, uiAgentEnabled, attachments, cancellationToken, onTokenReceived, onMessageAdded, appendUserMessageToHistory, targetSession, ChatContextMode.Auto);
+        return SendMessageAsync(message, currentFilePath, currentFileContent, selectedFolder, systemPrompt, qaAgentEnabled, uiAgentEnabled, attachments, cancellationToken, onTokenReceived, onMessageAdded, appendUserMessageToHistory, targetSession, null);
     }
 
     public Task<ChatFlowResult> SendMessageAsync(
-
         string message,
-
         string? currentFilePath,
-
         string? currentFileContent,
-
         string? selectedFolder,
-
         string systemPrompt,
-
         bool qaAgentEnabled,
-
         bool uiAgentEnabled,
-
-        List<Attachment>? attachments,
-
-        CancellationToken cancellationToken,
-
-        Action<string>? onTokenReceived,
-
-        Action<ChatFlowMessage>? onMessageAdded,
-
-        bool includeSystemPrompt,
-
+        List<Attachment>? attachments = null,
+        CancellationToken cancellationToken = default,
+        Action<string>? onTokenReceived = null,
+        Action<ChatFlowMessage>? onMessageAdded = null,
         bool appendUserMessageToHistory = true,
-
         ChatSession? targetSession = null,
-
-        ChatContextMode contextMode = ChatContextMode.Auto)
-
+        Func<int, Task<bool>>? onRequestStepContinuationAsync = null)
     {
-
-        return SendMessageInternalAsync(message, currentFilePath, currentFileContent, selectedFolder, systemPrompt, qaAgentEnabled, uiAgentEnabled, attachments, cancellationToken, onTokenReceived, onMessageAdded, includeSystemPrompt, appendUserMessageToHistory, targetSession, contextMode);
-
+        return SendMessageInternalAsync(message, currentFilePath, currentFileContent, selectedFolder, systemPrompt, qaAgentEnabled, uiAgentEnabled, attachments, cancellationToken, onTokenReceived, onMessageAdded, true, appendUserMessageToHistory, targetSession, ChatContextMode.Auto, false, onRequestStepContinuationAsync);
     }
 
     public async Task<ChatFlowResult> SendMessageInternalAsync(
-
         string message,
-
         string? currentFilePath,
-
         string? currentFileContent,
-
         string? selectedFolder,
-
         string systemPrompt,
-
         bool qaAgentEnabled,
-
         bool uiAgentEnabled,
-
         List<Attachment>? attachments = null,
-
         CancellationToken cancellationToken = default,
-
         Action<string>? onTokenReceived = null,
-
         Action<ChatFlowMessage>? onMessageAdded = null,
-
         bool includeSystemPrompt = true,
-
         bool appendUserMessageToHistory = true,
-
         ChatSession? targetSession = null,
-
         ChatContextMode contextMode = ChatContextMode.Auto,
-
-        bool skipVerification = false)
+        bool skipVerification = false,
+        Func<int, Task<bool>>? onRequestStepContinuationAsync = null)
 
     {
 
@@ -2396,11 +2362,28 @@ public class ChatFlowService : IChatFlowService
             }
 
             if (iteration >= maxIterations)
-
             {
+                bool shouldContinue = false;
+                if (onRequestStepContinuationAsync != null && !cancellationToken.IsCancellationRequested)
+                {
+                    try
+                    {
+                        _updateOperationStep?.Invoke($"⚙️ AI {maxIterations} adımdır çalışıyor. Devam onayınız bekleniyor...");
+                        shouldContinue = await onRequestStepContinuationAsync(iteration);
+                    }
+                    catch { shouldContinue = false; }
+                }
 
-                 result.Messages.Add(new ChatFlowMessage { Sender = "Sistem", Content = LocalizationManager.Instance.GetString("IslemDonguLimitineUlastiVeDurduruldu") });
-
+                if (shouldContinue)
+                {
+                    maxIterations += 10;
+                    _terminalLog?.Invoke($"ℹ️ Kullanıcı onayı alındı: AI döngü sınırı {maxIterations} adıma uzatıldı.");
+                    _updateOperationStep?.Invoke($"🚀 Devam ediliyor ({iteration + 1}/{maxIterations})...");
+                }
+                else
+                {
+                    result.Messages.Add(new ChatFlowMessage { Sender = "Sistem", Content = LocalizationManager.Instance.GetString("IslemDonguLimitineUlastiVeDurduruldu") });
+                }
             }
 
             // Run Agent Pipeline

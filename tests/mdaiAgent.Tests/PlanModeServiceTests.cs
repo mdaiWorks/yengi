@@ -23,7 +23,8 @@ public class PlanModeServiceTests
             Action<string>? onTokenReceived = null,
             Action<ChatFlowMessage>? onMessageAdded = null,
             bool appendUserMessageToHistory = true,
-            ChatSession? targetSession = null)
+            ChatSession? targetSession = null,
+            Func<int, Task<bool>>? onRequestStepContinuationAsync = null)
         {
             var responseText = "1. Adım bir\n- İlk değişiklik\n- Sonraki adım\n\n2. Adım iki\n- İkinci değişiklik";
             return Task.FromResult(new ChatFlowResult

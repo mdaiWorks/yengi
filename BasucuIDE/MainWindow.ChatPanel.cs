@@ -3046,34 +3046,20 @@ public partial class MainWindow
         {
 
             var result = await Task.Run(() => chatFlowService.SendMessageAsync(
-
                 apiMessage,
-
                 currentFilePath,
-
                 currentFileContent,
-
                 _selectedFolder,
-
                 _settings?.SystemPrompt ?? string.Empty,
-
                 _settings?.QaAgentEnabled ?? false,
-
                 _settings?.UiAgentEnabled ?? false,
-
                 historyEntry.Attachments,
-
                 _chatCts.Token,
-
                 onTokenReceived,
-
                 onMessageAdded,
-
                 appendUserMessageToHistory: false,
-
                 targetSession: session,
-
-                contextMode: contextMode), _chatCts.Token);
+                onRequestStepContinuationAsync: PromptUserForStepContinuationAsync), _chatCts.Token);
 
             RemoveActiveProgressStatus();
 
@@ -3120,17 +3106,17 @@ public partial class MainWindow
         }
 
         catch (Exception ex)
-
         {
-
             RemoveActiveProgressStatus();
-
             AddChatMessage("AI Asistan", $"Hata: {ex.Message}");
-
             AddTerminalMessage($"AI Hatası: {ex}");
 
-            Notify($"AI işlemi sırasında hata oluştu: {ex.Message}", NotificationSeverity.Error);
+            if (ex is TimeoutException || ex.Message.Contains("timeout", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("zaman aşımı", StringComparison.OrdinalIgnoreCase))
+            {
+                ShowTimeoutCardInChat();
+            }
 
+            Notify($"AI işlemi sırasında hata oluştu: {ex.Message}", NotificationSeverity.Error);
         }
 
         finally
@@ -3184,7 +3170,162 @@ public partial class MainWindow
             catch { }
 
         }
+    }
 
+    private async Task<bool> PromptUserForStepContinuationAsync(int currentStep)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+
+        await Dispatcher.InvokeAsync(() =>
+        {
+            var border = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1e1b4b")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#6366f1")),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(10),
+                Padding = new Thickness(14, 10, 14, 10),
+                Margin = new Thickness(8, 6, 8, 6)
+            };
+
+            var stack = new StackPanel { Orientation = Orientation.Vertical };
+
+            var txtTitle = new TextBlock
+            {
+                Text = Localization.IsEnglish()
+                    ? $"⚙️ AI has executed {currentStep} steps and is continuing the task."
+                    : $"⚙️ AI {currentStep} adımdır çalışıyor ve görevi işlemeye devam ediyor.",
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a5b4fc")),
+                FontWeight = FontWeights.Bold,
+                FontSize = 12.5,
+                Margin = new Thickness(0, 0, 0, 8),
+                TextWrapping = TextWrapping.Wrap
+            };
+            stack.Children.Add(txtTitle);
+
+            var btnPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            var btnContinue = new Button
+            {
+                Content = Localization.IsEnglish() ? "▶️ Continue 10 More Steps" : "▶️ 10 Adım Daha Devam Et",
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4f46e5")),
+                Foreground = Brushes.White,
+                FontWeight = FontWeights.SemiBold,
+                Padding = new Thickness(14, 5, 14, 5),
+                Margin = new Thickness(0, 0, 8, 0),
+                Cursor = Cursors.Hand,
+                BorderThickness = new Thickness(0)
+            };
+
+            var btnStop = new Button
+            {
+                Content = Localization.IsEnglish() ? "⏹️ Stop Here" : "⏹️ İşi Durdur",
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#374151")),
+                Foreground = Brushes.White,
+                Padding = new Thickness(12, 5, 12, 5),
+                Cursor = Cursors.Hand,
+                BorderThickness = new Thickness(0)
+            };
+
+            btnContinue.Click += (s, e) =>
+            {
+                border.Opacity = 0.5;
+                btnContinue.IsEnabled = false;
+                btnStop.IsEnabled = false;
+                tcs.TrySetResult(true);
+            };
+
+            btnStop.Click += (s, e) =>
+            {
+                border.Opacity = 0.5;
+                btnContinue.IsEnabled = false;
+                btnStop.IsEnabled = false;
+                tcs.TrySetResult(false);
+            };
+
+            btnPanel.Children.Add(btnContinue);
+            btnPanel.Children.Add(btnStop);
+            stack.Children.Add(btnPanel);
+
+            border.Child = stack;
+
+            var listItem = new ListBoxItem
+            {
+                Content = border,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Padding = new Thickness(0)
+            };
+
+            lstChatHistory.Items.Add(listItem);
+            lstChatHistory.ScrollIntoView(listItem);
+        });
+
+        return await tcs.Task;
+    }
+
+    private void ShowTimeoutCardInChat()
+    {
+        Dispatcher.Invoke(() =>
+        {
+            var border = new Border
+            {
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#450a0a")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ef4444")),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(10),
+                Padding = new Thickness(14, 10, 14, 10),
+                Margin = new Thickness(8, 6, 8, 6)
+            };
+
+            var stack = new StackPanel { Orientation = Orientation.Vertical };
+
+            var txtTitle = new TextBlock
+            {
+                Text = Localization.IsEnglish()
+                    ? "⏱️ Request timed out. The model server might be unresponsive."
+                    : "⏱️ AI isteği zaman aşımına uğradı (Timeout). Sunucu yanıt vermiyor olabilir.",
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#fca5a5")),
+                FontWeight = FontWeights.Bold,
+                FontSize = 12.5,
+                Margin = new Thickness(0, 0, 0, 8),
+                TextWrapping = TextWrapping.Wrap
+            };
+            stack.Children.Add(txtTitle);
+
+            var btnRetry = new Button
+            {
+                Content = Localization.IsEnglish() ? "🔄 Retry Request" : "🔄 İsteği Yeniden Gönder",
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#dc2626")),
+                Foreground = Brushes.White,
+                FontWeight = FontWeights.SemiBold,
+                Padding = new Thickness(14, 5, 14, 5),
+                Cursor = Cursors.Hand,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                BorderThickness = new Thickness(0)
+            };
+
+            btnRetry.Click += (s, e) =>
+            {
+                border.Opacity = 0.5;
+                btnRetry.IsEnabled = false;
+                BtnSend_Click(s, e);
+            };
+
+            stack.Children.Add(btnRetry);
+            border.Child = stack;
+
+            var listItem = new ListBoxItem
+            {
+                Content = border,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Padding = new Thickness(0)
+            };
+
+            lstChatHistory.Items.Add(listItem);
+            lstChatHistory.ScrollIntoView(listItem);
+        });
     }
 
     private ListBoxItem AddProgressStatus(string status)
