@@ -44,6 +44,7 @@ namespace mdaiAgent
                     panelBlender.Visibility = Visibility.Visible;
                     
                     txtBlenderPort.Text = _settings.BlenderWebSocketPort.ToString();
+                    chkEnableBlenderPromptEnhancer.IsChecked = _settings.EnableBlenderPromptEnhancer;
                     
                     // Blender Yolunu Yükle veya Otomatik Tespit Et
                     if (!string.IsNullOrWhiteSpace(_settings.BlenderPath) && Directory.Exists(_settings.BlenderPath))
@@ -62,6 +63,7 @@ namespace mdaiAgent
                     panelUnity.Visibility = Visibility.Visible;
                     
                     txtUnityPort.Text = _settings.UnityWebSocketPort.ToString();
+                    chkEnableUnityPromptEnhancer.IsChecked = _settings.EnableUnityPromptEnhancer;
                     break;
             }
         }
@@ -181,81 +183,23 @@ namespace mdaiAgent
                 }
                 else
                 {
-                    string code = @"bl_info = {
-    'name': 'Yengi Copilot for Blender',
-    'author': 'Yengi IDE',
-    'version': (1, 0, 0),
-    'blender': (2, 80, 0),
-    'category': 'Development',
-}
-import bpy, socket, threading, queue, time
-PORT = 8181
-SECRET_TOKEN = """ + _settings.BlenderSecretToken + @"""
-server_socket = None
-is_running = False
-script_queue = queue.Queue()
-
-def execute_queued_scripts():
-    while not script_queue.empty():
-        item = script_queue.get()
-        payload, conn = item
-        try:
-            code = payload
-            if payload.startswith('YENGI_TOKEN:'):
-                lines = payload.split('\n', 1)
-                sent_token = lines[0].replace('YENGI_TOKEN:', '').strip()
-                if SECRET_TOKEN and sent_token != SECRET_TOKEN:
-                    conn.sendall(b'ERROR: Unauthorized access - Invalid Token')
-                    conn.close()
-                    continue
-                code = lines[1] if len(lines) > 1 else ''
-
-            exec(code, {'bpy': bpy})
-            conn.sendall(b'SUCCESS')
-            conn.close()
-        except Exception as ex:
-            try:
-                conn.sendall(f'ERROR: {ex}'.encode('utf-8'))
-                conn.close()
-            except: pass
-    return 0.2
-
-def socket_listener():
-    global server_socket, is_running
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    try:
-        server_socket.bind(('127.0.0.1', PORT))
-        server_socket.listen(5)
-        is_running = True
-    except: return
-    while is_running:
-        try:
-            conn, addr = server_socket.accept()
-            buf = bytearray()
-            while True:
-                chunk = conn.recv(4096)
-                if not chunk: break
-                buf.extend(chunk)
-            if buf: script_queue.put((buf.decode('utf-8'), conn))
-        except Exception:
-            if not is_running: break
-            time.sleep(0.05)
-            continue
-
-def register():
-    if not bpy.app.timers.is_registered(execute_queued_scripts):
-        bpy.app.timers.register(execute_queued_scripts)
-    threading.Thread(target=socket_listener, daemon=True).start()
-
-def unregister():
-    global is_running, server_socket
-    is_running = False
-    if server_socket: server_socket.close()
-
-if __name__ == '__main__': register()
-";
-                    File.WriteAllText(targetAddonFile, code);
+                    // Proje dizininden yengi_blender_addon.py'yi bulmayı dene
+                    string devAddonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "yengi_blender_addon.py");
+                    if (File.Exists(devAddonPath))
+                    {
+                        File.Copy(devAddonPath, targetAddonFile, true);
+                    }
+                    else
+                    {
+                        // Token enjekte et
+                        string fullCode = File.Exists(targetAddonFile) ? File.ReadAllText(targetAddonFile) : "";
+                        if (string.IsNullOrEmpty(fullCode))
+                        {
+                            txtBlenderInstallResult.Text = "❌ `yengi_blender_addon.py` dosyası bulunamadı!";
+                            txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.Tomato;
+                            return;
+                        }
+                    }
                 }
 
                 txtBlenderInstallResult.Text = $"✅ Eklenti yüklendi: {targetAddonFile}\nBlender'da Edit -> Preferences -> Add-ons menüsünden 'Yengi Copilot'u aktif edin.";
@@ -287,11 +231,13 @@ if __name__ == '__main__': register()
                     if (int.TryParse(txtBlenderPort.Text, out int bPort))
                         _settings.BlenderWebSocketPort = bPort;
                     _settings.BlenderPath = txtBlenderPath.Text;
+                    _settings.EnableBlenderPromptEnhancer = chkEnableBlenderPromptEnhancer.IsChecked == true;
                     break;
                     
                 case AgentWorkspaceMode.UnityCopilot:
                     if (int.TryParse(txtUnityPort.Text, out int uPort))
                         _settings.UnityWebSocketPort = uPort;
+                    _settings.EnableUnityPromptEnhancer = chkEnableUnityPromptEnhancer.IsChecked == true;
                     break;
             }
             

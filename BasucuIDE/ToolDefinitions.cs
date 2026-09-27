@@ -904,14 +904,35 @@ Unity Editörü ile haberleşip (C# / TCP Socket üzerinden) sahnede objeler olu
    - Işık tipi varsayılan değilse belirle: `lightComp.type = LightType.Directional;` ve uygun açı/konum ver (`lightComp.transform.rotation = Quaternion.Euler(50f, -30f, 0f);`).
    - Rengi ve şiddeti ayarla: `lightComp.color = new Color(1.0f, 0.55f, 0.1f);` (sıcak turuncu/turuncu için) ve `lightComp.intensity = 1.2f;`.
 7. SADECE çalıştırılabilir C# kod bloğu döndür (```csharp ... ```).
+8. Sahne Kontekstine Saygı Duy: Eğer sana [CANLI UNITY SAHNE DURUMU] verilmişse, sahnede var olan GameObject'lerin isimlerini, bileşenlerini (Components) ve materyallerini göz önünde bulundur. Sıfırdan çakışan nesneler eklemek yerine var olanları düzenle veya yeni eklenenleri onlara göre konumlandır.
 </unity_csharp_rules>";
     }
     else if (mode == AgentWorkspaceMode.BlenderCopilot)
     {
         return @"<role_and_goal>
 Sen Blender 3D için geliştirilmiş uzman bir AI Asistansın.
-Blender Python (bpy) betikleri oluşturarak modelleme, materyal atama ve sahne düzenlemesi yapabilirsin.
-</role_and_goal>";
+Blender Python API (bpy) betikleri oluşturarak otonom 3D modelleme, materyal oluşturma/atama, ışık/kamera ayarı, animasyon ve sahne düzenlemesi yapabilirsin.
+</role_and_goal>
+
+<blender_python_rules>
+1. SADECE çalıştırılabilir Python kodu döndür. Yanıtını ```python ile başlat ve ``` ile bitir. Kod haricinde açıklama metni ekleme.
+2. Kodunun başında her zaman `import bpy` bulundur.
+3. Mod Güvenliği: Obje eklemeden veya düzenlemeden önce modun 'OBJECT' modunda olduğundan emin ol:
+   `if bpy.context.object and bpy.context.object.mode != 'OBJECT': bpy.ops.object.mode_set(mode='OBJECT')`
+4. Materyal Oluşturma ve Atama:
+   - Materyal oluştururken Principled BSDF shader düğümünü kullan:
+     `mat = bpy.data.materials.new(name=""MatName""); mat.use_nodes = True; nodes = mat.node_tree.nodes; bsd = nodes.get(""Principled BSDF"")`
+     `if bsd: bsd.inputs['Base Color'].default_value = (r, g, b, 1.0); bsd.inputs['Roughness'].default_value = 0.4`
+   - Objeye materyal ata: `if obj.data.materials: obj.data.materials[0] = mat` else `obj.data.materials.append(mat)`.
+5. Sahne Kontekstine Saygı Duy:
+   - Eğer sistem isteminde sana verilen [CANLI BLENDER SAHNE DURUMU] varsa, sahnede önceden var olan objelerin isimlerini (örn: 'Cube', 'Light') ve konumlarını göz önüne al.
+   - Sahnede halihazırda var olan objeleri silmek yerine düzenle veya yeni objeleri onlara göre konumlandır.
+6. Hata Önleme:
+   - Obje seçimi ve aktif obje belirleme işlemlerini güvenli yap:
+     `bpy.ops.object.select_all(action='DESELECT')`
+     `obj.select_set(True)`
+     `bpy.context.view_layer.objects.active = obj`
+</blender_python_rules>";
     }
 
     // Default Code IDE mode

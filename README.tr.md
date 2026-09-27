@@ -53,7 +53,30 @@ flowchart TD
     H -->|"✅ Başarılı"| I["🎉 Tamamlandı & Raporla"]
     H -->|"❌ Derleme / Test Hatası"| J["🩹 Kendi Kendini İyileştiren Agent"]
     J --> C
+---
+
+## 🎨 Çift Aşamalı 3D & Oyun Motoru Architect Mimarisi
+
+Yengi, Blender 3D ve Unity Engine entegrasyonlarında ilkel basit şekiller üretmek yerine **2 Aşamalı Otonom AI Pipeline** çalıştırır. Tasarım kararlarını kod sentezinden ayırarak yüksek kaliteli 3D varlıklar ve oyun bileşenleri oluşturur:
+
+```mermaid
+flowchart TD
+    A["👤 Kullanıcı İsteği<br/>('Low poly meşe ağacı yap' / 'Kamera takip sistemi ekle')"] --> B{"⚙️ 3D Prompt Mühendisi Açık mı?"}
+    B -- "EVET (Varsayılan - Ayarlanabilir)" --> C["🎨 1. Aşama: 3D Asset/Component Architect"]
+    C --> D["📝 Detaylı 3D Şartname (Blueprint)<br/>(Metrik Ölçüler, Renk Paleti, Poligon Hedefi, Topoloji)"]
+    D --> E["⚡ 2. Aşama: Blender (bpy) / Unity (C#) Kod Üretici"]
+    B -- "HAYIR (Doğrudan İstem)" --> E
+    E --> F["🚀 Canlı TCP Socket İletimi & Otomatik Undo Noktası"]
+    F --> G["🧊 Blender 3D Viewport / 🎮 Unity Sahne Güncellemesi"]
+    G --> H{"🔍 Derleme & Çalıştırma Kontrolü"}
+    H -- "✅ Başarılı" --> I["📸 Viewport Ekran Görüntüsü & Sonucu Sun"]
+    H -- "❌ Hata / Derleme Uyarısı" --> J["🩹 Kendi Kendini Düzelten Self-Healing Döngüsü"]
+    J --> E
 ```
+
+- **1. Aşama (Sanatçı Rolü)**: Kullanıcının fikrini parçalara ayırır, metre bazında ölçüler, renk paletleri ve materyal özellikleri belirler.
+- **2. Aşama (Yazılımcı Rolü)**: Şartnameye ve canlı sahne RAG verisine bakarak hatasız `bpy` Python veya Unity C# Editor kodunu üretir.
+- **Esnek Kontrol**: **Çalışma Alanı Ayarları** (`⚙️`) menüsünden tek tıkla açılıp kapatılabilir.
 
 ---
 

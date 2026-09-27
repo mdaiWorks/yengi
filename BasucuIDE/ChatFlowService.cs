@@ -3745,6 +3745,7 @@ public class ChatFlowService : IChatFlowService
             session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = resultText });
             onMessageAdded?.Invoke(assistantMsg);
 
+            SaveSessions();
             return new ChatFlowResult
             {
                 Success = true,
@@ -3810,6 +3811,7 @@ public class ChatFlowService : IChatFlowService
             session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = resultText });
             onMessageAdded?.Invoke(assistantMsg);
 
+            SaveSessions();
             return new ChatFlowResult { Success = true, Messages = new List<ChatFlowMessage> { assistantMsg } };
         }
         catch (OperationCanceledException)
@@ -3837,93 +3839,215 @@ public class ChatFlowService : IChatFlowService
     {
         var settings = SettingsWindow.GetSettings();
 
+        if (_apiClient == null)
+        {
+            var msg = new ChatFlowMessage
+            {
+                Sender = "AI Asistan",
+                Content = "❌ Lütfen ayarlardan API anahtarınızı ekleyin veya geçerli bir AI sağlayıcısı seçin."
+            };
+            onMessageAdded?.Invoke(msg);
+            return new ChatFlowResult { Success = false, ErrorMessage = msg.Content, Messages = new List<ChatFlowMessage> { msg } };
+        }
+
         // Kullanıcı mesajını oturum geçmişine ekle
         session.History.Add(new ExtendedChatMessage { Role = "user", Content = userRequest });
 
         _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderGorevAlindi").Replace("{req}", userRequest));
 
-        // 1. ADIM: LLM'den bpy scripti üret
-        var blenderSystemPrompt = ToolRegistry.GetCoreSystemPrompt(AgentWorkspaceMode.BlenderCopilot);
-
-        var blenderMessages = new List<ExtendedChatMessage>
+        // 0. ADIM: Blender'dan Canlı Sahne Kontekstini (RAG) Al
+        string sceneContextPrompt = "";
+        try
         {
-            new ExtendedChatMessage
+            string contextReqJson = System.Text.Json.JsonSerializer.Serialize(new
             {
-                Role = "system",
-                Content = blenderSystemPrompt + "\n\nÖNEMLİ: SADECE çalıştırılabilir Python (bpy) kodu döndür. Açıklama ekleme, sadece kod bloğu yaz. Yanıtını ```python ile başlat ve ``` ile bitir. Eğer sohbet geçmişinde daha önce oluşturduğun objeler varsa, yeni komutta o objeleri düzenle, seç, rengini değiştir veya üzerlerine yeni objeler ekle."
+                action = "get_scene_info",
+                token = settings.BlenderSecretToken
+            });
+
+            string rawResponse = await SendJsonToBlenderAsync(contextReqJson, settings.BlenderWebSocketPort, cancellationToken);
+            using var doc = System.Text.Json.JsonDocument.Parse(rawResponse);
+            var root = doc.RootElement;
+            if (root.TryGetProperty("status", out var statusElem) && statusElem.GetString() == "SUCCESS" &&
+                root.TryGetProperty("data", out var dataElem) && dataElem.TryGetProperty("scene_info", out var infoElem))
+            {
+                sceneContextPrompt = $"\n\n[CANLI BLENDER SAHNE DURUMU]\n```json\n{infoElem.GetRawText()}\n```\n" +
+                                     "Yukarıdaki sahne durumuna sadık kal. Sahnede var olan objeleri göz önünde bulundur.";
+                _terminalLog?.Invoke("✅ Blender canlı sahne konteksti başarıyla alındı.");
             }
-        };
+        }
+        catch
+        {
+            _terminalLog?.Invoke("⚠️ Blender sahne durumu alınamadı (Blender henüz açık olmayabilir).");
+        }
 
-        // Geçmiş sohbet mesajlarını ekle (böylece önceki objeleri ve isimlerini hatırlar)
-        blenderMessages.AddRange(session.History);
+        // 0.5 ADIM: 3D Prompt Mühendisi (Asset Architect) - Ayarlarda Aktif İse
+        if (settings.EnableBlenderPromptEnhancer)
+        {
+            _terminalLog?.Invoke("🎨 3D Prompt Mühendisi (Asset Architect) isteğinizi 3D detaylarla zenginleştiriyor...");
+            string enrichedPrompt = await EnrichBlenderPromptAsync(userRequest, cancellationToken);
+            if (!string.IsNullOrWhiteSpace(enrichedPrompt) && enrichedPrompt != userRequest)
+            {
+                userRequest = enrichedPrompt;
+                _terminalLog?.Invoke("✨ 3D Prompt Mühendisi detaylı modelleme şartnamesini hazırladı.");
 
+                var architectMsg = new ChatFlowMessage
+                {
+                    Sender = "3D Asset Architect",
+                    Content = $"🎨 **3D Prompt Mühendisi (Asset Architect) Şartnamesi:**\n\n{enrichedPrompt}"
+                };
+                onMessageAdded?.Invoke(architectMsg);
+                session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = architectMsg.Content });
+            }
+        }
+
+        // 1. ADIM: LLM'den bpy scripti üret (Self-Healing Döngüsü Dahil)
+        var blenderSystemPrompt = ToolRegistry.GetCoreSystemPrompt(AgentWorkspaceMode.BlenderCopilot) + sceneContextPrompt;
+
+        int maxAttempts = 2;
+        int currentAttempt = 0;
         string generatedScript = "";
-        try
+        string blenderResult = "";
+        string lastErrorMsg = "";
+        string viewportImageMarkdown = "";
+
+        while (currentAttempt < maxAttempts)
         {
-            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderScriptUretiliyor"));
-
-            var response = await _apiClient!.SendChatWithToolsAsync(blenderMessages, new List<ToolDefinition>(), cancellationToken);
-            generatedScript = response?.Choices?.FirstOrDefault()?.Message?.Content ?? "";
-            onTokenReceived?.Invoke(generatedScript);
-
-            // Markdown kod bloğu varsa temizle (```python veya sadece ```)
-            var match = System.Text.RegularExpressions.Regex.Match(
-                generatedScript, @"```(?:python)?\s*([\s\S]*?)```", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            if (match.Success)
+            currentAttempt++;
+            var blenderMessages = new List<ExtendedChatMessage>
             {
-                generatedScript = match.Groups[1].Value.Trim();
-            }
-
-            // BOM (\uFEFF) ve \r karakterlerini temizle
-            generatedScript = generatedScript.Replace("\uFEFF", "").Replace("\r\n", "\n").Replace("\r", "\n").Trim();
-
-            // "import bpy" veya "from bpy" başlangıcını bul ve öncesindeki tüm numaralandırmaları veya açıklamaları kes
-            int bpyIdx = generatedScript.IndexOf("import bpy", StringComparison.OrdinalIgnoreCase);
-            if (bpyIdx < 0) bpyIdx = generatedScript.IndexOf("from bpy", StringComparison.OrdinalIgnoreCase);
-            if (bpyIdx >= 0)
-            {
-                generatedScript = generatedScript.Substring(bpyIdx).Trim();
-            }
-
-            // Satır başlarındaki numaralandırmaları (örn: "1. import bpy", "2. trunk = ...") temizle
-            var scriptLines = generatedScript.Split('\n');
-            for (int i = 0; i < scriptLines.Length; i++)
-            {
-                scriptLines[i] = System.Text.RegularExpressions.Regex.Replace(scriptLines[i], @"^\s*\d+[\.\:]?\s+", "");
-            }
-            generatedScript = string.Join("\n", scriptLines).Trim();
-        }
-        catch (Exception ex)
-        {
-            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderScriptHata").Replace("{msg}", ex.Message));
-            var errMsg = new ChatFlowMessage { Sender = "AI Asistan", Content = $"❌ Blender script: {ex.Message}" };
-            onMessageAdded?.Invoke(errMsg);
-            return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { errMsg } };
-        }
-
-        _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderScriptUretildi").Replace("{len}", generatedScript.Length.ToString()));
-
-        // 2. ADIM: Blender WebSocket'e gönder
-        string blenderResult;
-        try
-        {
-            blenderResult = await SendScriptToBlenderAsync(generatedScript, settings.BlenderWebSocketPort, cancellationToken);
-        }
-        catch (Exception ex)
-        {
-            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderWebsocketHata").Replace("{msg}", ex.Message));
-
-            // Blender bağlı olmasa bile scripti göster
-            var offlineMsg = new ChatFlowMessage
-            {
-                Sender = "AI Asistan",
-                Content = $"⚠️ Blender'a bağlanılamadı (port {settings.BlenderWebSocketPort}). Eklentinin çalıştığından emin olun.\n\nYine de oluşturulan script:\n\n```python\n{generatedScript}\n```\n\nBu scripti Blender'da **Scripting** sekmesine yapıştırıp çalıştırabilirsiniz."
+                new ExtendedChatMessage
+                {
+                    Role = "system",
+                    Content = blenderSystemPrompt + "\n\nÖNEMLİ: SADECE çalıştırılabilir Python (bpy) kodu döndür. Açıklama ekleme, sadece kod bloğu yaz. Yanıtını ```python ile başlat ve ``` ile bitir."
+                }
             };
-            onMessageAdded?.Invoke(offlineMsg);
-            return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { offlineMsg } };
+
+            blenderMessages.AddRange(session.History);
+
+            if (currentAttempt > 1 && !string.IsNullOrEmpty(lastErrorMsg))
+            {
+                blenderMessages.Add(new ExtendedChatMessage
+                {
+                    Role = "user",
+                    Content = $"Önceki ürettiğin script Blender'da hata verdi:\n\n```\n{lastErrorMsg}\n```\n\nLütfen hatayı analiz et ve sorunu çözen tam düzeltilmiş Python scriptini yeniden üret."
+                });
+            }
+
+            try
+            {
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderScriptUretiliyor") + (currentAttempt > 1 ? $" (Deneme {currentAttempt}/{maxAttempts})" : ""));
+
+                var response = await _apiClient!.SendChatWithToolsAsync(blenderMessages, new List<ToolDefinition>(), cancellationToken);
+                generatedScript = response?.Choices?.FirstOrDefault()?.Message?.Content ?? "";
+                onTokenReceived?.Invoke(generatedScript);
+
+                // Markdown temizle
+                var match = System.Text.RegularExpressions.Regex.Match(
+                    generatedScript, @"```(?:python)?\s*([\s\S]*?)```", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                if (match.Success)
+                    generatedScript = match.Groups[1].Value.Trim();
+
+                generatedScript = generatedScript.Replace("\uFEFF", "").Replace("\r\n", "\n").Replace("\r", "\n").Trim();
+
+                int bpyIdx = generatedScript.IndexOf("import bpy", StringComparison.OrdinalIgnoreCase);
+                if (bpyIdx < 0) bpyIdx = generatedScript.IndexOf("from bpy", StringComparison.OrdinalIgnoreCase);
+                if (bpyIdx >= 0)
+                    generatedScript = generatedScript.Substring(bpyIdx).Trim();
+
+                var scriptLines = generatedScript.Split('\n');
+                for (int i = 0; i < scriptLines.Length; i++)
+                {
+                    scriptLines[i] = System.Text.RegularExpressions.Regex.Replace(scriptLines[i], @"^\s*\d+[\.\:]?\s+", "");
+                }
+                generatedScript = string.Join("\n", scriptLines).Trim();
+            }
+            catch (Exception ex)
+            {
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderScriptHata").Replace("{msg}", ex.Message));
+                var errMsg = new ChatFlowMessage { Sender = "AI Asistan", Content = $"❌ Blender script: {ex.Message}" };
+                onMessageAdded?.Invoke(errMsg);
+                return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { errMsg } };
+            }
+
+            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderScriptUretildi").Replace("{len}", generatedScript.Length.ToString()));
+
+            // 2. ADIM: Blender'a Gönder (JSON-RPC)
+            try
+            {
+                string reqJson = System.Text.Json.JsonSerializer.Serialize(new
+                {
+                    action = "execute",
+                    token = settings.BlenderSecretToken,
+                    code = generatedScript
+                });
+
+                string rawResponse = await SendJsonToBlenderAsync(reqJson, settings.BlenderWebSocketPort, cancellationToken);
+
+                // Yanıtı Parse Et
+                try
+                {
+                    using var respDoc = System.Text.Json.JsonDocument.Parse(rawResponse);
+                    var respRoot = respDoc.RootElement;
+                    string status = respRoot.TryGetProperty("status", out var sElem) ? sElem.GetString() ?? "" : "";
+                    string msg = respRoot.TryGetProperty("message", out var mElem) ? mElem.GetString() ?? "" : "";
+                    string tb = respRoot.TryGetProperty("traceback", out var tbElem) ? tbElem.GetString() ?? "" : "";
+
+                    if (status == "SUCCESS")
+                    {
+                        blenderResult = msg;
+
+                        // Viewport ekran görüntüsü var mı kontrol et
+                        if (respRoot.TryGetProperty("data", out var dElem) && dElem.TryGetProperty("viewport_image_b64", out var imgElem))
+                        {
+                            string b64 = imgElem.GetString() ?? "";
+                            if (!string.IsNullOrEmpty(b64))
+                            {
+                                byte[] imgBytes = Convert.FromBase64String(b64);
+                                string tempImgPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"yengi_blender_viewport_{Guid.NewGuid():N}.png");
+                                await System.IO.File.WriteAllBytesAsync(tempImgPath, imgBytes, cancellationToken);
+                                string uriPath = tempImgPath.Replace("\\", "/");
+                                viewportImageMarkdown = $"\n\n![Blender 3D Viewport Snapshot](file:///{uriPath})";
+                            }
+                        }
+
+                        break; // Başarılı, döngüden çık!
+                    }
+                    else
+                    {
+                        lastErrorMsg = !string.IsNullOrEmpty(tb) ? tb : msg;
+                        _terminalLog?.Invoke($"⚠️ Blender Çalıştırma Hatası: {msg}");
+                    }
+                }
+                catch
+                {
+                    // Eski/Düz metin yanıt geriye dönük uyumluluk
+                    if (rawResponse.StartsWith("SUCCESS"))
+                    {
+                        blenderResult = rawResponse;
+                        break;
+                    }
+                    else
+                    {
+                        lastErrorMsg = rawResponse;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderWebsocketHata").Replace("{msg}", ex.Message));
+
+                var offlineMsg = new ChatFlowMessage
+                {
+                    Sender = "AI Asistan",
+                    Content = $"⚠️ Blender'a bağlanılamadı (port {settings.BlenderWebSocketPort}). Eklentinin çalıştığından emin olun.\n\nYine de oluşturulan script:\n\n```python\n{generatedScript}\n```\n\nBu scripti Blender'da **Scripting** sekmesine yapıştırıp çalıştırabilirsiniz."
+                };
+                onMessageAdded?.Invoke(offlineMsg);
+                return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { offlineMsg } };
+            }
         }
 
-        // 3. ADIM: Sonucu kullanıcıya göster
+        // 3. ADIM: Sonucu göster
         session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = $"```python\n{generatedScript}\n```\n\n**Blender Çıktısı:** {blenderResult}" });
         var resultMsg = new ChatFlowMessage
         {
@@ -3932,25 +4056,64 @@ public class ChatFlowService : IChatFlowService
         };
         onMessageAdded?.Invoke(resultMsg);
 
+        SaveSessions();
         return new ChatFlowResult { Success = true, Messages = new List<ChatFlowMessage> { resultMsg } };
     }
 
-    private async Task<string> SendScriptToBlenderAsync(string script, int port, CancellationToken cancellationToken)
+    private async Task<string> SendJsonToBlenderAsync(string jsonPayload, int port, CancellationToken cancellationToken)
     {
         using var client = new System.Net.Sockets.TcpClient();
         await client.ConnectAsync("127.0.0.1", port, cancellationToken);
 
-        var settings = SettingsWindow.GetSettings();
-        string payload = $"YENGI_TOKEN:{settings.BlenderSecretToken}\n{script}";
-
         using var stream = client.GetStream();
-        var scriptBytes = System.Text.Encoding.UTF8.GetBytes(payload);
-        await stream.WriteAsync(scriptBytes, 0, scriptBytes.Length, cancellationToken);
+        var bytes = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        await stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
         try { client.Client.Shutdown(System.Net.Sockets.SocketShutdown.Send); } catch { }
 
+        using var ms = new System.IO.MemoryStream();
         var buffer = new byte[8192];
-        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
-        return System.Text.Encoding.UTF8.GetString(buffer, 0, bytesRead);
+        int bytesRead;
+        while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+        {
+            await ms.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+        }
+        return System.Text.Encoding.UTF8.GetString(ms.ToArray());
+    }
+
+    private async Task<string> EnrichBlenderPromptAsync(string userPrompt, CancellationToken cancellationToken)
+    {
+        if (_apiClient == null) return userPrompt;
+        try
+        {
+            var messages = new List<ExtendedChatMessage>
+            {
+                new ExtendedChatMessage
+                {
+                    Role = "system",
+                    Content = @"Sen uzman bir 3D Sanatçısı ve Procedural Asset Architect'sin.
+Görevin: Kullanıcının basit 3D modelleme isteğini (örn: 'Low poly ağaç yap', 'Sarmal merdiven yap') profesyonel 3D standartlarına göre detaylandırmaktır.
+
+Kılavuzlar:
+1. İsteği geometrik parçalarına ayır (gövde, dallar, yaprak kümeleri, adım basamakları, parçaların birbiriyle teması/çakışmaması).
+2. Metre cinsinden oranlar, ölçekler ve eğim açıları belirle.
+3. Renk paletini ve materyal özelliklerini (mat/metalik, pürüzlülük, Principled BSDF renk tonları) açıkla.
+4. SADECE zenginleştirilmiş 3D modelleme talimatını Türkçe metin olarak yaz. Python/bpy kodu yazma, sadece detaylı 3D istek metni üret."
+                },
+                new ExtendedChatMessage
+                {
+                    Role = "user",
+                    Content = userPrompt
+                }
+            };
+
+            var response = await _apiClient!.SendChatWithToolsAsync(messages, new List<ToolDefinition>(), cancellationToken);
+            string enriched = response?.Choices?.FirstOrDefault()?.Message?.Content?.Trim() ?? "";
+            return string.IsNullOrWhiteSpace(enriched) ? userPrompt : enriched;
+        }
+        catch
+        {
+            return userPrompt;
+        }
     }
 
     private async Task<ChatFlowResult> HandleUnityRequestAsync(
@@ -3962,100 +4125,202 @@ public class ChatFlowService : IChatFlowService
     {
         var settings = SettingsWindow.GetSettings();
 
+        if (_apiClient == null)
+        {
+            var msg = new ChatFlowMessage
+            {
+                Sender = "AI Asistan",
+                Content = "❌ Lütfen ayarlardan API anahtarınızı ekleyin veya geçerli bir AI sağlayıcısı seçin."
+            };
+            onMessageAdded?.Invoke(msg);
+            return new ChatFlowResult { Success = false, ErrorMessage = msg.Content, Messages = new List<ChatFlowMessage> { msg } };
+        }
+
         // Kullanıcı mesajını oturum geçmişine ekle
         session.History.Add(new ExtendedChatMessage { Role = "user", Content = userRequest });
 
         _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityGorevAlindi").Replace("{req}", userRequest));
 
-        // 1. ADIM: LLM'den Unity C# Editor scripti üret
-        var unitySystemPrompt = ToolRegistry.GetCoreSystemPrompt(AgentWorkspaceMode.UnityCopilot);
-
-        var unityMessages = new List<ExtendedChatMessage>
+        // 0. ADIM: Unity'den Canlı Sahne Kontekstini (RAG) Al
+        string sceneContextPrompt = "";
+        try
         {
-            new ExtendedChatMessage
+            string contextReqJson = System.Text.Json.JsonSerializer.Serialize(new
             {
-                Role = "system",
-                Content = unitySystemPrompt + "\n\nÖNEMLİ: SADECE çalıştırılabilir C# (Unity Editor / UnityEngine) kodu döndür. Açıklama ekleme, sadece kod bloğu yaz. Yanıtını ```csharp veya ```cs ile başlat ve ``` ile bitir. Eğer sohbet geçmişinde daha önce oluşturduğun objeler veya Editor scriptleri varsa, yeni komutta onları düzenle veya üzerlerine yeni özellikler ekle."
+                action = "get_scene_info",
+                token = ""
+            });
+
+            string rawResponse = await SendJsonToUnityAsync(contextReqJson, settings.UnityWebSocketPort, cancellationToken);
+            using var doc = System.Text.Json.JsonDocument.Parse(rawResponse);
+            var root = doc.RootElement;
+            if (root.TryGetProperty("status", out var statusElem) && statusElem.GetString() == "SUCCESS" &&
+                root.TryGetProperty("scene_info_json", out var infoElem))
+            {
+                sceneContextPrompt = $"\n\n[CANLI UNITY SAHNE DURUMU]\n```json\n{infoElem.GetString()}\n```\n" +
+                                     "Yukarıdaki Unity sahne durumuna sadık kal. Sahnede var olan GameObject'leri ve bileşenlerini göz önünde bulundur.";
+                _terminalLog?.Invoke("✅ Unity canlı sahne konteksti başarıyla alındı.");
             }
-        };
+        }
+        catch
+        {
+            _terminalLog?.Invoke("⚠️ Unity sahne durumu alınamadı (Unity Editor henüz açık olmayabilir).");
+        }
 
-        unityMessages.AddRange(session.History);
+        // 0.5 ADIM: 3D Unity Prompt Mühendisi (Component Architect) - Ayarlarda Aktif İse
+        if (settings.EnableUnityPromptEnhancer)
+        {
+            _terminalLog?.Invoke("🎨 3D Unity Prompt Mühendisi (Component Architect) isteğinizi zenginleştiriyor...");
+            string enrichedPrompt = await EnrichUnityPromptAsync(userRequest, cancellationToken);
+            if (!string.IsNullOrWhiteSpace(enrichedPrompt) && enrichedPrompt != userRequest)
+            {
+                userRequest = enrichedPrompt;
+                _terminalLog?.Invoke("✨ 3D Unity Prompt Mühendisi detaylı bileşen şartnamesini hazırladı.");
 
+                var architectMsg = new ChatFlowMessage
+                {
+                    Sender = "Unity Component Architect",
+                    Content = $"🎮 **Unity Component Architect Şartnamesi:**\n\n{enrichedPrompt}"
+                };
+                onMessageAdded?.Invoke(architectMsg);
+                session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = architectMsg.Content });
+            }
+        }
+
+        // 1. ADIM: LLM'den Unity C# Editor scripti üret (Self-Healing Döngüsü Dahil)
+        var unitySystemPrompt = ToolRegistry.GetCoreSystemPrompt(AgentWorkspaceMode.UnityCopilot) + sceneContextPrompt;
+
+        int maxAttempts = 2;
+        int currentAttempt = 0;
         string generatedScript = "";
-        try
+        string unityResult = "";
+        string lastErrorMsg = "";
+
+        while (currentAttempt < maxAttempts)
         {
-            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityScriptUretiliyor"));
-
-            var response = await _apiClient!.SendChatWithToolsAsync(unityMessages, new List<ToolDefinition>(), cancellationToken);
-            generatedScript = response?.Choices?.FirstOrDefault()?.Message?.Content ?? "";
-            onTokenReceived?.Invoke(generatedScript);
-
-            var match = System.Text.RegularExpressions.Regex.Match(
-                generatedScript, @"```(?:csharp|cs)\s*([\s\S]*?)```", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            if (match.Success)
-                generatedScript = match.Groups[1].Value.Trim();
-
-            // BOM (\uFEFF) ve \r karakterlerini temizle
-            generatedScript = generatedScript.Replace("\uFEFF", "").Replace("\r\n", "\n").Replace("\r", "\n").Trim();
-
-            // "using ", "namespace ", "public class " öncesindeki numaralandırmaları veya açıklamaları kes
-            int codeIdx = generatedScript.IndexOf("using ", StringComparison.OrdinalIgnoreCase);
-            if (codeIdx < 0) codeIdx = generatedScript.IndexOf("namespace ", StringComparison.OrdinalIgnoreCase);
-            if (codeIdx < 0) codeIdx = generatedScript.IndexOf("public class ", StringComparison.OrdinalIgnoreCase);
-            if (codeIdx >= 0)
+            currentAttempt++;
+            var unityMessages = new List<ExtendedChatMessage>
             {
-                generatedScript = generatedScript.Substring(codeIdx).Trim();
-            }
-
-            // Satır başlarındaki numaralandırmaları (örn: "1. using UnityEngine;") temizle
-            var scriptLines = generatedScript.Split('\n');
-            for (int i = 0; i < scriptLines.Length; i++)
-            {
-                scriptLines[i] = System.Text.RegularExpressions.Regex.Replace(scriptLines[i], @"^\s*\d+[\.\:]?\s+", "");
-            }
-            generatedScript = string.Join("\n", scriptLines).Trim();
-
-            // Eksik namespace'leri otomatik tamir et
-            if (generatedScript.Contains("EditorSceneManager") && !generatedScript.Contains("UnityEditor.SceneManagement"))
-            {
-                generatedScript = "using UnityEditor.SceneManagement;\n" + generatedScript;
-            }
-            if ((generatedScript.Contains("Editor") || generatedScript.Contains("MenuItem") || generatedScript.Contains("InitializeOnLoad")) && !generatedScript.Contains("using UnityEditor;"))
-            {
-                generatedScript = "using UnityEditor;\n" + generatedScript;
-            }
-            if (!generatedScript.Contains("using UnityEngine;"))
-            {
-                generatedScript = "using UnityEngine;\n" + generatedScript;
-            }
-        }
-        catch (Exception ex)
-        {
-            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityScriptHata").Replace("{msg}", ex.Message));
-            var errMsg = new ChatFlowMessage { Sender = "AI Asistan", Content = $"❌ Unity script: {ex.Message}" };
-            onMessageAdded?.Invoke(errMsg);
-            return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { errMsg } };
-        }
-
-        _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityScriptUretildi").Replace("{len}", generatedScript.Length.ToString()));
-
-        // 2. ADIM: Unity Socket'e gönder
-        string unityResult;
-        try
-        {
-            unityResult = await SendScriptToUnityAsync(generatedScript, settings.UnityWebSocketPort, cancellationToken);
-        }
-        catch (Exception ex)
-        {
-            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnitySocketHata").Replace("{msg}", ex.Message));
-
-            var offlineMsg = new ChatFlowMessage
-            {
-                Sender = "AI Asistan",
-                Content = $"⚠️ Unity Editor'e bağlanılamadı (port {settings.UnityWebSocketPort}). Yengi Unity eklenti scriptinin (`YengiUnityCopilot.cs`) projenizde Editor klasöründe çalıştığından emin olun.\n\nYine de oluşturulan C# scripti:\n\n```csharp\n{generatedScript}\n```"
+                new ExtendedChatMessage
+                {
+                    Role = "system",
+                    Content = unitySystemPrompt + "\n\nÖNEMLİ: SADECE çalıştırılabilir C# (Unity Editor / UnityEngine) kodu döndür. Açıklama ekleme, sadece kod bloğu yaz. Yanıtını ```csharp veya ```cs ile başlat ve ``` ile bitir."
+                }
             };
-            onMessageAdded?.Invoke(offlineMsg);
-            return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { offlineMsg } };
+
+            unityMessages.AddRange(session.History);
+
+            if (currentAttempt > 1 && !string.IsNullOrEmpty(lastErrorMsg))
+            {
+                unityMessages.Add(new ExtendedChatMessage
+                {
+                    Role = "user",
+                    Content = $"Önceki ürettiğin C# scripti Unity Editor'de hata verdi:\n\n```\n{lastErrorMsg}\n```\n\nLütfen hatayı analiz et ve sorunu çözen tam düzeltilmiş C# Editor scriptini yeniden üret."
+                });
+            }
+
+            try
+            {
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityScriptUretiliyor") + (currentAttempt > 1 ? $" (Deneme {currentAttempt}/{maxAttempts})" : ""));
+
+                var response = await _apiClient!.SendChatWithToolsAsync(unityMessages, new List<ToolDefinition>(), cancellationToken);
+                generatedScript = response?.Choices?.FirstOrDefault()?.Message?.Content ?? "";
+                onTokenReceived?.Invoke(generatedScript);
+
+                var match = System.Text.RegularExpressions.Regex.Match(
+                    generatedScript, @"```(?:csharp|cs)\s*([\s\S]*?)```", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                if (match.Success)
+                    generatedScript = match.Groups[1].Value.Trim();
+
+                generatedScript = generatedScript.Replace("\uFEFF", "").Replace("\r\n", "\n").Replace("\r", "\n").Trim();
+
+                int codeIdx = generatedScript.IndexOf("using ", StringComparison.OrdinalIgnoreCase);
+                if (codeIdx < 0) codeIdx = generatedScript.IndexOf("namespace ", StringComparison.OrdinalIgnoreCase);
+                if (codeIdx < 0) codeIdx = generatedScript.IndexOf("public class ", StringComparison.OrdinalIgnoreCase);
+                if (codeIdx >= 0)
+                {
+                    generatedScript = generatedScript.Substring(codeIdx).Trim();
+                }
+
+                var scriptLines = generatedScript.Split('\n');
+                for (int i = 0; i < scriptLines.Length; i++)
+                {
+                    scriptLines[i] = System.Text.RegularExpressions.Regex.Replace(scriptLines[i], @"^\s*\d+[\.\:]?\s+", "");
+                }
+                generatedScript = string.Join("\n", scriptLines).Trim();
+
+                if (generatedScript.Contains("EditorSceneManager") && !generatedScript.Contains("UnityEditor.SceneManagement"))
+                {
+                    generatedScript = "using UnityEditor.SceneManagement;\n" + generatedScript;
+                }
+                if ((generatedScript.Contains("Editor") || generatedScript.Contains("MenuItem") || generatedScript.Contains("InitializeOnLoad")) && !generatedScript.Contains("using UnityEditor;"))
+                {
+                    generatedScript = "using UnityEditor;\n" + generatedScript;
+                }
+                if (!generatedScript.Contains("using UnityEngine;"))
+                {
+                    generatedScript = "using UnityEngine;\n" + generatedScript;
+                }
+            }
+            catch (Exception ex)
+            {
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityScriptHata").Replace("{msg}", ex.Message));
+                var errMsg = new ChatFlowMessage { Sender = "AI Asistan", Content = $"❌ Unity script: {ex.Message}" };
+                onMessageAdded?.Invoke(errMsg);
+                return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { errMsg } };
+            }
+
+            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityScriptUretildi").Replace("{len}", generatedScript.Length.ToString()));
+
+            // 2. ADIM: Unity Socket'e Gönder (JSON-RPC)
+            try
+            {
+                string reqJson = System.Text.Json.JsonSerializer.Serialize(new
+                {
+                    action = "execute",
+                    token = "",
+                    code = generatedScript
+                });
+
+                string rawResponse = await SendJsonToUnityAsync(reqJson, settings.UnityWebSocketPort, cancellationToken);
+
+                try
+                {
+                    using var respDoc = System.Text.Json.JsonDocument.Parse(rawResponse);
+                    var respRoot = respDoc.RootElement;
+                    string status = respRoot.TryGetProperty("status", out var sElem) ? sElem.GetString() ?? "" : "";
+                    string msg = respRoot.TryGetProperty("message", out var mElem) ? mElem.GetString() ?? "" : "";
+                    string tb = respRoot.TryGetProperty("traceback", out var tbElem) ? tbElem.GetString() ?? "" : "";
+
+                    if (status == "SUCCESS")
+                    {
+                        unityResult = msg;
+                        break;
+                    }
+                    else
+                    {
+                        lastErrorMsg = !string.IsNullOrEmpty(tb) ? tb : msg;
+                        _terminalLog?.Invoke($"⚠️ Unity Çalıştırma Hatası: {msg}");
+                    }
+                }
+                catch
+                {
+                    unityResult = rawResponse;
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnitySocketHata").Replace("{msg}", ex.Message));
+
+                var offlineMsg = new ChatFlowMessage
+                {
+                    Sender = "AI Asistan",
+                    Content = $"⚠️ Unity Editor'e bağlanılamadı (port {settings.UnityWebSocketPort}). Yengi Unity eklenti scriptinin (`YengiUnityCopilot.cs`) projenizde Editor klasöründe çalıştığından emin olun.\n\nYine de oluşturulan C# scripti:\n\n```csharp\n{generatedScript}\n```"
+                };
+                onMessageAdded?.Invoke(offlineMsg);
+                return new ChatFlowResult { Success = false, ErrorMessage = ex.Message, Messages = new List<ChatFlowMessage> { offlineMsg } };
+            }
         }
 
         // 3. ADIM: Sonucu kullanıcıya göster
@@ -4067,21 +4332,63 @@ public class ChatFlowService : IChatFlowService
         };
         onMessageAdded?.Invoke(resultMsg);
 
+        SaveSessions();
         return new ChatFlowResult { Success = true, Messages = new List<ChatFlowMessage> { resultMsg } };
     }
 
-    private async Task<string> SendScriptToUnityAsync(string script, int port, CancellationToken cancellationToken)
+    private async Task<string> SendJsonToUnityAsync(string jsonPayload, int port, CancellationToken cancellationToken)
     {
         using var client = new System.Net.Sockets.TcpClient();
         await client.ConnectAsync("127.0.0.1", port, cancellationToken);
 
         using var stream = client.GetStream();
-        var scriptBytes = System.Text.Encoding.UTF8.GetBytes(script);
-        await stream.WriteAsync(scriptBytes, 0, scriptBytes.Length, cancellationToken);
+        var bytes = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        await stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
         try { client.Client.Shutdown(System.Net.Sockets.SocketShutdown.Send); } catch { }
 
+        using var ms = new System.IO.MemoryStream();
         var buffer = new byte[8192];
-        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
-        return System.Text.Encoding.UTF8.GetString(buffer, 0, bytesRead);
+        int bytesRead;
+        while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+        {
+            await ms.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+        }
+        return System.Text.Encoding.UTF8.GetString(ms.ToArray());
+    }
+
+    private async Task<string> EnrichUnityPromptAsync(string userPrompt, CancellationToken cancellationToken)
+    {
+        if (_apiClient == null) return userPrompt;
+        try
+        {
+            var messages = new List<ExtendedChatMessage>
+            {
+                new ExtendedChatMessage
+                {
+                    Role = "system",
+                    Content = @"Sen uzman bir Unity Game & Component Architect'sin.
+Görevin: Kullanıcının basit Unity isteğini (örn: 'Sahneme zombi karakter ekle', 'Kamera takip sistemi yap') profesyonel Unity Editor & Component standartlarına göre detaylandırmaktır.
+
+Kılavuzlar:
+1. İsteği GameObject bileşenlerine ayır (Transform, Rigidbody, Collider, NavMeshAgent, MeshRenderer/Filter, Custom Scripts).
+2. Metre cinsinden ölçekler, kütle (mass), drag ve katman (Layer) / Etiket (Tag) atamaları belirle.
+3. Materyal (Shader, Color, Metallic/Smoothness) ve Işık özelliklerini açıkla.
+4. SADECE zenginleştirilmiş Unity modelleme ve bileşen şartnamesini Türkçe metin olarak yaz. C# kodu yazma, sadece detaylı istek metni üret."
+                },
+                new ExtendedChatMessage
+                {
+                    Role = "user",
+                    Content = userPrompt
+                }
+            };
+
+            var response = await _apiClient!.SendChatWithToolsAsync(messages, new List<ToolDefinition>(), cancellationToken);
+            string enriched = response?.Choices?.FirstOrDefault()?.Message?.Content?.Trim() ?? "";
+            return string.IsNullOrWhiteSpace(enriched) ? userPrompt : enriched;
+        }
+        catch
+        {
+            return userPrompt;
+        }
     }
 }

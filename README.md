@@ -53,7 +53,30 @@ flowchart TD
     H -->|"✅ Success"| I["🎉 Complete & Report Result"]
     H -->|"❌ Build Error / Failed Test"| J["🩹 Self-Healing Repair Agent"]
     J --> C
+---
+
+## 🎨 Two-Stage 3D Asset & Component Architect Pipeline
+
+Yengi features a specialized **2-Stage Autonomous AI Pipeline** for Blender 3D and Unity Engine copilots. Instead of producing naive primitive shapes, Yengi separates artistic design reasoning from code synthesis:
+
+```mermaid
+flowchart TD
+    A["👤 User Request<br/>('Make a low poly oak tree' / 'Build camera follow script')"] --> B{"⚙️ 3D Prompt Architect Enabled?"}
+    B -- "YES (Default - Toggleable)" --> C["🎨 Stage 1: 3D Asset/Component Architect"]
+    C --> D["📝 Rich 3D Blueprint Specs<br/>(Metrics, Material Hex Colors, Polygon Budget, Topology)"]
+    D --> E["⚡ Stage 2: Blender (bpy) / Unity (C#) Code Synthesizer"]
+    B -- "NO (Direct Prompting)" --> E
+    E --> F["🚀 Live TCP Socket Execution & Auto-Undo Checkpoint"]
+    F --> G["🧊 Blender 3D Viewport / 🎮 Unity Scene Update"]
+    G --> H{"🔍 Verification & Execution Check"}
+    H -- "✅ Success" --> I["📸 Capture Viewport Snapshot & Present Result"]
+    H -- "❌ Exception / Compile Error" --> J["🩹 Self-Healing Repair Agent Loop"]
+    J --> E
 ```
+
+- **Stage 1 (3D Artist / Architect)**: Deconstructs raw user requests into anatomical specifications, metric dimensions, flat shading rules, and Principled BSDF color palettes.
+- **Stage 2 (Code Generator)**: Reads the generated blueprint and scene context RAG data to synthesize 100% bug-free `bpy` Python or Unity Editor C# code.
+- **Toggleable Option**: Can be easily enabled/disabled in **Workspace Settings** (`⚙️`) for full developer control.
 
 ---
 

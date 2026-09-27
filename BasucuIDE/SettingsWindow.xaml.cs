@@ -52,9 +52,11 @@ public class AppSettings
     public int BlenderWebSocketPort { get; set; } = 8181;
     public string BlenderSecretToken { get; set; } = Guid.NewGuid().ToString("N");
     public string? BlenderPath { get; set; }
+    public bool EnableBlenderPromptEnhancer { get; set; } = true;
 
     // Unity Ayarları
     public int UnityWebSocketPort { get; set; } = 8282;
+    public bool EnableUnityPromptEnhancer { get; set; } = true;
 
     // Aktif provider tipi
     public ProviderType ActiveProvider { get; set; } = ProviderType.ApiService;
