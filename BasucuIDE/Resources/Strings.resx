@@ -8612,4 +8612,114 @@ Eklentiler penceresinden kurabilirsiniz</value></data>
   <data name="PlanAlreadyExistsSkipped" xml:space="preserve">
     <value>ℹ️ Bu görev için plan zaten oluşturuldu; tekrar planlama atlandı.</value>
   </data>
+  <data name="ConnectingProgress" xml:space="preserve">
+    <value>⏳ Bağlanılıyor...</value>
+  </data>
+  <data name="InvalidPortNumber" xml:space="preserve">
+    <value>❌ Geçersiz port numarası!</value>
+  </data>
+  <data name="BlenderSubtext" xml:space="preserve">
+    <value>Yengi'nin Blender sahnelerini canlı olarak yönetmesi için eklentinin Blender'a kurulması gerekir.</value>
+  </data>
+  <data name="EnableBlenderPromptEnhancerLabel" xml:space="preserve">
+    <value>🚀 3D Prompt Mühendisini (Asset Architect) Kullan</value>
+  </data>
+  <data name="EnableBlenderPromptEnhancerToolTip" xml:space="preserve">
+    <value>Basit 3D isteklerinizi (örn: 'Low poly ağaç yap') prosedürel detaylar, renk paleti ve ölçeklerle zenginleştirir.</value>
+  </data>
+  <data name="BlenderPortLabel" xml:space="preserve">
+    <value>Port Ayarı (Varsayılan: 8181):</value>
+  </data>
+  <data name="BlenderAddonInstalled" xml:space="preserve">
+    <value>✅ Eklenti yüklü (yengi_copilot.py)</value>
+  </data>
+  <data name="BlenderAddonNotInstalled" xml:space="preserve">
+    <value>⚠️ Eklenti henüz yüklenmedi.</value>
+  </data>
+  <data name="ReinstallAddonButton" xml:space="preserve">
+    <value>🔄 Eklentiyi Yeniden Kur / Güncelle</value>
+  </data>
+  <data name="BlenderFolderBrowserDesc" xml:space="preserve">
+    <value>Blender AppData veya Sürüm Klasörünü Seçin (Örn: AppData/Roaming/Blender Foundation/Blender/4.2)</value>
+  </data>
+  <data name="BlenderFolderNotFoundAuto" xml:space="preserve">
+    <value>Blender klasörü otomatik bulunamadı. Lütfen Gözat'a tıklayın.</value>
+  </data>
+  <data name="BlenderFolderNotSelected" xml:space="preserve">
+    <value>Blender klasörü seçilmedi.</value>
+  </data>
+  <data name="BlenderInvalidFolder" xml:space="preserve">
+    <value>❌ Geçerli bir Blender klasörü seçilmedi!</value>
+  </data>
+  <data name="BlenderAddonFileNotFound" xml:space="preserve">
+    <value>❌ yengi_blender_addon.py dosyası bulunamadı!</value>
+  </data>
+  <data name="BlenderAddonInstallSuccess" xml:space="preserve">
+    <value>✅ Eklenti yüklendi: {0}
+Blender'da Edit -> Preferences -> Add-ons menüsünden 'Yengi Copilot'u aktif edin.</value>
+  </data>
+  <data name="BlenderInstallError" xml:space="preserve">
+    <value>❌ Kurulum Hatası: {0}</value>
+  </data>
+  <data name="BlenderTestSuccess" xml:space="preserve">
+    <value>✅ Bağlantı Başarılı! (Port {0} aktif — Blender Dinliyor)</value>
+  </data>
+  <data name="BlenderTestFailed" xml:space="preserve">
+    <value>❌ Bağlantı Başarısız! (Port {0}). Blender'da 'Yengi Copilot' eklentisinin aktif olduğundan emin olun.</value>
+  </data>
+  <data name="UnitySubtext" xml:space="preserve">
+    <value>Yengi'nin Unity Editörü ile canlı haberleşmesi için YengiUnityCopilot.cs scriptinin projenizde bulunması gerekir.</value>
+  </data>
+  <data name="UnityAutoInstallHeader" xml:space="preserve">
+    <value>🎮 Unity Eklentisi Otomatik Kurulumu</value>
+  </data>
+  <data name="UnityAutoInstallSubtext" xml:space="preserve">
+    <value>Unity projenizin ana klasörünü seçin. Yengi, Assets/Editor/YengiUnityCopilot.cs scriptini otomatik oluşturur.</value>
+  </data>
+  <data name="UnityInstallButton" xml:space="preserve">
+    <value>🚀 Eklenti Scriptini Unity Projesine Yükle</value>
+  </data>
+  <data name="EnableUnityPromptEnhancerLabel" xml:space="preserve">
+    <value>🚀 3D Unity Prompt Mühendisini (Component Architect) Kullan</value>
+  </data>
+  <data name="EnableUnityPromptEnhancerToolTip" xml:space="preserve">
+    <value>Basit Unity isteklerinizi (örn: 'Zombi karakter ekle') bileşenler (Rigidbody, Collider, NavMesh), materyal ve C# Editor mantığı ile zenginleştirir.</value>
+  </data>
+  <data name="UnityPortLabel" xml:space="preserve">
+    <value>TCP Socket Portu (Varsayılan: 8282):</value>
+  </data>
+  <data name="UnitySelectProjectFolder" xml:space="preserve">
+    <value>Unity Projenizin Ana Klasörünü Seçin</value>
+  </data>
+  <data name="UnityInstallSuccess" xml:space="preserve">
+    <value>✅ Eklenti scripti yüklendi: {0}
+Unity Editörünü açtığınızda port 8282 otomatik dinlenmeye başlar.</value>
+  </data>
+  <data name="UnityInstallError" xml:space="preserve">
+    <value>❌ Yükleme Hatası: {0}</value>
+  </data>
+  <data name="UnityTestSuccess" xml:space="preserve">
+    <value>✅ Bağlantı Başarılı! (Port {0} aktif — Unity Dinliyor)</value>
+  </data>
+  <data name="UnityTestFailed" xml:space="preserve">
+    <value>❌ Bağlantı Başarısız! (Port {0}). Unity Editöründe 'YengiUnityCopilot.cs' scriptinin aktif olduğundan emin olun.</value>
+  </data>
+  <data name="BlenderPromptArchitectEnriching" xml:space="preserve">
+    <value>🎨 3D Prompt Mühendisi (Asset Architect) isteğinizi 3D detaylarla zenginleştiriyor...</value>
+  </data>
+  <data name="BlenderPromptArchitectReady" xml:space="preserve">
+    <value>✨ 3D Prompt Mühendisi detaylı modelleme şartnamesini hazırladı.</value>
+  </data>
+  <data name="BlenderPromptArchitectTitle" xml:space="preserve">
+    <value>🎨 **3D Prompt Mühendisi (Asset Architect) Şartnamesi:**</value>
+  </data>
+  <data name="UnityPromptArchitectEnriching" xml:space="preserve">
+    <value>🎨 3D Unity Prompt Mühendisi (Component Architect) isteğinizi zenginleştiriyor...</value>
+  </data>
+  <data name="UnityPromptArchitectReady" xml:space="preserve">
+    <value>✨ 3D Unity Prompt Mühendisi detaylı bileşen şartnamesini hazırladı.</value>
+  </data>
+  <data name="UnityPromptArchitectTitle" xml:space="preserve">
+    <value>🎮 **Unity Component Architect Şartnamesi:**</value>
+  </data>
 </root>

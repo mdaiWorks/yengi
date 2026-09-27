@@ -3884,17 +3884,17 @@ public class ChatFlowService : IChatFlowService
         // 0.5 ADIM: 3D Prompt Mühendisi (Asset Architect) - Ayarlarda Aktif İse
         if (settings.EnableBlenderPromptEnhancer)
         {
-            _terminalLog?.Invoke("🎨 3D Prompt Mühendisi (Asset Architect) isteğinizi 3D detaylarla zenginleştiriyor...");
+            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderPromptArchitectEnriching"));
             string enrichedPrompt = await EnrichBlenderPromptAsync(userRequest, cancellationToken);
             if (!string.IsNullOrWhiteSpace(enrichedPrompt) && enrichedPrompt != userRequest)
             {
                 userRequest = enrichedPrompt;
-                _terminalLog?.Invoke("✨ 3D Prompt Mühendisi detaylı modelleme şartnamesini hazırladı.");
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("BlenderPromptArchitectReady"));
 
                 var architectMsg = new ChatFlowMessage
                 {
                     Sender = "3D Asset Architect",
-                    Content = $"🎨 **3D Prompt Mühendisi (Asset Architect) Şartnamesi:**\n\n{enrichedPrompt}"
+                    Content = $"{LocalizationManager.Instance.GetString("BlenderPromptArchitectTitle")}\n\n{enrichedPrompt}"
                 };
                 onMessageAdded?.Invoke(architectMsg);
                 session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = architectMsg.Content });
@@ -4170,17 +4170,17 @@ Kılavuzlar:
         // 0.5 ADIM: 3D Unity Prompt Mühendisi (Component Architect) - Ayarlarda Aktif İse
         if (settings.EnableUnityPromptEnhancer)
         {
-            _terminalLog?.Invoke("🎨 3D Unity Prompt Mühendisi (Component Architect) isteğinizi zenginleştiriyor...");
+            _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityPromptArchitectEnriching"));
             string enrichedPrompt = await EnrichUnityPromptAsync(userRequest, cancellationToken);
             if (!string.IsNullOrWhiteSpace(enrichedPrompt) && enrichedPrompt != userRequest)
             {
                 userRequest = enrichedPrompt;
-                _terminalLog?.Invoke("✨ 3D Unity Prompt Mühendisi detaylı bileşen şartnamesini hazırladı.");
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("UnityPromptArchitectReady"));
 
                 var architectMsg = new ChatFlowMessage
                 {
                     Sender = "Unity Component Architect",
-                    Content = $"🎮 **Unity Component Architect Şartnamesi:**\n\n{enrichedPrompt}"
+                    Content = $"{LocalizationManager.Instance.GetString("UnityPromptArchitectTitle")}\n\n{enrichedPrompt}"
                 };
                 onMessageAdded?.Invoke(architectMsg);
                 session.History.Add(new ExtendedChatMessage { Role = "assistant", Content = architectMsg.Content });

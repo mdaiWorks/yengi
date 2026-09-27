@@ -82,6 +82,29 @@ flowchart TD
 
 ---
 
+## 👁️ Live Viewport Vision — AI Eyes on Your 3D Scene
+
+When using a **multimodal-capable model** (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5/2.0), Yengi can literally **see** your Blender 3D viewport in real-time and make visually-informed corrections:
+
+```mermaid
+flowchart LR
+    A["🧊 Blender OpenGL Viewport"] -->|"OpenGL Snapshot"| B["📸 yengi_viewport_preview.png<br/>(AppData/Local/Temp)"]
+    B -->|"Base64 Encode + TCP Socket"| C["🖥️ Yengi AI Core"]
+    C -->|"Vision API Call"| D["👁️ Multimodal Model<br/>(GPT-4o / Claude 3.5 / Gemini)"]
+    D -->|"Visual Analysis"| E{"🔍 Scene OK?"}
+    E -- "✅ Looks correct" --> F["🎉 Present Result to User"]
+    E -- "❌ Wrong geometry / colors" --> G["🩹 Generate Corrective bpy Code"]
+    G -->|"Auto-execute"| A
+```
+
+1. **Capture** — Blender captures an OpenGL viewport snapshot → saved to `yengi_viewport_preview.png`
+2. **Transmit** — Image is Base64-encoded and sent to Yengi via live TCP socket (port 8181)
+3. **Inspect** — The multimodal AI model examines the rendered 3D scene visually
+4. **Correct** — If geometry, materials, or proportions are off, the AI auto-generates and executes corrective `bpy` code
+
+> [!TIP]
+> Use the **"Viewport Resmi Al"** button in Blender's N-Panel (press `N` in viewport) to trigger a snapshot at any time, or let the Two-Stage Pipeline capture it automatically after each operation.
+
 ---
 
 ## 💡 Why Yengi?
@@ -99,7 +122,8 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 - 🔒 **Local-First & Model Agnostic**: Connects seamlessly to **Ollama (Qwen 35B, DeepSeek-R1)**, Claude 3.5, OpenAI, or Gemini. Keeps your project data on your machine when choosing local providers.
 - 🛡️ **Self-Healing Verification Loop**: Automatically runs build/syntax checks (`dotnet build`, `npm test`, Python linters) and repairs errors autonomously.
 - 🔄 **1-Click Auto-Updates**: Integrated GitHub Releases API updater detects and installs new setup releases automatically.
-- 🧊 **Blender & Unity Copilots**: Live two-way integration scripts to manipulate 3D scenes and game engine objects directly via AI instructions.
+- 🧊 **Blender & Unity Copilots**: Live two-way JSON-RPC integration with Scene RAG, Two-Stage Architect Pipeline, self-healing loop, and auto-undo checkpoints.
+- 👁️ **Live Viewport Vision**: Multimodal AI models (GPT-4o, Claude 3.5, Gemini) can **see** your Blender scene via OpenGL snapshots and autonomously correct geometry, materials, or proportions in a closed feedback loop.
 - ⚡ **Built with .NET 10 (LTS)**: High-performance WPF architecture backed by **200+ passing unit tests**.
 - 🧰 **30+ Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, and web browser previews.
 

@@ -8612,4 +8612,114 @@ You can install it from the plugins window</value></data>
   <data name="PlanAlreadyExistsSkipped" xml:space="preserve">
     <value>ℹ️ Plan already created for this task; re-planning skipped.</value>
   </data>
+  <data name="ConnectingProgress" xml:space="preserve">
+    <value>⏳ Connecting...</value>
+  </data>
+  <data name="InvalidPortNumber" xml:space="preserve">
+    <value>❌ Invalid port number!</value>
+  </data>
+  <data name="BlenderSubtext" xml:space="preserve">
+    <value>The Yengi add-on must be installed in Blender for live 3D scene control.</value>
+  </data>
+  <data name="EnableBlenderPromptEnhancerLabel" xml:space="preserve">
+    <value>🚀 Use 3D Prompt Engineer (Asset Architect)</value>
+  </data>
+  <data name="EnableBlenderPromptEnhancerToolTip" xml:space="preserve">
+    <value>Enriches your basic 3D requests (e.g., 'Make a low poly tree') with procedural details, color palettes, and metric scales.</value>
+  </data>
+  <data name="BlenderPortLabel" xml:space="preserve">
+    <value>Port Setting (Default: 8181):</value>
+  </data>
+  <data name="BlenderAddonInstalled" xml:space="preserve">
+    <value>✅ Add-on installed (yengi_copilot.py)</value>
+  </data>
+  <data name="BlenderAddonNotInstalled" xml:space="preserve">
+    <value>⚠️ Add-on is not installed yet.</value>
+  </data>
+  <data name="ReinstallAddonButton" xml:space="preserve">
+    <value>🔄 Reinstall / Update Add-on</value>
+  </data>
+  <data name="BlenderFolderBrowserDesc" xml:space="preserve">
+    <value>Select Blender AppData or Version Folder (e.g., AppData/Roaming/Blender Foundation/Blender/4.2)</value>
+  </data>
+  <data name="BlenderFolderNotFoundAuto" xml:space="preserve">
+    <value>Blender folder not found automatically. Please click Browse.</value>
+  </data>
+  <data name="BlenderFolderNotSelected" xml:space="preserve">
+    <value>Blender folder is not selected.</value>
+  </data>
+  <data name="BlenderInvalidFolder" xml:space="preserve">
+    <value>❌ Invalid Blender folder selected!</value>
+  </data>
+  <data name="BlenderAddonFileNotFound" xml:space="preserve">
+    <value>❌ yengi_blender_addon.py file not found!</value>
+  </data>
+  <data name="BlenderAddonInstallSuccess" xml:space="preserve">
+    <value>✅ Add-on installed: {0}
+Enable 'Yengi Copilot' in Blender via Edit -> Preferences -> Add-ons.</value>
+  </data>
+  <data name="BlenderInstallError" xml:space="preserve">
+    <value>❌ Installation Error: {0}</value>
+  </data>
+  <data name="BlenderTestSuccess" xml:space="preserve">
+    <value>✅ Connection Successful! (Port {0} active — Blender is Listening)</value>
+  </data>
+  <data name="BlenderTestFailed" xml:space="preserve">
+    <value>❌ Connection Failed! (Port {0}). Make sure 'Yengi Copilot' add-on is enabled in Blender.</value>
+  </data>
+  <data name="UnitySubtext" xml:space="preserve">
+    <value>The YengiUnityCopilot.cs script must be placed in your Unity project Editor folder for live communication.</value>
+  </data>
+  <data name="UnityAutoInstallHeader" xml:space="preserve">
+    <value>🎮 Unity Add-on Auto-Install</value>
+  </data>
+  <data name="UnityAutoInstallSubtext" xml:space="preserve">
+    <value>Select your Unity project root folder. Yengi automatically installs Assets/Editor/YengiUnityCopilot.cs.</value>
+  </data>
+  <data name="UnityInstallButton" xml:space="preserve">
+    <value>🚀 Install Add-on Script to Unity Project</value>
+  </data>
+  <data name="EnableUnityPromptEnhancerLabel" xml:space="preserve">
+    <value>🚀 Use 3D Unity Prompt Engineer (Component Architect)</value>
+  </data>
+  <data name="EnableUnityPromptEnhancerToolTip" xml:space="preserve">
+    <value>Enriches your basic Unity requests (e.g., 'Add zombie character') with components (Rigidbody, Collider, NavMesh), materials, and C# Editor logic.</value>
+  </data>
+  <data name="UnityPortLabel" xml:space="preserve">
+    <value>TCP Socket Port (Default: 8282):</value>
+  </data>
+  <data name="UnitySelectProjectFolder" xml:space="preserve">
+    <value>Select Your Unity Project Root Folder</value>
+  </data>
+  <data name="UnityInstallSuccess" xml:space="preserve">
+    <value>✅ Add-on script installed: {0}
+Port 8282 will start listening automatically when Unity Editor is opened.</value>
+  </data>
+  <data name="UnityInstallError" xml:space="preserve">
+    <value>❌ Installation Error: {0}</value>
+  </data>
+  <data name="UnityTestSuccess" xml:space="preserve">
+    <value>✅ Connection Successful! (Port {0} active — Unity is Listening)</value>
+  </data>
+  <data name="UnityTestFailed" xml:space="preserve">
+    <value>❌ Connection Failed! (Port {0}). Make sure 'YengiUnityCopilot.cs' script is active in Unity Editor.</value>
+  </data>
+  <data name="BlenderPromptArchitectEnriching" xml:space="preserve">
+    <value>🎨 3D Prompt Engineer (Asset Architect) is enriching your request with 3D details...</value>
+  </data>
+  <data name="BlenderPromptArchitectReady" xml:space="preserve">
+    <value>✨ 3D Prompt Engineer has prepared detailed modeling specifications.</value>
+  </data>
+  <data name="BlenderPromptArchitectTitle" xml:space="preserve">
+    <value>🎨 **3D Prompt Engineer (Asset Architect) Specifications:**</value>
+  </data>
+  <data name="UnityPromptArchitectEnriching" xml:space="preserve">
+    <value>🎨 3D Unity Prompt Engineer (Component Architect) is enriching your request...</value>
+  </data>
+  <data name="UnityPromptArchitectReady" xml:space="preserve">
+    <value>✨ 3D Unity Prompt Engineer has prepared detailed component specifications.</value>
+  </data>
+  <data name="UnityPromptArchitectTitle" xml:space="preserve">
+    <value>🎮 **Unity Component Architect Specifications:**</value>
+  </data>
 </root>

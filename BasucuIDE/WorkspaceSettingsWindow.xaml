@@ -44,7 +44,7 @@
         <!-- Blender Ayarları Paneli -->
         <StackPanel x:Name="panelBlender" Grid.Row="1" Visibility="Collapsed">
             <TextBlock Text="{local:Loc Key=BlenderCopilotSettingsTitle}" FontWeight="SemiBold" Margin="0,0,0,5"/>
-            <TextBlock Text="Yengi'nin Blender sahnelerini canlı olarak yönetmesi için eklentinin Blender'a kurulması gerekir." TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
+            <TextBlock Text="{local:Loc Key=BlenderSubtext}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
             
             <!-- Otomatik Eklenti Kurulumu Bölümü -->
             <Border Background="#252526" BorderBrush="#3e3e42" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,15">
@@ -62,9 +62,9 @@
                 </StackPanel>
             </Border>
 
-            <CheckBox x:Name="chkEnableBlenderPromptEnhancer" Content="🚀 3D Prompt Mühendisini (Asset Architect) Kullan" IsChecked="True" Foreground="White" Margin="0,10,0,10" ToolTip="Basit 3D isteklerinizi (örn: 'Low poly ağaç yap') prosedürel detaylar, renk paleti ve ölçeklerle zenginleştirir."/>
+            <CheckBox x:Name="chkEnableBlenderPromptEnhancer" Content="{local:Loc Key=EnableBlenderPromptEnhancerLabel}" IsChecked="True" Foreground="White" Margin="0,10,0,10" ToolTip="{local:Loc Key=EnableBlenderPromptEnhancerToolTip}"/>
 
-            <TextBlock Text="Port Ayarı (Varsayılan: 8181):" Margin="0,0,0,2"/>
+            <TextBlock Text="{local:Loc Key=BlenderPortLabel}" Margin="0,0,0,2"/>
             <TextBox x:Name="txtBlenderPort" Height="25" Margin="0,0,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
             
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
@@ -76,21 +76,21 @@
         <!-- Unity Ayarları Paneli -->
         <StackPanel x:Name="panelUnity" Grid.Row="1" Visibility="Collapsed">
             <TextBlock Text="{local:Loc Key=UnityCopilotSettingsTitle}" FontWeight="SemiBold" Margin="0,0,0,5"/>
-            <TextBlock Text="Yengi'nin Unity Editörü ile canlı haberleşmesi için `YengiUnityCopilot.cs` scriptinin projenizde bulunması gerekir." TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
+            <TextBlock Text="{local:Loc Key=UnitySubtext}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
             
             <Border Background="#252526" BorderBrush="#3e3e42" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,15">
                 <StackPanel>
-                    <TextBlock Text="🎮 Unity Eklentisi Otomatik Kurulumu" FontWeight="Bold" Foreground="#007acc" Margin="0,0,0,5"/>
-                    <TextBlock Text="Unity projenizin ana klasörünü seçin. Yengi, `Assets/Editor/YengiUnityCopilot.cs` scriptini otomatik oluşturur." TextWrapping="Wrap" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+                    <TextBlock Text="{local:Loc Key=UnityAutoInstallHeader}" FontWeight="Bold" Foreground="#007acc" Margin="0,0,0,5"/>
+                    <TextBlock Text="{local:Loc Key=UnityAutoInstallSubtext}" TextWrapping="Wrap" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
                     
-                    <Button x:Name="btnInstallUnityAddon" Content="🚀 Eklenti Scriptini Unity Projesine Yükle" Height="28" Background="#007acc" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand" Click="BtnInstallUnityAddon_Click"/>
+                    <Button x:Name="btnInstallUnityAddon" Content="{local:Loc Key=UnityInstallButton}" Height="28" Background="#007acc" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand" Click="BtnInstallUnityAddon_Click"/>
                     <TextBlock x:Name="txtUnityInstallResult" Margin="0,6,0,0" FontSize="11" TextWrapping="Wrap" FontWeight="SemiBold"/>
                 </StackPanel>
             </Border>
 
-            <CheckBox x:Name="chkEnableUnityPromptEnhancer" Content="🚀 3D Unity Prompt Mühendisini (Component Architect) Kullan" IsChecked="True" Foreground="White" Margin="0,10,0,10" ToolTip="Basit Unity isteklerinizi (örn: 'Zombi karakter ekle') bileşenler (Rigidbody, Collider, NavMesh), materyal ve C# Editor mantığı ile zenginleştirir."/>
+            <CheckBox x:Name="chkEnableUnityPromptEnhancer" Content="{local:Loc Key=EnableUnityPromptEnhancerLabel}" IsChecked="True" Foreground="White" Margin="0,10,0,10" ToolTip="{local:Loc Key=EnableUnityPromptEnhancerToolTip}"/>
 
-            <TextBlock Text="TCP Socket Portu (Varsayılan: 8282):" Margin="0,0,0,2"/>
+            <TextBlock Text="{local:Loc Key=UnityPortLabel}" Margin="0,0,0,2"/>
             <TextBox x:Name="txtUnityPort" Height="25" Margin="0,0,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
 
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
@@ -100,8 +100,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="İptal" Width="80" Height="30" Margin="0,0,10,0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="BtnCancel_Click" Cursor="Hand"/>
-            <Button Content="Kaydet" Width="80" Height="30" Background="#007acc" Foreground="White" BorderThickness="0" Click="BtnSave_Click" Cursor="Hand"/>
+            <Button Content="{local:Loc Key=Cancel}" Width="80" Height="30" Margin="0,0,10,0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="BtnCancel_Click" Cursor="Hand"/>
+            <Button Content="{local:Loc Key=Save}" Width="80" Height="30" Background="#007acc" Foreground="White" BorderThickness="0" Click="BtnSave_Click" Cursor="Hand"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -8612,4 +8612,114 @@
   <data name="PlanAlreadyExistsSkipped" xml:space="preserve">
     <value>ℹ️ 此任务的计划已创建；跳过重新规划。</value>
   </data>
+  <data name="ConnectingProgress" xml:space="preserve">
+    <value>⏳ 正在连接...</value>
+  </data>
+  <data name="InvalidPortNumber" xml:space="preserve">
+    <value>❌ 端口号无效！</value>
+  </data>
+  <data name="BlenderSubtext" xml:space="preserve">
+    <value>需要在 Blender 中安装 Yengi 插件，以便进行实时 3D 场景控制。</value>
+  </data>
+  <data name="EnableBlenderPromptEnhancerLabel" xml:space="preserve">
+    <value>🚀 使用 3D 提示词工程师 (Asset Architect)</value>
+  </data>
+  <data name="EnableBlenderPromptEnhancerToolTip" xml:space="preserve">
+    <value>使用程序化细节、调色板和米制比例丰富您的基本 3D 请求（例如 '制作低多边形树'）。</value>
+  </data>
+  <data name="BlenderPortLabel" xml:space="preserve">
+    <value>端口设置（默认：8181）：</value>
+  </data>
+  <data name="BlenderAddonInstalled" xml:space="preserve">
+    <value>✅ 插件已安装 (yengi_copilot.py)</value>
+  </data>
+  <data name="BlenderAddonNotInstalled" xml:space="preserve">
+    <value>⚠️ 插件尚未安装。</value>
+  </data>
+  <data name="ReinstallAddonButton" xml:space="preserve">
+    <value>🔄 重新安装 / 更新插件</value>
+  </data>
+  <data name="BlenderFolderBrowserDesc" xml:space="preserve">
+    <value>选择 Blender AppData 或版本文件夹（例如 AppData/Roaming/Blender Foundation/Blender/4.2）</value>
+  </data>
+  <data name="BlenderFolderNotFoundAuto" xml:space="preserve">
+    <value>未自动找到 Blender 文件夹。请单击“浏览”。</value>
+  </data>
+  <data name="BlenderFolderNotSelected" xml:space="preserve">
+    <value>未选择 Blender 文件夹。</value>
+  </data>
+  <data name="BlenderInvalidFolder" xml:space="preserve">
+    <value>❌ 未选择有效的 Blender 文件夹！</value>
+  </data>
+  <data name="BlenderAddonFileNotFound" xml:space="preserve">
+    <value>❌ 未找到 yengi_blender_addon.py 文件！</value>
+  </data>
+  <data name="BlenderAddonInstallSuccess" xml:space="preserve">
+    <value>✅ 插件已安装: {0}
+请在 Blender 中通过 编辑 -> 偏好设置 -> 插件 启用 'Yengi Copilot'。</value>
+  </data>
+  <data name="BlenderInstallError" xml:space="preserve">
+    <value>❌ 安装错误: {0}</value>
+  </data>
+  <data name="BlenderTestSuccess" xml:space="preserve">
+    <value>✅ 连接成功！（端口 {0} 激活 — Blender 正在监听）</value>
+  </data>
+  <data name="BlenderTestFailed" xml:space="preserve">
+    <value>❌ 连接失败！（端口 {0}）。请确保在 Blender 中已启用 'Yengi Copilot' 插件。</value>
+  </data>
+  <data name="UnitySubtext" xml:space="preserve">
+    <value>YengiUnityCopilot.cs 脚本必须放在 Unity 项目的 Editor 文件夹中以进行实时通信。</value>
+  </data>
+  <data name="UnityAutoInstallHeader" xml:space="preserve">
+    <value>🎮 Unity 插件自动安装</value>
+  </data>
+  <data name="UnityAutoInstallSubtext" xml:space="preserve">
+    <value>选择您的 Unity 项目根文件夹。Yengi 会自动安装 Assets/Editor/YengiUnityCopilot.cs。</value>
+  </data>
+  <data name="UnityInstallButton" xml:space="preserve">
+    <value>🚀 将插件脚本安装到 Unity 项目</value>
+  </data>
+  <data name="EnableUnityPromptEnhancerLabel" xml:space="preserve">
+    <value>🚀 使用 3D Unity 提示词工程师 (Component Architect)</value>
+  </data>
+  <data name="EnableUnityPromptEnhancerToolTip" xml:space="preserve">
+    <value>使用组件（Rigidbody、Collider、NavMesh）、材质和 C# 编辑器逻辑丰富您的基本 Unity 请求（例如 '添加僵尸角色'）。</value>
+  </data>
+  <data name="UnityPortLabel" xml:space="preserve">
+    <value>TCP 套接字端口（默认：8282）：</value>
+  </data>
+  <data name="UnitySelectProjectFolder" xml:space="preserve">
+    <value>选择您的 Unity 项目根文件夹</value>
+  </data>
+  <data name="UnityInstallSuccess" xml:space="preserve">
+    <value>✅ 插件脚本已安装: {0}
+打开 Unity 编辑器时将自动开始监听端口 8282。</value>
+  </data>
+  <data name="UnityInstallError" xml:space="preserve">
+    <value>❌ 安装错误: {0}</value>
+  </data>
+  <data name="UnityTestSuccess" xml:space="preserve">
+    <value>✅ 连接成功！（端口 {0} 激活 — Unity 正在监听）</value>
+  </data>
+  <data name="UnityTestFailed" xml:space="preserve">
+    <value>❌ 连接失败！（端口 {0}）。请确保 Unity 编辑器中的 'YengiUnityCopilot.cs' 脚本处于激活状态。</value>
+  </data>
+  <data name="BlenderPromptArchitectEnriching" xml:space="preserve">
+    <value>🎨 3D 提示词工程师 (Asset Architect) 正在使用 3D 细节丰富您的请求...</value>
+  </data>
+  <data name="BlenderPromptArchitectReady" xml:space="preserve">
+    <value>✨ 3D 提示词工程师已准备好详细的建模规范。</value>
+  </data>
+  <data name="BlenderPromptArchitectTitle" xml:space="preserve">
+    <value>🎨 **3D 提示词工程师 (Asset Architect) 规范：**</value>
+  </data>
+  <data name="UnityPromptArchitectEnriching" xml:space="preserve">
+    <value>🎨 3D Unity 提示词工程师 (Component Architect) 正在丰富您的请求...</value>
+  </data>
+  <data name="UnityPromptArchitectReady" xml:space="preserve">
+    <value>✨ 3D Unity 提示词工程师已准备好详细的组件规范。</value>
+  </data>
+  <data name="UnityPromptArchitectTitle" xml:space="preserve">
+    <value>🎮 **Unity Component Architect 规范：**</value>
+  </data>
 </root>

@@ -25,7 +25,7 @@ namespace mdaiAgent
             switch (_mode)
             {
                 case AgentWorkspaceMode.ImageStudio:
-                    txtTitle.Text = "🎨 Görsel Stüdyosu Ayarları";
+                    txtTitle.Text = LocalizationManager.Instance.GetString("ImageStudioSettingsTitle");
                     panelImageStudio.Visibility = Visibility.Visible;
                     
                     chkUsePollinations.IsChecked = _settings.ImageStudioUseFreePollinations;
@@ -40,7 +40,7 @@ namespace mdaiAgent
                     break;
                     
                 case AgentWorkspaceMode.BlenderCopilot:
-                    txtTitle.Text = "🧊 Blender Asistanı Ayarları";
+                    txtTitle.Text = LocalizationManager.Instance.GetString("BlenderCopilotSettingsTitle");
                     panelBlender.Visibility = Visibility.Visible;
                     
                     txtBlenderPort.Text = _settings.BlenderWebSocketPort.ToString();
@@ -59,7 +59,7 @@ namespace mdaiAgent
                     break;
                     
                 case AgentWorkspaceMode.UnityCopilot:
-                    txtTitle.Text = "🎮 Unity Copilot Ayarları";
+                    txtTitle.Text = LocalizationManager.Instance.GetString("UnityCopilotSettingsTitle");
                     panelUnity.Visibility = Visibility.Visible;
                     
                     txtUnityPort.Text = _settings.UnityWebSocketPort.ToString();
@@ -91,11 +91,11 @@ namespace mdaiAgent
                     }
                 }
 
-                txtBlenderPath.Text = "Blender klasörü otomatik bulunamadı. Lütfen Gözat'a tıklayın.";
+                txtBlenderPath.Text = LocalizationManager.Instance.GetString("BlenderFolderNotFoundAuto");
             }
             catch
             {
-                txtBlenderPath.Text = "Blender klasörü seçilmedi.";
+                txtBlenderPath.Text = LocalizationManager.Instance.GetString("BlenderFolderNotSelected");
             }
         }
 
@@ -125,17 +125,17 @@ namespace mdaiAgent
                 string targetAddonFile = Path.Combine(blenderDir, "scripts", "addons", "yengi_copilot.py");
                 if (File.Exists(targetAddonFile))
                 {
-                    txtBlenderInstallResult.Text = "✅ Eklenti yüklü (yengi_copilot.py)";
+                    txtBlenderInstallResult.Text = LocalizationManager.Instance.GetString("BlenderAddonInstalled");
                     txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
-                    btnInstallAddon.Content = "🔄 Eklentiyi Yeniden Kur / Güncelle";
+                    btnInstallAddon.Content = LocalizationManager.Instance.GetString("ReinstallAddonButton");
                     btnInstallAddon.Background = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2e7d32"));
                     return;
                 }
             }
 
-            txtBlenderInstallResult.Text = "⚠️ Eklenti henüz yüklenmedi.";
+            txtBlenderInstallResult.Text = LocalizationManager.Instance.GetString("BlenderAddonNotInstalled");
             txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.Orange;
-            btnInstallAddon.Content = "🚀 Eklentiyi Blender'a Otomatik Kur";
+            btnInstallAddon.Content = LocalizationManager.Instance.GetString("AutoInstallAddonButton");
             btnInstallAddon.Background = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#007acc"));
         }
 
@@ -143,7 +143,7 @@ namespace mdaiAgent
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog
             {
-                Description = "Blender AppData veya Sürüm Klasörünü Seçin (Örn: AppData/Roaming/Blender Foundation/Blender/4.2)",
+                Description = LocalizationManager.Instance.GetString("BlenderFolderBrowserDesc"),
                 UseDescriptionForTitle = true
             };
 
@@ -159,7 +159,7 @@ namespace mdaiAgent
             string blenderDir = txtBlenderPath.Text;
             if (string.IsNullOrWhiteSpace(blenderDir) || !Directory.Exists(blenderDir))
             {
-                txtBlenderInstallResult.Text = "❌ Geçerli bir Blender klasörü seçilmedi!";
+                txtBlenderInstallResult.Text = LocalizationManager.Instance.GetString("BlenderInvalidFolder");
                 txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.Tomato;
                 return;
             }
@@ -174,7 +174,6 @@ namespace mdaiAgent
 
                 string targetAddonFile = Path.Combine(addonsDir, "yengi_copilot.py");
 
-                // Eklenti kodunu kopyala/yaz
                 string sourceAddonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "yengi_blender_addon.py");
                 
                 if (File.Exists(sourceAddonPath))
@@ -183,7 +182,6 @@ namespace mdaiAgent
                 }
                 else
                 {
-                    // Proje dizininden yengi_blender_addon.py'yi bulmayı dene
                     string devAddonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "yengi_blender_addon.py");
                     if (File.Exists(devAddonPath))
                     {
@@ -191,24 +189,23 @@ namespace mdaiAgent
                     }
                     else
                     {
-                        // Token enjekte et
                         string fullCode = File.Exists(targetAddonFile) ? File.ReadAllText(targetAddonFile) : "";
                         if (string.IsNullOrEmpty(fullCode))
                         {
-                            txtBlenderInstallResult.Text = "❌ `yengi_blender_addon.py` dosyası bulunamadı!";
+                            txtBlenderInstallResult.Text = LocalizationManager.Instance.GetString("BlenderAddonFileNotFound");
                             txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.Tomato;
                             return;
                         }
                     }
                 }
 
-                txtBlenderInstallResult.Text = $"✅ Eklenti yüklendi: {targetAddonFile}\nBlender'da Edit -> Preferences -> Add-ons menüsünden 'Yengi Copilot'u aktif edin.";
+                txtBlenderInstallResult.Text = string.Format(LocalizationManager.Instance.GetString("BlenderAddonInstallSuccess"), targetAddonFile);
                 txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
                 CheckBlenderAddonStatus();
             }
             catch (Exception ex)
             {
-                txtBlenderInstallResult.Text = $"❌ Kurulum Hatası: {ex.Message}";
+                txtBlenderInstallResult.Text = string.Format(LocalizationManager.Instance.GetString("BlenderInstallError"), ex.Message);
                 txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.Tomato;
             }
         }
@@ -256,12 +253,12 @@ namespace mdaiAgent
         {
             if (!int.TryParse(txtBlenderPort.Text, out int port))
             {
-                txtBlenderTestResult.Text = "❌ Geçersiz port numarası!";
+                txtBlenderTestResult.Text = LocalizationManager.Instance.GetString("InvalidPortNumber");
                 txtBlenderTestResult.Foreground = System.Windows.Media.Brushes.Tomato;
                 return;
             }
 
-            txtBlenderTestResult.Text = "⏳ Bağlanılıyor...";
+            txtBlenderTestResult.Text = LocalizationManager.Instance.GetString("ConnectingProgress");
             txtBlenderTestResult.Foreground = System.Windows.Media.Brushes.Gray;
 
             try
@@ -272,18 +269,18 @@ namespace mdaiAgent
                 
                 if (success && client.Connected)
                 {
-                    txtBlenderTestResult.Text = $"✅ Bağlantı Başarılı! (Port {port} aktif — Blender Dinliyor)";
+                    txtBlenderTestResult.Text = string.Format(LocalizationManager.Instance.GetString("BlenderTestSuccess"), port);
                     txtBlenderTestResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
                 }
                 else
                 {
-                    txtBlenderTestResult.Text = $"❌ Bağlantı Başarısız! (Port {port}). Blender'da 'Yengi Copilot' eklentisinin aktif olduğundan emin olun.";
+                    txtBlenderTestResult.Text = string.Format(LocalizationManager.Instance.GetString("BlenderTestFailed"), port);
                     txtBlenderTestResult.Foreground = System.Windows.Media.Brushes.Tomato;
                 }
             }
             catch
             {
-                txtBlenderTestResult.Text = $"❌ Bağlantı Başarısız! (Port {port}). Blender'da 'Yengi Copilot' eklentisinin aktif olduğundan emin olun.";
+                txtBlenderTestResult.Text = string.Format(LocalizationManager.Instance.GetString("BlenderTestFailed"), port);
                 txtBlenderTestResult.Foreground = System.Windows.Media.Brushes.Tomato;
             }
         }
@@ -292,7 +289,7 @@ namespace mdaiAgent
         {
             var dialog = new Microsoft.Win32.OpenFolderDialog
             {
-                Title = "Unity Projenizin Ana Klasörünü Seçin"
+                Title = LocalizationManager.Instance.GetString("UnitySelectProjectFolder")
             };
 
             if (dialog.ShowDialog() == true)
@@ -315,118 +312,19 @@ namespace mdaiAgent
                     }
                     else
                     {
-                        string scriptCode = @"#if UNITY_EDITOR
-using System;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Collections.Concurrent;
-using UnityEditor;
-using UnityEngine;
-
-namespace Yengi.UnityCopilot
-{
-    [InitializeOnLoad]
-    public static class YengiUnityCopilot
-    {
-        private const int DEFAULT_PORT = 8282;
-        private static TcpListener _listener;
-        private static Thread _listenerThread;
-        private static bool _isRunning;
-        private static readonly ConcurrentQueue<(string script, TcpClient client)> _queue = new ConcurrentQueue<(string, TcpClient)>();
-
-        static YengiUnityCopilot()
-        {
-            StartServer(DEFAULT_PORT);
-            EditorApplication.update += OnEditorUpdate;
-        }
-
-        public static void StartServer(int port)
-        {
-            if (_isRunning) return;
-            try
-            {
-                _listener = new TcpListener(IPAddress.Loopback, port);
-                _listener.Start();
-                _isRunning = true;
-                _listenerThread = new Thread(ListenLoop) { IsBackground = true };
-                _listenerThread.Start();
-                Debug.Log($""[Yengi Unity Copilot] Server listening on 127.0.0.1:{port}"");
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($""[Yengi Unity Copilot] Failed to bind port {port}: {ex.Message}"");
-            }
-        }
-
-        private static void ListenLoop()
-        {
-            while (_isRunning && _listener != null)
-            {
-                try
-                {
-                    var client = _listener.AcceptTcpClient();
-                    using var stream = client.GetStream();
-                    using var ms = new MemoryStream();
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        ms.Write(buffer, 0, bytesRead);
-                    }
-                    string code = Encoding.UTF8.GetString(ms.ToArray());
-                    if (!string.IsNullOrWhiteSpace(code))
-                    {
-                        _queue.Enqueue((code, client));
-                    }
-                }
-                catch
-                {
-                    if (!_isRunning) break;
-                }
-            }
-        }
-
-        private static void OnEditorUpdate()
-        {
-            while (_queue.TryDequeue(out var item))
-            {
-                ExecuteScriptInEditor(item.script);
-            }
-        }
-
-        private static void ExecuteScriptInEditor(string script)
-        {
-            try
-            {
-                Debug.Log($""[Yengi Unity Copilot] Executing received script:\n{script}"");
-                string tempDir = Path.Combine(Application.dataPath, ""Editor"", ""YengiGenerated"");
-                if (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
-                string scriptPath = Path.Combine(tempDir, ""YengiAction.cs"");
-                File.WriteAllText(scriptPath, script);
-                AssetDatabase.Refresh();
-                Debug.Log(""[Yengi Unity Copilot] Script compiled and imported into Assets/Editor/YengiGenerated/YengiAction.cs"");
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($""[Yengi Unity Copilot] Execution error: {ex.Message}"");
-            }
-        }
-    }
-}
-#endif
-";
-                        File.WriteAllText(targetFilePath, scriptCode);
+                        string devSourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "YengiUnityCopilot.cs");
+                        if (File.Exists(devSourcePath))
+                        {
+                            File.Copy(devSourcePath, targetFilePath, true);
+                        }
                     }
 
-                    txtUnityInstallResult.Text = $"✅ Eklenti scripti yüklendi: {targetFilePath}\nUnity Editörünü açtığınızda port 8282 otomatik dinlenmeye başlar.";
+                    txtUnityInstallResult.Text = string.Format(LocalizationManager.Instance.GetString("UnityInstallSuccess"), targetFilePath);
                     txtUnityInstallResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
                 }
                 catch (Exception ex)
                 {
-                    txtUnityInstallResult.Text = $"❌ Yükleme Hatası: {ex.Message}";
+                    txtUnityInstallResult.Text = string.Format(LocalizationManager.Instance.GetString("UnityInstallError"), ex.Message);
                     txtUnityInstallResult.Foreground = System.Windows.Media.Brushes.Tomato;
                 }
             }
@@ -440,12 +338,12 @@ namespace Yengi.UnityCopilot
             {
                 if (!int.TryParse(txtUnityPort.Text, out int port))
                 {
-                    txtUnityTestResult.Text = "❌ Geçersiz port numarası!";
+                    txtUnityTestResult.Text = LocalizationManager.Instance.GetString("InvalidPortNumber");
                     txtUnityTestResult.Foreground = System.Windows.Media.Brushes.Tomato;
                     return;
                 }
 
-                txtUnityTestResult.Text = "⏳ Bağlanılıyor...";
+                txtUnityTestResult.Text = LocalizationManager.Instance.GetString("ConnectingProgress");
                 txtUnityTestResult.Foreground = System.Windows.Media.Brushes.Gray;
 
                 try
@@ -456,18 +354,18 @@ namespace Yengi.UnityCopilot
 
                     if (success && client.Connected)
                     {
-                        txtUnityTestResult.Text = $"✅ Bağlantı Başarılı! (Port {port} aktif — Unity Dinliyor)";
+                        txtUnityTestResult.Text = string.Format(LocalizationManager.Instance.GetString("UnityTestSuccess"), port);
                         txtUnityTestResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
                     }
                     else
                     {
-                        txtUnityTestResult.Text = $"❌ Bağlantı Başarısız! (Port {port}). Unity Editöründe 'YengiUnityCopilot.cs' scriptinin aktif olduğundan emin olun.";
+                        txtUnityTestResult.Text = string.Format(LocalizationManager.Instance.GetString("UnityTestFailed"), port);
                         txtUnityTestResult.Foreground = System.Windows.Media.Brushes.Tomato;
                     }
                 }
                 catch
                 {
-                    txtUnityTestResult.Text = $"❌ Bağlantı Başarısız! (Port {port}). Unity Editöründe 'YengiUnityCopilot.cs' scriptinin aktif olduğundan emin olun.";
+                    txtUnityTestResult.Text = string.Format(LocalizationManager.Instance.GetString("UnityTestFailed"), port);
                     txtUnityTestResult.Foreground = System.Windows.Media.Brushes.Tomato;
                 }
             }

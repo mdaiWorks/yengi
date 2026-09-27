@@ -82,6 +82,31 @@ flowchart TD
 
 ---
 
+## 👁️ Canlı Viewport Vizyonu — AI Gözleri 3D Sahnenizde
+
+**Çok modlu (multimodal) uyumlu bir model** (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5/2.0) kullanıldığında Yengi, Blender 3D viewport'unu gerçek zamanlı olarak **görebilir** ve görsel değerlendirme ile düzeltme yapabilir:
+
+```mermaid
+flowchart LR
+    A["🧊 Blender OpenGL Viewport"] -->|"OpenGL Anlık Görüntü"| B["📸 yengi_viewport_preview.png<br/>(AppData/Local/Temp)"]
+    B -->|"Base64 + TCP Socket"| C["🖥️ Yengi AI Çekirdeği"]
+    C -->|"Vision API Çağrısı"| D["👁️ Çok Modlu Model<br/>(GPT-4o / Claude 3.5 / Gemini)"]
+    D -->|"Görsel Analiz"| E{"🔍 Sahne OK mi?"}
+    E -- "✅ Doğru görünüyor" --> F["🎉 Sonucu Kullanıcıya Sun"]
+    E -- "❌ Geometri / Renk Yanlış" --> G["🩹 Düzeltici bpy Kodu Üret"]
+    G -->|"Otomatik Çalıştır"| A
+```
+
+1. **Yakala** — Blender, OpenGL viewport anlık görüntüsünü `yengi_viewport_preview.png` olarak kaydeder
+2. **İlet** — Görüntü Base64 ile kodlanır ve TCP soketi (port 8181) üzerinden Yengi'ye gönderilir
+3. **İncele** — Çok modlu AI modeli render edilmiş 3D sahneyi görsel olarak analiz eder
+4. **Düzelt** — Geometri, materyal veya oranlar yanlışsa AI otomatik `bpy` kodu üretip çalıştırır
+
+> [!TIP]
+> Blender'ın N-Panel'indeki (viewport'ta `N` tuşu) **"Viewport Resmi Al"** butonuyla istediğiniz zaman anlık görüntü alabilirsiniz; Çift Aşamalı Pipeline ise her işlem sonrası bunu otomatik yapar.
+
+---
+
 ## 💡 Neden Yengi?
 
 Yengi yalın bir fikir etrafında doğdu: **Yapay zeka geliştirme ortamınız tek bir sağlayıcıya, modele veya kullanım kotasına bağımlı kalmamalıdır.**
@@ -97,7 +122,8 @@ Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı 
 - 🔒 **Yerel Odaklı & Model Bağımsız**: **Ollama (Qwen 35B, DeepSeek-R1)**, Claude 3.5, OpenAI veya Gemini ile çalışır. Yerel sağlayıcı seçildiğinde kod verileriniz bilgisayarınızda kalır.
 - 🛡️ **Kendi Kendini İyileştiren Doğrulama Döngüsü**: Derleme ve test hatalarını (`dotnet build`, `npm test`, Python linters) otomatik tespit eder ve insan müdahalesi olmadan düzeltir.
 - 🔄 **Tek Tıkla Otomatik Güncelleme**: Entegre GitHub Releases API kontrolcüsü ile yeni sürümleri otomatik algılar ve günceller.
-- 🧊 **Blender & Unity Copilot Entegrasyonu**: Canlı 3D sahneleri ve oyun motoru bileşenlerini yapay zeka talimatlarıyla doğrudan yönetir.
+- 🧊 **Blender & Unity Copilot Entegrasyonu**: Canlı 2 yönlü JSON-RPC iletişimi, Sahne RAG verisi, Çift Aşamalı Architect Mimarisi, self-healing döngüsü ve otomatik Undo noktaları.
+- 👁️ **Canlı Viewport Vizyonu**: Çok modlu (multimodal) AI modelleri (GPT-4o, Claude 3.5, Gemini) OpenGL viewport görüntülerini inceleyerek 3D sahneyi **görür** ve kapalı döngüde geometri/renk düzeltmeleri yapar.
 - ⚡ **.NET 10 (LTS) Gücü**: **200+ birim testi** ile doğruluk ve yüksek performans garantisi.
 - 🧰 **30+ Yerel Agent Aracı**: Dosya arama, Git yönetimi, terminal çalıştırma, RAG indeksleme ve canlı web önizleme.
 
