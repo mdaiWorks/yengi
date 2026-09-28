@@ -139,7 +139,8 @@ public partial class MainWindow : Window
     private string? _currentOpenFile;
     private bool _isSplitEditorActive;
 
-    private AppSettings _settings;
+    private AppSettings _settings = null!;
+
 
     private IAiProvider? _apiClient;
 
