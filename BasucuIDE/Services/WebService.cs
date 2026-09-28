@@ -46,13 +46,89 @@ public class WebService
                 Message = $"Web aranıyor: {query}"
             });
 
+            var settings = SettingsWindow.GetSettings();
+            var searchResults = new System.Collections.Generic.List<object>();
+
+            // 1. Tavily API denemesi
+            if (!string.IsNullOrWhiteSpace(settings.TavilyApiKey))
+            {
+                try
+                {
+                    using var client = new HttpClient();
+                    client.Timeout = TimeSpan.FromSeconds(15);
+                    var payload = new { api_key = settings.TavilyApiKey, query = query, max_results = 5 };
+                    var response = await client.PostAsJsonAsync("https://api.tavily.com/search", payload, cancellationToken);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonDoc = await response.Content.ReadFromJsonAsync<JsonDocument>(cancellationToken: cancellationToken);
+                        if (jsonDoc != null && jsonDoc.RootElement.TryGetProperty("results", out var resultsElem) && resultsElem.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (var item in resultsElem.EnumerateArray())
+                            {
+                                string title = item.TryGetProperty("title", out var t) ? t.GetString() ?? "" : "";
+                                string url = item.TryGetProperty("url", out var u) ? u.GetString() ?? "" : "";
+                                string content = item.TryGetProperty("content", out var c) ? c.GetString() ?? "" : "";
+                                searchResults.Add(new { Title = title, Url = url, Description = content });
+                            }
+                        }
+                    }
+                }
+                catch { /* Fallback to free search below */ }
+            }
+
+            // 2. Ücretsiz DuckDuckGo / Web Arama Fallback (Tavily yoksa veya sonuç dönmediyse)
+            if (searchResults.Count == 0)
+            {
+                try
+                {
+                    using var client = new HttpClient();
+                    client.Timeout = TimeSpan.FromSeconds(15);
+                    var searchUrl = $"https://html.duckduckgo.com/html/?q={Uri.EscapeDataString(query)}";
+                    var request = new HttpRequestMessage(HttpMethod.Get, searchUrl);
+                    request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+                    
+                    var response = await client.SendAsync(request, cancellationToken);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var html = await response.Content.ReadAsStringAsync(cancellationToken);
+                        var matches = System.Text.RegularExpressions.Regex.Matches(
+                            html, 
+                            @"<a[^>]*class=""result__a""[^>]*href=""(?<url>[^""]+)""[^>]*>(?<title>[\s\S]*?)</a>[\s\S]*?<a[^>]*class=""result__snippet""[^>]*>(?<snippet>[\s\S]*?)</a>",
+                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                        int count = 0;
+                        foreach (System.Text.RegularExpressions.Match match in matches)
+                        {
+                            if (count >= 5) break;
+                            string rawUrl = match.Groups["url"].Value;
+                            string title = System.Net.WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Replace(match.Groups["title"].Value, "<.*?>", "")).Trim();
+                            string snippet = System.Net.WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Replace(match.Groups["snippet"].Value, "<.*?>", "")).Trim();
+
+                            if (rawUrl.Contains("uddg="))
+                            {
+                                var uriMatch = System.Text.RegularExpressions.Regex.Match(rawUrl, @"uddg=(?<realUrl>[^&]+)");
+                                if (uriMatch.Success)
+                                    rawUrl = Uri.UnescapeDataString(uriMatch.Groups["realUrl"].Value);
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(rawUrl))
+                            {
+                                searchResults.Add(new { Title = title, Url = rawUrl, Description = snippet });
+                                count++;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _terminalLog($"⚠️ Ücretsiz web arama fallback hatası: {ex.Message}");
+                }
+            }
+
             var results = new
             {
                 Query = query,
-                Results = new[] {
-                    new { Title = LocalizationManager.Instance.GetString("OrnekSonuc1"), Url = "https://example.com/1", Description = LocalizationManager.Instance.GetString("IlgiliBilgi") },
-                    new { Title = LocalizationManager.Instance.GetString("OrnekSonuc2"), Url = "https://example.com/2", Description = "Daha fazla bilgi" }
-                }
+                Results = searchResults
             };
 
             var rawOutput = JsonSerializer.Serialize(results);
@@ -74,6 +150,7 @@ public class WebService
             return new ToolResult { Success = false, Error = $"Web arama hatası: {ex.Message}" };
         }
     }
+
 
     public async Task<ToolResult> WebFetchAsync(JsonElement arguments, CancellationToken cancellationToken = default)
     {

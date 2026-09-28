@@ -8722,4 +8722,13 @@ Unity Editörünü açtığınızda port 8282 otomatik dinlenmeye başlar.</valu
   <data name="UnityPromptArchitectTitle" xml:space="preserve">
     <value>🎮 **Unity Component Architect Şartnamesi:**</value>
   </data>
-</root>
+  <data name="ResearchModeToggleToolTip" xml:space="preserve">
+    <value>🔎 Araştırma &amp; Sohbet Modunu Aç/Kapat (Web Arama, Fikir Geliştirme ve Not Tutma)</value>
+  </data>
+  <data name="ResearchModeActiveToast" xml:space="preserve">
+    <value>🔎 Araştırma &amp; Sohbet Modu AKTİF: Yapay zeka web araması yapıp .md not raporları oluşturacak.</value>
+  </data>
+  <data name="ResearchModeInactiveToast" xml:space="preserve">
+    <value>🔎 Araştırma &amp; Sohbet Modu PASİF: Standart çalışma moduna dönüldü.</value>
+  </data>
+</root>

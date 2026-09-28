@@ -124,6 +124,8 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 - 🔄 **1-Click Auto-Updates**: Integrated GitHub Releases API updater detects and installs new setup releases automatically.
 - 🧊 **Blender & Unity Copilots**: Live two-way JSON-RPC integration with Scene RAG, Two-Stage Architect Pipeline, self-healing loop, and auto-undo checkpoints.
 - 👁️ **Live Viewport Vision**: Multimodal AI models (GPT-4o, Claude 3.5, Gemini) can **see** your Blender scene via OpenGL snapshots and autonomously correct geometry, materials, or proportions in a closed feedback loop.
+- 🔎 **Research & Chat Mode**: Live web search (Tavily API & free DuckDuckGo search fallback), brainstorming, and automated Markdown (`.md`) report generation with embedded AI-generated illustrations.
+
 - ⚡ **Built with .NET 10 (LTS)**: High-performance WPF architecture backed by **200+ passing unit tests**.
 - 🧰 **30+ Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, and web browser previews.
 

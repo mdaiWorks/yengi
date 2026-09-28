@@ -292,9 +292,10 @@ public partial class App : Application
                 }
             }
 
-            // Clean up state file after restore
-            File.Delete(SessionStateFile);
+            // Keep session state file persistent across runs
+            // File.Delete(SessionStateFile);
         }
         catch { /* Ignore restore errors */ }
+
     }
 }

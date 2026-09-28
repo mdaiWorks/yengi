@@ -124,6 +124,8 @@ Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı 
 - 🔄 **Tek Tıkla Otomatik Güncelleme**: Entegre GitHub Releases API kontrolcüsü ile yeni sürümleri otomatik algılar ve günceller.
 - 🧊 **Blender & Unity Copilot Entegrasyonu**: Canlı 2 yönlü JSON-RPC iletişimi, Sahne RAG verisi, Çift Aşamalı Architect Mimarisi, self-healing döngüsü ve otomatik Undo noktaları.
 - 👁️ **Canlı Viewport Vizyonu**: Çok modlu (multimodal) AI modelleri (GPT-4o, Claude 3.5, Gemini) OpenGL viewport görüntülerini inceleyerek 3D sahneyi **görür** ve kapalı döngüde geometri/renk düzeltmeleri yapar.
+- 🔎 **Araştırma & Sohbet Modu**: Canlı web araması (Tavily API ve ücretsiz DuckDuckGo yedekleme), fikir geliştirme ve AI görselleri gömülü otomatik Markdown (`.md`) rapor üretimi.
+
 - ⚡ **.NET 10 (LTS) Gücü**: **200+ birim testi** ile doğruluk ve yüksek performans garantisi.
 - 🧰 **30+ Yerel Agent Aracı**: Dosya arama, Git yönetimi, terminal çalıştırma, RAG indeksleme ve canlı web önizleme.
 

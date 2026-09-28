@@ -6359,6 +6359,53 @@ public partial class MainWindow
         UpdateMultiAgentButtonUI();
     }
 
+    public void UpdateResearchModeButtonUI()
+    {
+        if (!Dispatcher.CheckAccess())
+        {
+            _ = Dispatcher.BeginInvoke(UpdateResearchModeButtonUI);
+            return;
+        }
+
+        if (btnResearchModeToggle == null) return;
+
+        var settings = SettingsWindow.GetSettings();
+        bool isActive = settings.EnableResearchMode;
+
+        if (isActive)
+        {
+            btnResearchModeToggle.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1b2e38"));
+            btnResearchModeToggle.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00d2ff"));
+            btnResearchModeToggle.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00d2ff"));
+        }
+        else
+        {
+            btnResearchModeToggle.Background = Brushes.Transparent;
+            btnResearchModeToggle.BorderBrush = TryFindResource("DividerBrush") as Brush ?? Brushes.Gray;
+            btnResearchModeToggle.Foreground = TryFindResource("TextSecondaryBrush") as Brush ?? Brushes.Gray;
+        }
+    }
+
+    private void BtnResearchModeToggle_Click(object sender, RoutedEventArgs e)
+    {
+        var settings = SettingsWindow.GetSettings();
+        settings.EnableResearchMode = !settings.EnableResearchMode;
+        SettingsWindow.SaveSettings(settings);
+
+        UpdateResearchModeButtonUI();
+
+        string msgKey = settings.EnableResearchMode ? "ResearchModeActiveToast" : "ResearchModeInactiveToast";
+        string localizedMsg = LocalizationManager.Instance[msgKey];
+        if (string.IsNullOrEmpty(localizedMsg))
+        {
+            localizedMsg = settings.EnableResearchMode
+                ? "🔎 Araştırma & Sohbet Modu AKTİF: Yapay zeka web araması yapıp .md not raporları oluşturacak."
+                : "🔎 Araştırma & Sohbet Modu PASİF: Standart çalışma moduna dönüldü.";
+        }
+        UpdateProcessStatus(localizedMsg);
+    }
+
+
         // AI çalışmaya başladığında panelleri otomatik göster
 
         private void ShowAgentPanels()

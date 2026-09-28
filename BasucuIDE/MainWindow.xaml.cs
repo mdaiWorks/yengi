@@ -244,7 +244,9 @@ public partial class MainWindow : Window
         {
             _settings = SettingsWindow.GetSettings();
             UpdateMultiAgentButtonUI();
+            UpdateResearchModeButtonUI();
         };
+
 
         _settings = SettingsWindow.GetSettings();
 
@@ -406,9 +408,14 @@ public partial class MainWindow : Window
 
         InitializeChatPanelViewModel();
 
-        // Restore previous session after crash
-
+        // Restore previous session
         App.RestoreSessionState(this);
+
+        if (string.IsNullOrEmpty(_selectedFolder) && _settings != null && !string.IsNullOrEmpty(_settings.LastOpenedFolder) && Directory.Exists(_settings.LastOpenedFolder))
+        {
+            OpenProjectFolder(_settings.LastOpenedFolder);
+        }
+
 
         // Periodic session state save (every 30 seconds)
 
@@ -538,7 +545,12 @@ public partial class MainWindow : Window
         if (btnMultiAgentToggle != null)
             btnMultiAgentToggle.ToolTip = LocalizationManager.Instance.GetString("MultiAgentToggleToolTip");
 
+        if (btnResearchModeToggle != null)
+            btnResearchModeToggle.ToolTip = LocalizationManager.Instance.GetString("ResearchModeToggleToolTip");
+
         UpdateMultiAgentButtonUI();
+        UpdateResearchModeButtonUI();
+
 
         if (fileTreeMenuRefresh != null)
             fileTreeMenuRefresh.Header = LocalizationManager.Instance.GetString("FileTreeRefresh");
@@ -5876,8 +5888,14 @@ public partial class MainWindow : Window
         if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
 
         _selectedFolder = folderPath;
+        if (_settings != null)
+        {
+            _settings.LastOpenedFolder = folderPath;
+            SettingsWindow.SaveSettings(_settings);
+        }
 
         UpdateTerminalPrompt();
+
 
         _cachedPlanResult = null;   // yeni proje açılınca eski plan temizlenir
 

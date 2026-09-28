@@ -8722,4 +8722,13 @@
   <data name="UnityPromptArchitectTitle" xml:space="preserve">
     <value>🎮 **Unity Component Architect 规范：**</value>
   </data>
-</root>
+  <data name="ResearchModeToggleToolTip" xml:space="preserve">
+    <value>🔎 切换研究与聊天模式（网络搜索、头脑风暴和笔记记录）</value>
+  </data>
+  <data name="ResearchModeActiveToast" xml:space="preserve">
+    <value>🔎 研究与聊天模式已激活：AI 将执行网络搜索并生成 .md 报告笔记。</value>
+  </data>
+  <data name="ResearchModeInactiveToast" xml:space="preserve">
+    <value>🔎 研究与聊天模式已禁用：返回标准工作区模式。</value>
+  </data>
+</root>

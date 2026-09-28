@@ -2896,9 +2896,18 @@
 
                                         Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
 
+                                <!-- Dikey Ayırıcı Çizgi -->
+                                <Rectangle Width="1" Height="18" Fill="{StaticResource DividerBrush}" Margin="4,0,12,0" VerticalAlignment="Center"/>
+
                                 <Button x:Name="btnMultiAgentToggle" Content="🎨" Padding="10,6" Margin="0,0,8,0" Click="BtnMultiAgentToggle_Click" MouseRightButtonUp="BtnMultiAgentToggle_MouseRightButtonUp" ToolTip="{local:Loc Key=MultiAgentToggleToolTip}"
 
                                         Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+                                <Button x:Name="btnResearchModeToggle" Content="🔎" Padding="10,6" Margin="0,0,8,0" Click="BtnResearchModeToggle_Click" ToolTip="{local:Loc Key=ResearchModeToggleToolTip}"
+
+                                        Background="Transparent" Foreground="{StaticResource TextSecondaryBrush}" BorderBrush="{StaticResource DividerBrush}" BorderThickness="1"/>
+
+
 
                             </StackPanel>
 

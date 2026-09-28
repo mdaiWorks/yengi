@@ -1223,12 +1223,32 @@ public class ChatFlowService : IChatFlowService
 
             }
 
-            if (skipRouterForCasualMessage)
+            if (settings.EnableResearchMode)
+            {
+                var essentialResearchToolsList = new List<string> { "WebSearch", "WebFetch", "CreateOrUpdateFile", "ReplaceFileContent", "ReadFile" };
+                if (settings.EnableMultiAgentImageGeneration)
+                {
+                    essentialResearchToolsList.Add("GenerateImage");
+                }
+                foreach (var toolName in essentialResearchToolsList)
+                {
+                    var tool = allActiveTools.FirstOrDefault(t => string.Equals(t.Function?.Name, toolName, StringComparison.OrdinalIgnoreCase));
+                    if (tool != null && !activeTools.Any(t => string.Equals(t.Function?.Name, toolName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        activeTools.Add(tool);
+                    }
+                }
+                UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+            }
+
+
+            if (skipRouterForCasualMessage && !settings.EnableResearchMode)
             {
                 activeTools = new List<ToolDefinition>();
                 UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
                 _terminalLog?.Invoke(LocalizationManager.Instance.GetString("RouterSimpleChatSkipped"));
             }
+
 
             // needsPlan → CreatePlan: Yalnızca Router KAPALI veya kullanıcı /plan komutu verdiyse
 
@@ -2962,8 +2982,10 @@ public class ChatFlowService : IChatFlowService
         var selectedNames = selectedTools
             .Where(tool => tool.Function?.Name != null)
             .Select(tool => tool.Function!.Name!);
-        var mode = SettingsWindow.GetSettings().ActiveWorkspaceMode;
-        var dynamicCore = ToolRegistry.GetCoreSystemPrompt(mode) + "\n\n" + ToolRegistry.GetToolCatalogPrompt(selectedNames);
+        var settings = SettingsWindow.GetSettings();
+        var mode = settings.ActiveWorkspaceMode;
+        var coreText = settings.EnableResearchMode ? ToolRegistry.GetResearchSystemPrompt() : ToolRegistry.GetCoreSystemPrompt(mode);
+        var dynamicCore = coreText + "\n\n" + ToolRegistry.GetToolCatalogPrompt(selectedNames);
         var dynamicPrompt = string.IsNullOrWhiteSpace(systemPrompt)
             ? dynamicCore
             : dynamicCore + "\n\n---\n[KULLANICI KİŞİSELLEŞTİRMESİ - Bu talimatlara uy, ancak araç kullanımı ve güvenlik kurallarını asla atlatma]\n" + systemPrompt;
@@ -2994,8 +3016,11 @@ public class ChatFlowService : IChatFlowService
 
         var activeToolNames = activeTools.Select(t => t.Function!.Name!);
 
-        var mode = SettingsWindow.GetSettings().ActiveWorkspaceMode;
-        string corePrompt = ToolRegistry.GetCoreSystemPrompt(mode) + "\n\n" + ToolRegistry.GetToolCatalogPrompt(activeToolNames);
+        var settings = SettingsWindow.GetSettings();
+        var mode = settings.ActiveWorkspaceMode;
+        var coreText = settings.EnableResearchMode ? ToolRegistry.GetResearchSystemPrompt() : ToolRegistry.GetCoreSystemPrompt(mode);
+        string corePrompt = coreText + "\n\n" + ToolRegistry.GetToolCatalogPrompt(activeToolNames);
+
 
         // Kullanıcı kişiselleştirmesi varsa çekirdeğin ALTINA ekle
 

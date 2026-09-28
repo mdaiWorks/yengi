@@ -8722,4 +8722,13 @@ Port 8282 will start listening automatically when Unity Editor is opened.</value
   <data name="UnityPromptArchitectTitle" xml:space="preserve">
     <value>🎮 **Unity Component Architect Specifications:**</value>
   </data>
-</root>
+  <data name="ResearchModeToggleToolTip" xml:space="preserve">
+    <value>🔎 Toggle Research &amp; Chat Mode (Web Search, Brainstorming &amp; Note Taking)</value>
+  </data>
+  <data name="ResearchModeActiveToast" xml:space="preserve">
+    <value>🔎 Research &amp; Chat Mode ACTIVE: AI will perform web searches and generate .md report notes.</value>
+  </data>
+  <data name="ResearchModeInactiveToast" xml:space="preserve">
+    <value>🔎 Research &amp; Chat Mode INACTIVE: Returned to standard workspace mode.</value>
+  </data>
+</root>

@@ -35,8 +35,10 @@ public class AppSettings
     public string? GitHubUsername { get; set; }
     public string? GitHubToken { get; set; }
     public string? Language { get; set; }
+    public string? LastOpenedFolder { get; set; }
 
     // Aktif Çalışma Modu (Workspace Mode)
+
     public AgentWorkspaceMode ActiveWorkspaceMode { get; set; } = AgentWorkspaceMode.CodeIDE;
 
     // Görsel Stüdyosu Ayarları
@@ -44,6 +46,7 @@ public class AppSettings
     public bool ImageStudioEnhancePrompt { get; set; } = false;
     public string ImageStudioPublicBaseUrl { get; set; } = "https://image.pollinations.ai/prompt/";
     public bool EnableMultiAgentImageGeneration { get; set; } = true;
+    public bool EnableResearchMode { get; set; } = false;
     public string? ImageStudioApiKey { get; set; }
     public string ImageStudioBaseUrl { get; set; } = "https://api.openai.com/v1";
     public string ImageStudioModel { get; set; } = "dall-e-3";
