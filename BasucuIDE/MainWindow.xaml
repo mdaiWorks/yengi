@@ -1943,7 +1943,8 @@
 
                         <!-- Empty State (Welcome Screen) -->
 
-                        <Border Grid.Row="1" Background="{StaticResource DarkPanelBackground}" Panel.ZIndex="5">
+                        <Border Grid.Row="1" Background="{StaticResource DarkPanelBackground}" Panel.ZIndex="5" IsHitTestVisible="False">
+
 
                             <Border.Style>
 

@@ -27,23 +27,23 @@ namespace BasucuIDE.Controls
         private static readonly Brush ErrorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ef4444"));
         private static readonly Brush WarningBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f59e0b"));
         private static readonly Brush SearchMatchBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#fbbf24"));
-        private static readonly Brush ViewportIndicatorBrush = new SolidColorBrush(Color.FromArgb(35, 255, 255, 255));
-        private static readonly Pen ViewportBorderPen = new Pen(new SolidColorBrush(Color.FromArgb(80, 255, 255, 255)), 1.0);
+
 
         static ScrollbarOverviewMargin()
         {
             ErrorBrush.Freeze();
             WarningBrush.Freeze();
             SearchMatchBrush.Freeze();
-            ViewportIndicatorBrush.Freeze();
-            ViewportBorderPen.Freeze();
         }
+
 
         public ScrollbarOverviewMargin(TextEditor editor)
         {
             _editor = editor ?? throw new ArgumentNullException(nameof(editor));
 
-            IsHitTestVisible = true;
+            // IsHitTestVisible = false → mouse olayları bu katmandan geçerek
+            // alttaki scrollbar thumb'a ulaşır. Böylece scrollbar sürükleme çalışır.
+            IsHitTestVisible = false;
             Width = 14;
             HorizontalAlignment = HorizontalAlignment.Right;
             VerticalAlignment = VerticalAlignment.Stretch;
@@ -58,8 +58,10 @@ namespace BasucuIDE.Controls
 
             _editor.Loaded += (s, e) => InvalidateVisual();
 
-            MouseLeftButtonDown += OnMouseLeftButtonDown;
+            // MouseLeftButtonDown kaldırıldı: IsHitTestVisible=false iken bu event zaten tetiklenmez.
+            // Tıklama ile satıra atlama yerine kullanıcı doğrudan scrollbar'ı kullanabilir.
         }
+
 
         public void SetDiagnostics(IReadOnlyList<LanguageDiagnostic>? diagnostics)
         {
@@ -108,18 +110,9 @@ namespace BasucuIDE.Controls
 
             if (trackHeight <= 0) return;
 
-            // 1. Görünür Görünüm Alanı (Viewport Indicator - Şeffaf kutu)
-            if (scrollViewer != null && scrollViewer.ExtentHeight > 0)
-            {
-                double visibleRatio = scrollViewer.ViewportHeight / Math.Max(1, scrollViewer.ExtentHeight);
-                double currentOffsetRatio = scrollViewer.VerticalOffset / Math.Max(1, scrollViewer.ExtentHeight);
 
-                double vpY = topOffset + (currentOffsetRatio * trackHeight);
-                double vpH = Math.Max(10, visibleRatio * trackHeight);
-                dc.DrawRectangle(ViewportIndicatorBrush, ViewportBorderPen, new Rect(0, vpY, Width, vpH));
-            }
+            // 1. Canlı LSP / Linter Hata ve Uyarı Çizgileri
 
-            // 2. Canlı LSP / Linter Hata ve Uyarı Çizgileri
             if (_diagnostics != null && _diagnostics.Count > 0)
             {
                 foreach (var diag in _diagnostics)
