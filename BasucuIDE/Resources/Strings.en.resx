@@ -8731,4 +8731,32 @@ Port 8282 will start listening automatically when Unity Editor is opened.</value
   <data name="ResearchModeInactiveToast" xml:space="preserve">
     <value>🔎 Research &amp; Chat Mode INACTIVE: Returned to standard workspace mode.</value>
   </data>
-</root>
+  <data name="ResearchModeDialogTitle" xml:space="preserve">
+    <value>🔎 Research &amp; Chat Mode Info</value>
+  </data>
+  <data name="ResearchModeDialogMessage" xml:space="preserve">
+    <value>While Research &amp; Chat Mode is active, coding agents, terminal execution, and automatic build/verification steps are disabled.
+
+This mode is specifically designed for live web research, brainstorming, Q&amp;A, and creating rich .md/.txt research notes.
+
+When you want the AI to write code or modify your project, simply toggle this mode off using the 🔎 button at the top.</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Do not show again</value>
+  </data>
+  <data name="DialogGotIt" xml:space="preserve">
+    <value>Got it</value>
+  </data>
+  <data name="ImageStudioDialogTitle" xml:space="preserve">
+    <value>🎨 AI Image Generation Support Info</value>
+  </data>
+  <data name="ImageStudioDialogMessage" xml:space="preserve">
+    <value>While Image Generation Support is active, the AI autonomously generates images needed for code, UI, or research responses and saves them to your project.
+
+If your project does not require image generation, keeping this toggle off improves API response times and overall performance.
+
+You can toggle this support on or off at any time using the 🎨 button in the chat panel.</value>
+  </data>
+</root>
+
+

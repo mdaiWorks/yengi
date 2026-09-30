@@ -8731,4 +8731,32 @@
   <data name="ResearchModeInactiveToast" xml:space="preserve">
     <value>🔎 研究与聊天模式已禁用：返回标准工作区模式。</value>
   </data>
-</root>
+  <data name="ResearchModeDialogTitle" xml:space="preserve">
+    <value>🔎 研究与聊天模式提示</value>
+  </data>
+  <data name="ResearchModeDialogMessage" xml:space="preserve">
+    <value>当研究与聊天模式处于激活状态时，编码 Agent、终端执行和自动构建/验证循环将被禁用。
+
+此模式专为实时 Web 搜索、头脑风暴、问答以及生成丰富的 .md/.txt 研究笔记而设计。
+
+当您想要编写代码或修改项目时，只需使用顶部的 🔎 按钮关闭此模式即可。</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>不再显示</value>
+  </data>
+  <data name="DialogGotIt" xml:space="preserve">
+    <value>明白</value>
+  </data>
+  <data name="ImageStudioDialogTitle" xml:space="preserve">
+    <value>🎨 AI 图像生成支持提示</value>
+  </data>
+  <data name="ImageStudioDialogMessage" xml:space="preserve">
+    <value>在图像生成支持处于激活状态时，AI 将自主生成代码、UI 或研究响应所需的图像，并保存到您的项目中。
+
+如果您的项目不需要图像生成，保持关闭此开关可提高 API 响应时间和整体性能。
+
+您随时可以使用聊天面板中的 🎨 按钮开启或关闭此支持。</value>
+  </data>
+</root>
+
+

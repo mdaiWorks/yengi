@@ -47,6 +47,10 @@ public class AppSettings
     public string ImageStudioPublicBaseUrl { get; set; } = "https://image.pollinations.ai/prompt/";
     public bool EnableMultiAgentImageGeneration { get; set; } = true;
     public bool EnableResearchMode { get; set; } = false;
+    public bool DontShowResearchModeWarning { get; set; } = false;
+    public bool DontShowImageStudioWarning { get; set; } = false;
+
+
     public string? ImageStudioApiKey { get; set; }
     public string ImageStudioBaseUrl { get; set; } = "https://api.openai.com/v1";
     public string ImageStudioModel { get; set; } = "dall-e-3";

@@ -8731,4 +8731,32 @@ Unity Editörünü açtığınızda port 8282 otomatik dinlenmeye başlar.</valu
   <data name="ResearchModeInactiveToast" xml:space="preserve">
     <value>🔎 Araştırma &amp; Sohbet Modu PASİF: Standart çalışma moduna dönüldü.</value>
   </data>
-</root>
+  <data name="ResearchModeDialogTitle" xml:space="preserve">
+    <value>🔎 Araştırma &amp; Sohbet Modu Bilgilendirmesi</value>
+  </data>
+  <data name="ResearchModeDialogMessage" xml:space="preserve">
+    <value>Araştırma &amp; Sohbet Modu aktifken kodlama ajanları, terminal çalıştırma ve otomatik build/doğrulama adımları kapalıdır.
+
+Bu mod; canlı web araştırması yapma, fikir olgunlaştırma, soru cevaplama ve zengin .md/.txt araştırma notları oluşturmak için özel olarak tasarlanmıştır.
+
+Kod yazdırmak veya projede değişiklik yaptırmak istediğinizde bu modu üstteki 🔎 butonundan tekrar kapatabilirsiniz.</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Bir daha gösterme</value>
+  </data>
+  <data name="DialogGotIt" xml:space="preserve">
+    <value>Anladım</value>
+  </data>
+  <data name="ImageStudioDialogTitle" xml:space="preserve">
+    <value>🎨 Yapay Zeka Görsel Desteği Bilgilendirmesi</value>
+  </data>
+  <data name="ImageStudioDialogMessage" xml:space="preserve">
+    <value>Görsel Desteği aktifken yapay zeka; kod, web arayüzü veya araştırma yanıtlarında ihtiyaç duyduğu görselleri otonom olarak üretip projenize kaydeder.
+
+Projenizde görsel üretimine ihtiyaç duymuyorsanız bu butonu kapalı tutmak API yanıt süresini ve çalışma performansını artırır.
+
+İstediğiniz zaman sohbet panelindeki 🎨 butonundan bu desteği tekrar kapatabilirsiniz.</value>
+  </data>
+</root>
+
+

@@ -6333,9 +6333,24 @@ public partial class MainWindow
     {
         var settings = SettingsWindow.GetSettings();
         settings.EnableMultiAgentImageGeneration = !settings.EnableMultiAgentImageGeneration;
+
+        if (settings.EnableMultiAgentImageGeneration && !settings.DontShowImageStudioWarning)
+        {
+            var dialog = new ImageStudioInfoWindow
+            {
+                Owner = this
+            };
+            dialog.ShowDialog();
+            if (dialog.DontShowAgain)
+            {
+                settings.DontShowImageStudioWarning = true;
+            }
+        }
+
         SettingsWindow.SaveSettings(settings);
 
         UpdateMultiAgentButtonUI();
+
 
         string msgKey = settings.EnableMultiAgentImageGeneration ? "MultiAgentActiveToast" : "MultiAgentInactiveToast";
         string localizedMsg = LocalizationManager.Instance[msgKey];
@@ -6390,9 +6405,24 @@ public partial class MainWindow
     {
         var settings = SettingsWindow.GetSettings();
         settings.EnableResearchMode = !settings.EnableResearchMode;
+
+        if (settings.EnableResearchMode && !settings.DontShowResearchModeWarning)
+        {
+            var dialog = new ResearchModeInfoWindow
+            {
+                Owner = this
+            };
+            dialog.ShowDialog();
+            if (dialog.DontShowAgain)
+            {
+                settings.DontShowResearchModeWarning = true;
+            }
+        }
+
         SettingsWindow.SaveSettings(settings);
 
         UpdateResearchModeButtonUI();
+
 
         string msgKey = settings.EnableResearchMode ? "ResearchModeActiveToast" : "ResearchModeInactiveToast";
         string localizedMsg = LocalizationManager.Instance[msgKey];
