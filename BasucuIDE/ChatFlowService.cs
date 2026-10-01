@@ -2373,6 +2373,10 @@ public class ChatFlowService : IChatFlowService
                         break;
                     }
 
+                    if (maxIterations > 10)
+                    {
+                        _terminalLog?.Invoke(Localization.Get("ℹ️ AI okuduğu dosyaları ve topladığı verileri analiz ederek görevi tamamladı.", "ℹ️ AI analyzed the collected data and completed the task."));
+                    }
                     _updateOperationStep?.Invoke("✅ İşlem tamamlandı");
 
                     break;
@@ -2381,30 +2385,105 @@ public class ChatFlowService : IChatFlowService
 
             }
 
-            if (iteration >= maxIterations)
+            // ─── Outer Continuation Loop ───────────────────────────────────────────
+            // Yukarıdaki while(iteration < maxIterations) döngüsünden çıkıldığında
+            // kullanıcı "Devam Et" butonuna bastıysa döngüye GERİ DÖN.
+            // Düzeltme: continuation bloğu döngünün DIŞINDA olduğu için sınır
+            // uzatılsa bile döngü yeniden girilmiyordu. Artık goto ile geri dönülüyor.
+            bool _continueOuter;
+            do
             {
-                bool shouldContinue = false;
-                if (onRequestStepContinuationAsync != null && !cancellationToken.IsCancellationRequested)
+                _continueOuter = false;
+                if (iteration >= maxIterations)
                 {
-                    try
+                    bool shouldContinue = false;
+                    if (onRequestStepContinuationAsync != null && !cancellationToken.IsCancellationRequested)
                     {
-                        _updateOperationStep?.Invoke($"⚙️ AI {maxIterations} adımdır çalışıyor. Devam onayınız bekleniyor...");
-                        shouldContinue = await onRequestStepContinuationAsync(iteration);
+                        try
+                        {
+                            _updateOperationStep?.Invoke($"⚙️ AI {maxIterations} adımdır çalışıyor. Devam onayınız bekleniyor...");
+                            shouldContinue = await onRequestStepContinuationAsync(iteration);
+                        }
+                        catch { shouldContinue = false; }
                     }
-                    catch { shouldContinue = false; }
-                }
 
-                if (shouldContinue)
-                {
-                    maxIterations += 10;
-                    _terminalLog?.Invoke($"ℹ️ Kullanıcı onayı alındı: AI döngü sınırı {maxIterations} adıma uzatıldı.");
-                    _updateOperationStep?.Invoke($"🚀 Devam ediliyor ({iteration + 1}/{maxIterations})...");
+                    if (shouldContinue)
+                    {
+                        maxIterations += 10;
+                        _terminalLog?.Invoke($"ℹ️ Kullanıcı onayı alındı: AI döngü sınırı {maxIterations} adıma uzatıldı.");
+                        _updateOperationStep?.Invoke($"🚀 Devam ediliyor ({iteration + 1}/{maxIterations})...");
+
+                        // Döngüyü gerçekten yeniden gir
+                        while (iteration < maxIterations)
+                        {
+                            cancellationToken.ThrowIfCancellationRequested();
+
+                            _updateOperationStep?.Invoke($"🧠 AI yanıtı işliyor (tur {iteration + 1})...");
+
+                            ExtendedChatResponse? contResponse = null;
+                            try
+                            {
+                                contResponse = await _apiClient.SendChatWithToolsAsync(messagesToSend, activeTools, cancellationToken);
+                            }
+                            catch (OperationCanceledException) { throw; }
+
+                            var contMsg = contResponse?.Choices?.FirstOrDefault()?.Message;
+                            if (contMsg == null) break;
+
+                            session?.History.Add(contMsg);
+                            messagesToSend.Add(contMsg);
+                            SaveSessions();
+
+                            if (!string.IsNullOrEmpty(contMsg.Content))
+                            {
+                                var m = new ChatFlowMessage { Sender = "AI Asistan", Content = contMsg.Content };
+                                result.Messages.Add(m);
+                                onMessageAdded?.Invoke(m);
+                            }
+
+                            if (contMsg.ToolCalls != null && contMsg.ToolCalls.Count > 0)
+                            {
+                                foreach (var tc in contMsg.ToolCalls)
+                                {
+                                    if (tc.Function == null) continue;
+                                    var tn = tc.Function.Name;
+                                    var ta = tc.Function.Arguments ?? "{}";
+                                    _updateOperationStep?.Invoke($"⚙️ {tn} çalıştırılıyor...");
+                                    if (_toolExecutor == null) continue;
+                                    var tr = await _toolExecutor.ExecuteAsync(tn, ta, cancellationToken);
+                                    var tcMsg = new ExtendedChatMessage
+                                    {
+                                        Role = "tool",
+                                        ToolCallId = tc.Id,
+                                        Content = tr.Success ? tr.Output : tr.Error
+                                    };
+                                    session?.History.Add(tcMsg);
+                                    messagesToSend.Add(tcMsg);
+                                    SaveSessions();
+                                    _terminalLog?.Invoke($"Araç çağrısı: {tn}");
+                                }
+                                iteration++;
+                            }
+                            else
+                            {
+                                // AI araç çağırmadı → tamamlandı
+                                _updateOperationStep?.Invoke("✅ İşlem tamamlandı");
+                                break;
+                            }
+                        }
+
+                        // Hâlâ sınıra ulaştıysak tekrar sor
+                        if (iteration >= maxIterations)
+                            _continueOuter = true;
+                    }
+                    else
+                    {
+                        result.Messages.Add(new ChatFlowMessage { Sender = "Sistem", Content = LocalizationManager.Instance.GetString("IslemDonguLimitineUlastiVeDurduruldu") });
+                    }
                 }
-                else
-                {
-                    result.Messages.Add(new ChatFlowMessage { Sender = "Sistem", Content = LocalizationManager.Instance.GetString("IslemDonguLimitineUlastiVeDurduruldu") });
-                }
-            }
+            } while (_continueOuter);
+
+
 
             // Run Agent Pipeline
 
