@@ -1608,38 +1608,62 @@ public class ChatFlowService : IChatFlowService
                     // ⚡ DİNAMİK RE-ROUTING (Option 3): Ana model listede olmayan bir aracı talep ettiyse kataloğu genişlet ve devam et
 
                     if (!string.IsNullOrEmpty(assistantMessage.Content) && assistantMessage.Content.Contains("[REQUEST_TOOL:"))
-
                     {
-
                         var reqMatch = System.Text.RegularExpressions.Regex.Match(assistantMessage.Content, @"\[REQUEST_TOOL:\s*(\w+)\]");
-
                         if (reqMatch.Success)
-
                         {
-
                             var requestedToolName = reqMatch.Groups[1].Value;
-
                             var reqTool = allActiveTools.FirstOrDefault(t => string.Equals(t.Function?.Name, requestedToolName, StringComparison.OrdinalIgnoreCase));
 
                             if (reqTool != null && !activeTools.Any(t => string.Equals(t.Function?.Name, requestedToolName, StringComparison.OrdinalIgnoreCase)))
-
                             {
+                                bool allowTool = true;
+                                if (_toolExecutor != null)
+                                {
+                                    string promptTemplate = LocalizationManager.Instance.GetString("RouterUnselectedToolPermissionPrompt");
+                                    string question = string.IsNullOrEmpty(promptTemplate)
+                                        ? $"🤖 Yapay zeka, Router'ın önceden tanımlamadığı '{requestedToolName}' aracını kullanmak istiyor. İzin veriyor musunuz?"
+                                        : string.Format(promptTemplate, requestedToolName);
 
-                                activeTools.Add(reqTool);
+                                    var options = new List<string>
+                                    {
+                                        LocalizationManager.Instance.GetString("AllowAndAddTool"),
+                                        LocalizationManager.Instance.GetString("DenyPermission")
+                                    };
 
-                                _terminalLog?.Invoke($"⚡ [Dynamic Re-Routing] Ana model '{requestedToolName}' aracını talep etti. Kataloğa eklendi!");
+                                    var optResult = await _toolExecutor.RequestUserOptionsAsync(question, options, false);
+                                    allowTool = optResult.Success && optResult.Output != null && optResult.Output.Contains("✅");
+                                }
 
-                                UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+                                if (allowTool)
+                                {
+                                    activeTools.Add(reqTool);
+                                    _terminalLog?.Invoke($"⚡ [Dynamic Re-Routing] Kullanıcı '{requestedToolName}' aracının kullanımına İZİN VERDİ. Kataloğa eklendi!");
+                                    UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+                                    iteration++;
+                                    continue;
+                                }
+                                else
+                                {
+                                    _terminalLog?.Invoke($"🛡️ [Dynamic Re-Routing] Kullanıcı '{requestedToolName}' aracının kullanımını REDDETTİ.");
+                                    string deniedMsgTemplate = LocalizationManager.Instance.GetString("ToolPermissionDeniedMsg");
+                                    string deniedMsg = string.IsNullOrEmpty(deniedMsgTemplate)
+                                        ? $"[Sistem] Kullanıcı '{requestedToolName}' aracının kullanımına izin vermedi. Lütfen bu aracı kullanmadan devam edin."
+                                        : string.Format(deniedMsgTemplate, requestedToolName);
 
-                                iteration++;
-
-                                continue;
-
+                                    messagesToSend.Add(new ExtendedChatMessage
+                                    {
+                                        Role = "user",
+                                        Content = deniedMsg
+                                    });
+                                    iteration++;
+                                    continue;
+                                }
                             }
 
                         }
-
                     }
+
 
                     var fallbackQuestions = ExtractFallbackQuestions(assistantMessage.Content);
 
@@ -2004,6 +2028,25 @@ public class ChatFlowService : IChatFlowService
                             ? toolResult.Output
 
                             : FormatToolErrorMessage(toolResult.Error, toolResult.Output);
+
+                        if (!toolResult.Success && !string.IsNullOrEmpty(toolResult.Error) &&
+                            (toolResult.Error.Contains("gerekli argüman eksik", StringComparison.OrdinalIgnoreCase) ||
+                             toolResult.Error.Contains("given key was not present", StringComparison.OrdinalIgnoreCase) ||
+                             toolResult.Error.Contains("missing required argument", StringComparison.OrdinalIgnoreCase)))
+                        {
+                            var warningMsg = LocalizationManager.Instance.GetString("ToolMissingArgsWarning");
+                            toolContent += "\n\n" + (string.IsNullOrEmpty(warningMsg)
+                                ? "[⚠️ SİSTEM UYARISI: Araç çağrınız eksik/bozuk parametre nedeniyle başarısız oldu. Lütfen ilgili aracın zorunlu alanlarını eksiksiz doldurarak TEKRAR DENEYİN.]"
+                                : warningMsg);
+
+                            var logTemplate = LocalizationManager.Instance.GetString("SelfCorrectionTerminalLog");
+                            var logMsg = string.IsNullOrEmpty(logTemplate)
+                                ? $"⚠️ [Self-Correction] '{toolName}' eksik argüman hatası aldı. AI modeline otomatik düzeltme uyarısı gönderildi."
+                                : string.Format(logTemplate, toolName);
+                            _terminalLog?.Invoke(logMsg);
+                        }
+
+
 
                         var toolChatMessage = new ExtendedChatMessage
 

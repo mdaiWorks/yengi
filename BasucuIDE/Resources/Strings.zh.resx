@@ -8757,6 +8757,25 @@
 
 您随时可以使用聊天面板中的 🎨 按钮开启或关闭此支持。</value>
   </data>
+  <data name="RouterUnselectedToolPermissionPrompt" xml:space="preserve">
+    <value>🤖 AI 请求使用未被 Router 预选的 '{0}' 工具。是否允许执行？</value>
+  </data>
+  <data name="AllowAndAddTool" xml:space="preserve">
+    <value>✅ 允许并添加工具</value>
+  </data>
+  <data name="DenyPermission" xml:space="preserve">
+    <value>❌ 拒绝</value>
+  </data>
+  <data name="ToolMissingArgsWarning" xml:space="preserve">
+    <value>[⚠️ 系统警告：由于缺少或无效的参数，您的工具调用失败。请填满所有必需参数并重试。]</value>
+  </data>
+  <data name="SelfCorrectionTerminalLog" xml:space="preserve">
+    <value>⚠️ [Self-Correction] '{0}' 遇到缺少参数错误。已向 AI 模型发送自动重试警告。</value>
+  </data>
+  <data name="ToolPermissionDeniedMsg" xml:space="preserve">
+    <value>[系统] 用户拒绝了工具 '{0}' 的使用权限。请在不使用此工具的情况下继续。</value>
+  </data>
 </root>
+
 
 

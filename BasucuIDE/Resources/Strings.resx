@@ -8757,6 +8757,25 @@ Projenizde görsel üretimine ihtiyaç duymuyorsanız bu butonu kapalı tutmak A
 
 İstediğiniz zaman sohbet panelindeki 🎨 butonundan bu desteği tekrar kapatabilirsiniz.</value>
   </data>
+  <data name="RouterUnselectedToolPermissionPrompt" xml:space="preserve">
+    <value>🤖 Yapay zeka, Router'ın önceden tanımlamadığı '{0}' aracını kullanmak istiyor. İzin veriyor musunuz?</value>
+  </data>
+  <data name="AllowAndAddTool" xml:space="preserve">
+    <value>✅ İzin Ver ve Kataloğa Ekle</value>
+  </data>
+  <data name="DenyPermission" xml:space="preserve">
+    <value>❌ Reddet</value>
+  </data>
+  <data name="ToolMissingArgsWarning" xml:space="preserve">
+    <value>[⚠️ SİSTEM UYARISI: Araç çağrınız eksik/bozuk parametre nedeniyle başarısız oldu. Lütfen ilgili aracın zorunlu alanlarını eksiksiz doldurarak TEKRAR DENEYİN.]</value>
+  </data>
+  <data name="SelfCorrectionTerminalLog" xml:space="preserve">
+    <value>⚠️ [Self-Correction] '{0}' eksik argüman hatası aldı. AI modeline otomatik düzeltme uyarısı gönderildi.</value>
+  </data>
+  <data name="ToolPermissionDeniedMsg" xml:space="preserve">
+    <value>[Sistem] Kullanıcı '{0}' aracının kullanımına izin vermedi. Lütfen bu aracı kullanmadan devam edin.</value>
+  </data>
 </root>
+
 
 
