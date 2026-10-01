@@ -12,7 +12,7 @@ Read this in: [🇹🇷 Türkçe](README.tr.md) | 🇺🇸 English
 > *"Yengi: The rewarding milestone reached after long, dedicated effort."*
 
 [![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
-[![Version: v1.13](https://img.shields.io/badge/Release-v1.13-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
+[![Version: v1.14](https://img.shields.io/badge/Release-v1.14-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
 [![Framework: .NET 10 LTS](https://img.shields.io/badge/Framework-.NET%2010%20LTS-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-green.svg)](LICENSE)
