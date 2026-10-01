@@ -127,22 +127,32 @@ public class BuildService
 
             if (timeoutSeconds > 0 && timeoutCts?.IsCancellationRequested == true)
             {
-                var isDevServerCommand = command.Contains("dev", StringComparison.OrdinalIgnoreCase) ||
-                                         command.Contains("start", StringComparison.OrdinalIgnoreCase) ||
-                                         command.Contains("serve", StringComparison.OrdinalIgnoreCase) ||
-                                         command.Contains("watch", StringComparison.OrdinalIgnoreCase) ||
-                                         command.Contains("zipper", StringComparison.OrdinalIgnoreCase);
+                var isSleepCommand = command.Contains("Start-Sleep", StringComparison.OrdinalIgnoreCase) ||
+                                     command.Contains("sleep ", StringComparison.OrdinalIgnoreCase);
+
+                var isDevServerCommand = !isSleepCommand && (
+                    command.Contains("npm ", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("npx ", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("yarn ", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("pnpm ", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("vite", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("http-server", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("dotnet watch", StringComparison.OrdinalIgnoreCase) ||
+                    command.Contains("zipper", StringComparison.OrdinalIgnoreCase)
+                );
 
                 var outputText = result.Output ?? "";
-                var isServerOutput = outputText.Contains("http://", StringComparison.OrdinalIgnoreCase) ||
+                var isServerOutput = !isSleepCommand && (
+                                     outputText.Contains("http://", StringComparison.OrdinalIgnoreCase) ||
                                      outputText.Contains("localhost", StringComparison.OrdinalIgnoreCase) ||
                                      outputText.Contains("listening", StringComparison.OrdinalIgnoreCase) ||
                                      outputText.Contains("compiled", StringComparison.OrdinalIgnoreCase) ||
                                      outputText.Contains("ready", StringComparison.OrdinalIgnoreCase) ||
-                                     outputText.Contains("running at", StringComparison.OrdinalIgnoreCase) ||
-                                     outputText.Contains("port", StringComparison.OrdinalIgnoreCase);
+                                     outputText.Contains("running at", StringComparison.OrdinalIgnoreCase)
+                                     );
 
                 if (isDevServerCommand || isServerOutput)
+
                 {
                     _terminalLog("✓ [Dev Server] Arka plan geliştirme sunucusu başlatıldı ve dinlemeye geçti.");
                     result = (true, $"[BACKGROUND DEV SERVER ACTIVE]\nDev sunucusu arka planda başarıyla başlatıldı ve dinlemeye geçti.\n\nTerminal Çıktısı:\n{outputText}", (string?)null);
