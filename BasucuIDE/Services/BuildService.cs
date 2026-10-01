@@ -123,24 +123,24 @@ public class BuildService
                 timeoutCts.CancelAfter(TimeSpan.FromSeconds(timeoutSeconds));
             }
 
-            var result = await RunProcessAsync("powershell", $"-Command \"{command}\"", resolvedWorkDir, timeoutCts?.Token ?? cancellationToken);
+            var isSleepCommand = command.Contains("Start-Sleep", StringComparison.OrdinalIgnoreCase) ||
+                                 command.Contains("sleep ", StringComparison.OrdinalIgnoreCase);
+
+            var isDevServerCommand = !isSleepCommand && (
+                command.Contains("npm ", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("npx ", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("yarn ", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("pnpm ", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("vite", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("http-server", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("dotnet watch", StringComparison.OrdinalIgnoreCase) ||
+                command.Contains("zipper", StringComparison.OrdinalIgnoreCase)
+            );
+
+            var result = await RunProcessAsync("powershell", $"-Command \"{command}\"", resolvedWorkDir, timeoutCts?.Token ?? cancellationToken, keepAliveOnTimeout: isDevServerCommand);
 
             if (timeoutSeconds > 0 && timeoutCts?.IsCancellationRequested == true)
             {
-                var isSleepCommand = command.Contains("Start-Sleep", StringComparison.OrdinalIgnoreCase) ||
-                                     command.Contains("sleep ", StringComparison.OrdinalIgnoreCase);
-
-                var isDevServerCommand = !isSleepCommand && (
-                    command.Contains("npm ", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("npx ", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("yarn ", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("pnpm ", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("vite", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("http-server", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("dotnet watch", StringComparison.OrdinalIgnoreCase) ||
-                    command.Contains("zipper", StringComparison.OrdinalIgnoreCase)
-                );
-
                 var outputText = result.Output ?? "";
                 var isServerOutput = !isSleepCommand && (
                                      outputText.Contains("http://", StringComparison.OrdinalIgnoreCase) ||
@@ -150,6 +150,7 @@ public class BuildService
                                      outputText.Contains("ready", StringComparison.OrdinalIgnoreCase) ||
                                      outputText.Contains("running at", StringComparison.OrdinalIgnoreCase)
                                      );
+
 
                 if (isDevServerCommand || isServerOutput)
 
@@ -199,7 +200,8 @@ public class BuildService
         string fileName,
         string arguments,
         string workingDirectory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        bool keepAliveOnTimeout = false)
     {
         try
         {
@@ -214,53 +216,49 @@ public class BuildService
                 CreateNoWindow = true
             };
 
-            using var process = Process.Start(psi);
+            var process = Process.Start(psi);
             if (process == null)
                 return (false, "", "Process başlatılamadı");
 
-            var outputTask = process.StandardOutput.ReadToEndAsync();
-            var errorTask = process.StandardError.ReadToEndAsync();
+            var sbOutput = new System.Text.StringBuilder();
+            var sbError = new System.Text.StringBuilder();
+
+            process.OutputDataReceived += (s, e) => { if (e.Data != null) lock (sbOutput) sbOutput.AppendLine(e.Data); };
+            process.ErrorDataReceived += (s, e) => { if (e.Data != null) lock (sbError) sbError.AppendLine(e.Data); };
+
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
 
             try
             {
-                await Task.WhenAll(
-                    process.WaitForExitAsync(cancellationToken),
-                    outputTask,
-                    errorTask
-                );
+                await process.WaitForExitAsync(cancellationToken);
             }
             catch (OperationCanceledException)
             {
-                try
+                string capturedOut;
+                string capturedErr;
+                lock (sbOutput) { capturedOut = sbOutput.ToString(); }
+                lock (sbError) { capturedErr = sbError.ToString(); }
+
+                if (!keepAliveOnTimeout)
                 {
-                    if (!process.HasExited)
+                    try
                     {
-                        process.Kill(entireProcessTree: true);
+                        if (!process.HasExited)
+                        {
+                            process.Kill(entireProcessTree: true);
+                        }
                     }
-                }
-                catch
-                {
-                    // best-effort; child may already be gone
+                    catch { }
                 }
 
-                string timedOutOutput = "";
-                string timedOutError = "";
-                try
-                {
-                    var readTasks = Task.WhenAll(outputTask, errorTask);
-                    if (await Task.WhenAny(readTasks, Task.Delay(300)) == readTasks)
-                    {
-                        timedOutOutput = await outputTask;
-                        timedOutError = await errorTask;
-                    }
-                }
-                catch { }
-
-                return (false, timedOutOutput, $"Komut zaman aşıldı veya iptal edildi. {timedOutError}");
+                return (false, capturedOut, $"Komut zaman aşıldı veya iptal edildi. {capturedErr}");
             }
 
-            var finalOutput = await outputTask;
-            var finalError = await errorTask;
+            string finalOutput;
+            string finalError;
+            lock (sbOutput) { finalOutput = sbOutput.ToString(); }
+            lock (sbError) { finalError = sbError.ToString(); }
 
             return (process.ExitCode == 0, finalOutput, finalError);
         }
@@ -269,6 +267,7 @@ public class BuildService
             return (false, "", ex.Message);
         }
     }
+
 
     private string ResolvePath(string path)
     {
