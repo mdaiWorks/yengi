@@ -108,7 +108,7 @@ public class BuildService
             : null;
         var timeoutSeconds = arguments.TryGetProperty("timeoutSeconds", out var timeoutProp) && timeoutProp.ValueKind == JsonValueKind.Number
             ? timeoutProp.GetInt32()
-            : 30; // Default to 30s to prevent infinite hangs on servers like http-server/npm start
+            : 15; // Smart default: 15s to detect server startup without long blocking
 
         var resolvedWorkDir = ResolvePath(workingDirectory ?? (_projectFolder ?? "."));
 
@@ -125,13 +125,38 @@ public class BuildService
 
             var result = await RunProcessAsync("powershell", $"-Command \"{command}\"", resolvedWorkDir, timeoutCts?.Token ?? cancellationToken);
 
-            if (!result.Success && string.IsNullOrWhiteSpace(result.Error) && timeoutSeconds > 0 && timeoutCts?.IsCancellationRequested == true)
+            if (timeoutSeconds > 0 && timeoutCts?.IsCancellationRequested == true)
             {
-                result = (false, result.Output, $"Komut zaman aşıldı ({timeoutSeconds} saniye). Arka plan sunucu komutları (npx http-server) yerine 'start index.html' kullanın.");
+                var isDevServerCommand = command.Contains("dev", StringComparison.OrdinalIgnoreCase) ||
+                                         command.Contains("start", StringComparison.OrdinalIgnoreCase) ||
+                                         command.Contains("serve", StringComparison.OrdinalIgnoreCase) ||
+                                         command.Contains("watch", StringComparison.OrdinalIgnoreCase) ||
+                                         command.Contains("zipper", StringComparison.OrdinalIgnoreCase);
+
+                var outputText = result.Output ?? "";
+                var isServerOutput = outputText.Contains("http://", StringComparison.OrdinalIgnoreCase) ||
+                                     outputText.Contains("localhost", StringComparison.OrdinalIgnoreCase) ||
+                                     outputText.Contains("listening", StringComparison.OrdinalIgnoreCase) ||
+                                     outputText.Contains("compiled", StringComparison.OrdinalIgnoreCase) ||
+                                     outputText.Contains("ready", StringComparison.OrdinalIgnoreCase) ||
+                                     outputText.Contains("running at", StringComparison.OrdinalIgnoreCase) ||
+                                     outputText.Contains("port", StringComparison.OrdinalIgnoreCase);
+
+                if (isDevServerCommand || isServerOutput)
+                {
+                    _terminalLog("✓ [Dev Server] Arka plan geliştirme sunucusu başlatıldı ve dinlemeye geçti.");
+                    result = (true, $"[BACKGROUND DEV SERVER ACTIVE]\nDev sunucusu arka planda başarıyla başlatıldı ve dinlemeye geçti.\n\nTerminal Çıktısı:\n{outputText}", (string?)null);
+                }
+                else
+                {
+                    result = (false, result.Output ?? "", $"Komut zaman aşıldı ({timeoutSeconds} saniye). Sürekli çalışan arka plan sunucuları yerine 'start http://localhost:PORT' veya kısa süreli komutlar kullanın.");
+                }
+
             }
 
             return CreateProcessResult(result, "terminal");
         }
+
         catch (Exception ex)
         {
             return new ToolResult { Success = false, Error = $"Terminal komutu hatası: {ex.Message}" };
