@@ -57,7 +57,8 @@ public class UpdateService
     private static readonly Lazy<UpdateService> _instance = new(() => new UpdateService());
     public static UpdateService Instance => _instance.Value;
 
-    public const string CurrentVersion = "1.11";
+    public const string CurrentVersion = "1.12";
+
 
 
 
