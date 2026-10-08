@@ -405,7 +405,7 @@ public class ToolExecutor
         try
         {
             using var httpClient = new System.Net.Http.HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(60);
+            httpClient.Timeout = TimeSpan.FromMinutes(10); // Yerel MLX modelleri (Qwen-Image vb.) 1-4 dk sürebilir
 
             byte[] imageBytes;
             bool usePublic = settings.ImageStudioUseFreePollinations || string.IsNullOrWhiteSpace(settings.ImageStudioApiKey);
