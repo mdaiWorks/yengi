@@ -1,17 +1,14 @@
-# Yengi v1.14 Release Notes
+# Yengi v1.15 Release Notes
 
 ### 🚀 Yenilikler / New Features
-- complete one-click release automation script with automated dotnet publish, Inno Setup EXE creation, and git push (`b3467bc`)
-- add user permission gate for unselected tool requests and self-correction hint for missing tool arguments (with TR/EN/ZH localization) (`cb22799`)
+- **Yerel Görsel Modeli Ayarları (Çözünürlük & Step):** Görsel Stüdyosu Ayarları (⚙️) menüsüne Çözünürlük (Resolution: 512x512, 768x768, 1024x1024 vb.) ve Adım Sayısı (Step: 15, 20, 30 vb.) ayarları eklendi.
+- **Mac / Apple Silicon MLX Qwen-Image Desteği:** Yerel Qwen-Image / Flux modellerinde 512x512 ve 15-20 step seçenekleriyle 10-15 dakikalık üretim süreleri **1.4 dakikaya (~87 saniye)** düşürüldü.
+- **Modern Dark ComboBox Tasarımı:** Windows XP varsayılan beyaz açılır kutu teması VS Code uyumlu modern karanlık tema (`#1e1e1e` background, `#007acc` hover, `#00ffb7` selected) ile yenilendi.
 
 ### 🐛 Düzeltmeler / Bug Fixes
-- process stdout streaming and keep-alive for dev servers to prevent 5-minute terminal hangs (`c9248a9`)
-- refine dev server detection to exclude Start-Sleep timeout test commands (`cf44427`)
+- **WPF ComboBoxItem Metin Ayrıştırma:** ComboBoxItem nesne öneki (`System.Windows.Controls.ComboBoxItem`) temizlenerek seçilen çözünürlük ve step değerlerinin yerel sunucuya (`rapid-mlx` / `mflux`) eksiksiz iletilmesi sağlandı (`a8702b0`).
+- **HttpClient Timeout Uzatıldı:** Yerel MLX görsel üretimi sırasında oluşan zamanaşımı (timeout) hatasını engellemek için HTTP istek süresi 10 dakikaya çıkarıldı (`7b9557a`).
+- **Pollinations URL Çözünürlük Parametresi:** Ücretsiz gateway kullanımında seçilen çözünürlük URL parametresine (`width` & `height`) aktarıldı (`39011b1`).
 
 ### 🔧 Sürüm & Altyapı / Maintenance
-- remove yedekReadmeler and telemetry_dashboard.html from git tracking and add to gitignore (`109e9f6`)
-- release v1.13 (`1c14c65`)
-- remove tek_tik_release.bat from github tracking and add to gitignore (`d5a58ee`)
-- bump version to 1.12 (`ea66d92`)
-- ignore exekurulum.iss and DOCS_BLENDER_UNITY_COPILOT.md from repository (`23fe516`)
-- bump version to 1.11 (`ab50f2d`)
+- Dotnet publish (win-x64 self-contained) ve Inno Setup installer `dist/Yengi_Setup_v1.15.exe` derlendi.
