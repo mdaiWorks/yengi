@@ -432,7 +432,7 @@ public class ToolExecutor
                     prompt = prompt,
                     n = 1,
                     size = "1024x1024",
-                    response_format = "url"
+                    response_format = "b64_json"
                 };
 
                 var jsonContent = new System.Net.Http.StringContent(
@@ -450,7 +450,23 @@ public class ToolExecutor
                 var httpResponse = await httpClient.PostAsync(url, jsonContent, cancellationToken);
                 var responseBody = await httpResponse.Content.ReadAsStringAsync(cancellationToken);
 
+                if (!httpResponse.IsSuccessStatusCode && responseBody.Contains("response_format"))
+                {
+                    var fallbackBody = new
+                    {
+                        model = settings.ImageStudioModel,
+                        prompt = prompt,
+                        n = 1,
+                        size = "1024x1024",
+                        response_format = "url"
+                    };
+                    var fallbackJson = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(fallbackBody), System.Text.Encoding.UTF8, "application/json");
+                    httpResponse = await httpClient.PostAsync(url, fallbackJson, cancellationToken);
+                    responseBody = await httpResponse.Content.ReadAsStringAsync(cancellationToken);
+                }
+
                 using var doc = System.Text.Json.JsonDocument.Parse(responseBody);
+
                 var dataItem = doc.RootElement.GetProperty("data")[0];
 
                 if (dataItem.TryGetProperty("url", out var urlProp) && !string.IsNullOrEmpty(urlProp.GetString()))

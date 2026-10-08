@@ -3870,7 +3870,7 @@ public class ChatFlowService : IChatFlowService
                 prompt = finalPrompt,
                 n = 1,
                 size = "1024x1024",
-                response_format = "url"
+                response_format = "b64_json"
             };
 
             var json = System.Text.Json.JsonSerializer.Serialize(requestBody);
@@ -3884,6 +3884,23 @@ public class ChatFlowService : IChatFlowService
 
             var response = await httpClient.PostAsync($"{baseUrl}/images/generations", content, cancellationToken);
             var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            // Retry with "url" format if a server specifically demands url instead of b64_json
+            if (!response.IsSuccessStatusCode && responseBody.Contains("response_format"))
+            {
+                var fallbackBody = new
+                {
+                    model = settings.ImageStudioModel,
+                    prompt = finalPrompt,
+                    n = 1,
+                    size = "1024x1024",
+                    response_format = "url"
+                };
+                var fallbackContent = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(fallbackBody), System.Text.Encoding.UTF8, "application/json");
+                response = await httpClient.PostAsync($"{baseUrl}/images/generations", fallbackContent, cancellationToken);
+                responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            }
+
 
             if (!response.IsSuccessStatusCode)
             {
