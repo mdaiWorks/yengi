@@ -54,6 +54,8 @@ public class AppSettings
     public string? ImageStudioApiKey { get; set; }
     public string ImageStudioBaseUrl { get; set; } = "https://api.openai.com/v1";
     public string ImageStudioModel { get; set; } = "dall-e-3";
+    public int ImageStudioSteps { get; set; } = 20;
+    public string ImageStudioSize { get; set; } = "1024x1024";
 
     // Blender Ayarları
     public int BlenderWebSocketPort { get; set; } = 8181;

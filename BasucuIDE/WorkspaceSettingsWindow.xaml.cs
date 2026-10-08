@@ -35,6 +35,8 @@ namespace mdaiAgent
                     txtImageBaseUrl.Text = _settings.ImageStudioBaseUrl;
                     txtImageApiKey.Text = _settings.ImageStudioApiKey;
                     txtImageModel.Text = _settings.ImageStudioModel;
+                    cmbImageSize.Text = string.IsNullOrWhiteSpace(_settings.ImageStudioSize) ? "1024x1024" : _settings.ImageStudioSize;
+                    cmbImageSteps.Text = (_settings.ImageStudioSteps > 0 ? _settings.ImageStudioSteps : 20).ToString();
                     
                     UpdateImageStudioFormState();
                     break;
@@ -222,6 +224,17 @@ namespace mdaiAgent
                     _settings.ImageStudioBaseUrl = txtImageBaseUrl.Text;
                     _settings.ImageStudioApiKey = txtImageApiKey.Text;
                     _settings.ImageStudioModel = txtImageModel.Text;
+
+                    var rawSize = cmbImageSize.Text?.Trim() ?? "1024x1024";
+                    if (rawSize.Contains(' ')) rawSize = rawSize.Split(' ')[0];
+                    _settings.ImageStudioSize = rawSize.Contains('x') ? rawSize : "1024x1024";
+
+                    var rawSteps = cmbImageSteps.Text?.Trim() ?? "20";
+                    if (rawSteps.Contains(' ')) rawSteps = rawSteps.Split(' ')[0];
+                    if (int.TryParse(rawSteps, out int parsedSteps) && parsedSteps > 0)
+                        _settings.ImageStudioSteps = parsedSteps;
+                    else
+                        _settings.ImageStudioSteps = 20;
                     break;
                     
                 case AgentWorkspaceMode.BlenderCopilot:

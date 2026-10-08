@@ -410,6 +410,17 @@ public class ToolExecutor
             byte[] imageBytes;
             bool usePublic = settings.ImageStudioUseFreePollinations || string.IsNullOrWhiteSpace(settings.ImageStudioApiKey);
 
+            var size = string.IsNullOrWhiteSpace(settings.ImageStudioSize) ? "1024x1024" : settings.ImageStudioSize;
+            var steps = settings.ImageStudioSteps > 0 ? settings.ImageStudioSteps : 20;
+
+            int width = 1024, height = 1024;
+            var parts = size.Split('x', 'X');
+            if (parts.Length == 2 && int.TryParse(parts[0], out int w) && int.TryParse(parts[1], out int h))
+            {
+                width = w;
+                height = h;
+            }
+
             if (usePublic)
             {
                 var baseUrl = !string.IsNullOrWhiteSpace(settings.ImageStudioPublicBaseUrl)
@@ -419,24 +430,35 @@ public class ToolExecutor
                 var encodedPrompt = Uri.EscapeDataString(prompt);
                 var imageUrl = baseUrl.Contains("?")
                     ? $"{baseUrl}{encodedPrompt}"
-                    : $"{baseUrl}{encodedPrompt}?width=1024&height=1024&nologo=true&enhance=true";
+                    : $"{baseUrl}{encodedPrompt}?width={width}&height={height}&nologo=true&enhance=true";
 
                 imageBytes = await httpClient.GetByteArrayAsync(imageUrl, cancellationToken);
             }
             else
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ImageStudioApiKey}");
-                var requestBody = new
+
+                bool isDallE = settings.ImageStudioModel?.Contains("dall-e", StringComparison.OrdinalIgnoreCase) == true;
+
+                var requestDict = new Dictionary<string, object>
                 {
-                    model = settings.ImageStudioModel,
-                    prompt = prompt,
-                    n = 1,
-                    size = "1024x1024",
-                    response_format = "b64_json"
+                    ["model"] = settings.ImageStudioModel,
+                    ["prompt"] = prompt,
+                    ["n"] = 1,
+                    ["size"] = size,
+                    ["response_format"] = "b64_json"
                 };
 
+                if (!isDallE)
+                {
+                    requestDict["steps"] = steps;
+                    requestDict["num_inference_steps"] = steps;
+                    requestDict["width"] = width;
+                    requestDict["height"] = height;
+                }
+
                 var jsonContent = new System.Net.Http.StringContent(
-                    System.Text.Json.JsonSerializer.Serialize(requestBody),
+                    System.Text.Json.JsonSerializer.Serialize(requestDict),
                     System.Text.Encoding.UTF8,
                     "application/json");
 
@@ -452,15 +474,9 @@ public class ToolExecutor
 
                 if (!httpResponse.IsSuccessStatusCode && responseBody.Contains("response_format"))
                 {
-                    var fallbackBody = new
-                    {
-                        model = settings.ImageStudioModel,
-                        prompt = prompt,
-                        n = 1,
-                        size = "1024x1024",
-                        response_format = "url"
-                    };
-                    var fallbackJson = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(fallbackBody), System.Text.Encoding.UTF8, "application/json");
+                    var fallbackDict = new Dictionary<string, object>(requestDict);
+                    fallbackDict["response_format"] = "url";
+                    var fallbackJson = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(fallbackDict), System.Text.Encoding.UTF8, "application/json");
                     httpResponse = await httpClient.PostAsync(url, fallbackJson, cancellationToken);
                     responseBody = await httpResponse.Content.ReadAsStringAsync(cancellationToken);
                 }

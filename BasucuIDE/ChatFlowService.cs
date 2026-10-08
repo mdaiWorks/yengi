@@ -3865,16 +3865,37 @@ public class ChatFlowService : IChatFlowService
             httpClient.Timeout = TimeSpan.FromMinutes(10); // Yerel MLX modelleri (Qwen-Image vb.) 1-4 dk sürebilir
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ImageStudioApiKey}");
 
-            var requestBody = new
+            var size = string.IsNullOrWhiteSpace(settings.ImageStudioSize) ? "1024x1024" : settings.ImageStudioSize;
+            var steps = settings.ImageStudioSteps > 0 ? settings.ImageStudioSteps : 20;
+
+            int width = 1024, height = 1024;
+            var parts = size.Split('x', 'X');
+            if (parts.Length == 2 && int.TryParse(parts[0], out int w) && int.TryParse(parts[1], out int h))
             {
-                model = settings.ImageStudioModel,
-                prompt = finalPrompt,
-                n = 1,
-                size = "1024x1024",
-                response_format = "b64_json"
+                width = w;
+                height = h;
+            }
+
+            bool isDallE = settings.ImageStudioModel?.Contains("dall-e", StringComparison.OrdinalIgnoreCase) == true;
+
+            var requestDict = new Dictionary<string, object>
+            {
+                ["model"] = settings.ImageStudioModel,
+                ["prompt"] = finalPrompt,
+                ["n"] = 1,
+                ["size"] = size,
+                ["response_format"] = "b64_json"
             };
 
-            var json = System.Text.Json.JsonSerializer.Serialize(requestBody);
+            if (!isDallE)
+            {
+                requestDict["steps"] = steps;
+                requestDict["num_inference_steps"] = steps;
+                requestDict["width"] = width;
+                requestDict["height"] = height;
+            }
+
+            var json = System.Text.Json.JsonSerializer.Serialize(requestDict);
             var content = new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             var baseUrl = settings.ImageStudioBaseUrl.TrimEnd('/');
@@ -3889,15 +3910,9 @@ public class ChatFlowService : IChatFlowService
             // Retry with "url" format if a server specifically demands url instead of b64_json
             if (!response.IsSuccessStatusCode && responseBody.Contains("response_format"))
             {
-                var fallbackBody = new
-                {
-                    model = settings.ImageStudioModel,
-                    prompt = finalPrompt,
-                    n = 1,
-                    size = "1024x1024",
-                    response_format = "url"
-                };
-                var fallbackContent = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(fallbackBody), System.Text.Encoding.UTF8, "application/json");
+                var fallbackDict = new Dictionary<string, object>(requestDict);
+                fallbackDict["response_format"] = "url";
+                var fallbackContent = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(fallbackDict), System.Text.Encoding.UTF8, "application/json");
                 response = await httpClient.PostAsync($"{baseUrl}/images/generations", fallbackContent, cancellationToken);
                 responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
             }
@@ -4008,11 +4023,20 @@ public class ChatFlowService : IChatFlowService
                 ? settings.ImageStudioPublicBaseUrl.TrimEnd('/') + "/"
                 : "https://image.pollinations.ai/prompt/";
 
+            var size = string.IsNullOrWhiteSpace(settings.ImageStudioSize) ? "1024x1024" : settings.ImageStudioSize;
+            int width = 1024, height = 1024;
+            var parts = size.Split('x', 'X');
+            if (parts.Length == 2 && int.TryParse(parts[0], out int w) && int.TryParse(parts[1], out int h))
+            {
+                width = w;
+                height = h;
+            }
+
             // URL encode prompt
             var encodedPrompt = Uri.EscapeDataString(prompt);
             var imageUrl = baseUrl.Contains("?")
                 ? $"{baseUrl}{encodedPrompt}"
-                : $"{baseUrl}{encodedPrompt}?width=1024&height=1024&nologo=true&enhance=true";
+                : $"{baseUrl}{encodedPrompt}?width={width}&height={height}&nologo=true&enhance=true";
 
             _terminalLog?.Invoke($"[🎨 Image Studio] Topluluk sunucusundan ({baseUrl}) görsel üretiliyor ve indiriliyor...");
 
