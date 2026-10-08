@@ -5,6 +5,140 @@
         Title="{local:Loc Key=WorkspaceSettingsTitle}" Height="580" Width="580"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
         Background="#1e1e1e" Foreground="White">
+    <Window.Resources>
+        <!-- Modern Dark ComboBoxItem Style -->
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#252526"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Margin" Value="0,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#007acc"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#3e3e42"/>
+                                <Setter Property="Foreground" Value="#00ffb7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern Dark ComboBox Style -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#252526"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#3e3e42"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid x:Name="MainGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="24"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.ColumnSpan="2"
+                                          Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          Focusable="False"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="4">
+                                            <Path x:Name="Arrow"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                                  Fill="#8b949e"
+                                                  HorizontalAlignment="Right"
+                                                  Margin="0,0,8,0"
+                                                  VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Grid.Column="0"
+                                     Margin="2"
+                                     Padding="4,1"
+                                     Background="Transparent"
+                                     Foreground="White"
+                                     CaretBrush="White"
+                                     SelectionBrush="#007acc"
+                                     BorderThickness="0"
+                                     VerticalContentAlignment="Center"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     Visibility="Hidden"/>
+
+                            <ContentPresenter x:Name="ContentSite"
+                                              Grid.Column="0"
+                                              Margin="6,0,0,0"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+
+                            <Popup x:Name="PlacementPopup"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide"
+                                   Placement="Bottom">
+                                <Grid x:Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="#1e1e1e"
+                                            BorderBrush="#3e3e42"
+                                            BorderThickness="1"
+                                            CornerRadius="6"
+                                            Margin="0,2,0,0">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black" BlurRadius="8" Opacity="0.5" ShadowDepth="2"/>
+                                        </Border.Effect>
+                                        <ScrollViewer Margin="3">
+                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEditable" Value="True">
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -47,8 +181,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Çözünürlük (Resolution):" Margin="0,0,0,2"/>
-                    <ComboBox x:Name="cmbImageSize" Height="25" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" IsEditable="True">
+                    <TextBlock Text="Çözünürlük (Resolution):" Margin="0,0,0,3"/>
+                    <ComboBox x:Name="cmbImageSize" Height="28" IsEditable="True">
                         <ComboBoxItem Content="512x512 (Çok Hızlı)"/>
                         <ComboBoxItem Content="768x768 (Dengeli)"/>
                         <ComboBoxItem Content="1024x1024 (Varsayılan)"/>
@@ -57,8 +191,8 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
-                    <TextBlock Text="Adım Sayısı / Step (Yerel Modeller):" Margin="0,0,0,2"/>
-                    <ComboBox x:Name="cmbImageSteps" Height="25" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" IsEditable="True">
+                    <TextBlock Text="Adım Sayısı / Step (Yerel Modeller):" Margin="0,0,0,3"/>
+                    <ComboBox x:Name="cmbImageSteps" Height="28" IsEditable="True">
                         <ComboBoxItem Content="15 (Çok Hızlı - ~2x Hız)"/>
                         <ComboBoxItem Content="20 (Önerilen)"/>
                         <ComboBoxItem Content="30 (Yüksek Kalite)"/>
