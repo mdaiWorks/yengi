@@ -35,8 +35,8 @@ namespace mdaiAgent
                     txtImageBaseUrl.Text = _settings.ImageStudioBaseUrl;
                     txtImageApiKey.Text = _settings.ImageStudioApiKey;
                     txtImageModel.Text = _settings.ImageStudioModel;
-                    cmbImageSize.Text = string.IsNullOrWhiteSpace(_settings.ImageStudioSize) ? "1024x1024" : _settings.ImageStudioSize;
-                    cmbImageSteps.Text = (_settings.ImageStudioSteps > 0 ? _settings.ImageStudioSteps : 20).ToString();
+                    SelectComboBoxValue(cmbImageSize, _settings.ImageStudioSize, "1024x1024");
+                    SelectComboBoxValue(cmbImageSteps, _settings.ImageStudioSteps > 0 ? _settings.ImageStudioSteps.ToString() : "20", "20");
                     
                     UpdateImageStudioFormState();
                     break;
@@ -225,11 +225,11 @@ namespace mdaiAgent
                     _settings.ImageStudioApiKey = txtImageApiKey.Text;
                     _settings.ImageStudioModel = txtImageModel.Text;
 
-                    var rawSize = cmbImageSize.Text?.Trim() ?? "1024x1024";
+                    var rawSize = GetComboBoxValue(cmbImageSize);
                     if (rawSize.Contains(' ')) rawSize = rawSize.Split(' ')[0];
                     _settings.ImageStudioSize = rawSize.Contains('x') ? rawSize : "1024x1024";
 
-                    var rawSteps = cmbImageSteps.Text?.Trim() ?? "20";
+                    var rawSteps = GetComboBoxValue(cmbImageSteps);
                     if (rawSteps.Contains(' ')) rawSteps = rawSteps.Split(' ')[0];
                     if (int.TryParse(rawSteps, out int parsedSteps) && parsedSteps > 0)
                         _settings.ImageStudioSteps = parsedSteps;
@@ -254,6 +254,46 @@ namespace mdaiAgent
             SettingsWindow.SaveSettings(_settings);
             DialogResult = true;
             Close();
+        }
+
+        private static string GetComboBoxValue(System.Windows.Controls.ComboBox cmb)
+        {
+            string val = "";
+            if (cmb.SelectedItem is System.Windows.Controls.ComboBoxItem item)
+            {
+                val = item.Content?.ToString() ?? "";
+            }
+            else if (cmb.SelectedItem is string str)
+            {
+                val = str;
+            }
+            else
+            {
+                val = cmb.Text ?? "";
+            }
+
+            if (val.StartsWith("System.Windows.Controls.ComboBoxItem:", StringComparison.OrdinalIgnoreCase))
+            {
+                val = val.Substring("System.Windows.Controls.ComboBoxItem:".Length).Trim();
+            }
+
+            return val.Trim();
+        }
+
+        private static void SelectComboBoxValue(System.Windows.Controls.ComboBox cmb, string targetVal, string defaultVal)
+        {
+            if (string.IsNullOrWhiteSpace(targetVal)) targetVal = defaultVal;
+
+            foreach (var item in cmb.Items)
+            {
+                string itemText = item is System.Windows.Controls.ComboBoxItem cbi ? cbi.Content?.ToString() ?? "" : item?.ToString() ?? "";
+                if (itemText.StartsWith(targetVal, StringComparison.OrdinalIgnoreCase) || itemText.Equals(targetVal, StringComparison.OrdinalIgnoreCase))
+                {
+                    cmb.SelectedItem = item;
+                    return;
+                }
+            }
+            cmb.Text = targetVal;
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
