@@ -532,12 +532,25 @@ public class ChatFlowService : IChatFlowService
 
         }
 
+        if (_apiClient == null || _toolExecutor == null)
+        {
+            var apiErr = new ChatFlowMessage
+            {
+                Sender = "AI Asistan",
+                Content = LocalizationManager.Instance.GetString("LutfenAyarlardanAPIAnahtariniziEkleyin")
+            };
+            onMessageAdded?.Invoke(apiErr);
+            return new ChatFlowResult { Success = false, ErrorMessage = apiErr.Content, Messages = new List<ChatFlowMessage> { apiErr } };
+        }
+
+
         // ⚡ ÇALIŞMA MODU BYPASS — Özel modlarda LLM'yi atla veya yönlendir
         var activeMode = SettingsWindow.GetSettings().ActiveWorkspaceMode;
         if (activeMode == AgentWorkspaceMode.ImageStudio)
         {
             return await HandleImageStudioRequestAsync(message, session, onTokenReceived, onMessageAdded, cancellationToken);
         }
+
         if (activeMode == AgentWorkspaceMode.BlenderCopilot)
         {
             return await HandleBlenderRequestAsync(message, session, onTokenReceived, onMessageAdded, cancellationToken);
@@ -3809,23 +3822,40 @@ public class ChatFlowService : IChatFlowService
     {
         var settings = SettingsWindow.GetSettings();
 
+        // API key yoksa veya Ücretsiz Servis seçiliyse → Pollinations.ai
+        bool usePollinations = settings.ImageStudioUseFreePollinations;
+        if (!usePollinations && string.IsNullOrWhiteSpace(settings.ImageStudioApiKey) && _apiClient == null)
+        {
+            var apiErrorMsg = new ChatFlowMessage
+            {
+                Sender = "AI Asistan",
+                Content = LocalizationManager.Instance.GetString("LutfenAyarlardanApiAnahtariniziEkleyin")
+            };
+            onMessageAdded?.Invoke(apiErrorMsg);
+            return new ChatFlowResult { Success = false, ErrorMessage = apiErrorMsg.Content, Messages = new List<ChatFlowMessage> { apiErrorMsg } };
+        }
+
+        if (usePollinations || string.IsNullOrWhiteSpace(settings.ImageStudioApiKey))
+        {
+            usePollinations = true;
+        }
+
         // Kullanıcı mesajını oturum geçmişine ekle
         session.History.Add(new ExtendedChatMessage { Role = "user", Content = prompt });
 
         // Prompt zenginleştirme aktifse LLM çağır
         string finalPrompt = prompt;
-        if (settings.ImageStudioEnhancePrompt)
+        if (settings.ImageStudioEnhancePrompt && _apiClient != null)
         {
             finalPrompt = await EnhanceImagePromptWithLlmAsync(prompt, cancellationToken);
         }
 
-        // API key yoksa veya Ücretsiz Servis seçiliyse → Pollinations.ai
-        bool usePollinations = settings.ImageStudioUseFreePollinations || string.IsNullOrWhiteSpace(settings.ImageStudioApiKey);
         if (usePollinations)
         {
             _terminalLog?.Invoke($"[🎨 Image Studio] Pollinations.ai (ücretsiz) kullanılıyor.");
             return await HandlePollinationsImageAsync(finalPrompt, session, onMessageAdded, cancellationToken);
         }
+
 
         _terminalLog?.Invoke($"[🎨 Image Studio] Doğrudan API çağrısı başlatıldı. Prompt: {finalPrompt}");
 
@@ -3847,6 +3877,11 @@ public class ChatFlowService : IChatFlowService
             var content = new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             var baseUrl = settings.ImageStudioBaseUrl.TrimEnd('/');
+            if (baseUrl.EndsWith("/models", StringComparison.OrdinalIgnoreCase))
+            {
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - "/models".Length).TrimEnd('/');
+            }
+
             var response = await httpClient.PostAsync($"{baseUrl}/images/generations", content, cancellationToken);
             var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
 
@@ -3868,14 +3903,36 @@ public class ChatFlowService : IChatFlowService
             }
 
             using var doc = System.Text.Json.JsonDocument.Parse(responseBody);
-            var imageUrl = doc.RootElement
-                .GetProperty("data")[0]
-                .GetProperty("url")
-                .GetString();
+            var dataItem = doc.RootElement.GetProperty("data")[0];
+            string? imageUrl = null;
+            if (dataItem.TryGetProperty("url", out var urlProp))
+            {
+                imageUrl = urlProp.GetString();
+            }
 
-            _terminalLog?.Invoke($"[🎨 Image Studio] Görsel başarıyla üretildi. İndiriliyor...");
+            string? savedPath = null;
+            if (!string.IsNullOrEmpty(imageUrl))
+            {
+                _terminalLog?.Invoke($"[🎨 Image Studio] Görsel başarıyla üretildi. İndiriliyor...");
+                savedPath = await DownloadAndSaveImageAsync(imageUrl, cancellationToken);
+            }
+            else if (dataItem.TryGetProperty("b64_json", out var b64Prop))
+            {
+                var b64Str = b64Prop.GetString();
+                if (!string.IsNullOrEmpty(b64Str))
+                {
+                    var imageBytes = Convert.FromBase64String(b64Str);
+                    string targetDir = !string.IsNullOrWhiteSpace(_toolExecutor?.ProjectFolder)
+                        ? System.IO.Path.Combine(_toolExecutor.ProjectFolder, "generated_images")
+                        : System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Yengi_Images");
 
-            var savedPath = await DownloadAndSaveImageAsync(imageUrl ?? "", cancellationToken);
+                    if (!System.IO.Directory.Exists(targetDir)) System.IO.Directory.CreateDirectory(targetDir);
+                    string fileName = $"gorsel_{DateTime.Now:yyyyMMdd_HHmmss_fff}.png";
+                    savedPath = System.IO.Path.Combine(targetDir, fileName);
+                    await System.IO.File.WriteAllBytesAsync(savedPath, imageBytes, cancellationToken);
+                }
+            }
+
 
             string resultText;
             if (!string.IsNullOrEmpty(savedPath))

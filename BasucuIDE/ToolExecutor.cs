@@ -440,14 +440,34 @@ public class ToolExecutor
                     System.Text.Encoding.UTF8,
                     "application/json");
 
-                var url = $"{settings.ImageStudioBaseUrl.TrimEnd('/')}/images/generations";
+                var rawBaseUrl = settings.ImageStudioBaseUrl.TrimEnd('/');
+                if (rawBaseUrl.EndsWith("/models", StringComparison.OrdinalIgnoreCase))
+                {
+                    rawBaseUrl = rawBaseUrl.Substring(0, rawBaseUrl.Length - "/models".Length).TrimEnd('/');
+                }
+
+                var url = $"{rawBaseUrl}/images/generations";
                 var httpResponse = await httpClient.PostAsync(url, jsonContent, cancellationToken);
                 var responseBody = await httpResponse.Content.ReadAsStringAsync(cancellationToken);
 
                 using var doc = System.Text.Json.JsonDocument.Parse(responseBody);
-                var imageUrl = doc.RootElement.GetProperty("data")[0].GetProperty("url").GetString();
-                imageBytes = await httpClient.GetByteArrayAsync(imageUrl ?? "", cancellationToken);
+                var dataItem = doc.RootElement.GetProperty("data")[0];
+
+                if (dataItem.TryGetProperty("url", out var urlProp) && !string.IsNullOrEmpty(urlProp.GetString()))
+                {
+                    var imageUrl = urlProp.GetString();
+                    imageBytes = await httpClient.GetByteArrayAsync(imageUrl ?? "", cancellationToken);
+                }
+                else if (dataItem.TryGetProperty("b64_json", out var b64Prop) && !string.IsNullOrEmpty(b64Prop.GetString()))
+                {
+                    imageBytes = Convert.FromBase64String(b64Prop.GetString()!);
+                }
+                else
+                {
+                    return new ToolResult { Success = false, Error = $"Görsel yanıtı ayrıştırılamadı: {responseBody}" };
+                }
             }
+
 
             // Dosyayı kaydet
             string targetDir = !string.IsNullOrWhiteSpace(ProjectFolder)
