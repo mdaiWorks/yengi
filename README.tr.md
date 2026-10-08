@@ -131,6 +131,15 @@ Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı 
 
 ---
 
+## 🗺️ Gelecek Güncellemeler & Yol Haritası (Upcoming Roadmap)
+
+Yengi yeniliklerle gelişmeye devam ediyor! Yakın gelecekte gelmesi planlanan büyük güncellemeler:
+
+- 🌐 **Otonom Tarayıcı & Görsel Ajanı (Autonomous Browser & Vision Agent):** Bilgisayar ekranını ve web tarayıcısını doğrudan okuyarak (Vision AI) AppStore işlemleri, web formları ve karmaşık tarayıcı görevlerini otonom tamamlama.
+- 🎨 **İnteraktif Sohbetli Görsel Düzenleme & Seed Kilitleme:** Karakter tutarlılığı için `🌱 Seed` sabitleme ve sohbet ekranından *"şimdi sağ kolunu kaldır"*, *"bisikleti mavi yap"* gibi talimatlarla görselleri sohbet içinde canlı düzenleme (`qwen-image-edit` & `/v1/images/edits`).
+
+---
+
 ## 📖 Detaylı Dokümantasyon & Tüm Araçlar Rehberi
 
 30'dan fazla **AI Agent Aracı**, Kendi Kendini İyileştiren Doğrulama Döngüsü detayları, RAG mimarisi ve arayüz buton kılavuzu için **[Detaylı Dokümantasyon Dosyasına (DOCS_FULL.tr.md)](DOCS_FULL.tr.md)** göz atabilirsiniz | **[Read Full English Docs (DOCS_FULL.md)](DOCS_FULL.md)**.

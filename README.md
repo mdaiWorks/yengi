@@ -131,6 +131,15 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 
 ---
 
+## 🗺️ Upcoming Features & Roadmap
+
+Yengi is constantly evolving! Major features planned for upcoming updates:
+
+- 🌐 **Autonomous Browser & Vision Agent:** Computer Vision AI agent capable of inspecting web browsers and screens to automate complex web workflows, form filling, and AppStore publishing autonomously.
+- 🎨 **Interactive Multi-Turn Image Editing & Seed Locking:** Lock `🌱 Seed` for exact character consistency and perform instruction-based image modifications (e.g., *"now raise her right arm"*, *"change bike color to blue"*) directly within chat (`qwen-image-edit` & `/v1/images/edits`).
+
+---
+
 ## 📖 Detailed Documentation & Full Tool Reference
 
 For a complete breakdown of all **30+ AI Agent Tools**, internal Verification Loop mechanisms, RAG architecture, and UI button references, see the **[Full Technical Documentation (DOCS_FULL.md)](DOCS_FULL.md)** | **[Detaylı Türkçe Dokümantasyon (DOCS_FULL.tr.md)](DOCS_FULL.tr.md)**.
