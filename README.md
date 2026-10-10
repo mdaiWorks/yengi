@@ -12,7 +12,7 @@ Read this in: [🇹🇷 Türkçe](README.tr.md) | 🇺🇸 English
 > *"Yengi: The rewarding milestone reached after long, dedicated effort."*
 
 [![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
-[![Version: v1.15](https://img.shields.io/badge/Release-v1.15-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
+[![Version: v1.16](https://img.shields.io/badge/Release-v1.16-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
 [![Framework: .NET 10 LTS](https://img.shields.io/badge/Framework-.NET%2010%20LTS-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-green.svg)](LICENSE)
@@ -126,6 +126,7 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 - 👁️ **Live Viewport Vision**: Multimodal AI models (GPT-4o, Claude 3.5, Gemini) can **see** your Blender scene via OpenGL snapshots and autonomously correct geometry, materials, or proportions in a closed feedback loop.
 - 🔎 **Research & Chat Mode**: Live web search (Tavily API & free DuckDuckGo search fallback), brainstorming, and automated Markdown (`.md`) report generation with embedded AI-generated illustrations.
 
+- 🎨 **Image Studio & ControlNet 2D Game Sprite Engine (v1.16)**: Lock `🌱 Seed` for character consistency, interactive prompt editing (`✏️`), and 🎮 **ControlNet 2D Game Sprite Mode** (ComfyUI + OpenPose API) to generate character poses (`walk`, `run`, `attack`, `jump`, `idle`, `t-pose`, `sprite-sheet`).
 - ⚡ **Built with .NET 10 (LTS)**: High-performance WPF architecture backed by **200+ passing unit tests**.
 - 🧰 **30+ Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, and web browser previews.
 
@@ -136,7 +137,6 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 Yengi is constantly evolving! Major features planned for upcoming updates:
 
 - 🌐 **Autonomous Browser & Vision Agent (v2.x):** Computer Vision AI agent capable of inspecting web browsers and screens to automate complex web workflows, form filling, and AppStore publishing autonomously.
-- 🎨 **Interactive Image Editing, Seed Locking & ControlNet Engine (v1.16):** Lock `🌱 Seed` for character consistency, perform multi-turn image edits (`✏️`), and use 🎮 **ControlNet 2D Game Sprite Mode** (ComfyUI + OpenPose API) to render characters in `walk`, `run`, `attack`, `jump`, `idle`, and `t-pose` seamlessly.
 
 ---
 

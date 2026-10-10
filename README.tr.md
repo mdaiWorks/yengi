@@ -12,7 +12,7 @@ Dili Değiştir: 🇹🇷 Türkçe | [🇺🇸 Read in English](README.md)
 > *"Yengi: Uğraşlarının sonunda ulaştığın o mutlu ve başarılı sonucun adı."*
 
 [![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
-[![Sürüm: v1.15](https://img.shields.io/badge/S%C3%BCr%C3%BCm-v1.15-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
+[![Sürüm: v1.16](https://img.shields.io/badge/S%C3%BCr%C3%BCm-v1.16-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
 [![Altyapı: .NET 10 LTS](https://img.shields.io/badge/Altyap%C4%B1-.NET%2010%20LTS-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)
 [![Lisans: AGPL-3.0](https://img.shields.io/badge/Lisans-AGPL--3.0-green.svg)](LICENSE)
@@ -126,6 +126,7 @@ Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı 
 - 👁️ **Canlı Viewport Vizyonu**: Çok modlu (multimodal) AI modelleri (GPT-4o, Claude 3.5, Gemini) OpenGL viewport görüntülerini inceleyerek 3D sahneyi **görür** ve kapalı döngüde geometri/renk düzeltmeleri yapar.
 - 🔎 **Araştırma & Sohbet Modu**: Canlı web araması (Tavily API ve ücretsiz DuckDuckGo yedekleme), fikir geliştirme ve AI görselleri gömülü otomatik Markdown (`.md`) rapor üretimi.
 
+- 🎨 **Görsel Stüdyosu & ControlNet 2D Oyun Sprite Motoru (v1.16)**: Karakter tutarlılığı için `🌱 Seed` kilitleme, canlı sohbetli görsel düzenleme (`✏️`) ve 🎮 **ControlNet 2D Oyun Sprite Modu** (ComfyUI + OpenPose API) ile karakterleri `yürüme`, `koşma`, `saldırı`, `zıplama`, `boşta` ve `t-pose` pozlarında üretme.
 - ⚡ **.NET 10 (LTS) Gücü**: **200+ birim testi** ile doğruluk ve yüksek performans garantisi.
 - 🧰 **30+ Yerel Agent Aracı**: Dosya arama, Git yönetimi, terminal çalıştırma, RAG indeksleme ve canlı web önizleme.
 
@@ -136,7 +137,6 @@ Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı 
 Yengi yeniliklerle gelişmeye devam ediyor! Yakın gelecekte gelmesi planlanan büyük güncellemeler:
 
 - 🌐 **Otonom Tarayıcı & Görsel Ajanı (v2.x):** Bilgisayar ekranını ve web tarayıcısını doğrudan okuyarak (Vision AI) AppStore işlemleri, web formları ve karmaşık tarayıcı görevlerini otonom tamamlama.
-- 🎨 **İnteraktif Görsel Düzenleme, Seed Kilitleme & ControlNet Motoru (v1.16):** Karakter tutarlılığı için `🌱 Seed` kilitleme, canlı sohbetli görsel düzenleme (`✏️`) ve 🎮 **ControlNet 2D Oyun Sprite Modu** (ComfyUI + OpenPose API) ile karakterleri `yürüme`, `koşma`, `saldırı`, `zıplama`, `boşta` ve `t-pose` pozlarında üretme.
 
 ---
 
