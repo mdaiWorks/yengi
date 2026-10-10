@@ -149,7 +149,42 @@
         <TextBlock x:Name="txtTitle" Text="{local:Loc Key=WorkspaceSettingsTitle}" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" Foreground="#007acc"/>
 
         <!-- Görsel Stüdyosu Ayarları Paneli -->
-        <StackPanel x:Name="panelImageStudio" Grid.Row="1" Visibility="Collapsed">
+        <ScrollViewer x:Name="panelImageStudio" Grid.Row="1" Visibility="Collapsed"
+                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Padding="0,0,6,0">
+            <ScrollViewer.Resources>
+                <!-- Temaya uygun koyu scrollbar -->
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Background" Value="#1e1e1e"/>
+                    <Setter Property="Width" Value="6"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ScrollBar">
+                                <Grid Background="{TemplateBinding Background}" Width="6">
+                                    <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                        <Track.DecreaseRepeatButton>
+                                            <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
+                                        </Track.DecreaseRepeatButton>
+                                        <Track.IncreaseRepeatButton>
+                                            <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/>
+                                        </Track.IncreaseRepeatButton>
+                                        <Track.Thumb>
+                                            <Thumb>
+                                                <Thumb.Template>
+                                                    <ControlTemplate TargetType="Thumb">
+                                                        <Border Background="#3e3e42" CornerRadius="3"/>
+                                                    </ControlTemplate>
+                                                </Thumb.Template>
+                                            </Thumb>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ScrollViewer.Resources>
+            <StackPanel>
             <CheckBox x:Name="chkUsePollinations" Content="{local:Loc Key=PublicCommunityGateway}" 
                       Foreground="#00ffb7" FontWeight="SemiBold" IsChecked="True" 
                       Checked="ChkUsePollinations_Changed" Unchecked="ChkUsePollinations_Changed" Margin="0,0,0,5"/>
@@ -208,8 +243,8 @@
             <!-- ControlNet & 2D Oyun Sprite Ayarları -->
             <Border Background="#252526" BorderBrush="#007acc" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,10,0,10">
                 <StackPanel>
-                    <CheckBox x:Name="chkEnableControlNet" Content="🎮 ControlNet &amp; 2D Oyun Sprite Modunu Etkinleştir" FontWeight="Bold" Foreground="#007acc" Margin="0,0,0,5" ToolTip="2D Oyun karakterleri için OpenPose poz ve karakter sadakatini aktifleştirir."/>
-                    <TextBlock Text="Aynı karakteri t-pose, yürüme, koşma, saldırı gibi farklı pozlarda üretmek için ComfyUI veya Bulut ControlNet API'sini bağlayın." TextWrapping="Wrap" FontSize="11" Foreground="Gray" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="chkEnableControlNet" Content="🎮 ControlNet Modunu Etkinleştir" FontWeight="Bold" Foreground="#007acc" Margin="0,0,0,5" ToolTip="Karakter, obje ve sahne tutarlılığı için OpenPose poz kılavuzlamasını etkinleştirir."/>
+                    <TextBlock Text="Karakter, obje ve sahne tutarlılığı gibi konular için ComfyUI veya Bulut ControlNet API'sini bağlayın." TextWrapping="Wrap" FontSize="11" Foreground="Gray" Margin="0,0,0,8"/>
 
                     <Grid Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
@@ -232,10 +267,47 @@
                     </Grid>
                 </StackPanel>
             </Border>
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+
 
         <!-- Blender Ayarları Paneli -->
-        <StackPanel x:Name="panelBlender" Grid.Row="1" Visibility="Collapsed">
+        <ScrollViewer x:Name="panelBlender" Grid.Row="1" Visibility="Collapsed"
+                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Padding="0,0,6,0">
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Background" Value="#1e1e1e"/>
+                    <Setter Property="Width" Value="6"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ScrollBar">
+                                <Grid Background="{TemplateBinding Background}" Width="6">
+                                    <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                        <Track.DecreaseRepeatButton>
+                                            <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
+                                        </Track.DecreaseRepeatButton>
+                                        <Track.IncreaseRepeatButton>
+                                            <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/>
+                                        </Track.IncreaseRepeatButton>
+                                        <Track.Thumb>
+                                            <Thumb>
+                                                <Thumb.Template>
+                                                    <ControlTemplate TargetType="Thumb">
+                                                        <Border Background="#3e3e42" CornerRadius="3"/>
+                                                    </ControlTemplate>
+                                                </Thumb.Template>
+                                            </Thumb>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ScrollViewer.Resources>
+            <StackPanel>
             <TextBlock Text="{local:Loc Key=BlenderCopilotSettingsTitle}" FontWeight="SemiBold" Margin="0,0,0,5"/>
             <TextBlock Text="{local:Loc Key=BlenderSubtext}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
             
@@ -264,10 +336,45 @@
                 <Button Content="{local:Loc Key=TestConnection}" Width="130" Height="28" HorizontalAlignment="Left" Background="#2d2d30" Foreground="White" BorderBrush="#007acc" BorderThickness="1" Cursor="Hand" Click="BtnTestBlenderConnection_Click"/>
                 <TextBlock x:Name="txtBlenderTestResult" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12" TextWrapping="Wrap" MaxWidth="320"/>
             </StackPanel>
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
         <!-- Unity Ayarları Paneli -->
-        <StackPanel x:Name="panelUnity" Grid.Row="1" Visibility="Collapsed">
+        <ScrollViewer x:Name="panelUnity" Grid.Row="1" Visibility="Collapsed"
+                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Padding="0,0,6,0">
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Background" Value="#1e1e1e"/>
+                    <Setter Property="Width" Value="6"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ScrollBar">
+                                <Grid Background="{TemplateBinding Background}" Width="6">
+                                    <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                        <Track.DecreaseRepeatButton>
+                                            <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
+                                        </Track.DecreaseRepeatButton>
+                                        <Track.IncreaseRepeatButton>
+                                            <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/>
+                                        </Track.IncreaseRepeatButton>
+                                        <Track.Thumb>
+                                            <Thumb>
+                                                <Thumb.Template>
+                                                    <ControlTemplate TargetType="Thumb">
+                                                        <Border Background="#3e3e42" CornerRadius="3"/>
+                                                    </ControlTemplate>
+                                                </Thumb.Template>
+                                            </Thumb>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ScrollViewer.Resources>
+            <StackPanel>
             <TextBlock Text="{local:Loc Key=UnityCopilotSettingsTitle}" FontWeight="SemiBold" Margin="0,0,0,5"/>
             <TextBlock Text="{local:Loc Key=UnitySubtext}" TextWrapping="Wrap" Margin="0,0,0,10" Foreground="Gray"/>
             
@@ -290,7 +397,8 @@
                 <Button Content="{local:Loc Key=TestConnection}" Width="130" Height="28" HorizontalAlignment="Left" Background="#2d2d30" Foreground="White" BorderBrush="#007acc" BorderThickness="1" Cursor="Hand" Click="BtnTestUnityConnection_Click"/>
                 <TextBlock x:Name="txtUnityTestResult" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12" TextWrapping="Wrap" MaxWidth="320"/>
             </StackPanel>
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="{local:Loc Key=Cancel}" Width="80" Height="30" Margin="0,0,10,0" Background="#2d2d30" Foreground="White" BorderThickness="0" Click="BtnCancel_Click" Cursor="Hand"/>
