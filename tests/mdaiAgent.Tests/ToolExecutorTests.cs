@@ -224,8 +224,23 @@ public class ToolExecutorTests
         Assert.False(res.Success);
         Assert.Contains("zaman aşıldı", res.Error ?? string.Empty, StringComparison.OrdinalIgnoreCase);
 
-        Directory.Delete(projDir, true);
+        // The killed process may briefly hold a lock on the temp dir.
+        // Retry cleanup a few times before giving up (non-fatal if it fails).
+        for (int attempt = 0; attempt < 5; attempt++)
+        {
+            try
+            {
+                if (Directory.Exists(projDir))
+                    Directory.Delete(projDir, true);
+                break;
+            }
+            catch (IOException)
+            {
+                await Task.Delay(200);
+            }
+        }
     }
+
 
     [Fact]
     public async Task CreateOrUpdateFile_RejectsOutsideProjectBoundary()
