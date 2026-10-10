@@ -37,6 +37,11 @@ namespace mdaiAgent
                     txtImageModel.Text = _settings.ImageStudioModel;
                     SelectComboBoxValue(cmbImageSize, _settings.ImageStudioSize, "1024x1024");
                     SelectComboBoxValue(cmbImageSteps, _settings.ImageStudioSteps > 0 ? _settings.ImageStudioSteps.ToString() : "20", "20");
+                    txtImageSeed.Text = _settings.ImageStudioSeed.ToString();
+
+                    chkEnableControlNet.IsChecked = _settings.ControlNetEnabled;
+                    SelectComboBoxValue(cmbControlNetProvider, _settings.ControlNetProvider, "Auto");
+                    txtControlNetBaseUrl.Text = string.IsNullOrWhiteSpace(_settings.ControlNetBaseUrl) ? "http://192.168.1.122:8188" : _settings.ControlNetBaseUrl;
                     
                     UpdateImageStudioFormState();
                     break;
@@ -235,6 +240,15 @@ namespace mdaiAgent
                         _settings.ImageStudioSteps = parsedSteps;
                     else
                         _settings.ImageStudioSteps = 20;
+
+                    if (long.TryParse(txtImageSeed.Text?.Trim(), out long parsedSeed))
+                        _settings.ImageStudioSeed = parsedSeed;
+                    else
+                        _settings.ImageStudioSeed = -1;
+
+                    _settings.ControlNetEnabled = chkEnableControlNet.IsChecked == true;
+                    _settings.ControlNetProvider = GetComboBoxValue(cmbControlNetProvider);
+                    _settings.ControlNetBaseUrl = string.IsNullOrWhiteSpace(txtControlNetBaseUrl.Text) ? "http://192.168.1.122:8188" : txtControlNetBaseUrl.Text.Trim();
                     break;
                     
                 case AgentWorkspaceMode.BlenderCopilot:

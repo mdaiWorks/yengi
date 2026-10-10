@@ -412,6 +412,7 @@ public class ToolExecutor
 
             var size = string.IsNullOrWhiteSpace(settings.ImageStudioSize) ? "1024x1024" : settings.ImageStudioSize;
             var steps = settings.ImageStudioSteps > 0 ? settings.ImageStudioSteps : 20;
+            long usedSeed = settings.ImageStudioSeed >= 0 ? settings.ImageStudioSeed : Random.Shared.NextInt64(1000000, 999999999);
 
             int width = 1024, height = 1024;
             var parts = size.Split('x', 'X');
@@ -430,7 +431,7 @@ public class ToolExecutor
                 var encodedPrompt = Uri.EscapeDataString(prompt);
                 var imageUrl = baseUrl.Contains("?")
                     ? $"{baseUrl}{encodedPrompt}"
-                    : $"{baseUrl}{encodedPrompt}?width={width}&height={height}&nologo=true&enhance=true";
+                    : $"{baseUrl}{encodedPrompt}?width={width}&height={height}&seed={usedSeed}&nologo=true&enhance=true";
 
                 imageBytes = await httpClient.GetByteArrayAsync(imageUrl, cancellationToken);
             }
@@ -446,7 +447,8 @@ public class ToolExecutor
                     ["prompt"] = prompt,
                     ["n"] = 1,
                     ["size"] = size,
-                    ["response_format"] = "b64_json"
+                    ["response_format"] = "b64_json",
+                    ["seed"] = usedSeed
                 };
 
                 if (!isDallE)

@@ -8775,6 +8775,42 @@ You can toggle this support on or off at any time using the 🎨 button in the c
   <data name="ToolPermissionDeniedMsg" xml:space="preserve">
     <value>[System] User denied permission for tool '{0}'. Please proceed without using this tool.</value>
   </data>
+  <data name="ImageStudioDirectApiLog" xml:space="preserve">
+    <value>[🎨 Image Studio] Direct API request initiated. Prompt: {0}</value>
+  </data>
+  <data name="ImageStudioEditIntentLog" xml:space="preserve">
+    <value>[🎨 Image Studio] Edit intent detected. Merged prompt: "{0}"</value>
+  </data>
+  <data name="ImageStudioGeneratingProgress" xml:space="preserve">
+    <value>🎨 Generating image, please wait</value>
+  </data>
+  <data name="ImageStudioGenerationStarted" xml:space="preserve">
+    <value>🎨 Image generation started...</value>
+  </data>
+  <data name="ImageStudioEditModeActiveToast" xml:space="preserve">
+    <value>🎨 Image editing mode (✏️) active! Type your desired changes and send.</value>
+  </data>
+  <data name="ImageStudioEditModeClosedToast" xml:space="preserve">
+    <value>Image editing mode closed.</value>
+  </data>
+  <data name="ImageStudioSeedLockedToast" xml:space="preserve">
+    <value>🌱 Seed `{0}` locked to Image Studio settings!</value>
+  </data>
+  <data name="ImageStudioBtnEditToolTip" xml:space="preserve">
+    <value>Edit Image: Click to modify/enhance this scene via chat (On/Off)</value>
+  </data>
+  <data name="ImageStudioBtnLockSeedToolTip" xml:space="preserve">
+    <value>Lock Seed: Locks this image's Seed number to Image Studio settings</value>
+  </data>
+  <data name="ImageStudioBtnOpenFolderToolTip" xml:space="preserve">
+    <value>Open Folder: Opens the saved image's directory in File Explorer</value>
+  </data>
+  <data name="ImageStudioBtnCopyImageToolTip" xml:space="preserve">
+    <value>Copy Image: Copies the generated image file to clipboard (Paste with Ctrl+V)</value>
+  </data>
+  <data name="ImageStudioBtnRetryToolTip" xml:space="preserve">
+    <value>Re-generate: Generates a new image using the same prompt</value>
+  </data>
 </root>
 
 

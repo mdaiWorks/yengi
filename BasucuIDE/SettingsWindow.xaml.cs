@@ -56,6 +56,13 @@ public class AppSettings
     public string ImageStudioModel { get; set; } = "dall-e-3";
     public int ImageStudioSteps { get; set; } = 20;
     public string ImageStudioSize { get; set; } = "1024x1024";
+    public long ImageStudioSeed { get; set; } = -1;
+
+    // ControlNet & Oyun Sprite Ayarları
+    public bool ControlNetEnabled { get; set; } = false;
+    public string ControlNetProvider { get; set; } = "Auto";
+    public string ControlNetBaseUrl { get; set; } = "http://192.168.1.122:8188";
+    public string ControlNetDefaultPose { get; set; } = "auto";
 
     // Blender Ayarları
     public int BlenderWebSocketPort { get; set; } = 8181;

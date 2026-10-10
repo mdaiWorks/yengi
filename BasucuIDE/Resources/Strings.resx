@@ -8775,6 +8775,42 @@ Projenizde görsel üretimine ihtiyaç duymuyorsanız bu butonu kapalı tutmak A
   <data name="ToolPermissionDeniedMsg" xml:space="preserve">
     <value>[Sistem] Kullanıcı '{0}' aracının kullanımına izin vermedi. Lütfen bu aracı kullanmadan devam edin.</value>
   </data>
+  <data name="ImageStudioDirectApiLog" xml:space="preserve">
+    <value>[🎨 Image Studio] Doğrudan API çağrısı başlatıldı. Prompt: {0}</value>
+  </data>
+  <data name="ImageStudioEditIntentLog" xml:space="preserve">
+    <value>[🎨 Image Studio] Düzenleme niyeti algılandı. Birleştirilmiş prompt: "{0}"</value>
+  </data>
+  <data name="ImageStudioGeneratingProgress" xml:space="preserve">
+    <value>🎨 Görsel çiziliyor, lütfen bekleyin</value>
+  </data>
+  <data name="ImageStudioGenerationStarted" xml:space="preserve">
+    <value>🎨 Görsel üretimi başlatıldı...</value>
+  </data>
+  <data name="ImageStudioEditModeActiveToast" xml:space="preserve">
+    <value>🎨 Görsel düzenleme modu (✏️) aktif! İstediğiniz değişikliği yazıp gönderin.</value>
+  </data>
+  <data name="ImageStudioEditModeClosedToast" xml:space="preserve">
+    <value>Görsel düzenleme modu kapatıldı.</value>
+  </data>
+  <data name="ImageStudioSeedLockedToast" xml:space="preserve">
+    <value>🌱 Seed `{0}` Görsel Stüdyosu ayarlarına kilitlendi!</value>
+  </data>
+  <data name="ImageStudioBtnEditToolTip" xml:space="preserve">
+    <value>Görseli Düzenle: Bu resimdeki sahneyi sohbet üzerinden değiştirmek/geliştirmek için tıklayın (Açık/Kapalı)</value>
+  </data>
+  <data name="ImageStudioBtnLockSeedToolTip" xml:space="preserve">
+    <value>Seed'i Kilitle: Bu görselin Seed numarasını Görsel Stüdyosu ayarlarına kilitler</value>
+  </data>
+  <data name="ImageStudioBtnOpenFolderToolTip" xml:space="preserve">
+    <value>Klasörde Aç: Görselin kaydedildiği klasörü Windows Gezgini'nde açar</value>
+  </data>
+  <data name="ImageStudioBtnCopyImageToolTip" xml:space="preserve">
+    <value>Resmi Kopyala: Üretilen resim dosyasını panoya kopyalar (Ctrl+V ile yapıştırılabilir)</value>
+  </data>
+  <data name="ImageStudioBtnRetryToolTip" xml:space="preserve">
+    <value>Yeniden Üret: Aynı prompt ile yeni bir görsel üretir</value>
+  </data>
 </root>
 
 

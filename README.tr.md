@@ -135,10 +135,11 @@ Ollama üzerinden yerel modelleri çalıştırın, kendi API anahtarlarınızı 
 
 Yengi yeniliklerle gelişmeye devam ediyor! Yakın gelecekte gelmesi planlanan büyük güncellemeler:
 
-- 🌐 **Otonom Tarayıcı & Görsel Ajanı (Autonomous Browser & Vision Agent):** Bilgisayar ekranını ve web tarayıcısını doğrudan okuyarak (Vision AI) AppStore işlemleri, web formları ve karmaşık tarayıcı görevlerini otonom tamamlama.
-- 🎨 **İnteraktif Sohbetli Görsel Düzenleme & Seed Kilitleme:** Karakter tutarlılığı için `🌱 Seed` sabitleme ve sohbet ekranından *"şimdi sağ kolunu kaldır"*, *"bisikleti mavi yap"* gibi talimatlarla görselleri sohbet içinde canlı düzenleme (`qwen-image-edit` & `/v1/images/edits`).
+- 🌐 **Otonom Tarayıcı & Görsel Ajanı (v2.x):** Bilgisayar ekranını ve web tarayıcısını doğrudan okuyarak (Vision AI) AppStore işlemleri, web formları ve karmaşık tarayıcı görevlerini otonom tamamlama.
+- 🎨 **İnteraktif Görsel Düzenleme, Seed Kilitleme & ControlNet Motoru (v1.16):** Karakter tutarlılığı için `🌱 Seed` kilitleme, canlı sohbetli görsel düzenleme (`✏️`) ve 🎮 **ControlNet 2D Oyun Sprite Modu** (ComfyUI + OpenPose API) ile karakterleri `yürüme`, `koşma`, `saldırı`, `zıplama`, `boşta` ve `t-pose` pozlarında üretme.
 
 ---
+
 
 ## 📖 Detaylı Dokümantasyon & Tüm Araçlar Rehberi
 

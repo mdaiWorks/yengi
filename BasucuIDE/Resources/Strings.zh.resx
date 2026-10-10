@@ -8775,6 +8775,42 @@
   <data name="ToolPermissionDeniedMsg" xml:space="preserve">
     <value>[系统] 用户拒绝了工具 '{0}' 的使用权限。请在不使用此工具的情况下继续。</value>
   </data>
+  <data name="ImageStudioDirectApiLog" xml:space="preserve">
+    <value>[🎨 Image Studio] 直接 API 请求已启动。提示词：{0}</value>
+  </data>
+  <data name="ImageStudioEditIntentLog" xml:space="preserve">
+    <value>[🎨 Image Studio] 检测到编辑意图。合并后的提示词："{0}"</value>
+  </data>
+  <data name="ImageStudioGeneratingProgress" xml:space="preserve">
+    <value>🎨 正在生成图像，请稍候</value>
+  </data>
+  <data name="ImageStudioGenerationStarted" xml:space="preserve">
+    <value>🎨 图像生成已启动...</value>
+  </data>
+  <data name="ImageStudioEditModeActiveToast" xml:space="preserve">
+    <value>🎨 图像编辑模式 (✏️) 已激活！输入您想要的更改并发送。</value>
+  </data>
+  <data name="ImageStudioEditModeClosedToast" xml:space="preserve">
+    <value>图像编辑模式已关闭。</value>
+  </data>
+  <data name="ImageStudioSeedLockedToast" xml:space="preserve">
+    <value>🌱 随机种子 (Seed) `{0}` 已锁定至图像工作室设置！</value>
+  </data>
+  <data name="ImageStudioBtnEditToolTip" xml:space="preserve">
+    <value>编辑图像：点击即可通过对话修改/增强此场景（开/关）</value>
+  </data>
+  <data name="ImageStudioBtnLockSeedToolTip" xml:space="preserve">
+    <value>锁定随机种子：将此图像的 Seed 码锁定至图像工作室设置</value>
+  </data>
+  <data name="ImageStudioBtnOpenFolderToolTip" xml:space="preserve">
+    <value>打开文件夹：在文件资源管理器中打开保存的图像目录</value>
+  </data>
+  <data name="ImageStudioBtnCopyImageToolTip" xml:space="preserve">
+    <value>复制图像：将生成的图像文件复制到剪贴板（可用 Ctrl+V 粘贴）</value>
+  </data>
+  <data name="ImageStudioBtnRetryToolTip" xml:space="preserve">
+    <value>重新生成：使用相同的提示词生成新图像</value>
+  </data>
 </root>
 
 

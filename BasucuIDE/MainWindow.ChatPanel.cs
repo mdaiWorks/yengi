@@ -50,6 +50,10 @@ public partial class MainWindow
 
     private ListBoxItem? _activeProgressItem;
 
+    private Button? _activeImageEditButton;
+
+    private bool _isImageEditActive;
+
     private sealed class ChatMessageUiContext
 
     {
@@ -2335,6 +2339,28 @@ public partial class MainWindow
 
         var displayMessage = message;
 
+        if (_isImageEditActive)
+        {
+            if (!apiMessage.StartsWith("now ", StringComparison.OrdinalIgnoreCase) &&
+                !apiMessage.StartsWith("şimdi ", StringComparison.OrdinalIgnoreCase))
+            {
+                apiMessage = $"now {apiMessage}";
+            }
+
+            _isImageEditActive = false;
+            if (_activeImageEditButton != null)
+            {
+                var btnToReset = _activeImageEditButton;
+                Dispatcher.Invoke(() =>
+                {
+                    btnToReset.Background = new SolidColorBrush(Color.FromArgb(45, 0, 122, 204));
+                    btnToReset.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+                    btnToReset.Foreground = new SolidColorBrush(Color.FromRgb(120, 200, 255));
+                });
+                _activeImageEditButton = null;
+            }
+        }
+
         var contextMode = cmbContextMode?.SelectedIndex switch
         {
             1 => ChatContextMode.ActiveFile,
@@ -3039,7 +3065,15 @@ public partial class MainWindow
 
         }
 
-        _activeProgressItem = AddProgressStatus("🧠 AI isteği analiz ediyor...");
+        if (_settings?.ActiveWorkspaceMode == AgentWorkspaceMode.ImageStudio || _isImageEditActive)
+        {
+            _activeProgressItem = AddProgressStatus(LocalizationManager.Instance.GetString("ImageStudioGenerationStarted"));
+            StartProgressAnimation(LocalizationManager.Instance.GetString("ImageStudioGeneratingProgress"));
+        }
+        else
+        {
+            _activeProgressItem = AddProgressStatus("🧠 AI isteği analiz ediyor...");
+        }
 
         try
 
@@ -3444,8 +3478,45 @@ public partial class MainWindow
         lstChatHistory.ScrollIntoView(_activeProgressItem);
     }
 
+    private DispatcherTimer? _progressAnimationTimer;
+    private int _progressDotCount = 1;
+    private string _baseProgressMessage = "🎨 Görsel üretiliyor, lütfen bekleyin";
+
+    private void StartProgressAnimation(string baseMessage = "🎨 Görsel üretiliyor, lütfen bekleyin")
+    {
+        _baseProgressMessage = baseMessage;
+        _progressDotCount = 1;
+
+        StopProgressAnimation();
+
+        _progressAnimationTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(700)
+        };
+
+        _progressAnimationTimer.Tick += (s, e) =>
+        {
+            _progressDotCount = (_progressDotCount % 3) + 1;
+            string dots = new string('.', _progressDotCount);
+            UpdateActiveProgressStatus($"{_baseProgressMessage}{dots}");
+        };
+
+        _progressAnimationTimer.Start();
+    }
+
+    private void StopProgressAnimation()
+    {
+        if (_progressAnimationTimer != null)
+        {
+            _progressAnimationTimer.Stop();
+            _progressAnimationTimer = null;
+        }
+    }
+
     private void RemoveActiveProgressStatus()
     {
+        StopProgressAnimation();
+
         if (_activeProgressItem != null && lstChatHistory.Items.Contains(_activeProgressItem))
         {
             lstChatHistory.Items.Remove(_activeProgressItem);
@@ -4970,41 +5041,177 @@ public partial class MainWindow
 
         }
 
-        var copyButton = CreateMessageActionButton(
-            LocalizationManager.Instance.GetString("Copy"),
-            LocalizationManager.Instance.GetString("YanitiPanoyaKopyala"));
+        bool isImageMessage = !string.IsNullOrEmpty(message) &&
+            (message.Contains("Seed (Tohum)") || message.Contains("Görsel") || message.Contains("Kaydedilen Yer"));
 
-        copyButton.Click += (_, _) => Clipboard.SetText((actions.Tag as string) ?? string.Empty);
-
-        var retryButton = CreateMessageActionButton(
-            LocalizationManager.Instance.GetString("Refresh"),
-            LocalizationManager.Instance.GetString("BuYanitiYenidenUret"));
-
-        retryButton.Click += (_, _) => RetryAssistantMessage((actions.Tag as string) ?? string.Empty);
-
-        var continueButton = CreateMessageActionButton(
-            LocalizationManager.Instance.GetString("Continue"),
-            LocalizationManager.Instance.GetString("GirisAlaninaGec"));
-
-        continueButton.Click += (_, _) =>
-
+        if (isImageMessage)
         {
+            var editImgBtn = CreateMessageActionButton(
+                "✏️",
+                LocalizationManager.Instance.GetString("ImageStudioBtnEditToolTip"));
 
-            txtChatInput.Focus();
+            editImgBtn.Click += (_, _) =>
+            {
+                if (_isImageEditActive && _activeImageEditButton == editImgBtn)
+                {
+                    // Pasife çek (Toggle OFF)
+                    _isImageEditActive = false;
+                    _activeImageEditButton = null;
+                    editImgBtn.Background = new SolidColorBrush(Color.FromArgb(45, 0, 122, 204));
+                    editImgBtn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+                    editImgBtn.Foreground = new SolidColorBrush(Color.FromRgb(120, 200, 255));
+                    Notify(LocalizationManager.Instance.GetString("ImageStudioEditModeClosedToast"), NotificationSeverity.Info);
+                }
+                else
+                {
+                    // Önceki aktif buton varsa sıfırla
+                    if (_activeImageEditButton != null)
+                    {
+                        _activeImageEditButton.Background = new SolidColorBrush(Color.FromArgb(45, 0, 122, 204));
+                        _activeImageEditButton.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+                        _activeImageEditButton.Foreground = new SolidColorBrush(Color.FromRgb(120, 200, 255));
+                    }
 
-            txtChatInput.CaretIndex = txtChatInput.Text.Length;
+                    // Aktif yap (Toggle ON - Glowing Gold Active State)
+                    _isImageEditActive = true;
+                    _activeImageEditButton = editImgBtn;
+                    editImgBtn.Background = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+                    editImgBtn.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 202, 40));
+                    editImgBtn.Foreground = Brushes.White;
 
-        };
+                    txtChatInput.Focus();
+                    Notify(LocalizationManager.Instance.GetString("ImageStudioEditModeActiveToast"), NotificationSeverity.Success);
+                }
+            };
 
-        actions.Children.Add(copyButton);
+            var lockSeedBtn = CreateMessageActionButton(
+                "🌱",
+                LocalizationManager.Instance.GetString("ImageStudioBtnLockSeedToolTip"));
 
-        actions.Children.Add(retryButton);
+            lockSeedBtn.Click += (_, _) =>
+            {
+                var match = System.Text.RegularExpressions.Regex.Match(message, @"Seed \(Tohum\):\*\* `(\d+)`");
+                if (match.Success && long.TryParse(match.Groups[1].Value, out long seedVal))
+                {
+                    var settings = SettingsWindow.GetSettings();
+                    settings.ImageStudioSeed = seedVal;
+                    SettingsWindow.SaveSettings(settings);
+                    Notify(LocalizationManager.Instance.GetString("ImageStudioSeedLockedToast", seedVal), NotificationSeverity.Success);
+                }
+                else
+                {
+                    Notify("Seed numarası ayrıştırılamadı.", NotificationSeverity.Warning);
+                }
+            };
 
-        actions.Children.Add(continueButton);
+            var openFolderBtn = CreateMessageActionButton(
+                "📁",
+                LocalizationManager.Instance.GetString("ImageStudioBtnOpenFolderToolTip"));
+
+            openFolderBtn.Click += (_, _) =>
+            {
+                var fileMatch = System.Text.RegularExpressions.Regex.Match(message, @"(file:///[^\)]+|[A-Z]:\\[^\s\r\n`]+)");
+                if (fileMatch.Success)
+                {
+                    try
+                    {
+                        var rawPath = fileMatch.Groups[1].Value.Trim('`');
+                        var localPath = rawPath.StartsWith("file:///", StringComparison.OrdinalIgnoreCase)
+                            ? new Uri(rawPath).LocalPath
+                            : rawPath;
+
+                        if (File.Exists(localPath))
+                        {
+                            System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{localPath}\"");
+                        }
+                        else if (Directory.Exists(Path.GetDirectoryName(localPath)))
+                        {
+                            System.Diagnostics.Process.Start("explorer.exe", $"\"{Path.GetDirectoryName(localPath)}\"");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Notify($"Klasör açılamadı: {ex.Message}", NotificationSeverity.Warning);
+                    }
+                }
+            };
+
+            var copyImageBtn = CreateMessageActionButton(
+                "📋",
+                LocalizationManager.Instance.GetString("ImageStudioBtnCopyImageToolTip"));
+
+            copyImageBtn.Click += (_, _) =>
+            {
+                var fileMatch = System.Text.RegularExpressions.Regex.Match(message, @"(file:///[^\)]+|[A-Z]:\\[^\s\r\n`]+)");
+                if (fileMatch.Success)
+                {
+                    try
+                    {
+                        var rawPath = fileMatch.Groups[1].Value.Trim('`');
+                        var localPath = rawPath.StartsWith("file:///", StringComparison.OrdinalIgnoreCase)
+                            ? new Uri(rawPath).LocalPath
+                            : rawPath;
+
+                        if (File.Exists(localPath))
+                        {
+                            var img = new System.Windows.Media.Imaging.BitmapImage(new Uri(localPath));
+                            Clipboard.SetImage(img);
+                            Notify("📋 Görsel panoya kopyalandı!", NotificationSeverity.Success);
+                        }
+                    }
+                    catch
+                    {
+                        Notify("Görsel kopyalanamadı.", NotificationSeverity.Warning);
+                    }
+                }
+            };
+
+            var retryImgBtn = CreateMessageActionButton(
+                "🔄",
+                LocalizationManager.Instance.GetString("ImageStudioBtnRetryToolTip"));
+
+            retryImgBtn.Click += (_, _) => RetryAssistantMessage((actions.Tag as string) ?? string.Empty);
+
+            actions.Children.Add(editImgBtn);
+            actions.Children.Add(lockSeedBtn);
+            actions.Children.Add(openFolderBtn);
+            actions.Children.Add(copyImageBtn);
+            actions.Children.Add(retryImgBtn);
+        }
+        else
+        {
+            var copyButton = CreateMessageActionButton(
+                LocalizationManager.Instance.GetString("Copy"),
+                LocalizationManager.Instance.GetString("YanitiPanoyaKopyala"));
+
+            copyButton.Click += (_, _) => Clipboard.SetText((actions.Tag as string) ?? string.Empty);
+
+            var retryButton = CreateMessageActionButton(
+                LocalizationManager.Instance.GetString("Refresh"),
+                LocalizationManager.Instance.GetString("BuYanitiYenidenUret"));
+
+            retryButton.Click += (_, _) => RetryAssistantMessage((actions.Tag as string) ?? string.Empty);
+
+            var continueButton = CreateMessageActionButton(
+                LocalizationManager.Instance.GetString("Continue"),
+                LocalizationManager.Instance.GetString("GirisAlaninaGec"));
+
+            continueButton.Click += (_, _) =>
+            {
+                txtChatInput.Focus();
+                txtChatInput.CaretIndex = txtChatInput.Text.Length;
+            };
+
+            actions.Children.Add(copyButton);
+            actions.Children.Add(retryButton);
+            actions.Children.Add(continueButton);
+        }
 
         return actions;
 
     }
+
+
 
     private void SetAssistantActionsEnabled(bool enabled)
 
@@ -5161,35 +5368,39 @@ public partial class MainWindow
     }
 
     private static Button CreateMessageActionButton(string content, string toolTip)
-
     {
+        bool isEdit = content.Contains("✏️") || content.Contains("Düzenle");
+        bool isSeed = content.Contains("🌱") || content.Contains("Seed");
+        bool isIconOnly = content.Trim().Length <= 3;
+
+        var bgBrush = isEdit ? new SolidColorBrush(Color.FromArgb(45, 0, 122, 204)) :
+                      isSeed ? new SolidColorBrush(Color.FromArgb(45, 46, 125, 50)) :
+                      new SolidColorBrush(Color.FromArgb(40, 45, 50, 60));
+
+        var borderBrush = isEdit ? new SolidColorBrush(Color.FromRgb(0, 122, 204)) :
+                          isSeed ? new SolidColorBrush(Color.FromRgb(46, 125, 50)) :
+                          new SolidColorBrush(Color.FromRgb(60, 65, 75));
+
+        var fgBrush = isEdit ? new SolidColorBrush(Color.FromRgb(120, 200, 255)) :
+                      isSeed ? new SolidColorBrush(Color.FromRgb(150, 235, 150)) :
+                      new SolidColorBrush(Color.FromRgb(190, 200, 215));
 
         return new Button
-
         {
-
             Content = content,
-
-            FontSize = 10,
-
-            Padding = new Thickness(6, 1, 6, 1),
-
-            Margin = new Thickness(0, 0, 4, 0),
-
-            Background = Brushes.Transparent,
-
-            Foreground = new SolidColorBrush(Color.FromRgb(145, 164, 185)),
-
-            BorderBrush = new SolidColorBrush(Color.FromRgb(48, 63, 80)),
-
+            FontSize = isIconOnly ? 13 : 11,
+            FontWeight = (isEdit || isSeed) ? FontWeights.SemiBold : FontWeights.Normal,
+            Padding = isIconOnly ? new Thickness(7, 3, 7, 3) : new Thickness(10, 4, 10, 4),
+            Margin = new Thickness(0, 4, 6, 0),
+            MinWidth = isIconOnly ? 32 : 0,
+            Height = 28,
+            Background = bgBrush,
+            Foreground = fgBrush,
+            BorderBrush = borderBrush,
             BorderThickness = new Thickness(1),
-
             Cursor = Cursors.Hand,
-
             ToolTip = toolTip
-
         };
-
     }
 
     private static IEnumerable<Inline> CreateInlineElements(string text)
@@ -5203,6 +5414,72 @@ public partial class MainWindow
         while (index < text.Length)
 
         {
+
+            // Markdown Görsel Ayrıştırma: ![alt](url)
+            if (index < text.Length - 4 && text[index] == '!' && text[index + 1] == '[')
+            {
+                int altClose = text.IndexOf(']', index + 2);
+                if (altClose > index + 2 && altClose < text.Length - 1 && text[altClose + 1] == '(')
+                {
+                    int urlClose = text.IndexOf(')', altClose + 2);
+                    if (urlClose > altClose + 2)
+                    {
+                        var altText = text.Substring(index + 2, altClose - index - 2);
+                        var imgUrl = text.Substring(altClose + 2, urlClose - altClose - 2).Trim();
+
+                        try
+                        {
+                            var imgControl = new System.Windows.Controls.Image
+                            {
+                                MaxWidth = 480,
+                                MaxHeight = 480,
+                                Stretch = System.Windows.Media.Stretch.Uniform,
+                                Margin = new Thickness(0),
+                                Cursor = Cursors.Hand
+                            };
+
+                            var bitmap = new System.Windows.Media.Imaging.BitmapImage();
+                            bitmap.BeginInit();
+                            bitmap.UriSource = new Uri(imgUrl);
+                            bitmap.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                            bitmap.EndInit();
+                            imgControl.Source = bitmap;
+
+                            var border = new Border
+                            {
+                                CornerRadius = new CornerRadius(8),
+                                BorderThickness = new Thickness(1),
+                                BorderBrush = new SolidColorBrush(Color.FromRgb(60, 64, 72)),
+                                Background = new SolidColorBrush(Color.FromRgb(25, 27, 32)),
+                                Padding = new Thickness(6),
+                                Margin = new Thickness(0, 8, 0, 8),
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                ToolTip = $"Görsele tıklayarak varsayılan görüntüleyicide açın ({altText})",
+                                Child = imgControl
+                            };
+
+                            border.MouseLeftButtonDown += (s, e) =>
+                            {
+                                try
+                                {
+                                    var p = imgUrl.StartsWith("file:///", StringComparison.OrdinalIgnoreCase) ? new Uri(imgUrl).LocalPath : imgUrl;
+                                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(p) { UseShellExecute = true });
+                                }
+                                catch { }
+                            };
+
+                            inlines.Add(new InlineUIContainer(border));
+                        }
+                        catch
+                        {
+                            inlines.Add(new Run($"🖼️ [{altText}]({imgUrl})"));
+                        }
+
+                        index = urlClose + 1;
+                        continue;
+                    }
+                }
+            }
 
             if (text[index] == '`')
 

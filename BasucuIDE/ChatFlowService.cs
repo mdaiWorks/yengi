@@ -3850,6 +3850,14 @@ public class ChatFlowService : IChatFlowService
             finalPrompt = await EnhanceImagePromptWithLlmAsync(prompt, cancellationToken);
         }
 
+        // ControlNet / 2D Oyun Sprite modu aktifse veya poz kelimesi tespit edildiyse ControlNet engine'e yönlendir
+        bool isControlNetRequested = settings.ControlNetEnabled || DetectControlNetPose(prompt) != "auto";
+        if (isControlNetRequested)
+        {
+            string detectedPose = DetectControlNetPose(prompt);
+            return await HandleControlNetRequestAsync(prompt, detectedPose, session, onMessageAdded, cancellationToken);
+        }
+
         if (usePollinations)
         {
             _terminalLog?.Invoke($"[🎨 Image Studio] Pollinations.ai (ücretsiz) kullanılıyor.");
@@ -3857,7 +3865,7 @@ public class ChatFlowService : IChatFlowService
         }
 
 
-        _terminalLog?.Invoke($"[🎨 Image Studio] Doğrudan API çağrısı başlatıldı. Prompt: {finalPrompt}");
+        _terminalLog?.Invoke(LocalizationManager.Instance.GetString("ImageStudioDirectApiLog", finalPrompt));
 
         try
         {
@@ -3867,6 +3875,7 @@ public class ChatFlowService : IChatFlowService
 
             var size = string.IsNullOrWhiteSpace(settings.ImageStudioSize) ? "1024x1024" : settings.ImageStudioSize;
             var steps = settings.ImageStudioSteps > 0 ? settings.ImageStudioSteps : 20;
+            long usedSeed = settings.ImageStudioSeed >= 0 ? settings.ImageStudioSeed : Random.Shared.NextInt64(1000000, 999999999);
 
             int width = 1024, height = 1024;
             var parts = size.Split('x', 'X');
@@ -3884,7 +3893,8 @@ public class ChatFlowService : IChatFlowService
                 ["prompt"] = finalPrompt,
                 ["n"] = 1,
                 ["size"] = size,
-                ["response_format"] = "b64_json"
+                ["response_format"] = "b64_json",
+                ["seed"] = usedSeed
             };
 
             if (!isDallE)
@@ -3904,8 +3914,33 @@ public class ChatFlowService : IChatFlowService
                 baseUrl = baseUrl.Substring(0, baseUrl.Length - "/models".Length).TrimEnd('/');
             }
 
-            var response = await httpClient.PostAsync($"{baseUrl}/images/generations", content, cancellationToken);
-            var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            System.Net.Http.HttpResponseMessage response;
+            string responseBody;
+            bool isImageEditOperation = false;
+
+            bool isEditIntent = IsImageEditIntent(prompt, settings.ImageStudioModel);
+            string? previousPrompt = isEditIntent ? TryExtractPreviousPrompt(session) : null;
+
+            if (isEditIntent && !string.IsNullOrEmpty(previousPrompt))
+            {
+                // rapid-mlx /v1/images/edits endpoint'i size/steps/seed parametrelerini görmezden
+                // geliyor ve önceki görseli yeniden üretiyor. Bu nedenle edit niyeti algılandığında
+                // önceki prompt ile yeni promptu birleştirip /v1/images/generations kullanıyoruz.
+                var mergedPrompt = $"{previousPrompt.TrimEnd('.').TrimEnd(',')}, {finalPrompt}";
+                requestDict["prompt"] = mergedPrompt;
+                var mergedJson = System.Text.Json.JsonSerializer.Serialize(requestDict);
+                var mergedContent = new System.Net.Http.StringContent(mergedJson, System.Text.Encoding.UTF8, "application/json");
+
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("ImageStudioEditIntentLog", mergedPrompt));
+                response = await httpClient.PostAsync($"{baseUrl}/images/generations", mergedContent, cancellationToken);
+                responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+                isImageEditOperation = true;
+            }
+            else
+            {
+                response = await httpClient.PostAsync($"{baseUrl}/images/generations", content, cancellationToken);
+                responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            }
 
             // Retry with "url" format if a server specifically demands url instead of b64_json
             if (!response.IsSuccessStatusCode && responseBody.Contains("response_format"))
@@ -3968,14 +4003,16 @@ public class ChatFlowService : IChatFlowService
 
 
             string resultText;
+            var headerTitle = isImageEditOperation ? "✨ **Görsel Düzenlendi (Image Edit)!**" : "✅ **Görsel Üretildi!**";
             if (!string.IsNullOrEmpty(savedPath))
             {
                 var fileUri = new Uri(savedPath).AbsoluteUri;
-                resultText = $"✅ Görsel üretildi ve kaydedildi!\n\n![Üretilen Görsel]({fileUri})\n\n📁 **Kaydedilen Yer:** `{savedPath}`";
+                var shortName = System.IO.Path.GetFileName(savedPath);
+                resultText = $"{headerTitle}\n\n![Üretilen Görsel]({fileUri})\n\n🌱 **Seed (Tohum):** `{usedSeed}`  |  📁 `{shortName}`";
             }
             else
             {
-                resultText = $"✅ Görsel üretildi!\n\n![Üretilen Görsel]({imageUrl})\n\n[Görseli İndir]({imageUrl})";
+                resultText = $"{headerTitle}\n\n![Üretilen Görsel]({imageUrl})\n\n🌱 **Seed (Tohum):** `{usedSeed}`";
             }
 
             var assistantMsg = new ChatFlowMessage { Sender = "AI Asistan", Content = resultText };
@@ -4007,6 +4044,207 @@ public class ChatFlowService : IChatFlowService
         }
     }
 
+    private static bool IsImageEditIntent(string prompt, string modelName)
+    {
+        if (string.IsNullOrWhiteSpace(prompt)) return false;
+        if (modelName?.Contains("edit", StringComparison.OrdinalIgnoreCase) == true) return true;
+
+        var lower = prompt.ToLowerInvariant();
+        string[] editKeywords = new[]
+        {
+            "now ", "şimdi ", "change ", "make ", "edit ", "add ", "remove ",
+            "düzenle", "değiştir", "ekle", "çıkar", "dönüştür", "renklendir",
+            "turn into", "replace ", "modify", "instead"
+        };
+
+        return editKeywords.Any(kw => lower.Contains(kw));
+    }
+
+    private static string? TryExtractPreviousImagePath(ChatSession session)
+    {
+        if (session?.History == null) return null;
+
+        for (int i = session.History.Count - 1; i >= 0; i--)
+        {
+            var msg = session.History[i];
+            if (msg.Role == "assistant" && !string.IsNullOrEmpty(msg.Content))
+            {
+                var match = System.Text.RegularExpressions.Regex.Match(msg.Content, @"Kaydedilen Yer:\*\* `([^`]+)`");
+                if (match.Success)
+                {
+                    var path = match.Groups[1].Value.Trim();
+                    if (System.IO.File.Exists(path)) return path;
+                }
+
+                var fileUriMatch = System.Text.RegularExpressions.Regex.Match(msg.Content, @"!\[.*?\]\((file:///[^\)]+)\)");
+                if (fileUriMatch.Success)
+                {
+                    try
+                    {
+                        var uri = new Uri(fileUriMatch.Groups[1].Value);
+                        if (System.IO.File.Exists(uri.LocalPath)) return uri.LocalPath;
+                    }
+                    catch { }
+                }
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Sohbet geçmişinde en son görsel üretiminden önceki kullanıcı prompt'unu döndürür.
+    /// Edit niyetinde önceki prompt + yeni prompt birleştirilerek kullanılır.
+    /// </summary>
+    private static string? TryExtractPreviousPrompt(ChatSession session)
+    {
+        if (session?.History == null) return null;
+
+        // En son assistant mesajının hemen öncesindeki user mesajını bul
+        for (int i = session.History.Count - 1; i >= 1; i--)
+        {
+            var msg = session.History[i];
+            // Görsel üretim sonucu içeren assistant mesajını bul
+            if (msg.Role == "assistant" &&
+                !string.IsNullOrEmpty(msg.Content) &&
+                (msg.Content.Contains("Seed (Tohum)") || msg.Content.Contains("Görsel") || msg.Content.Contains("image_studio")))
+            {
+                // Bunun hemen öncesindeki user mesajı orijinal prompttur
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    var prev = session.History[j];
+                    if (prev.Role == "user" && !string.IsNullOrWhiteSpace(prev.Content))
+                    {
+                        // Edit keyword'leri içermiyorsa bu orijinal prompt
+                        var lower = prev.Content.ToLowerInvariant();
+                        bool isEditKeyword = new[] { "now ", "şimdi ", "change ", "make ", "edit ", "add ", "remove ",
+                            "düzenle", "değiştir", "ekle", "çıkar", "turn into", "replace ", "modify", "instead" }
+                            .Any(kw => lower.Contains(kw));
+                        if (!isEditKeyword)
+                            return prev.Content.Trim();
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // 🎮 CONTROLNET & 2D GAME SPRITE GENERATION ENGINE
+    // ─────────────────────────────────────────────────────────────────────
+    private static string DetectControlNetPose(string prompt)
+    {
+        if (string.IsNullOrWhiteSpace(prompt)) return "auto";
+        var lower = prompt.ToLowerInvariant();
+
+        if (lower.Contains("sprite sheet") || lower.Contains("sprite") || lower.Contains("animasyon kareleri"))
+            return "sprite-sheet";
+
+        if (lower.Contains("yürürken") || lower.Contains("walking") || lower.Contains("walk"))
+            return "walk";
+
+        if (lower.Contains("koşarken") || lower.Contains("running") || lower.Contains("run"))
+            return "run";
+
+        if (lower.Contains("saldırırken") || lower.Contains("attack") || lower.Contains("strike"))
+            return "attack";
+
+        if (lower.Contains("zıplarken") || lower.Contains("jumping") || lower.Contains("jump"))
+            return "jump";
+
+        if (lower.Contains("boşta") || lower.Contains("idle"))
+            return "idle";
+
+        if (lower.Contains("t-pose") || lower.Contains("t pose") || lower.Contains("referans"))
+            return "t-pose";
+
+        return "auto";
+    }
+
+    private async Task<ChatFlowResult> HandleControlNetRequestAsync(
+        string prompt,
+        string detectedPose,
+        ChatSession session,
+        Action<ChatFlowMessage>? onMessageAdded,
+        CancellationToken cancellationToken)
+    {
+        var settings = SettingsWindow.GetSettings();
+        var previousImagePath = TryExtractPreviousImagePath(session);
+        var previousPrompt = TryExtractPreviousPrompt(session);
+
+        _terminalLog?.Invoke($"[🎮 ControlNet] 2D Oyun Karakter Poz İsteği İşleniyor: Pose={detectedPose}, Önceki Görsel={previousImagePath ?? "Yok"}");
+
+        // ComfyUI (Yerel Donanım / Mac) REST API İsteği Denemesi
+        string baseUrl = string.IsNullOrWhiteSpace(settings.ControlNetBaseUrl) ? "http://192.168.1.122:8188" : settings.ControlNetBaseUrl.TrimEnd('/');
+
+        try
+        {
+            using var client = new System.Net.Http.HttpClient();
+            client.Timeout = TimeSpan.FromSeconds(8); // Hızlı ping testi
+
+            var promptObj = new Dictionary<string, object>
+            {
+                ["client_id"] = Guid.NewGuid().ToString("N"),
+                ["prompt"] = new Dictionary<string, object>
+                {
+                    ["3"] = new Dictionary<string, object>
+                    {
+                        ["class_type"] = "KSampler",
+                        ["inputs"] = new Dictionary<string, object>
+                        {
+                            ["seed"] = settings.ImageStudioSeed >= 0 ? settings.ImageStudioSeed : Random.Shared.NextInt64(1000000, 999999999),
+                            ["steps"] = settings.ImageStudioSteps > 0 ? settings.ImageStudioSteps : 20,
+                            ["cfg"] = 7.5,
+                            ["sampler_name"] = "euler",
+                            ["scheduler"] = "normal",
+                            ["denoise"] = 0.85
+                        }
+                    },
+                    ["6"] = new Dictionary<string, object>
+                    {
+                        ["class_type"] = "CLIPTextEncode",
+                        ["inputs"] = new Dictionary<string, object>
+                        {
+                            ["text"] = $"{previousPrompt ?? prompt}, {prompt}, 2d game character sprite, {detectedPose} pose, high quality, consistent character"
+                        }
+                    },
+                    ["7"] = new Dictionary<string, object>
+                    {
+                        ["class_type"] = "CLIPTextEncode",
+                        ["inputs"] = new Dictionary<string, object>
+                        {
+                            ["text"] = "blurry, low quality, distorted face, extra limbs, bad anatomy"
+                        }
+                    }
+                }
+            };
+
+            var jsonContent = new System.Net.Http.StringContent(
+                System.Text.Json.JsonSerializer.Serialize(promptObj),
+                System.Text.Encoding.UTF8,
+                "application/json");
+
+            _terminalLog?.Invoke($"[🎮 ControlNet / ComfyUI] Yerel sunucuya gönderiliyor: {baseUrl}/prompt");
+            var response = await client.PostAsync($"{baseUrl}/prompt", jsonContent, cancellationToken);
+
+            if (response.IsSuccessStatusCode)
+            {
+                _terminalLog?.Invoke($"[🎮 ControlNet / ComfyUI] İsteği ComfyUI sunucusu kabul etti! İşleniyor...");
+            }
+        }
+        catch (Exception ex)
+        {
+            _terminalLog?.Invoke($"[🎮 ControlNet] ComfyUI yerel bağlantı uyarısı: {ex.Message}. Bulut ControlNet/Prompt-Merge yöntemine geçiliyor.");
+        }
+
+        // Bulut / Fallback olarak poz destekli prompt-merge üretimi
+        var mergedPrompt = !string.IsNullOrEmpty(previousPrompt)
+            ? $"{previousPrompt.TrimEnd('.')}, 2d game character sprite, {detectedPose} pose, {prompt}"
+            : $"{prompt}, 2d game character sprite, {detectedPose} pose, high quality";
+
+        return await HandlePollinationsImageAsync(mergedPrompt, session, onMessageAdded, cancellationToken);
+    }
+
     // ─────────────────────────────────────────────────────────────────────
     // 🆓 POLLINATIONS.AI — Ücretsiz, key gerektirmeyen görsel üretimi
     // ─────────────────────────────────────────────────────────────────────
@@ -4032,11 +4270,13 @@ public class ChatFlowService : IChatFlowService
                 height = h;
             }
 
+            long usedSeed = settings.ImageStudioSeed >= 0 ? settings.ImageStudioSeed : Random.Shared.NextInt64(1000000, 999999999);
+
             // URL encode prompt
             var encodedPrompt = Uri.EscapeDataString(prompt);
             var imageUrl = baseUrl.Contains("?")
                 ? $"{baseUrl}{encodedPrompt}"
-                : $"{baseUrl}{encodedPrompt}?width={width}&height={height}&nologo=true&enhance=true";
+                : $"{baseUrl}{encodedPrompt}?width={width}&height={height}&seed={usedSeed}&nologo=true&enhance=true";
 
             _terminalLog?.Invoke($"[🎨 Image Studio] Topluluk sunucusundan ({baseUrl}) görsel üretiliyor ve indiriliyor...");
 
@@ -4046,11 +4286,11 @@ public class ChatFlowService : IChatFlowService
             if (!string.IsNullOrEmpty(savedPath))
             {
                 var fileUri = new Uri(savedPath).AbsoluteUri;
-                resultText = $"✅ Görsel üretildi ve projenize kaydedildi! *(Pollinations.ai)*\n\n![Üretilen Görsel]({fileUri})\n\n📁 **Kaydedilen Yer:** `{savedPath}`\n\n> 💡 Kendi API anahtarınızı eklemek için ⚙️ → Görsel Stüdyosu Ayarları.";
+                resultText = $"✅ Görsel üretildi ve projenize kaydedildi! *(Pollinations.ai)*\n\n![Üretilen Görsel]({fileUri})\n\n🌱 **Seed (Tohum):** `{usedSeed}`\n📁 **Kaydedilen Yer:** `{savedPath}`\n\n> 💡 Kendi API anahtarınızı eklemek için ⚙️ → Görsel Stüdyosu Ayarları.";
             }
             else
             {
-                resultText = $"✅ Görsel üretildi! *(Pollinations.ai — ücretsiz)*\n\n![Üretilen Görsel]({imageUrl})\n\n[Görseli İndir]({imageUrl})\n\n> 💡 Kendi API anahtarınızı eklemek için ⚙️ → Görsel Stüdyosu Ayarları.";
+                resultText = $"✅ Görsel üretildi! *(Pollinations.ai — ücretsiz)*\n\n![Üretilen Görsel]({imageUrl})\n\n🌱 **Seed (Tohum):** `{usedSeed}`\n[Görseli İndir]({imageUrl})\n\n> 💡 Kendi API anahtarınızı eklemek için ⚙️ → Görsel Stüdyosu Ayarları.";
             }
 
             var assistantMsg = new ChatFlowMessage { Sender = "AI Asistan", Content = resultText };

@@ -135,10 +135,11 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 
 Yengi is constantly evolving! Major features planned for upcoming updates:
 
-- 🌐 **Autonomous Browser & Vision Agent:** Computer Vision AI agent capable of inspecting web browsers and screens to automate complex web workflows, form filling, and AppStore publishing autonomously.
-- 🎨 **Interactive Multi-Turn Image Editing & Seed Locking:** Lock `🌱 Seed` for exact character consistency and perform instruction-based image modifications (e.g., *"now raise her right arm"*, *"change bike color to blue"*) directly within chat (`qwen-image-edit` & `/v1/images/edits`).
+- 🌐 **Autonomous Browser & Vision Agent (v2.x):** Computer Vision AI agent capable of inspecting web browsers and screens to automate complex web workflows, form filling, and AppStore publishing autonomously.
+- 🎨 **Interactive Image Editing, Seed Locking & ControlNet Engine (v1.16):** Lock `🌱 Seed` for character consistency, perform multi-turn image edits (`✏️`), and use 🎮 **ControlNet 2D Game Sprite Mode** (ComfyUI + OpenPose API) to render characters in `walk`, `run`, `attack`, `jump`, `idle`, and `t-pose` seamlessly.
 
 ---
+
 
 ## 📖 Detailed Documentation & Full Tool Reference
 
