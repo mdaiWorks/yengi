@@ -211,7 +211,15 @@ public class ToolExecutor
                 // Web → WebService
                 "WebSearch"    => await _webService!.WebSearchAsync(arguments, cancellationToken),
                 "WebFetch"     => await _webService!.WebFetchAsync(arguments, cancellationToken),
-                "TakeScreenshot" => await _webService!.TakeScreenshotAsync(arguments, cancellationToken),
+                "TakeScreenshot" => await BrowserAgentService.Instance.CaptureScreenshotAsync(arguments, cancellationToken),
+
+                // Browser Agent → BrowserAgentService
+                "BrowserNavigate" => await BrowserAgentService.Instance.NavigateAsync(arguments, cancellationToken),
+                "BrowserClick"    => await BrowserAgentService.Instance.ClickAsync(arguments, cancellationToken),
+                "BrowserFill"     => await BrowserAgentService.Instance.FillAsync(arguments, cancellationToken),
+                "BrowserScroll"   => await BrowserAgentService.Instance.ScrollAsync(arguments, cancellationToken),
+                "BrowserGetDOM"   => await BrowserAgentService.Instance.GetDomAsync(arguments, cancellationToken),
+                "BrowserUploadFile" => await BrowserAgentService.Instance.UploadFileAsync(arguments, cancellationToken),
 
                 // Image Studio → Phase 2 Stub
                 "GenerateImage" => await SafelyGenerateImageAsync(arguments, cancellationToken),

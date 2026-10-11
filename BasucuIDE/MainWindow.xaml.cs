@@ -2437,6 +2437,59 @@ public partial class MainWindow : Window
 
             );
 
+        BrowserAgentService.Instance.SetLogger(AddTerminalMessage);
+
+        BrowserAgentService.Instance.SetTabOpener(panel =>
+        {
+            // Sekme başlığı
+            var headerStack = new StackPanel { Orientation = Orientation.Horizontal };
+
+            var iconText = new TextBlock
+            {
+                Text = "🌐",
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 6, 0)
+            };
+
+            var headerText = new TextBlock
+            {
+                Text = "Tarayıcı",
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 8, 0)
+            };
+
+            var closeBtn = new TextBlock
+            {
+                Text = "✕",
+                Padding = new Thickness(2),
+                Width = 16, Height = 16,
+                Background = Brushes.Transparent,
+                Foreground = Brushes.Gray,
+                Cursor = Cursors.Hand,
+                TextAlignment = TextAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                ToolTip = "Sekmeyi Kapat"
+            };
+
+            var tabItem = new TabItem();
+            closeBtn.Tag = tabItem;
+            closeBtn.MouseLeftButtonDown += BtnCloseTab_Click;
+            closeBtn.MouseEnter += (s, e) => closeBtn.Foreground = Brushes.White;
+            closeBtn.MouseLeave += (s, e) => closeBtn.Foreground = Brushes.Gray;
+
+            headerStack.Children.Add(iconText);
+            headerStack.Children.Add(headerText);
+            headerStack.Children.Add(closeBtn);
+
+            tabItem.Header  = headerStack;
+            tabItem.Content = panel;
+
+            tcEditor.Items.Add(tabItem);
+            tcEditor.SelectedItem = tabItem;
+
+            return tabItem;
+        });
+
     }
 
     private void UpdateOperationStep(string step)

@@ -1254,8 +1254,34 @@ public class ChatFlowService : IChatFlowService
                 UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
             }
 
+            // 🌐 Otonom Tarayıcı Ajanı Koruma Kalkanı:
+            // Yengi Router'a tam güven: Eğer router zaten araç seçtiyse kararına saygı duy ve müdahale etme!
+            // Sadece Router kapalıysa veya tarayıcı niyetine rağmen sıfır araç seçildiyse emniyet kemeri olarak devreye gir.
+            bool isBrowserIntent = IsBrowserIntent(message);
+            bool routerAlreadyChoseBrowserTool = activeTools.Any(t => t.Function?.Name?.StartsWith("Browser", StringComparison.OrdinalIgnoreCase) == true);
 
-            if (skipRouterForCasualMessage && !settings.EnableResearchMode)
+            if (isBrowserIntent && !routerAlreadyChoseBrowserTool && (!routerIsActive || activeTools.Count == 0))
+            {
+                var browserTools = new[] { "BrowserNavigate", "BrowserGetDOM", "BrowserClick", "BrowserFill", "BrowserScroll", "TakeScreenshot", "BrowserUploadFile" };
+                bool addedAny = false;
+                foreach (var toolName in browserTools)
+                {
+                    var tool = allActiveTools.FirstOrDefault(t => string.Equals(t.Function?.Name, toolName, StringComparison.OrdinalIgnoreCase));
+                    if (tool != null && !activeTools.Any(t => string.Equals(t.Function?.Name, toolName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        activeTools.Add(tool);
+                        addedAny = true;
+                    }
+                }
+                if (addedAny)
+                {
+                    UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+                    _terminalLog?.Invoke($"🌐 [Browser Agent] Emniyet kemeri: Tarayıcı araçları kataloğa eklendi ({activeTools.Count} toplam araç).");
+                }
+            }
+
+
+            if (skipRouterForCasualMessage && !settings.EnableResearchMode && !isBrowserIntent)
             {
                 activeTools = new List<ToolDefinition>();
                 UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
@@ -2095,7 +2121,7 @@ public class ChatFlowService : IChatFlowService
 
                                     {
 
-                                        new Attachment { FileName = Path.GetFileName(filePath), Base64Content = base64, MimeType = "image/jpeg" }
+                                        new Attachment { FileName = Path.GetFileName(filePath), Base64Content = base64, MimeType = "image/png" }
 
                                     };
 
@@ -2103,6 +2129,23 @@ public class ChatFlowService : IChatFlowService
 
                                 catch { }
 
+                            }
+                            else if (toolContent != null && toolContent.Contains("[SCREENSHOT_BASE64:"))
+                            {
+                                try
+                                {
+                                    var start = toolContent.IndexOf("[SCREENSHOT_BASE64:") + "[SCREENSHOT_BASE64:".Length;
+                                    var end = toolContent.IndexOf("]", start);
+                                    if (end > start)
+                                    {
+                                        var b64 = toolContent.Substring(start, end - start).Trim();
+                                        toolChatMessage.Attachments = new List<Attachment>
+                                        {
+                                            new Attachment { FileName = "browser_screenshot.png", Base64Content = b64, MimeType = "image/png" }
+                                        };
+                                    }
+                                }
+                                catch { }
                             }
 
                         }
@@ -3394,24 +3437,49 @@ public class ChatFlowService : IChatFlowService
 
     }
 
+    private static bool IsBrowserIntent(string? message)
+    {
+        if (string.IsNullOrWhiteSpace(message)) return false;
+        var lower = message.ToLowerInvariant();
+
+        // 1. URL tespiti
+        if (lower.Contains("http://") || lower.Contains("https://") || lower.Contains("www."))
+            return true;
+
+        // 2. Tarayıcı / Web anahtar kelimeleri
+        string[] browserKeywords = 
+        {
+            "tarayıcı", "tarayici", "browser", "web sitesi", "website",
+            "sayfaya git", "sitesine git", "adrese git", "web'e git", "webe git",
+            "sekme aç", "sekmede aç", "internete gir", "sayfayı aç", "sayfayi ac",
+            "butona tıkla", "forma yaz", "arama yap ve tıkla", "dom oku"
+        };
+
+        foreach (var kw in browserKeywords)
+        {
+            if (lower.Contains(kw)) return true;
+        }
+
+        return false;
+    }
+
     private string ExtractPathFromToolOutput(string output)
 
         {
 
-            var firstLine = output?.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+            if (string.IsNullOrEmpty(output)) return string.Empty;
 
-            if (string.IsNullOrEmpty(firstLine))
-
-                return string.Empty;
-
-            const string marker = "SAVED_PATH:";
-
-            if (firstLine.StartsWith(marker))
-
+            var lines = output.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var line in lines)
             {
+                var trimmed = line.Trim();
+                const string marker1 = "SAVED_PATH:";
+                if (trimmed.StartsWith(marker1))
+                    return trimmed.Substring(marker1.Length).Trim();
 
-                return firstLine.Substring(marker.Length).Trim();
-
+                const string marker2 = "[SCREENSHOT_PATH:";
+                if (trimmed.StartsWith(marker2) && trimmed.EndsWith("]"))
+                    return trimmed.Substring(marker2.Length, trimmed.Length - marker2.Length - 1).Trim();
             }
 
             return string.Empty;

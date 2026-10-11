@@ -45,7 +45,7 @@
 
 # 🌐 Plan 2 — Otonom Tarayıcı & Görsel Ajanı (v2.x)
 
-## 📌 Durum: Planlandı
+## 🔄 Durum: Geliştirme Aşamasında (Temel Altyapı & Toollar Tamamlandı)
 
 ### Vizyon
 
@@ -53,10 +53,22 @@ Yengi'yi sadece bir Kod IDE'si olmaktan çıkarıp, `WebView2` ve `Multimodal Vi
 
 ### Aşamalar
 
-**Aşama 1 — WebView2 Entegrasyonu:**
-- `Microsoft.Web.WebView2` NuGet paketi eklenir
-- Sağ panelde canlı Chromium tarayıcı penceresi
-- Adres çubuğu, Yenile, Geri/İleri butonları
+**Aşama 1 — WebView2 & BrowserAgentWindow (✅ Tamamlandı):**
+- `Microsoft.Web.WebView2` entegrasyonu hazır
+- `BrowserAgentWindow` ve `BrowserAgentService` singleton altyapısı kuruldu
+- Gerçek zamanlı URL göstergesi, durum rozetleri ve log takibi
+
+**Aşama 2 — Tarayıcı Araçları (✅ Tamamlandı):**
+- `BrowserNavigate(url)` — URL'ye gitme, sayfa yüklenmesini bekleme
+- `BrowserClick(selector, text)` — CSS selector veya metinle tıklama
+- `BrowserFill(selector, value, pressEnter)` — Form alanlarını doldurma ve Enter ile submit
+- `BrowserScroll(direction, amount)` — Sayfayı yukarı/aşağı kaydırma
+- `BrowserGetDOM(mode)` — Token dostu özet ve full DOM okuma
+- `TakeScreenshot()` — WebView2 ekran görüntüsünü alma (base64 & PNG dosya)
+
+**Aşama 3 — Vision & Multimodal Analiz Döngüsü (✅ Hazır):**
+- `ChatFlowService` içine base64 ve dosya bazlı screenshot multimodal attachment desteği eklendi
+- AI modeli görüntüyü doğrudan görür ve sonraki tarayıcı aksiyonuna karar verir
 
 **Aşama 2 — Tarayıcı Araç Tanımları:**
 - `OpenBrowserUrl(url)`, `ClickBrowserElement()`, `TypeBrowserInput()`

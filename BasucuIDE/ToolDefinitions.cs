@@ -821,6 +821,127 @@ public static class ToolRegistry
                         Required = new List<string> { "url" }
                     }
                 }
+            },
+
+            // ── Otonom Tarayıcı Ajanı Araçları ──────────────────────────────
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "BrowserNavigate",
+                    RouterHint = "Tarayıcıda belirtilen URL'ye gider",
+                    Description = "Otonom tarayıcıyı belirtilen URL'ye yönlendirir ve sayfa yüklenene kadar bekler. Giriş sayfaları, web uygulamaları veya herhangi bir web sitesine gitmek için kullanılır.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["url"] = new { type = "string", description = "Gidilecek URL (örn: https://github.com). Protokol belirtilmezse https eklenir." }
+                        },
+                        Required = new List<string> { "url" }
+                    }
+                }
+            },
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "BrowserClick",
+                    RouterHint = "Tarayıcıda bir elemente tıklar",
+                    Description = "Sayfadaki bir butona, linke veya herhangi bir elemente tıklar. CSS selector veya görünür metin ile element belirtilebilir.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["selector"] = new { type = "string", description = "CSS selector (örn: '#login-btn', '.submit', 'button[type=submit]'). selector veya text'ten biri zorunludur." },
+                            ["text"]     = new { type = "string", description = "Tıklanacak elementin görünür metni (örn: 'Giriş Yap', 'Submit'). selector bulunamazsa metin araması yapılır." }
+                        },
+                        Required = new List<string>()
+                    }
+                }
+            },
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "BrowserFill",
+                    RouterHint = "Tarayıcıda form alanı doldurur",
+                    Description = "Bir input, textarea veya select alanına metin yazar. Kullanıcı adı, şifre, arama kutusu gibi form alanlarını doldurmak için kullanılır.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["selector"]   = new { type = "string",  description = "Doldurulacak input elementinin CSS selector'ı (örn: '#email', 'input[name=username]')" },
+                            ["value"]      = new { type = "string",  description = "Yazılacak metin değeri" },
+                            ["pressEnter"] = new { type = "boolean", description = "True ise değer yazıldıktan sonra Enter tuşuna basılır (form submit için)" }
+                        },
+                        Required = new List<string> { "selector", "value" }
+                    }
+                }
+            },
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "BrowserScroll",
+                    RouterHint = "Tarayıcıda sayfayı kaydırır",
+                    Description = "Sayfayı yukarı veya aşağı kaydırır. Sayfanın altına inmek, gizli içeriği görmek veya lazy-load elementleri yüklemek için kullanılır.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["direction"] = new { type = "string",  description = "'down' veya 'up'. Varsayılan: 'down'" },
+                            ["amount"]    = new { type = "integer", description = "Kaydırma miktarı (piksel). Varsayılan: 500" }
+                        },
+                        Required = new List<string>()
+                    }
+                }
+            },
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "BrowserGetDOM",
+                    RouterHint = "Tarayıcıdaki sayfanın içeriğini okur",
+                    Description = "Mevcut sayfanın DOM içeriğini, görünür metnini, linklerini ve form elementlerini döndürür. Sayfada ne olduğunu anlamak, hangi elementlerin mevcut olduğunu görmek için kullanılır.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["mode"] = new { type = "string", description = "'summary' (varsayılan): başlık, metin özeti, linkler ve inputlar. 'full': ham HTML (15k karakter)." }
+                        },
+                        Required = new List<string>()
+                    }
+                }
+            },
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "BrowserUploadFile",
+                    RouterHint = "Tarayıcıdaki forma yerel dosya yükler",
+                    Description = "Tarayıcıdaki bir dosya yükleme alanına (input[type='file']) veya sürükle-bırak bölgesine yerel bilgisayardaki bir dosyayı (APK, AAB, görsel, video, zip) yükler. Google Play Console, App Store, GitHub dosya yüklemeleri için kullanılır.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["selector"] = new { type = "string", description = "Dosya yükleme inputunun CSS seçicisi (örn: 'input[type=file]' veya '#file-upload')" },
+                            ["filePath"] = new { type = "string", description = "Yüklenecek yerel dosyanın tam yolu (örn: 'C:\\assets\\icon.png')" }
+                        },
+                        Required = new List<string> { "selector", "filePath" }
+                    }
+                }
             }
         };
     }
@@ -975,6 +1096,15 @@ Ana hedefin: kullanıcı talimatlarını projenin mevcut yapısını bozmadan, e
 - Web sitesi, UI veya oyun tasarlarken görsele ihtiyaç duyarsan ve projede hazır görsel yoksa `GenerateImage` aracını kullanarak yeni görseller üretebilirsin.
 - Üretilen görseller otomatik olarak projedeki `generated_images/` klasörüne kaydedilir ve sana göreli dosya yolu (örn: `generated_images/gorsel_...png`) döndürülür. Bu yolu HTML `<img src=""..."">` veya koddaki ilgili alana bağla.
 </media_and_assets>
+
+<browser_and_web_agent>
+- Kullanıcı bir web sitesine gitmeni, bir web sayfasını açmanı, web'den canlı bilgi okumanı veya tarayıcıda işlem yapmanı istediğinde:
+  1. KESİNLİKLE önce laf üretme veya ""yönlendiriyorum"" deyip durma; İLK İŞ OLARAK doğrudan `BrowserNavigate` fonksiyon çağrısı yap!
+  2. Sayfa yüklendikten sonra içeriğini ve metnini okumak için `BrowserGetDOM` (mode: 'summary') aracını çağır.
+  3. Butona tıklamak gerekirse `BrowserClick` (selector veya metin ile), form doldurmak gerekirse `BrowserFill`, sayfayı kaydırmak gerekirse `BrowserScroll` kullan.
+  4. Sayfanın görsel görünümünü incelemek istersen `TakeScreenshot` ile anlık görüntü al.
+- ""Tarayıcıyı açamam"", ""Ben sadece kod dosyalarıyla çalışırım"" veya işlem yapmadan sadece ""yönlendiriyorum"" DEME! Yengi'nin dahili Otonom Tarayıcı Ajanı araçları (`BrowserNavigate`, `BrowserGetDOM`, `BrowserClick`, `BrowserFill`) elinin altındadır; talimat gelir gelmez ilk adımda derhal çağır.
+</browser_and_web_agent>
 
 <communication>
 - Arac isimlerini (ReadFile, CreateOrUpdateFile, ExecuteTerminalCommand vb.) kullaniciya ASLA soyleme.
