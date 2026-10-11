@@ -126,9 +126,11 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 - 👁️ **Live Viewport Vision**: Multimodal AI models (GPT-4o, Claude 3.5, Gemini) can **see** your Blender scene via OpenGL snapshots and autonomously correct geometry, materials, or proportions in a closed feedback loop.
 - 🔎 **Research & Chat Mode**: Live web search (Tavily API & free DuckDuckGo search fallback), brainstorming, and automated Markdown (`.md`) report generation with embedded AI-generated illustrations.
 
-- 🎨 **Image Studio & ControlNet 2D Game Sprite Engine (v1.16)**: Lock `🌱 Seed` for character consistency, interactive prompt editing (`✏️`), and 🎮 **ControlNet 2D Game Sprite Mode** (ComfyUI + OpenPose API) to generate character poses (`walk`, `run`, `attack`, `jump`, `idle`, `t-pose`, `sprite-sheet`).
+- 🌐 **Autonomous Browser Agent (v2.0)**: Embedded Chromium WebView2 browser running natively inside editor tabs (`🌐 Tarayıcı`). Performs autonomous URL navigation, DOM parsing, form filling, element clicking, smooth scrolling, and automated store asset uploads (`BrowserUploadFile` via HTML5 DataTransfer/File API) for Google Play Console and web forms.
+- 🧠 **Yengi Router v2.0 (1.5B)**: Re-trained fine-tuned local router covering **all 38 IDE tools** with ~0.2s latency, ~940 MB GGUF size, and zero-fallback precision decision making.
+- 🎨 **Image Studio & ControlNet 2D Game Sprite Engine**: Lock `🌱 Seed` for character consistency, interactive prompt editing (`✏️`), and 🎮 **ControlNet 2D Game Sprite Mode** (ComfyUI + OpenPose API) to generate character poses (`walk`, `run`, `attack`, `jump`, `idle`, `t-pose`, `sprite-sheet`).
 - ⚡ **Built with .NET 10 (LTS)**: High-performance WPF architecture backed by **200+ passing unit tests**.
-- 🧰 **30+ Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, and web browser previews.
+- 🧰 **38 Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, autonomous browser control, and deployment file uploaders.
 
 ---
 
@@ -136,7 +138,8 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 
 Yengi is constantly evolving! Major features planned for upcoming updates:
 
-- 🌐 **Autonomous Browser & Vision Agent (v2.x):** Computer Vision AI agent capable of inspecting web browsers and screens to automate complex web workflows, form filling, and AppStore publishing autonomously.
+- 📱 **Mobile & Store Deployment Agent (v2.1)**: Full end-to-end autonomous publishing pipeline for Google Play Console & Apple App Store Connect, automated screenshot generation and metadata management.
+- 🧩 **Extension & Plugin Ecosystem**: Custom user-defined tool definitions and community agent plugins.
 
 ---
 
