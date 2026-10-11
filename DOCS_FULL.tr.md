@@ -189,7 +189,7 @@ Bu akış, `ToolDefinitions.cs` içindeki sistem promptunda (`GetCoreSystemPromp
 
 ---
 
-# 5. Tool Sistemi (31 Araç)
+# 5. Tool Sistemi (39 Araç)
 
 Tanımlar `ToolDefinitions.cs`'de, yürütme `ToolExecutor.cs` + `Services/*`'de.
 
@@ -197,13 +197,15 @@ Tanımlar `ToolDefinitions.cs`'de, yürütme `ToolExecutor.cs` + `Services/*`'de
 |---|---|
 | **Dosya** | `ReadFile` (opsiyonel startLine/endLine), `CreateOrUpdateFile`, `ReplaceFileContent` (kısmi/hedefli değişiklik) |
 | **Terminal** | `ExecuteTerminalCommand` (opsiyonel `workingDirectory`, belirtilmezse proje kökü), `ReadToolOutput` (kısaltılmış uzun çıktının geçici tam halini satır aralığıyla okur) |
-| **Görsel analiz** | `TakeScreenshot` (dosya veya base64 çıktı, UI hatası analizi için) |
+| **Görsel analiz & Üretim** | `TakeScreenshot` (dosya veya base64 çıktı, UI/tarayıcı analizi için), `GenerateImage` (metinden AI ile görsel üretir) |
+| **Otonom Tarayıcı (v2.0)** | `BrowserNavigate` (URL'ye git), `BrowserGetDOM` (sayfa metin/DOM yapısını oku), `BrowserClick` (butona tıkla), `BrowserFill` (form/arama doldur), `BrowserScroll` (sayfayı kaydır), `BrowserUploadFile` (yerel dosyayı web formuna yükle) |
+| **Mağaza Yayınlama (v2.0)** | `PrepareStoreAssets` (Google Play 512x512 ikon, 1024x500 banner; App Store 1024x1024 ikon, 1290x2796 ekran görüntüsü ölçeklendirir) |
 | **Proje keşfi** | `FindFiles`, `SearchCode`, `ListDirectory`, `DiscoverProjectContext` |
 | **Build/Test** | `BuildProject` (.csproj/.sln), `RunTests` |
 | **Planlama / Hafıza** | `CreatePlan`, `CreateTaskGraph`, `RetryPlan` (recovery), `GenerateDiff`, `ReadProjectMemory`, `WriteProjectMemory`, `SearchProjectMemory`, `ArchiveProjectMemory`, `WriteDecision`, `WriteTask` (`.mdai/memory.json`, `.mdai/decisions.json`, `.mdai/tasks/`) |
 | **Checkpoint** | `CreateCheckpoint`, `RollbackToCheckpoint` |
 | **Hızlı komutlar** | `CreateQuickCommand`, `ExecuteQuickCommand` (`CommandService` üzerinden) |
-| **Web** | `WebSearch` (Tavily API), `WebFetch` |
+| **Web** | `WebSearch` (Tavily API & DuckDuckGo), `WebFetch` |
 | **Delegasyon** | `DelegateTask` (`role`, `prompt`, `context` parametreleri; `DelegationService` + `SubAgentResultCoordinator` ile çalışır; `waitForCompletion=true` ile ana akış sonucu bekleyebilir, timeout mekanizması vardır) |
 | **Kullanıcı etkileşimi** | `AskUserOptions` (popup'ta seçimli/serbest metin soru; `allowMultiple` ile çoklu seçim), `SmartRecovery` (hata sonrası kurtarma planı) |
 

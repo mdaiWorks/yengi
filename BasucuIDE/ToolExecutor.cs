@@ -220,6 +220,7 @@ public class ToolExecutor
                 "BrowserScroll"   => await BrowserAgentService.Instance.ScrollAsync(arguments, cancellationToken),
                 "BrowserGetDOM"   => await BrowserAgentService.Instance.GetDomAsync(arguments, cancellationToken),
                 "BrowserUploadFile" => await BrowserAgentService.Instance.UploadFileAsync(arguments, cancellationToken),
+                "PrepareStoreAssets" => await StoreDeploymentService.Instance.PrepareStoreAssetsAsync(arguments, _projectFolder, cancellationToken),
 
                 // Image Studio → Phase 2 Stub
                 "GenerateImage" => await SafelyGenerateImageAsync(arguments, cancellationToken),

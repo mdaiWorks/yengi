@@ -127,10 +127,11 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 - 🔎 **Research & Chat Mode**: Live web search (Tavily API & free DuckDuckGo search fallback), brainstorming, and automated Markdown (`.md`) report generation with embedded AI-generated illustrations.
 
 - 🌐 **Autonomous Browser Agent (v2.0)**: Embedded Chromium WebView2 browser running natively inside editor tabs (`🌐 Tarayıcı`). Performs autonomous URL navigation, DOM parsing, form filling, element clicking, smooth scrolling, and automated store asset uploads (`BrowserUploadFile` via HTML5 DataTransfer/File API) for Google Play Console and web forms.
-- 🧠 **Yengi Router v2.0 (1.5B)**: Re-trained fine-tuned local router covering **all 38 IDE tools** with ~0.2s latency, ~940 MB GGUF size, and zero-fallback precision decision making.
+- 📱 **Mobile & Store Deployment Agent (v2.0)**: Autonomous app store publishing pipeline. Formats and scales raw graphics into pixel-perfect store assets with `PrepareStoreAssets` (Google Play 512x512 icon & 1024x500 banner; App Store 1024x1024 icon & 1290x2796 screenshots), handles console authentication checkpoints via human-in-the-loop, and auto-uploads APK/AAB builds.
+- 🧠 **Yengi Router v2.0 (1.5B)**: Re-trained fine-tuned local router covering **all native IDE tools** with ~0.2s latency, ~940 MB GGUF size, and zero-fallback precision decision making.
 - 🎨 **Image Studio & ControlNet 2D Game Sprite Engine**: Lock `🌱 Seed` for character consistency, interactive prompt editing (`✏️`), and 🎮 **ControlNet 2D Game Sprite Mode** (ComfyUI + OpenPose API) to generate character poses (`walk`, `run`, `attack`, `jump`, `idle`, `t-pose`, `sprite-sheet`).
 - ⚡ **Built with .NET 10 (LTS)**: High-performance WPF architecture backed by **200+ passing unit tests**.
-- 🧰 **38 Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, autonomous browser control, and deployment file uploaders.
+- 🧰 **39 Native Agent Tools**: File system search, Git operations, terminal execution, RAG context indexing, autonomous browser control, store asset resizers, and deployment file uploaders.
 
 ---
 
@@ -138,7 +139,6 @@ Use local open-weights models through Ollama, connect your own API keys (Claude,
 
 Yengi is constantly evolving! Major features planned for upcoming updates:
 
-- 📱 **Mobile & Store Deployment Agent (v2.1)**: Full end-to-end autonomous publishing pipeline for Google Play Console & Apple App Store Connect, automated screenshot generation and metadata management.
 - 🧩 **Extension & Plugin Ecosystem**: Custom user-defined tool definitions and community agent plugins.
 
 ---

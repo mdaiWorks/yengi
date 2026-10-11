@@ -942,6 +942,28 @@ public static class ToolRegistry
                         Required = new List<string> { "selector", "filePath" }
                     }
                 }
+            },
+            new()
+            {
+                Type = "function",
+                Function = new ToolFunction
+                {
+                    Name = "PrepareStoreAssets",
+                    RouterHint = "Mağaza ikon ve görsellerini boyutlandırır",
+                    Description = "Verilen kaynak görseli Google Play Store veya Apple App Store standartlarına göre pixel-perfect ölçeklendirir (Play İkon 512x512, Feature Graphic 1024x500, App Store İkon 1024x1024, Ekran Görüntüleri 1080x1920/1290x2796). Mağaza yayınlama öncesi asset hazırlığı için kullanılır.",
+                    Parameters = new ToolParameter
+                    {
+                        Type = "object",
+                        Properties = new Dictionary<string, object>
+                        {
+                            ["inputPath"] = new { type = "string", description = "Kaynak görselin tam dosya yolu" },
+                            ["store"]     = new { type = "string", description = "'play_store' veya 'app_store'. Varsayılan: 'play_store'" },
+                            ["assetType"] = new { type = "string", description = "'icon', 'feature_graphic', 'screenshot' veya 'all'. Varsayılan: 'icon'" },
+                            ["outputDir"] = new { type = "string", description = "(Opsiyonel) Çıktı klasörü. Belirtilmezse projedeki 'store_assets/{store}/' klasörüne kaydeder." }
+                        },
+                        Required = new List<string> { "inputPath" }
+                    }
+                }
             }
         };
     }
@@ -1105,6 +1127,16 @@ Ana hedefin: kullanıcı talimatlarını projenin mevcut yapısını bozmadan, e
   4. Sayfanın görsel görünümünü incelemek istersen `TakeScreenshot` ile anlık görüntü al.
 - ""Tarayıcıyı açamam"", ""Ben sadece kod dosyalarıyla çalışırım"" veya işlem yapmadan sadece ""yönlendiriyorum"" DEME! Yengi'nin dahili Otonom Tarayıcı Ajanı araçları (`BrowserNavigate`, `BrowserGetDOM`, `BrowserClick`, `BrowserFill`) elinin altındadır; talimat gelir gelmez ilk adımda derhal çağır.
 </browser_and_web_agent>
+
+<mobile_and_store_deployment>
+- Kullanıcı mobil uygulamasını Google Play Console veya Apple App Store'a yüklemeni / yayınlamanı istediğinde şu otonom sırayı izle:
+  1. İkon veya ekran görüntüleri gerekiyorsa önce `PrepareStoreAssets` aracını çağırarak görselleri mağazanın tam pixel standartlarına (Play Store 512x512 ikon, 1024x500 banner, App Store 1024x1024) dönüştür.
+  2. `BrowserNavigate` ile mağaza konsoluna (play.google.com/console veya appstoreconnect.apple.com) git.
+  3. Eğer oturum açma veya 2FA gerekiyorsa `AskUserOptions` ile durup kullanıcıdan giriş yapmasını iste.
+  4. Konsoldaki dosya yükleme alanlarına (APK/AAB/İkon/Görsel) dosyaları aktarmak için `BrowserUploadFile` aracını kullan.
+  5. Form alanlarını `BrowserFill`, butonları `BrowserClick` ile doldur.
+  6. Final incelemeye göndermeden önce `TakeScreenshot` ile sayfanın görüntüsünü al ve kullanıcı onayını iste.
+</mobile_and_store_deployment>
 
 <communication>
 - Arac isimlerini (ReadFile, CreateOrUpdateFile, ExecuteTerminalCommand vb.) kullaniciya ASLA soyleme.

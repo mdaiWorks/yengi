@@ -2438,6 +2438,7 @@ public partial class MainWindow : Window
             );
 
         BrowserAgentService.Instance.SetLogger(AddTerminalMessage);
+        StoreDeploymentService.Instance.SetLogger(AddTerminalMessage);
 
         BrowserAgentService.Instance.SetTabOpener(panel =>
         {
