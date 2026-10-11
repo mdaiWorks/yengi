@@ -12,11 +12,11 @@ Read this in: [🇹🇷 Türkçe](README.tr.md) | 🇺🇸 English
 > *"Yengi: The rewarding milestone reached after long, dedicated effort."*
 
 [![Build & Test](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mdaiWorks/yengi/actions/workflows/build-and-test.yml)
-[![Version: v1.16](https://img.shields.io/badge/Release-v1.16-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
+[![Version: v2.0.0](https://img.shields.io/badge/Release-v2.0.0-blue.svg)](https://github.com/mdaiWorks/yengi/releases)
 [![Framework: .NET 10 LTS](https://img.shields.io/badge/Framework-.NET%2010%20LTS-purple.svg)](https://dotnet.microsoft.com/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg)](https://microsoft.com/windows)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-green.svg)](LICENSE)
-[![HuggingFace: Yengi Router](https://img.shields.io/badge/HuggingFace-yengi--router%3A1.5b-FFD21E.svg)](https://huggingface.co/)
+[![HuggingFace: Yengi Router](https://img.shields.io/badge/HuggingFace-yengi--router%3A1.5b-FFD21E.svg)](https://huggingface.co/mdaiworks/yengi-router-1.5b)
 
 **Yengi is a free, open-source Windows desktop AI IDE powered by .NET 10 (LTS). It combines local LLMs (Ollama, Qwen, DeepSeek) and cloud APIs with autonomous tool execution, self-healing build verification, and live 3D/game engine copilots.**
 
