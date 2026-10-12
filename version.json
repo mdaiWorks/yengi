@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "download_url": "https://github.com/mdaiWorks/yengi/releases/download/v1.0.0/Yengi_Setup_v1.0.0.exe",
-  "changelog": "Yengi IDE v1.0.0 İlk Kararlı Sürüm!",
+  "version": "2.0.1",
+  "download_url": "https://github.com/mdaiWorks/yengi/releases/download/v2.0.1/Yengi_Setup_v2.0.1.exe",
+  "changelog": "Yengi IDE v2.0.1 - Security filter user confirmation popup, version sync fix.",
   "mandatory": false
 }

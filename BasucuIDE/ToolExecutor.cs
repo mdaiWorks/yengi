@@ -361,7 +361,7 @@ public class ToolExecutor
             return new ToolResult { Success = false, Error = criticalError };
         }
 
-        var validationError = ValidateTerminalCommand(command);
+        var validationError = await ValidateTerminalCommandAsync(command);
         if (!string.IsNullOrEmpty(validationError))
         {
             _terminalLog($"Komut doğrulama hatası: {validationError}");
@@ -568,57 +568,87 @@ public class ToolExecutor
         return text.Substring(0, maxLength) + Environment.NewLine + "\n[Çıktı çok uzun olduğu için kırpıldı]";
     }
 
-    private string? ValidateTerminalCommand(string command)
+    private async Task<string?> ValidateTerminalCommandAsync(string command)
     {
         var trimmed = command.Trim();
         if (trimmed.Length > 1024)
             return "Komut çok uzun. Lütfen daha kısa bir komut kullanın.";
 
-        var projectContextError = ValidateCommandAgainstProjectType(trimmed);
-        if (!string.IsNullOrEmpty(projectContextError))
-            return projectContextError;
+        var popupMessage = BuildProjectTypeWarning(trimmed);
+        if (!string.IsNullOrEmpty(popupMessage))
+        {
+            _terminalLog($"⚠️ [Güvenlik Filtresi] Kullanıcı onayı bekleniyor...");
+            var fullPrompt = $"{popupMessage}\n\nYine de aşağıdaki komutu çalıştırmak istiyor musunuz?\n> {command}\n\nOnaylamak için 'Evet/Onayla' seçin.";
+            var confirmResult = await InvokeConfirmAsync(fullPrompt);
+            if (confirmResult == ConfirmResult.Allow)
+                return null; // Kullanıcı onayladı, engel kaldırıldı
+            return $"Komut kullanıcı tarafından iptal edildi (güvenlik filtresi).";
+        }
 
         return null;
     }
 
-    private string? ValidateCommandAgainstProjectType(string command)
+    private string? BuildProjectTypeWarning(string command)
     {
         if (string.IsNullOrEmpty(_projectFolder))
             return null;
 
-        var projectType = ProjectTypeDetector.DetectProjectType(_projectFolder);
-        if (projectType == "Flutter" && command.Contains("flutter", StringComparison.OrdinalIgnoreCase))
+        // Python / pip kontrolü
+        if (command.Contains("python", StringComparison.OrdinalIgnoreCase) || command.Contains("pip", StringComparison.OrdinalIgnoreCase))
         {
-            if (!File.Exists(Path.Combine(_projectFolder, "pubspec.yaml")))
-                return "Bu klasör Flutter projesi gibi görünmüyor. `flutter` komutu yalnızca Flutter projesinde kullanılmalıdır.";
+            var hasPythonFiles = Directory.EnumerateFiles(_projectFolder, "*.py", SearchOption.AllDirectories).Any();
+            var hasPythonConfig = File.Exists(Path.Combine(_projectFolder, "requirements.txt"))
+                               || File.Exists(Path.Combine(_projectFolder, "pyproject.toml"))
+                               || File.Exists(Path.Combine(_projectFolder, "setup.py"));
+            if (!hasPythonFiles && !hasPythonConfig)
+            {
+                return $"⚠️ Yengi Güvenlik Filtresi\n\n" +
+                       $"Klasör: {_projectFolder}\n\n" +
+                       $"❌ requirements.txt bulunamadı\n" +
+                       $"❌ setup.py bulunamadı\n" +
+                       $"❌ pyproject.toml bulunamadı\n" +
+                       $"❌ .py dosyası bulunamadı\n\n" +
+                       $"Bu klasör bir Python projesi değil.";
+            }
         }
 
-        if (projectType == "Node" && command.Contains("npm", StringComparison.OrdinalIgnoreCase))
+        // npm / yarn kontrolü
+        if (command.Contains("npm", StringComparison.OrdinalIgnoreCase) || command.Contains("yarn", StringComparison.OrdinalIgnoreCase))
         {
             if (!File.Exists(Path.Combine(_projectFolder, "package.json")))
-                return "Bu klasör Node.js projesi gibi görünmüyor. `npm` komutu yalnızca Node.js projesinde kullanılmalıdır.";
+            {
+                return $"⚠️ Yengi Güvenlik Filtresi\n\n" +
+                       $"Klasör: {_projectFolder}\n\n" +
+                       $"❌ package.json bulunamadı\n\n" +
+                       $"Bu klasör bir Node.js projesi değil.";
+            }
         }
 
-        if (projectType == "DotNet" && command.Contains("dotnet", StringComparison.OrdinalIgnoreCase))
+        // Flutter kontrolü
+        if (command.Contains("flutter", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!File.Exists(Path.Combine(_projectFolder, "pubspec.yaml")))
+            {
+                return $"⚠️ Yengi Güvenlik Filtresi\n\n" +
+                       $"Klasör: {_projectFolder}\n\n" +
+                       $"❌ pubspec.yaml bulunamadı\n\n" +
+                       $"Bu klasör bir Flutter projesi değil.";
+            }
+        }
+
+        // dotnet kontrolü
+        if (command.Contains("dotnet", StringComparison.OrdinalIgnoreCase))
         {
             var hasProj = Directory.EnumerateFiles(_projectFolder, "*.csproj", SearchOption.TopDirectoryOnly).Any();
             var hasSln = Directory.EnumerateFiles(_projectFolder, "*.sln", SearchOption.TopDirectoryOnly).Any();
             if (!hasProj && !hasSln)
-                return "Bu klasörde .NET proje dosyası bulunamadı. `dotnet` komutu yalnızca .NET projeleri için kullanılmalıdır.";
-        }
-
-        if (command.Contains("python", StringComparison.OrdinalIgnoreCase) || command.Contains("pip", StringComparison.OrdinalIgnoreCase))
-        {
-            var hasPythonFiles = Directory.EnumerateFiles(_projectFolder, "*.py", SearchOption.AllDirectories).Any();
-            var hasPythonConfig = File.Exists(Path.Combine(_projectFolder, "requirements.txt")) || File.Exists(Path.Combine(_projectFolder, "pyproject.toml"));
-            if (!hasPythonFiles && !hasPythonConfig)
-                return "Bu klasörde Python projesi tespit edilemedi. `python` veya `pip` komutu sadece Python projesinde kullanılmalıdır.";
-        }
-
-        if (command.Contains("npm", StringComparison.OrdinalIgnoreCase) || command.Contains("yarn", StringComparison.OrdinalIgnoreCase))
-        {
-            if (!File.Exists(Path.Combine(_projectFolder, "package.json")))
-                return "Bu klasörde package.json bulunamadı. `npm` veya `yarn` komutları sadece Node.js projesinde kullanılmalıdır.";
+            {
+                return $"⚠️ Yengi Güvenlik Filtresi\n\n" +
+                       $"Klasör: {_projectFolder}\n\n" +
+                       $"❌ .csproj dosyası bulunamadı\n" +
+                       $"❌ .sln dosyası bulunamadı\n\n" +
+                       $"Bu klasör bir .NET projesi değil.";
+            }
         }
 
         return null;
