@@ -3918,8 +3918,9 @@ public class ChatFlowService : IChatFlowService
             finalPrompt = await EnhanceImagePromptWithLlmAsync(prompt, cancellationToken);
         }
 
-        // ControlNet / 2D Oyun Sprite modu aktifse veya poz kelimesi tespit edildiyse ControlNet engine'e yönlendir
-        bool isControlNetRequested = settings.ControlNetEnabled || DetectControlNetPose(prompt) != "auto";
+        // ControlNet / 2D Oyun Sprite modu: sadece buton açıksa devreye girer.
+        // Buton kapalıyken "sprite", "walk" vb. keyword'ler normal görsel akışını etkilemez.
+        bool isControlNetRequested = settings.ControlNetEnabled;
         if (isControlNetRequested)
         {
             string detectedPose = DetectControlNetPose(prompt);
