@@ -5,7 +5,7 @@ Dili Değiştir: 🇹🇷 Türkçe | [🇺🇸 Read in English](DOCS_FULL.md)
 
 # 📖 Yengi AI IDE — Detaylı Teknik Dokümantasyon ve Mimari Kılavuzu
 
-> Bu doküman; Yengi AI IDE'nin 29 maddeden oluşan kapsamlı mimari yapısını, 31 araç tanımını, kendi kendini iyileştiren doğrulama döngüsünü, RAG yapısını ve tüm bileşen kılavuzlarını içerir.
+> Bu doküman; Yengi AI IDE'nin 29 maddeden oluşan kapsamlı mimari yapısını, 39 araç tanımını, kendi kendini iyileştiren doğrulama döngüsünü, RAG yapısını ve tüm bileşen kılavuzlarını içerir.
 
 ---
 
@@ -15,7 +15,7 @@ Dili Değiştir: 🇹🇷 Türkçe | [🇺🇸 Read in English](DOCS_FULL.md)
 - [2. Temel Özellikler](#2-temel-özellikler)
 - [3. Mimari](#3-mimari)
 - [4. AI Agent Akışı](#4-ai-agent-akışı)
-- [5. Tool Sistemi (31 Araç)](#5-tool-sistemi-31-araç)
+- [5. Tool Sistemi (39 Araç)](#5-tool-sistemi-39-araç)
 - [6. Arayüz ve Buton Referansı](#6-arayüz-ve-buton-referansı)
 - [7. Chat ve Oturum Sistemi](#7-chat-ve-oturum-sistemi)
 - [8. Plan Mode](#8-plan-mode)

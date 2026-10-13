@@ -175,7 +175,16 @@ dotnet run --project BasucuIDE/mdaiAgent.csproj
 
 Yengi was built by acting as an **Architect and AI Orchestrator**. Using AI tools (Google Antigravity & GitHub Copilot) for code generation while designing the architecture, verification loops, security boundaries, and local router model myself.
 
-Yengi is **100% Free, Open Source, and Telemetry-Free**. If Yengi inspires your workflow, consider giving it a ⭐ **Star on GitHub**!
+Yengi is **100% Free and Open Source**. If Yengi inspires your workflow, consider giving it a ⭐ **Star on GitHub**!
+
+---
+
+## 🔒 Privacy & Telemetry Transparency
+
+**No code, prompts, chat histories, or personal data are ever collected.**
+
+Yengi is local-first by design. To understand project adoption and active installs, Yengi only tracks anonymous aggregate usage metrics (daily active sessions / installation counts via Firebase). 
+- **Opt-Out:** This telemetry is completely optional and can be toggled off at any time via **Settings → Telemetry**.
 
 ---
 

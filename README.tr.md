@@ -175,7 +175,16 @@ dotnet run --project BasucuIDE/mdaiAgent.csproj
 
 Yengi'yi bir **Mimarlık ve AI Orchestrator (Yapay Zeka Yöneticisi)** rolü üstlenerek inşa ettim. Kodu üretmek için AI asistanlarından yararlanırken mimariyi, doğrulama döngülerini ve güvenlik sınırlarını kendim kurguladım.
 
-Yengi **%100 Ücretsiz, Açık Kaynaklı ve Telemetrisizdir**. Eğer Yengi projesi size ilham verdiyse GitHub'da ⭐ **Star vererek** destek olabilirsiniz!
+Yengi **%100 Ücretsiz ve Açık Kaynaklıdır**. Eğer Yengi projesi size ilham verdiyse GitHub'da ⭐ **Star vererek** destek olabilirsiniz!
+
+---
+
+## 🔒 Gizlilik ve Telemetri Şeffaflığı
+
+**Kodlarınız, promptlarınız, sohbet geçmişiniz veya kişisel verileriniz asla toplanmaz.**
+
+Yengi yerel öncelikli (local-first) bir mimariyle geliştirilmiştir. Yalnızca projenin kullanım ve kurulum durumunu anlayabilmek adına Firebase üzerinden anonim oturum ve yükleme sayıları takip edilir.
+- **Kapatma Seçeneği:** Bu telemetri tamamen isteğe bağlıdır ve dilediğiniz zaman **Ayarlar → Telemetri** ekranından tek tıkla kapatılabilir.
 
 ---
 

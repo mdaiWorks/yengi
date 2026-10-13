@@ -15,7 +15,7 @@ Read this in: [🇹🇷 Türkçe](DOCS_FULL.tr.md) | 🇺🇸 English
 - [2. Core Features](#2-core-features)
 - [3. Architecture](#3-architecture)
 - [4. AI Agent Flow](#4-ai-agent-flow)
-- [5. Tool System (31 Tools)](#5-tool-system-31-tools)
+- [5. Tool System (39 Tools)](#5-tool-system-39-tools)
 - [6. UI and Button Reference](#6-ui-and-button-reference)
 - [7. Chat and Session System](#7-chat-and-session-system)
 - [8. Plan Mode](#8-plan-mode)
@@ -189,7 +189,7 @@ This flow is dictated to the model in detail via the system prompt in `ToolDefin
 
 ---
 
-# 5. Tool System (31 Tools)
+# 5. Tool System (39 Tools)
 
 Definitions live in `ToolDefinitions.cs`; execution lives in `ToolExecutor.cs` + `Services/*`.
 
@@ -198,12 +198,15 @@ Definitions live in `ToolDefinitions.cs`; execution lives in `ToolExecutor.cs` +
 | **File** | `ReadFile` (optional startLine/endLine), `CreateOrUpdateFile`, `ReplaceFileContent` (partial/targeted change) |
 | **Terminal** | `ExecuteTerminalCommand` (optional `workingDirectory`, defaults to project root if not specified), `ReadToolOutput` (reads a line range from the temporary full version of truncated long output) |
 | **Visual analysis** | `TakeScreenshot` (file or base64 output, for UI-error analysis) |
+| **Image generation** | `GenerateImage` (standalone or via prompt-enhancement, rapid-mlx / Qwen Image / ComfyUI / Pollinations) |
 | **Project discovery** | `FindFiles`, `SearchCode`, `ListDirectory`, `DiscoverProjectContext` |
 | **Build/Test** | `BuildProject` (.csproj/.sln), `RunTests` |
 | **Planning / Memory** | `CreatePlan`, `CreateTaskGraph`, `RetryPlan` (recovery), `GenerateDiff`, `ReadProjectMemory`, `WriteProjectMemory`, `SearchProjectMemory`, `ArchiveProjectMemory`, `WriteDecision`, `WriteTask` (`.mdai/memory.json`, `.mdai/decisions.json`, `.mdai/tasks/`) |
 | **Checkpoint** | `CreateCheckpoint`, `RollbackToCheckpoint` |
 | **Quick commands** | `CreateQuickCommand`, `ExecuteQuickCommand` (via `CommandService`) |
 | **Web** | `WebSearch` (Tavily API), `WebFetch` |
+| **Browser Agent** | `BrowserNavigate`, `BrowserClick`, `BrowserFill`, `BrowserScroll`, `BrowserGetDOM`, `BrowserUploadFile` (headless/interactive WebView2 browser automation) |
+| **Store Deployment** | `PrepareStoreAssets` (Google Play & App Store icon/screenshot/metadata package generation) |
 | **Delegation** | `DelegateTask` (`role`, `prompt`, `context` parameters; works with `DelegationService` + `SubAgentResultCoordinator`; the main flow can wait for the result with `waitForCompletion=true`, and there is a timeout mechanism) |
 | **User interaction** | `AskUserOptions` (a question with choices/free text in a popup; `allowMultiple` for multi-select), `SmartRecovery` (recovery plan after an error) |
 
