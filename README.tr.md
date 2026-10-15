@@ -77,7 +77,7 @@ flowchart TD
 ```
 
 - **1. Aşama (Sanatçı Rolü)**: Kullanıcının fikrini parçalara ayırır, metre bazında ölçüler, renk paletleri ve materyal özellikleri belirler.
-- **2. Aşama (Yazılımcı Rolü)**: Şartnameye ve canlı sahne RAG verisine bakarak hatasız `bpy` Python veya Unity C# Editor kodunu üretir.
+- **2. Aşama (Yazılımcı Rolü)**: Şartnameye ve canlı sahne RAG verisine bakarak otomatik doğrulama destekli, çalışmaya hazır `bpy` Python veya Unity C# Editor kodunu üretir.
 - **Esnek Kontrol**: **Çalışma Alanı Ayarları** (`⚙️`) menüsünden tek tıkla açılıp kapatılabilir.
 
 ---

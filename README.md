@@ -77,7 +77,7 @@ flowchart TD
 ```
 
 - **Stage 1 (3D Artist / Architect)**: Deconstructs raw user requests into anatomical specifications, metric dimensions, flat shading rules, and Principled BSDF color palettes.
-- **Stage 2 (Code Generator)**: Reads the generated blueprint and scene context RAG data to synthesize 100% bug-free `bpy` Python or Unity Editor C# code.
+- **Stage 2 (Code Generator)**: Reads the generated blueprint and scene context RAG data to synthesize production-ready `bpy` Python or Unity Editor C# code backed by automated self-healing verification.
 - **Toggleable Option**: Can be easily enabled/disabled in **Workspace Settings** (`⚙️`) for full developer control.
 
 ---
