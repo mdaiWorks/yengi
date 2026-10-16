@@ -883,22 +883,32 @@ public class ChatFlowService : IChatFlowService
 
             List<ToolDefinition> allActiveTools;
 
-            if (routerIsActive && !skipRouterForCasualMessage)
-
+            if (settings.EnableResearchMode)
             {
+                // 🔬 Araştırma & Sohbet Modu: Yazılım/derleme/3D/terminal araçları tamamen filtrelenir.
+                // Sadece internet araştırması, dosya okuma/not tutma ve (açıksa) görsel üretimi dahil edilir.
+                var allowedResearchNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    "WebSearch", "WebFetch", "ReadFile", "CreateOrUpdateFile", "ReplaceFileContent"
+                };
+                if (settings.EnableMultiAgentImageGeneration)
+                {
+                    allowedResearchNames.Add("GenerateImage");
+                }
 
+                allActiveTools = ToolRegistry.GetTools()
+                    .Where(t => t.Function?.Name != null && allowedResearchNames.Contains(t.Function.Name))
+                    .ToList();
+            }
+            else if (routerIsActive && !skipRouterForCasualMessage)
+            {
                 // Router aktifse: Manuel seçim/Araçlar sekmesi tamamen YOK SAYILIR (By-pass).
-
                 // Sadece Router'a özel Kara Liste'deki araçlar çıkarılır.
-
                 var blacklistedTools = settings.RouterBlacklistedTools ?? new List<string>();
 
                 allActiveTools = ToolRegistry.GetTools()
-
                     .Where(t => t.Function?.Name != null && !blacklistedTools.Contains(t.Function.Name))
-
                     .ToList();
-
             }
 
             else
@@ -1236,28 +1246,35 @@ public class ChatFlowService : IChatFlowService
 
             }
 
+            bool isBrowserIntent = IsBrowserIntent(message);
+
             if (settings.EnableResearchMode)
             {
-                var essentialResearchToolsList = new List<string> { "WebSearch", "WebFetch", "CreateOrUpdateFile", "ReplaceFileContent", "ReadFile" };
-                if (settings.EnableMultiAgentImageGeneration)
+                // Eğer mesaj basit bir selam/sohbet ise araçlara gerek yok
+                if (skipRouterForCasualMessage)
                 {
-                    essentialResearchToolsList.Add("GenerateImage");
+                    activeTools = new List<ToolDefinition>();
+                    UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+                    _terminalLog?.Invoke("🔬 [Araştırma & Sohbet Modu] Basit sohbet algılandı: Araç gönderilmedi, doğrudan yanıtlanıyor.");
                 }
-                foreach (var toolName in essentialResearchToolsList)
+                else
                 {
-                    var tool = allActiveTools.FirstOrDefault(t => string.Equals(t.Function?.Name, toolName, StringComparison.OrdinalIgnoreCase));
-                    if (tool != null && !activeTools.Any(t => string.Equals(t.Function?.Name, toolName, StringComparison.OrdinalIgnoreCase)))
-                    {
-                        activeTools.Add(tool);
-                    }
+                    // Araştırma/Not tutma görevi: Yalnızca temel araştırma araçları aktif edilir
+                    activeTools = new List<ToolDefinition>(allActiveTools);
+                    UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+                    _terminalLog?.Invoke($"🔬 [Araştırma & Sohbet Modu] Aktif araştırma araçları yüklendi ({activeTools.Count} araç).");
                 }
+            }
+            else if (skipRouterForCasualMessage && !isBrowserIntent)
+            {
+                activeTools = new List<ToolDefinition>();
                 UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
+                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("RouterSimpleChatSkipped"));
             }
 
             // 🌐 Otonom Tarayıcı Ajanı Koruma Kalkanı:
             // Yengi Router'a tam güven: Eğer router zaten araç seçtiyse kararına saygı duy ve müdahale etme!
             // Sadece Router kapalıysa veya tarayıcı niyetine rağmen sıfır araç seçildiyse emniyet kemeri olarak devreye gir.
-            bool isBrowserIntent = IsBrowserIntent(message);
             bool routerAlreadyChoseBrowserTool = activeTools.Any(t => t.Function?.Name?.StartsWith("Browser", StringComparison.OrdinalIgnoreCase) == true);
 
             if (isBrowserIntent && !routerAlreadyChoseBrowserTool && (!routerIsActive || activeTools.Count == 0))
@@ -1278,14 +1295,6 @@ public class ChatFlowService : IChatFlowService
                     UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
                     _terminalLog?.Invoke($"🌐 [Browser Agent] Emniyet kemeri: Tarayıcı araçları kataloğa eklendi ({activeTools.Count} toplam araç).");
                 }
-            }
-
-
-            if (skipRouterForCasualMessage && !settings.EnableResearchMode && !isBrowserIntent)
-            {
-                activeTools = new List<ToolDefinition>();
-                UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
-                _terminalLog?.Invoke(LocalizationManager.Instance.GetString("RouterSimpleChatSkipped"));
             }
 
 

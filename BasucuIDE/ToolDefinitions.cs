@@ -1249,6 +1249,8 @@ public static string GetFullToolCatalogPrompt()
 public static string GetToolCatalogPrompt(IEnumerable<string> selectedToolNames)
 {
     var selectedSet = new HashSet<string>(selectedToolNames, StringComparer.OrdinalIgnoreCase);
+    if (selectedSet.Count == 0) return string.Empty;
+
     var sb = new StringBuilder();
     sb.AppendLine("<tools>");
     int i = 1;
