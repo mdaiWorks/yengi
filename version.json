@@ -1,6 +1,6 @@
 {
-  "version": "2.0.1",
-  "download_url": "https://github.com/mdaiWorks/yengi/releases/download/v2.0.1/Yengi_Setup_v2.0.1.exe",
-  "changelog": "Yengi IDE v2.0.1 - Security filter user confirmation popup, version sync fix.",
+  "version": "2.0.2",
+  "download_url": "https://github.com/mdaiWorks/yengi/releases/download/v2.0.2/Yengi_Setup_v2.0.2.exe",
+  "changelog": "Yengi IDE v2.0.2 - Research & Chat Mode token optimization, casual chat 0-tool routing, Inno Setup script sync.",
   "mandatory": false
 }
