@@ -3948,7 +3948,7 @@ public class ChatFlowService : IChatFlowService
         try
         {
             using var httpClient = new System.Net.Http.HttpClient();
-            httpClient.Timeout = TimeSpan.FromMinutes(10); // Yerel MLX modelleri (Qwen-Image vb.) 1-4 dk sürebilir
+            httpClient.Timeout = TimeSpan.FromMinutes(30); // Yerel modellerde (Qwen-Image, Flux vb. 30 adım) 10-25 dk sürebilir
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ImageStudioApiKey}");
 
             var size = string.IsNullOrWhiteSpace(settings.ImageStudioSize) ? "1024x1024" : settings.ImageStudioSize;
