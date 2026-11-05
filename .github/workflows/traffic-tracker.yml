@@ -1,0 +1,36 @@
+name: Track Repository Traffic & Downloads
+
+on:
+  schedule:
+    # Her gün saat 00:00 UTC (TSİ 03:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Actions sekmesinden tek tıkla elle tetikleyebilme
+
+permissions:
+  contents: write
+
+jobs:
+  track-traffic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch and Archive Traffic Data
+        env:
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          python .github/scripts/record_traffic.py
+
+      - name: Commit and Push Updated Stats
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic-data/
+          git diff --staged --quiet || (git commit -m "chore: archive traffic and download stats [skip ci]" && git push)
