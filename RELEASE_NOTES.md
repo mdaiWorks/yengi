@@ -1,14 +1,19 @@
-# Yengi v1.15 Release Notes
+# Yengi v2.0.3 Release Notes
 
 ### 🚀 Yenilikler / New Features
-- **Yerel Görsel Modeli Ayarları (Çözünürlük & Step):** Görsel Stüdyosu Ayarları (⚙️) menüsüne Çözünürlük (Resolution: 512x512, 768x768, 1024x1024 vb.) ve Adım Sayısı (Step: 15, 20, 30 vb.) ayarları eklendi.
-- **Mac / Apple Silicon MLX Qwen-Image Desteği:** Yerel Qwen-Image / Flux modellerinde 512x512 ve 15-20 step seçenekleriyle 10-15 dakikalık üretim süreleri **1.4 dakikaya (~87 saniye)** düşürüldü.
-- **Modern Dark ComboBox Tasarımı:** Windows XP varsayılan beyaz açılır kutu teması VS Code uyumlu modern karanlık tema (`#1e1e1e` background, `#007acc` hover, `#00ffb7` selected) ile yenilendi.
+- Image Studio connection test + Research Mode casual routing fix (`416ace2`)
+- Mobile & Store Deployment Agent with PrepareStoreAssets tool (`6d295f3`)
 
 ### 🐛 Düzeltmeler / Bug Fixes
-- **WPF ComboBoxItem Metin Ayrıştırma:** ComboBoxItem nesne öneki (`System.Windows.Controls.ComboBoxItem`) temizlenerek seçilen çözünürlük ve step değerlerinin yerel sunucuya (`rapid-mlx` / `mflux`) eksiksiz iletilmesi sağlandı (`a8702b0`).
-- **HttpClient Timeout Uzatıldı:** Yerel MLX görsel üretimi sırasında oluşan zamanaşımı (timeout) hatasını engellemek için HTTP istek süresi 10 dakikaya çıkarıldı (`7b9557a`).
-- **Pollinations URL Çözünürlük Parametresi:** Ücretsiz gateway kullanımında seçilen çözünürlük URL parametresine (`width` & `height`) aktarıldı (`39011b1`).
+- extend local model generation timeout from 10m to 30m (`fe9b7a7`)
+- trigger ControlNet only when explicitly enabled (`f512c30`)
+- security filter confirmation popup + version sync (`629f8ac`)
+
+### 📝 Dokümantasyon / Documentation
+- replace '100% bug-free' claim with professional self-healing verification description (`2c06327`)
+- clarify privacy/telemetry transparency and update tool count to 39 (`2fc4373`)
+- sync English & Turkish READMEs for v2.0.0 and untrack internal roadmap (`adbe5c4`)
 
 ### 🔧 Sürüm & Altyapı / Maintenance
-- Dotnet publish (win-x64 self-contained) ve Inno Setup installer `dist/Yengi_Setup_v1.15.exe` derlendi.
+- bump version to v2.0.2 (`3e1d7f7`)
+- perf(research-mode): optimize token usage and casual chat routing (`a7846bd`)
