@@ -209,6 +209,17 @@
             <TextBlock Text="Model Adı (Örn: dall-e-3, flux/schnell):" Margin="0,0,0,0"/>
             <TextBox x:Name="txtImageModel" Height="25" Margin="0,2,0,10" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3"/>
 
+            <!-- Özel API / Yerel Model Bağlantı Testi -->
+            <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                <Button x:Name="btnTestImageConnection" Content="🔌 Bağlantıyı Test Et" 
+                        Height="26" Padding="12,2" HorizontalAlignment="Left"
+                        Background="#2d2d30" Foreground="#00ffb7" BorderBrush="#00ffb7" BorderThickness="1" 
+                        Cursor="Hand" Click="BtnTestImageConnection_Click"
+                        ToolTip="Belirtilen Base URL ve API Key ile sunucuya erişimi ve model yanıtını test eder."/>
+                <TextBlock x:Name="txtTestImageConnectionResult" Margin="0,5,0,0" VerticalAlignment="Center" 
+                           FontSize="11" TextWrapping="Wrap" Visibility="Collapsed"/>
+            </StackPanel>
+
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -263,6 +274,12 @@
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Yerel ComfyUI Sunucu Adresi:" FontSize="11" Margin="0,0,0,2"/>
                             <TextBox x:Name="txtControlNetBaseUrl" Height="26" Background="#2d2d30" Foreground="White" BorderThickness="1" BorderBrush="#3e3e42" Padding="3" ToolTip="Örn: http://192.168.1.122:8188"/>
+                            <Button x:Name="btnTestControlNetConnection" Content="🔌 ComfyUI Test Et" 
+                                    Height="24" Margin="0,4,0,0" HorizontalAlignment="Left" Padding="8,1"
+                                    Background="#2d2d30" Foreground="#007acc" BorderBrush="#007acc" BorderThickness="1" 
+                                    Cursor="Hand" Click="BtnTestControlNetConnection_Click"/>
+                            <TextBlock x:Name="txtTestControlNetResult" Margin="0,3,0,0" FontSize="11" 
+                                       TextWrapping="Wrap" Visibility="Collapsed"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>

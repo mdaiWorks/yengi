@@ -1,7 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Sockets;
+using System.Text.Json;
 using System.Windows;
 
 namespace mdaiAgent
@@ -214,6 +217,177 @@ namespace mdaiAgent
             {
                 txtBlenderInstallResult.Text = string.Format(LocalizationManager.Instance.GetString("BlenderInstallError"), ex.Message);
                 txtBlenderInstallResult.Foreground = System.Windows.Media.Brushes.Tomato;
+            }
+        }
+
+        private async void BtnTestImageConnection_Click(object sender, RoutedEventArgs e)
+        {
+            var rawBaseUrl = txtImageBaseUrl.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(rawBaseUrl))
+            {
+                txtTestImageConnectionResult.Visibility = Visibility.Visible;
+                txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Orange;
+                txtTestImageConnectionResult.Text = "⚠️ Lütfen önce Base URL alanını doldurun (Örn: http://localhost:8000/v1 veya https://api.openai.com/v1)";
+                return;
+            }
+
+            btnTestImageConnection.IsEnabled = false;
+            btnTestImageConnection.Content = "⏳ Test Ediliyor...";
+            txtTestImageConnectionResult.Visibility = Visibility.Visible;
+            txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Gray;
+            txtTestImageConnectionResult.Text = "Sunucuya bağlanılıyor...";
+
+            try
+            {
+                var baseUrl = rawBaseUrl.TrimEnd('/');
+                using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(6));
+                using var client = new HttpClient();
+                client.Timeout = TimeSpan.FromSeconds(6);
+
+                var apiKey = txtImageApiKey.Text?.Trim();
+                if (!string.IsNullOrEmpty(apiKey))
+                {
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
+                }
+
+                var sw = Stopwatch.StartNew();
+
+                var testUrl = baseUrl.EndsWith("/models", StringComparison.OrdinalIgnoreCase) 
+                    ? baseUrl 
+                    : $"{baseUrl}/models";
+
+                HttpResponseMessage response;
+                string responseBody = "";
+
+                try
+                {
+                    response = await client.GetAsync(testUrl, cts.Token);
+                    responseBody = await response.Content.ReadAsStringAsync(cts.Token);
+                }
+                catch (Exception)
+                {
+                    response = await client.GetAsync(baseUrl, cts.Token);
+                    responseBody = await response.Content.ReadAsStringAsync(cts.Token);
+                }
+
+                sw.Stop();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string extraInfo = "";
+                    try
+                    {
+                        using var doc = JsonDocument.Parse(responseBody);
+                        if (doc.RootElement.TryGetProperty("data", out var dataElem) && dataElem.ValueKind == JsonValueKind.Array)
+                        {
+                            var modelNames = dataElem.EnumerateArray()
+                                .Select(m => m.TryGetProperty("id", out var idElem) ? idElem.GetString() : null)
+                                .Where(n => !string.IsNullOrEmpty(n))
+                                .Take(3)
+                                .ToList();
+
+                            if (modelNames.Count > 0)
+                            {
+                                extraInfo = $" (Bulunan modeller: {string.Join(", ", modelNames)})";
+                            }
+                        }
+                    }
+                    catch { }
+
+                    txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
+                    txtTestImageConnectionResult.Text = $"✅ Bağlantı başarılı! ({sw.ElapsedMilliseconds} ms){extraInfo}";
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Orange;
+                    txtTestImageConnectionResult.Text = $"⚠️ Sunucuya erişildi ancak API Key geçersiz (HTTP 401 Unauthorized, {sw.ElapsedMilliseconds} ms).";
+                }
+                else if ((int)response.StatusCode == 400 && responseBody.Contains("Invalid host header", StringComparison.OrdinalIgnoreCase))
+                {
+                    txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Orange;
+                    txtTestImageConnectionResult.Text = "⚠️ Mac rapid-mlx sunucusu 'Invalid host header' döndü. Sunucuyu `--trusted-hosts \"*\"` parametresiyle başlatın.";
+                }
+                else
+                {
+                    txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Orange;
+                    txtTestImageConnectionResult.Text = $"⚠️ Sunucu yanıt verdi: {(int)response.StatusCode} {response.ReasonPhrase} ({sw.ElapsedMilliseconds} ms).";
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Tomato;
+                txtTestImageConnectionResult.Text = "⏱️ Zaman aşımı! Sunucuya 6 saniye içinde ulaşılamadı. IP adresinin doğruluğunu ve güvenlik duvarını kontrol edin.";
+            }
+            catch (HttpRequestException ex)
+            {
+                txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Tomato;
+                txtTestImageConnectionResult.Text = $"❌ Bağlantı kurulamadı: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                txtTestImageConnectionResult.Foreground = System.Windows.Media.Brushes.Tomato;
+                txtTestImageConnectionResult.Text = $"❌ Hata: {ex.Message}";
+            }
+            finally
+            {
+                btnTestImageConnection.IsEnabled = true;
+                btnTestImageConnection.Content = "🔌 Bağlantıyı Test Et";
+            }
+        }
+
+        private async void BtnTestControlNetConnection_Click(object sender, RoutedEventArgs e)
+        {
+            var rawBaseUrl = txtControlNetBaseUrl.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(rawBaseUrl))
+            {
+                txtTestControlNetResult.Visibility = Visibility.Visible;
+                txtTestControlNetResult.Foreground = System.Windows.Media.Brushes.Orange;
+                txtTestControlNetResult.Text = "⚠️ Lütfen bir ComfyUI adresi girin (Örn: http://192.168.1.122:8188)";
+                return;
+            }
+
+            btnTestControlNetConnection.IsEnabled = false;
+            btnTestControlNetConnection.Content = "⏳...";
+            txtTestControlNetResult.Visibility = Visibility.Visible;
+            txtTestControlNetResult.Foreground = System.Windows.Media.Brushes.Gray;
+            txtTestControlNetResult.Text = "ComfyUI sunucusuna bağlanılıyor...";
+
+            try
+            {
+                var baseUrl = rawBaseUrl.TrimEnd('/');
+                using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(5));
+                using var client = new HttpClient();
+                client.Timeout = TimeSpan.FromSeconds(5);
+
+                var sw = Stopwatch.StartNew();
+                var response = await client.GetAsync($"{baseUrl}/system_stats", cts.Token);
+                sw.Stop();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    txtTestControlNetResult.Foreground = System.Windows.Media.Brushes.LimeGreen;
+                    txtTestControlNetResult.Text = $"✅ ComfyUI hazır ve çalışıyor! ({sw.ElapsedMilliseconds} ms)";
+                }
+                else
+                {
+                    txtTestControlNetResult.Foreground = System.Windows.Media.Brushes.Orange;
+                    txtTestControlNetResult.Text = $"⚠️ ComfyUI yanıt verdi: {(int)response.StatusCode} {response.ReasonPhrase}";
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                txtTestControlNetResult.Foreground = System.Windows.Media.Brushes.Tomato;
+                txtTestControlNetResult.Text = "⏱️ Zaman aşımı! ComfyUI sunucusuna ulaşılamadı.";
+            }
+            catch (Exception ex)
+            {
+                txtTestControlNetResult.Foreground = System.Windows.Media.Brushes.Tomato;
+                txtTestControlNetResult.Text = $"❌ Bağlantı başarısız: {ex.Message}";
+            }
+            finally
+            {
+                btnTestControlNetConnection.IsEnabled = true;
+                btnTestControlNetConnection.Content = "🔌 ComfyUI Test Et";
             }
         }
 

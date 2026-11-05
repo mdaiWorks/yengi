@@ -847,7 +847,8 @@ public class ChatFlowService : IChatFlowService
 
             bool routerIsActive = !settings.IsManualToolManagement && (settings.RouterUseLocalModel || settings.RouterEnabled || settings.RouterUseMainModel);
             bool isContinuationMessage = IsContinuationMessage(message);
-            bool skipRouterForCasualMessage = routerIsActive && !isContinuationMessage && IsCasualMessage(message);
+            bool isCasualMessage = !isContinuationMessage && IsCasualMessage(message);
+            bool skipRouterForCasualMessage = routerIsActive && isCasualMessage;
 
             if (message.StartsWith("/plan", StringComparison.OrdinalIgnoreCase))
 
@@ -1250,8 +1251,8 @@ public class ChatFlowService : IChatFlowService
 
             if (settings.EnableResearchMode)
             {
-                // Eğer mesaj basit bir selam/sohbet ise araçlara gerek yok
-                if (skipRouterForCasualMessage)
+                // Eğer mesaj basit bir selam/sohbet ise araçlara gerek yok (Router açık veya kapalı olsun)
+                if (isCasualMessage)
                 {
                     activeTools = new List<ToolDefinition>();
                     UpdateSystemPromptForSelectedTools(messagesToSend, activeTools, systemPrompt, needsPlan);
