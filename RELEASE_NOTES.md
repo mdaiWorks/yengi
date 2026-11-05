@@ -2,7 +2,6 @@
 
 ### 🚀 Yenilikler / New Features
 - Image Studio connection test + Research Mode casual routing fix (`416ace2`)
-- Mobile & Store Deployment Agent with PrepareStoreAssets tool (`6d295f3`)
 
 ### 🐛 Düzeltmeler / Bug Fixes
 - extend local model generation timeout from 10m to 30m (`fe9b7a7`)
@@ -15,5 +14,6 @@
 - sync English & Turkish READMEs for v2.0.0 and untrack internal roadmap (`adbe5c4`)
 
 ### 🔧 Sürüm & Altyapı / Maintenance
+- release v2.0.3 (`9b62787`)
 - bump version to v2.0.2 (`3e1d7f7`)
 - perf(research-mode): optimize token usage and casual chat routing (`a7846bd`)
