@@ -1,17 +1,17 @@
 {
-  "total_downloads": 71,
-  "last_updated": "2026-11-06T05:10:35Z",
+  "total_downloads": 73,
+  "last_updated": "2026-11-07T04:42:07Z",
   "releases": [
     {
       "version": "v2.0.3",
       "file": "Yengi_Setup_v2.0.3.exe",
-      "downloads": 1,
+      "downloads": 2,
       "updated_at": "2026-11-05T19:01:10Z"
     },
     {
       "version": "v2.0.2",
       "file": "Yengi_Setup_v2.0.2.exe",
-      "downloads": 33,
+      "downloads": 34,
       "updated_at": "2026-10-16T21:46:36Z"
     },
     {

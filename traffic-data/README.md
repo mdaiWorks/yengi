@@ -1,16 +1,16 @@
 # 📊 Yengi - Tüm Zamanlar Trafik ve İndirme Raporu
-> *Son Güncelleme: 2026-11-06 05:10 UTC*
+> *Son Güncelleme: 2026-11-07 04:42 UTC*
 
 ## 📈 Genel Özet (All-Time Totals)
-- **Toplam EXE İndirme:** `71`
-- **Takip Edilen Toplam Görüntülenme (Views):** `80`
-- **Takip Edilen Toplam Git Clone:** `64`
+- **Toplam EXE İndirme:** `73`
+- **Takip Edilen Toplam Görüntülenme (Views):** `93`
+- **Takip Edilen Toplam Git Clone:** `91`
 
 ## 📦 Sürümlere Göre İndirmeler
 | Sürüm | Dosya | İndirme Sayısı |
 | :--- | :--- | :--- |
-| **v2.0.3** | `Yengi_Setup_v2.0.3.exe` | **1** |
-| **v2.0.2** | `Yengi_Setup_v2.0.2.exe` | **33** |
+| **v2.0.3** | `Yengi_Setup_v2.0.3.exe` | **2** |
+| **v2.0.2** | `Yengi_Setup_v2.0.2.exe` | **34** |
 | **v2.0.1** | `Yengi_Setup_v2.0.1.exe` | **6** |
 | **v2.0.0** | `Yengi_Setup_v2.0.0.exe` | **2** |
 | **v1.16** | `Yengi_Setup_v1.16.exe` | **2** |
@@ -36,6 +36,7 @@
 ## 📅 Günlük Trafik (Son 14 Gün)
 | Tarih | Görüntülenme (Views) | Tekil Ziyaretçi | Clone | Tekil Cloner |
 | :--- | :--- | :--- | :--- | :--- |
+| 2026-11-05 | 13 | 2 | 27 | 12 |
 | 2026-11-04 | 18 | 3 | 3 | 3 |
 | 2026-11-03 | 19 | 6 | 5 | 3 |
 | 2026-11-02 | 6 | 1 | 4 | 4 |
@@ -49,4 +50,3 @@
 | 2026-10-25 | 9 | 8 | 3 | 2 |
 | 2026-10-24 | 4 | 4 | 3 | 3 |
 | 2026-10-23 | 0 | 0 | 8 | 2 |
-| 2026-10-22 | 0 | 0 | 2 | 2 |
