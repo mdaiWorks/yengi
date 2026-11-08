@@ -1,10 +1,10 @@
 # 📊 Yengi - Tüm Zamanlar Trafik ve İndirme Raporu
-> *Son Güncelleme: 2026-11-07 04:42 UTC*
+> *Son Güncelleme: 2026-11-08 04:30 UTC*
 
 ## 📈 Genel Özet (All-Time Totals)
 - **Toplam EXE İndirme:** `73`
-- **Takip Edilen Toplam Görüntülenme (Views):** `93`
-- **Takip Edilen Toplam Git Clone:** `91`
+- **Takip Edilen Toplam Görüntülenme (Views):** `96`
+- **Takip Edilen Toplam Git Clone:** `129`
 
 ## 📦 Sürümlere Göre İndirmeler
 | Sürüm | Dosya | İndirme Sayısı |
@@ -36,6 +36,7 @@
 ## 📅 Günlük Trafik (Son 14 Gün)
 | Tarih | Görüntülenme (Views) | Tekil Ziyaretçi | Clone | Tekil Cloner |
 | :--- | :--- | :--- | :--- | :--- |
+| 2026-11-06 | 3 | 2 | 38 | 18 |
 | 2026-11-05 | 13 | 2 | 27 | 12 |
 | 2026-11-04 | 18 | 3 | 3 | 3 |
 | 2026-11-03 | 19 | 6 | 5 | 3 |
@@ -49,4 +50,3 @@
 | 2026-10-26 | 6 | 2 | 5 | 5 |
 | 2026-10-25 | 9 | 8 | 3 | 2 |
 | 2026-10-24 | 4 | 4 | 3 | 3 |
-| 2026-10-23 | 0 | 0 | 8 | 2 |
