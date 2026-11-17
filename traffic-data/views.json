@@ -1,7 +1,7 @@
 {
-  "all_time_total_views": 114,
-  "all_time_unique_visitors_est": 58,
-  "last_updated": "2026-11-16T04:47:45Z",
+  "all_time_total_views": 118,
+  "all_time_unique_visitors_est": 60,
+  "last_updated": "2026-11-17T06:36:07Z",
   "views": [
     {
       "timestamp": "2026-10-22T00:00:00Z",
@@ -122,6 +122,16 @@
       "timestamp": "2026-11-14T00:00:00Z",
       "count": 0,
       "uniques": 0
+    },
+    {
+      "timestamp": "2026-11-15T00:00:00Z",
+      "count": 0,
+      "uniques": 0
+    },
+    {
+      "timestamp": "2026-11-16T00:00:00Z",
+      "count": 4,
+      "uniques": 2
     }
   ]
 }
