@@ -1,5 +1,5 @@
 # 📊 Yengi - Tüm Zamanlar Trafik ve İndirme Raporu
-> *Son Güncelleme: 2026-11-21 05:40 UTC*
+> *Son Güncelleme: 2026-11-22 05:08 UTC*
 
 ## 📈 Genel Özet (All-Time Totals)
 - **Toplam EXE İndirme:** `103`
