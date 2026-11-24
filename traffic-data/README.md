@@ -1,19 +1,19 @@
 # 📊 Yengi - Tüm Zamanlar Trafik ve İndirme Raporu
-> *Son Güncelleme: 2026-11-23 05:49 UTC*
+> *Son Güncelleme: 2026-11-24 08:27 UTC*
 
 ## 📈 Genel Özet (All-Time Totals)
-- **Toplam EXE İndirme:** `118`
-- **Takip Edilen Toplam Görüntülenme (Views):** `129`
-- **Takip Edilen Toplam Git Clone:** `425`
+- **Toplam EXE İndirme:** `124`
+- **Takip Edilen Toplam Görüntülenme (Views):** `168`
+- **Takip Edilen Toplam Git Clone:** `447`
 
 ## 📦 Sürümlere Göre İndirmeler
 | Sürüm | Dosya | İndirme Sayısı |
 | :--- | :--- | :--- |
-| **v2.0.3** | `Yengi_Setup_v2.0.3.exe` | **43** |
+| **v2.0.3** | `Yengi_Setup_v2.0.3.exe` | **45** |
 | **v2.0.2** | `Yengi_Setup_v2.0.2.exe` | **37** |
 | **v2.0.1** | `Yengi_Setup_v2.0.1.exe` | **7** |
 | **v2.0.0** | `Yengi_Setup_v2.0.0.exe` | **2** |
-| **v1.16** | `Yengi_Setup_v1.16.exe` | **2** |
+| **v1.16** | `Yengi_Setup_v1.16.exe` | **6** |
 | **v1.15** | `Yengi_Setup_v1.15.exe` | **5** |
 | **v1.14** | `Yengi_Setup_v1.14.exe` | **7** |
 | **v1.13** | `Yengi_Setup_v1.13.exe` | **0** |
@@ -24,18 +24,21 @@
 | Kaynak (Referrer) | Görüntülenme | Tekil Ziyaretçi |
 | :--- | :--- | :--- |
 | github.com | 14 | 4 |
-| reddit.com | 8 | 7 |
+| reddit.com | 9 | 9 |
 | Google | 8 | 7 |
 | yandex.ru | 6 | 1 |
-| com.reddit.frontpage | 3 | 3 |
+| com.reddit.frontpage | 6 | 6 |
 | news.ycombinator.com | 2 | 2 |
 | hn.algolia.com | 1 | 1 |
 | huggingface.co | 1 | 1 |
 | t.co | 1 | 1 |
+| old.reddit.com | 1 | 1 |
 
 ## 📅 Günlük Trafik (Son 14 Gün)
 | Tarih | Görüntülenme (Views) | Tekil Ziyaretçi | Clone | Tekil Cloner |
 | :--- | :--- | :--- | :--- | :--- |
+| 2026-11-23 | 8 | 8 | 15 | 8 |
+| 2026-11-22 | 31 | 18 | 7 | 5 |
 | 2026-11-21 | 4 | 3 | 33 | 19 |
 | 2026-11-20 | 2 | 1 | 3 | 2 |
 | 2026-11-19 | 4 | 2 | 14 | 11 |
@@ -48,5 +51,3 @@
 | 2026-11-12 | 2 | 2 | 3 | 3 |
 | 2026-11-11 | 5 | 4 | 126 | 16 |
 | 2026-11-10 | 0 | 0 | 2 | 2 |
-| 2026-11-09 | 2 | 1 | 5 | 5 |
-| 2026-11-08 | 1 | 1 | 15 | 9 |

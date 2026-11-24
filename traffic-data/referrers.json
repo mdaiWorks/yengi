@@ -6,8 +6,8 @@
   },
   {
     "referrer": "reddit.com",
-    "count": 8,
-    "uniques": 7
+    "count": 9,
+    "uniques": 9
   },
   {
     "referrer": "Google",
@@ -21,8 +21,8 @@
   },
   {
     "referrer": "com.reddit.frontpage",
-    "count": 3,
-    "uniques": 3
+    "count": 6,
+    "uniques": 6
   },
   {
     "referrer": "news.ycombinator.com",
@@ -41,6 +41,11 @@
   },
   {
     "referrer": "t.co",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "old.reddit.com",
     "count": 1,
     "uniques": 1
   }
