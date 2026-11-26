@@ -1,15 +1,15 @@
 # 📊 Yengi - Tüm Zamanlar Trafik ve İndirme Raporu
-> *Son Güncelleme: 2026-11-25 07:01 UTC*
+> *Son Güncelleme: 2026-11-26 06:54 UTC*
 
 ## 📈 Genel Özet (All-Time Totals)
-- **Toplam EXE İndirme:** `125`
+- **Toplam EXE İndirme:** `126`
 - **Takip Edilen Toplam Görüntülenme (Views):** `168`
 - **Takip Edilen Toplam Git Clone:** `455`
 
 ## 📦 Sürümlere Göre İndirmeler
 | Sürüm | Dosya | İndirme Sayısı |
 | :--- | :--- | :--- |
-| **v2.0.3** | `Yengi_Setup_v2.0.3.exe` | **45** |
+| **v2.0.3** | `Yengi_Setup_v2.0.3.exe` | **46** |
 | **v2.0.2** | `Yengi_Setup_v2.0.2.exe` | **37** |
 | **v2.0.1** | `Yengi_Setup_v2.0.1.exe` | **7** |
 | **v2.0.0** | `Yengi_Setup_v2.0.0.exe` | **2** |
