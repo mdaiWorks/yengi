@@ -1,7 +1,7 @@
 {
-  "all_time_total_clones": 455,
-  "all_time_unique_cloners_est": 221,
-  "last_updated": "2026-11-26T06:54:08Z",
+  "all_time_total_clones": 462,
+  "all_time_unique_cloners_est": 226,
+  "last_updated": "2026-11-27T06:47:07Z",
   "clones": [
     {
       "timestamp": "2026-10-22T00:00:00Z",
@@ -171,6 +171,11 @@
     {
       "timestamp": "2026-11-24T00:00:00Z",
       "count": 8,
+      "uniques": 5
+    },
+    {
+      "timestamp": "2026-11-25T00:00:00Z",
+      "count": 7,
       "uniques": 5
     }
   ]
