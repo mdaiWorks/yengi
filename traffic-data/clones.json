@@ -1,7 +1,7 @@
 {
-  "all_time_total_clones": 462,
-  "all_time_unique_cloners_est": 226,
-  "last_updated": "2026-11-27T06:47:07Z",
+  "all_time_total_clones": 488,
+  "all_time_unique_cloners_est": 241,
+  "last_updated": "2026-11-28T06:21:26Z",
   "clones": [
     {
       "timestamp": "2026-10-22T00:00:00Z",
@@ -177,6 +177,16 @@
       "timestamp": "2026-11-25T00:00:00Z",
       "count": 7,
       "uniques": 5
+    },
+    {
+      "timestamp": "2026-11-26T00:00:00Z",
+      "count": 20,
+      "uniques": 12
+    },
+    {
+      "timestamp": "2026-11-27T00:00:00Z",
+      "count": 6,
+      "uniques": 3
     }
   ]
 }
